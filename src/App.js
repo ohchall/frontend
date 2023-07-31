@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient();
 
+
 function App() {
 
   return (
@@ -14,6 +15,7 @@ function App() {
       <Router/>
       <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
+
   );
 }
 

@@ -1,7 +1,14 @@
-import React from "react";
+import reset from "styled-reset";
+import { createGlobalStyle } from "styled-components";
 
-function GlobalStyle() {
-  return <div>GlobalStyle</div>;
-}
+const GlobalStyle = createGlobalStyle`
+  ${reset}
+  
+
+  * {
+    box-sizing: border-box;
+  }
+
+  `;
 
 export default GlobalStyle;

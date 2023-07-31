@@ -1,7 +1,12 @@
-import React from "react";
+import Header from "../components/layout/Header";
 
-function Mainpage() {
-  return <div>Mainpage</div>;
+function MainPage() {
+  return (
+    <>
+      <Header />
+      <div>MainPage</div>
+    </>
+  );
 }
 
-export default Mainpage;
+export default MainPage;

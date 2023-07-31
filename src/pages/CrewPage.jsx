@@ -1,7 +1,7 @@
 import React from "react";
 
-function Crewpage() {
-  return <div>Crewpage</div>;
+function CrewPage() {
+  return <div>CrewPage</div>;
 }
 
-export default Crewpage;
+export default CrewPage;

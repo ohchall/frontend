@@ -1,9 +1,9 @@
-import React from "react";
+
 import { useState, useRef } from "react";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-function Loginpage() {
+function LoginPage() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const [user, setUser] = useState({
@@ -78,4 +78,4 @@ function Loginpage() {
   );
 }
 
-export default Loginpage;
+export default LoginPage;

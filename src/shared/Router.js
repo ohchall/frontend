@@ -14,11 +14,11 @@ function Router() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/MyPage" element={<MyPage />} />
-        <Route path="/TodoWrite" element={<TodoWritePage />} />
-        <Route path="/CrewWrite" element={<CrewWritePage />} />
-        <Route path="/Crew" element={<CrewPage />} />
-        <Route path="/CrewDetail" element={<CrewDetailPage />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/todo/write" element={<TodoWritePage />} />
+        <Route path="/crew/write" element={<CrewWritePage />} />
+        <Route path="/crew" element={<CrewPage />} />
+        <Route path="/crew/detail" element={<CrewDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<SignUpPage />} />
       </Routes>

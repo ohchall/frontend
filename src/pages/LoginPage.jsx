@@ -32,24 +32,6 @@ function LoginPage() {
     // userRegistryCheck();
   };
 
-  // const userRegistryCheck = async () => {
-  //   await api
-  //     .post("/auth/login", {
-  //       email: user.email,
-  //       password: user.password,
-  //     })
-  //     .then((response) => {
-  //       const token = response.headers.get("authorization");
-
-  //       localStorage.setItem("token", token);
-  //       navigate("/");
-  //       return console.log("response", response);
-  //     })
-  //     .catch((error) => {
-  //       console.log("an error occurred:", error.response);
-  //       alert("에러가 발생하였습니다");
-  //     });
-  // };
   return (
     <div>
       <div>

@@ -1,34 +1,44 @@
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { 
   StyledHeader,
-  ButtonContainer } from './Header.style';
+  InputContainer,
+  LinkContainer,
+  StyledLink } from './Header.style';
+import { useState } from 'react';
 
 function Header() {
-  const navigate = useNavigate();
+  const [keyword, setKeyword] = useState('');
 
-  const onClickLogo = () => {
-    navigate("/");
-  };
-
-  const onClickLogin = () => {
-    navigate("/login");
+  const onChangeKeyword = (e) => {
+    setKeyword(e.target.value);
   }
 
-  const onClickRegister = () => {
-    navigate("/register");
+  const onClickSearch = () => {
+    console.log('keyword: ', keyword);
   }
 
   return (
     <>
       <StyledHeader>
         <div>
-          <p onClick={onClickLogo}>OhChalle</p>
+          <Link to='/'>OhChalle</Link>
         </div>
 
-        <ButtonContainer>
-          <button onClick={onClickLogin}>로그인</button>
-          <button onClick={onClickRegister}>회원가입</button>
-        </ButtonContainer>
+        <div>
+          <InputContainer>
+            <input
+              type='text'
+              value={keyword}
+              onChange={onChangeKeyword}
+            />
+            <button onClick={onClickSearch}>검색</button>
+          </InputContainer>
+
+          <LinkContainer>
+            <StyledLink to='/login'>로그인</StyledLink>
+            <StyledLink to='/register'>회원가입</StyledLink>
+          </LinkContainer>
+        </div>
       </StyledHeader>
     </>
   )

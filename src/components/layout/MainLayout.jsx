@@ -3,25 +3,29 @@ import { styled } from "styled-components";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
-const Mainbox = ({ children }) => {
+const MainLayout = ({ children }) => {
   return (
     <BackgroundColor>
-      <MainLayout>
+      <MainLayoutSection>
         <Header />
         <main>{children || <Outlet />}</main>
         <Footer />
-      </MainLayout>
+      </MainLayoutSection>
     </BackgroundColor>
   );
 };
 
-export default Mainbox;
-const MainLayout = styled.div`
+export default MainLayout;
+const MainLayoutSection = styled.div`
   margin-left: auto;
   margin-right: auto;
-  width: 500px;
-  height: 100%;
+  width: 1000px;
+  height: 100vh;
   background-color: white;
+
+  @media screen and (max-width: 1000px) {
+    width: 500px;
+  }
 `;
 const BackgroundColor = styled.div`
   background-color: lightblue;

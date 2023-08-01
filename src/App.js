@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider
 import './App.css';
 import Router from './shared/Router';
 import GlobalStyle from './style/GlobalStyle'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 
 const queryClient = new QueryClient();
 
@@ -11,11 +11,9 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <GlobalStyle/>
-      <Router/>
-      <ReactQueryDevtools initialIsOpen={true} />
+      <GlobalStyle />
+      <Router />
     </QueryClientProvider>
-
   );
 }
 

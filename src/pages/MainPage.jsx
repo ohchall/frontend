@@ -1,10 +1,11 @@
-import Header from "../components/layout/Header";
+import Header from '../components/layout/Header';
+import Main from '../components/main/Main';
 
 function MainPage() {
   return (
     <>
       <Header />
-      <div>MainPage</div>
+      <Main />
     </>
   );
 }

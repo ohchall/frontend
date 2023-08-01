@@ -16,3 +16,12 @@ export const useFetchTodos = () => {
     return data;
   });
 };
+
+export const useFetchPosts = () => {
+  return useQuery(["posts"], async () => {
+    // queryKey를 배열로 변경
+    const { data } = await axios.get(`${BASE_URL}/posts`);
+    return data;
+  });
+};
+

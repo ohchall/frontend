@@ -15,10 +15,10 @@ function Router() {
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/mypage" element={<MyPage />} />
-        <Route path="/todowrite" element={<TodoWritePage />} />
-        <Route path="/crewwrite" element={<CrewWritePage />} />
+        <Route path="/todo/write" element={<TodoWritePage />} />
+        <Route path="/crew/write" element={<CrewWritePage />} />
         <Route path="/crew" element={<CrewPage />} />
-        <Route path="/crewdetail" element={<CrewDetailPage />} />
+        <Route path="/crew/detail" element={<CrewDetailPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<SignUpPage />} />
       </Routes>

@@ -8,9 +8,16 @@ const Footer = () => {
 export default Footer;
 
 const Footersection = styled.footer`
-
-  background-color: wheat; /* Add your desired background color */
-  padding: 20px; /* Add any desired padding */
-  text-align: center; /* Center align the content within the footer */
-  font-size: 30px;
+  height: 60px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  bottom: 0px;
+  background-color: wheat;
+  width: 1000px;
+  @media screen and (max-width: 1000px) {
+    width: 500px;
+    position: absolute;
+  }
 `;

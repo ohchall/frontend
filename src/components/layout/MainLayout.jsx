@@ -3,30 +3,45 @@ import { styled } from "styled-components";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
+import WheatherReportApi from "../WheatherReportApi";
 const MainLayout = ({ children }) => {
   return (
-    <BackgroundColor>
+    <Background>
+      <WheatherReportApi />
       <MainLayoutSection>
         <Header />
-        <main>{children || <Outlet />}</main>
         <Footer />
+        <main>{children || <Outlet />}</main>
       </MainLayoutSection>
-    </BackgroundColor>
+    </Background>
   );
 };
 
 export default MainLayout;
-const MainLayoutSection = styled.div`
-  margin-left: auto;
-  margin-right: auto;
+const MainLayoutSection = styled.section`
+  position: relative;
   width: 1000px;
-  height: 100vh;
+  height: auto;
   background-color: white;
-
+  align-items: center;
   @media screen and (max-width: 1000px) {
     width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 `;
-const BackgroundColor = styled.div`
+
+const Background = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
   background-color: lightblue;
+
+  @media screen and (max-width: 1500px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;

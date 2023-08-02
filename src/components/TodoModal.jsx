@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import Todo from "../components/Todo";
 import { useAddTodoMutation } from "../api/TodoApi";
 
-function TodoWritePage() {
+function TodoModal({ onRequestClose }) {
   const addTodoMutation = useAddTodoMutation();
   const [todo, setTodo] = useState({
     title: "",
@@ -29,6 +28,7 @@ function TodoWritePage() {
           content: "",
           date: "",
         });
+        onRequestClose();
       },
       onError: (error) => {
         console.error("저장 실패:", error);
@@ -39,7 +39,6 @@ function TodoWritePage() {
   return (
     <>
       <h2>운동 기록 TODO</h2>
-      {/* <div>TodoWritePage</div> */}
       <div>
         <input
           type="text"
@@ -67,9 +66,9 @@ function TodoWritePage() {
           onChange={(e) => onChangeTodoHandler(e)}
         ></input>
       </div>
-      <button onClick={handleSubmit}>버튼</button>
+      <button onClick={handleSubmit}>Todo 추가</button>
     </>
   );
 }
 
-export default TodoWritePage;
+export default TodoModal;

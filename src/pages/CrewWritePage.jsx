@@ -1,22 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CrewWriting from "../style/CrewWriting";
 import axios from "axios";
 import styled from "styled-components";
 import Header from "../components/layout/Header";
-import DatePicker from "../components/DatePicker";
-import { useCrewPostData } from '../hook/customHook';
-import { set } from "date-fns";
+import { useAddCrewMutation } from "../api/CrewUploadApi";
+
 
 
 function CrewWritePage() {
   const [addImg, setAddImg] = useState("");
-  const [image, setImage] = useState("");
+  // const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [customCategory, setCustomCategory] = useState(""); 
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [crewname, setCrewname] = useState("");
-  const [ date, setDate ] = useState("");
+  // const [title, setTitle] = useState("");
+  // const [content, setContent] = useState("");
+  // const [crewname, setCrewname] = useState("");
+  const [ selectDate, setSelectDate ] = useState(new Date());
+
+  const addCrewMutation = useAddCrewMutation();
+  const [crew, setCrew] = useState({
+    title: "",
+    content: "",
+    crewname:"",
+    category: "",
+    image:"",
+    date: ""
+  });
+
+
+
 
   const upLoadImgHandler = (e) => {
     const file = e.target.files[0];
@@ -24,57 +36,90 @@ function CrewWritePage() {
     reader.onloadend = () => {
       const imageDataUrl = reader.result;
       setAddImg(imageDataUrl);
-      setImage(file);
+      setCrew({
+        ...crew,
+        image: file,
+      });
     };
     reader.readAsDataURL(file);
   };
 
+ //카테고리가 선택되었을 때 해당 값 axios로 보내는 작업
+  // when a category is selected
+  useEffect(() => {
+    if (category === "custom") {
+      setCrew({
+        ...crew,
+        category: customCategory,
+      });
+    } else {
+      setCrew({
+        ...crew,
+        category,
+      });
+    }
+  }, [category, customCategory]);
+
+ //카테고리 중 직접입력이 선택되었을 때 
+  useEffect(() => {
+    if (category === "1") {
+      setCrew({
+        ...crew,
+        category: customCategory,
+      });
+    }
+  }, [customCategory]);
+
+
+
+
+
+ 
   const onCrewUpload = (e) => {
     alert("크루가 등록되었습니다.")
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("image", image);
-    const contents = {
-      content,
-      title,
-      crewname,
-      image,
-      date,
-      category: category === "1" ? customCategory : category,
-    }; 
-    console.log(contents)
-    formData.append('post', new Blob([JSON.stringify(contents)], { type: 'application/json' }));
-    console.log(formData)
-    const response = axios.post("http://localhost:4000/crew", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    console.log(crew)
+    addCrewMutation.mutate(crew, {
+      onSuccess: (data) => {
+        console.log("저장 성공:", data);
+        setCrew({
+          title: "",
+          content: "",
+          date: "",
+          crewname:"",
+          category: "",
+          image:{}
+        });
+      },
+      onError: (error) => {
+        console.error("저장 실패:", error);
       },
     });
-    console.log(response)
-    const data = response.data;
-    console.log(data);
   }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    switch (name) {
-      case 'title':
-        setTitle(value);
-        break;
-      case 'content':
-        setContent(value);
-        break;
-      case 'crewname':
-        setCrewname(value);
-        break;
-      default:
-        break;
+    setCrew({
+      ...crew,
+      [name]: value
+    });
+  }
+  const selectCategory = (e) => {
+    const value = e.target.value;
+    setCategory(value);
+    if (value !== "custom") {
+      setCustomCategory(""); // Reset customCategory if other option is selected
     }
   }
+  
+  // const selectsDate = (selectedDate) => {
+  //   const formattedDate = moment(selectedDate).format("YYYY-MM-DD");
+  //   setCrew({...crew, date: formattedDate});
+  // }
+
   return (
     <CrewWriting>
-      <Header />
       <CrewUpload>
         <form className="crewForm" onSubmit={onCrewUpload}>
             <div className="crewImage">
@@ -93,41 +138,41 @@ function CrewWritePage() {
                     />
                 </div>
                 {addImg && (
-                    <div className='imageUploadSize'>
+                    <div className='imageUploadSize' value={crew.image}>
                       <img src={addImg} alt='' />
                     </div>
                 )}
              </div>
              <div className="title">
               <strong>Title</strong>
-              <input type="text" name="title" value={title} placeholder="제목을 입력하세요" onChange={handleInputChange}/>
+              <input type="text" name="title" value={crew.title} placeholder="제목을 입력하세요" onChange={handleInputChange}/>
             </div>
             <div className="content">
               <strong>Content</strong>
-              <input type="text" name="content" value={content} placeholder="내용을 입력하세요"onChange={handleInputChange} />
+              <input type="text" name="content" value={crew.content} placeholder="내용을 입력하세요"onChange={handleInputChange} />
             </div>
             <div className="crewname">
               <strong>Crewname</strong>
-              <input type="text" name="crewname" value={crewname} placeholder="크루이름을 입력하세요"onChange={handleInputChange} />
+              <input type="text" name="crewname" value={crew.crewname} placeholder="크루이름을 입력하세요"onChange={handleInputChange} />
             </div>
             <div className="date">
               <strong>크루 모임날짜</strong>
-              <DatePicker onChange={(selectedDate) => setDate(selectedDate)} />
+              <input type="date" name="date" value={crew.date} placeholder="모집날짜를 입력하세요"onChange={handleInputChange}/>
             </div>
-            <div className="category" value={category}>
+            <div className="category" value={crew.category}>
               <strong>카테고리 선택</strong>
-              <select name="exerciseCategory" id=""onChange={(e) => setCategory(e.target.value)}>
+              <select name="exerciseCategory" id=""onChange={selectCategory}>
                 <option value="">선택해주세요</option>
-                <option value="1">직접입력</option>
-                <option value="2">러닝</option>
-                <option value="3">자전거</option>
-                <option value="4">웨이트</option>
-                <option value="5">요가</option>
-                <option value="6">산책</option>
-                <option value="7">복싱</option>
-                <option value="8">필라테스</option>
+                <option value="custom">직접입력</option>
+                <option>러닝</option>
+                <option>자전거</option>
+                <option>웨이트</option>
+                <option>요가</option>
+                <option>산책</option>
+                <option>복싱</option>
+                <option>필라테스</option>
               </select>
-              {category === "1" && (<input type="text" value={customCategory}placeholder="원하는 카테고리를 입력해주세요" onChange={(e) => setCustomCategory(e.target.value)} />)}
+              {category === "custom" && (<input type="text" value={customCategory}placeholder="원하는 카테고리를 입력해주세요" onChange={(e) => setCustomCategory(e.target.value)} />)}
             </div>
             <div className="button">
               <button type="submit">Send</button>

@@ -1,17 +1,21 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
+import { useFetchCrew } from '../api/CrewUploadApi';
+
 
 const MyCrew = () => {
-  const fetchCrewPosts = async () => {
-    const res = await axios.get('http://localhost:4000/crew');
-    return res.data;
+  const { data, isLoading, isError, refetch } = useFetchCrew();
+  console.log(data)
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  const { data, status } = useQuery('crewPosts', fetchCrewPosts);
+  if (isError) {
+    return <div>Error...</div>;
+  }
 
-  if (status === 'loading') return <div>Loading...</div>;
-  if (status === 'error') return <div>Error fetching data</div>;
+ 
 
   return (
    <>
@@ -23,15 +27,17 @@ const MyCrew = () => {
           <button>More List</button>
         </div>
         <div className="crewPosts">
-          {data.map((post) => (
+            {data.map((post, index)=>( 
             <div className="crewPost" key={post.id}>
-              <img src={post.image} alt="" />
-              <div className="crewPostsText">
-                <strong>{post.title}</strong>
-                <p>{post.content}</p>
-              </div>
-            </div>
-          ))}
+                   <div className="crewPostImg">
+                    <img src={post.image} alt="" />
+                   </div>
+                  <div className="crewPostsText">
+                    <strong>{post.title}</strong>
+                    <p>{post.content}</p>
+                    <p>{post.date}</p>
+                  </div>
+                </div>))} 
         </div>
      </div>
    </>

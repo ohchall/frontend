@@ -12,21 +12,24 @@ const DatePicker=() => {
  const [startDate, setStartDate] = useState(new Date());
  const years = range(2000, getYear(new Date()) + 1, 1);
  const months = [
-   "January",
-   "February",
-   "March",
-   "April",
-   "May",
-   "June",
-   "July",
-   "August",
-   "September",
-   "October",
-   "November",
-   "December",
+   "1월",
+   "2월",
+   "3월",
+   "4월",
+   "5월",
+   "6월",
+   "7월",
+   "8월",
+   "9월",
+   "10월",
+   "11월",
+   "12월",
  ];
  return (
    <ReactDatePicker
+     selected={startDate}
+	   onChange={(date) => setStartDate(date)}
+     dateFormat="yyyy-MM-dd" 
      renderCustomHeader={({
        date,
        changeYear,
@@ -77,9 +80,6 @@ const DatePicker=() => {
          </button>
        </div>
      )}
-     selected={startDate}
-     onChange={(date) => setStartDate(date)}
-     locale={ko}
    />
  );
 };

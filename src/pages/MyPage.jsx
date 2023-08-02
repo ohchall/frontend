@@ -7,10 +7,9 @@ function MyPage() {
   return (
     <>
       <div>My Page</div>
-      <Calendar></Calendar>
       <Todo></Todo>
       <div>
-        <MyCrew/>
+        <MyCrew />
       </div>
     </>
   );

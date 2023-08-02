@@ -18,8 +18,10 @@ const MainLayout = ({ children }) => {
 };
 
 export default MainLayout;
+
 const MainLayoutSection = styled.section`
   position: relative;
+
   width: 1000px;
   height: auto;
   background-color: white;

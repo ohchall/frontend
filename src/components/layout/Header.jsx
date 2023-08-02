@@ -1,9 +1,7 @@
 import { Link } from 'react-router-dom';
 import { 
   StyledHeader,
-  InputContainer,
-  LinkContainer,
-  StyledLink } from './Header.style';
+  InputContainer } from './Header.style';
 import { useState } from 'react';
 
 function Header() {
@@ -24,21 +22,14 @@ function Header() {
           <Link to='/'>OhChalle</Link>
         </div>
 
-        <div>
-          <InputContainer>
-            <input
-              type='text'
-              value={keyword}
-              onChange={onChangeKeyword}
-            />
-            <button onClick={onClickSearch}>검색</button>
-          </InputContainer>
-
-          <LinkContainer>
-            <StyledLink to='/login'>로그인</StyledLink>
-            <StyledLink to='/register'>회원가입</StyledLink>
-          </LinkContainer>
-        </div>
+        <InputContainer>
+          <input
+            type='text'
+            value={keyword}
+            onChange={onChangeKeyword}
+          />
+          <button onClick={onClickSearch}>검색</button>
+        </InputContainer>
       </StyledHeader>
     </>
   )

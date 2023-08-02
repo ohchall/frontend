@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const StyledHeader = styled.div`
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0);
   width: 100%;
-  max-width: 1280px;
-  height: 80px;
-  margin: 0 auto;
+  max-width: 1000px;
+  height: 60px;
   padding: 0 20px;
   display: flex;
   justify-content: space-between;
@@ -27,17 +29,5 @@ export const InputContainer = styled.div`
     padding: 0 10px;
     height: 40px;
     border: none;
-  }
-`;
-
-export const StyledLink = styled(Link)`
-
-`;
-
-export const LinkContainer = styled.div`
-  display: inline-block;
-
-  & ${StyledLink}:nth-of-type(1) {
-    margin-right: 10px;
   }
 `;

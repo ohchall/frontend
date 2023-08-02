@@ -18,10 +18,10 @@ function Router() {
           <Route path="/mypage" element={<MyPage />} />
           <Route path="/crew/write" element={<CrewWritePage />} />
           <Route path="/crew" element={<CrewPage />} />
-          <Route path="/crew/detail" element={<CrewDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignUpPage />} />
         </Route>
+        <Route path="/crew/:postId" element={<CrewDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

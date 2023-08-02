@@ -2,45 +2,74 @@
   "crew": [
     {
       "id": 1,
-      "title": "러닝 크루 모집해요!!",
-      "content": "센트럴파크에서 오후 11시에 러닝 시작합니다 ~",
-      "date": "2023-08-16"
+      "image": "https://images.unsplash.com/photo-1495360010541-f48722b34f7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=436&q=80",
+      "crewname": "sdfsdf",
+      "title": "sgsd",
+      "content": "sdfsdf",
+      "date": "2023-08-01",
+      "category": "러닝"
     },
     {
-      "title": "수영대결하실분",
-      "content": "수영 500m",
-      "date": "2023-08-10",
+      "title": "sdf",
+      "content": "sdfs",
+      "date": "2023-08-02",
+      "crewname": "sdfsdf",
+      "category": "웨이트",
+      "image": "https://images.unsplash.com/photo-1618826411640-d6df44dd3f7a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=387&q=80",
       "id": 2
     },
     {
-      "title": "헬스짱",
-      "content": "벤치프레스 100개",
-      "date": "2023-08-04",
+      "title": "크루원모집",
+      "content": "탁구인원모집",
+      "date": "",
+      "crewname": "탁구크루",
+      "category": "탁구",
+      "image": {},
+      "id": 3
+    },
+    {
+      "title": "연습",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
       "id": 4
     },
     {
-      "title": "야구 1명 구합니다",
-      "content": "1명구해요",
-      "date": "2023-08-31",
+      "title": "연습",
+      "content": "제발",
+      "date": "",
+      "crewname": "날짜만이라도",
+      "category": "자전거",
+      "image": {},
       "id": 5
     },
     {
-      "id": 6,
-      "title": "축구 선출 모집",
-      "content": "1명",
-      "date": "2023-08-29"
+      "title": "ㄴㅇㄹㄴㅇ",
+      "content": "ㄴㅇㄹ",
+      "crewname": "ㄴㅇㄹ",
+      "category": "탁구",
+      "image": "",
+      "date": "2023-08-03",
+      "id": 6
     },
     {
-      "title": "한강 런닝",
-      "content": "2명 구함",
-      "date": "2023-08-07",
+      "title": "ㄴㅇㄹ",
+      "content": "ㄴㅇㄹ",
+      "date": "2023-08-10",
+      "crewname": "ㄴㅇㄴㅇㄹ",
+      "category": "수영",
+      "image": {},
       "id": 7
     },
     {
-      "id": 8,
-      "title": "오첼짱짱ㅉ아",
-      "content": "오첼짱짱짱",
-      "date": "2023-08-26"
+      "title": "",
+      "content": "",
+      "date": "",
+      "crewname": "",
+      "category": "자전거",
+      "image": {},
+      "id": 8
     }
   ],
   "posts": [
@@ -211,6 +240,32 @@
       "title": "용병 구함",
       "content": "youngburn 서대문구에서 용병 구함",
       "date": "2023-08-01"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "1234",
+      "content": "1234.",
+      "date": "2023-08-01"
+    },
+    {
+      "title": "1234",
+      "content": "1234",
+      "date": "2023-08-01",
+      "id": 2
+    },
+    {
+      "title": "풋살짱",
+      "content": "7:7풋살 일정",
+      "date": "2023-08-01",
+      "id": 3
+    },
+    {
+      "title": "헬스짱",
+      "content": "벤치프레스 10개",
+      "date": "2023-08-04",
+      "id": 4
     }
   ]
 }

@@ -40,7 +40,7 @@ const Background = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   background-color: lightblue;
-
+  height: 100vh;
   @media screen and (max-width: 1500px) {
     display: flex;
     flex-direction: column;

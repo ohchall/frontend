@@ -1,7 +1,7 @@
-import React from "react";
+import CrewDetail from '../components/CrewDetail/CrewDetail';
 
 function CrewDetailPage() {
-  return <div>CrewDetailPage</div>;
-}
+  return <CrewDetail />;
+};
 
 export default CrewDetailPage;

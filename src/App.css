@@ -11,3 +11,9 @@ ol,ul
 {
   list-style:none;
 }
+body {
+  max-width: 100vw;
+}
+body::-webkit-scrollbar {
+  display: none;
+}

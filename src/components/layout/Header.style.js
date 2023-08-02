@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const StyledHeader = styled.div`
-  position: fixed;
+  /* position: fixed;
   top: 0;
   left: 50%;
-  transform: translate(-50%, 0);
+  transform: translate(-50%, 0); */
   width: 100%;
   max-width: 1000px;
   height: 60px;

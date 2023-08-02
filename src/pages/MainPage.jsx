@@ -45,13 +45,16 @@ export default MainPage;
 
 const MainPageSection = styled.section`
   width: 100%;
-  height: 100%;
+  height: 900px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: scroll;
+  overflow: auto;
   & h1 {
     font-size: 20px;
+  }
+  &::-webkit-scrollbar {
+    display: none;
   }
 `;
 const MainPageCategory = styled.nav`
@@ -69,6 +72,7 @@ const PostWrapper = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-items: center;
+  margin-bottom: 60px;
   @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
   }

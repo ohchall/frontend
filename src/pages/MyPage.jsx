@@ -1,6 +1,7 @@
 import React from "react";
 import Todo from "../components/Todo";
 import Calendar from "../components/Calendar";
+import MyCrew from "../components/MyCrew";
 
 function MyPage() {
   return (
@@ -8,6 +9,9 @@ function MyPage() {
       <div>My Page</div>
       <Calendar></Calendar>
       <Todo></Todo>
+      <div>
+        <MyCrew/>
+      </div>
     </>
   );
 }

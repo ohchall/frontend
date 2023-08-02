@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAddTodoMutation } from "../api/TodoApi";
+import { useAddTodoMutation, useUpdateTodoMutation } from "../api/TodoApi";
 
 function TodoModal({ onRequestClose }) {
   const addTodoMutation = useAddTodoMutation();
@@ -18,7 +18,7 @@ function TodoModal({ onRequestClose }) {
     });
   };
 
-  const handleSubmit = () => {
+  const todoSubmithandler = () => {
     console.log(todo);
     addTodoMutation.mutate(todo, {
       onSuccess: (data) => {
@@ -66,7 +66,7 @@ function TodoModal({ onRequestClose }) {
           onChange={(e) => onChangeTodoHandler(e)}
         ></input>
       </div>
-      <button onClick={handleSubmit}>Todo 추가</button>
+      <button onClick={todoSubmithandler}>Todo 추가</button>
     </>
   );
 }

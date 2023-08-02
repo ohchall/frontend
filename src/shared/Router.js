@@ -21,7 +21,7 @@ function Router() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignUpPage />} />
         </Route>
-        <Route path="/crew/:postId" element={<CrewDetailPage />} />
+        <Route path="/crew/:id" element={<CrewDetailPage />} />
       </Routes>
     </BrowserRouter>
   );

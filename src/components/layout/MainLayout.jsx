@@ -18,6 +18,7 @@ const MainLayout = ({ children }) => {
 export default MainLayout;
 const MainLayoutSection = styled.div`
   margin-top: 60px;
+  margin-bottom: 60px;
   margin-left: auto;
   margin-right: auto;
   width: 1000px;

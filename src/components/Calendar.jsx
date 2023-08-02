@@ -3,14 +3,15 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { styled } from "styled-components";
 
-function Calendar() {
+function Calendar({ events }) {
   const calendarOptions = {
     plugins: [dayGridPlugin],
     initialView: "dayGridMonth",
     buttonText: {
-      today: "오늘", // 오늘 버튼 텍스트 변경
-      month: "월", // 월 뷰 텍스트 변경
+      today: "오늘",
+      month: "월",
     },
+    events,
   };
   return (
     <CalendarContainer>
@@ -21,7 +22,4 @@ function Calendar() {
 
 export default Calendar;
 
-const CalendarContainer = styled.div`
-  width: 400px;
-  height: 400px;
-`;
+const CalendarContainer = styled.div``;

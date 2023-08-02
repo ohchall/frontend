@@ -1,32 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { useFetchTodos } from "../api/TodoApi";
+import {
+  useFetchTodos,
+  useDeleteTodoMutation,
+  useUpdateTodoMutation,
+} from "../api/TodoApi";
 import { styled } from "styled-components";
 import TodoModal from "./TodoModal";
-import FullCalendar from "@fullcalendar/react"; // FullCalendar import 추가
-import dayGridPlugin from "@fullcalendar/daygrid";
+import Calendar from "./Calendar";
+import TodoUpdateModal from "./TodoUpdateModal";
 
 function Todo() {
-  const { data, isLoading, isError, refetch } = useFetchTodos();
+  const { data, isLoading, isError } = useFetchTodos();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // FullCalendar 이벤트 형식으로 변환된 Todo 데이터를 담을 상태
   const [events, setEvents] = useState([]);
+  const deleteTodoMutation = useDeleteTodoMutation();
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const [todoToUpdate, setTodoToUpdate] = useState(null);
+  const updateTodoMutation = useUpdateTodoMutation();
 
-  // Todo 데이터를 FullCalendar 이벤트 형식으로 변환하는 함수
   const convertTodoToEvent = (todo) => {
     return {
       title: todo.title,
-      start: todo.date, // Todo 데이터에 있는 날짜를 이벤트의 시작 날짜로 사용
+      start: todo.date,
     };
-  };
-
-  // FullCalendar 컴포넌트에 대한 calendarOptions 변수 정의
-  const calendarOptions = {
-    plugins: [dayGridPlugin],
-    initialView: "dayGridMonth",
-    buttonText: {
-      today: "오늘",
-      month: "월",
-    },
   };
 
   const openModal = () => {
@@ -37,10 +33,19 @@ function Todo() {
     setIsModalOpen(false);
   };
 
+  const openUpdateModal = (todo) => {
+    setTodoToUpdate(todo);
+    setIsUpdateModalOpen(true);
+  };
+
+  const closeUpdateModal = () => {
+    setIsUpdateModalOpen(false);
+  };
+
   useEffect(() => {
     if (data) {
       const convertedEvents = data.map(convertTodoToEvent);
-      setEvents(convertedEvents); // events 상태 업데이트
+      setEvents(convertedEvents);
     }
   }, [data]);
 
@@ -51,10 +56,30 @@ function Todo() {
   if (isError) {
     return <div>Error...</div>;
   }
+
+  const todoDeleteHandler = async (todoId) => {
+    try {
+      await deleteTodoMutation.mutateAsync(todoId);
+      console.log("삭제 성공");
+    } catch (error) {
+      console.error("삭제 실패:", error);
+    }
+  };
+
+  //
+  const todoUpdateHandler = async (updatedTodo) => {
+    try {
+      await updateTodoMutation.mutateAsync(updatedTodo);
+      console.log("수정 성공");
+      closeUpdateModal();
+    } catch (error) {
+      console.error("수정 실패:", error);
+    }
+  };
+
   return (
     <>
-      {/* FullCalendar 컴포넌트에 events 배열을 props로 전달하여 Todo 항목을 표시 */}
-      <FullCalendar {...calendarOptions} events={events} />
+      <Calendar events={events} />
       <button onClick={openModal}>Todo 업로드</button>
       {isModalOpen && (
         <ModalContainer>
@@ -70,10 +95,22 @@ function Todo() {
               <div>Title: {todo.title}</div>
               <div>Content: {todo.content}</div>
               <div>Date: {todo.date}</div>
+              <button onClick={() => todoDeleteHandler(todo.id)}>삭제</button>
+              <button onClick={() => openUpdateModal(todo)}>수정</button>
             </TodosBox>
           ))}
         </TodoList>
       </TodosContainer>
+      {isUpdateModalOpen && (
+        <ModalContainer>
+          <TodoUpdateModal
+            isOpen={isUpdateModalOpen}
+            todo={todoToUpdate}
+            onSubmit={todoUpdateHandler}
+            onRequestClose={closeUpdateModal}
+          />
+        </ModalContainer>
+      )}
     </>
   );
 }
@@ -82,20 +119,22 @@ export default Todo;
 
 const TodosContainer = styled.div`
   display: flex;
-  width: 500px;
+  width: 100%;
 `;
 
 const TodoList = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const TodosBox = styled.div`
   border: 1px solid black;
   width: 200px;
+  height: 80px;
   text-align: center;
-  margin-left: 20px;
 `;
 
 const ModalContainer = styled.div`
@@ -104,8 +143,9 @@ const ModalContainer = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1;
 `;

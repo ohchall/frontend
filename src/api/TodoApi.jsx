@@ -1,17 +1,52 @@
 import axios from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 const BASE_URL = "http://localhost:4000";
 
 export const useAddTodoMutation = () => {
-  return useMutation((todo) => {
-    return axios.post(`${BASE_URL}/todos`, todo);
-  });
+  const queryClient = useQueryClient();
+  return useMutation(
+    (todo) => {
+      return axios.post(`${BASE_URL}/todos`, todo);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("todos");
+      },
+    }
+  );
+};
+
+export const useDeleteTodoMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (todoId) => {
+      return axios.delete(`${BASE_URL}/todos/${todoId}`);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("todos");
+      },
+    }
+  );
+};
+
+export const useUpdateTodoMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    (updatedTodo) => {
+      return axios.put(`${BASE_URL}/todos/${updatedTodo.id}`, updatedTodo);
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("todos");
+      },
+    }
+  );
 };
 
 export const useFetchTodos = () => {
   return useQuery(["todos"], async () => {
-    // queryKey를 배열로 변경
     const { data } = await axios.get(`${BASE_URL}/todos`);
     return data;
   });
@@ -19,9 +54,7 @@ export const useFetchTodos = () => {
 
 export const useFetchPosts = () => {
   return useQuery(["posts"], async () => {
-    // queryKey를 배열로 변경
     const { data } = await axios.get(`${BASE_URL}/posts`);
     return data;
   });
 };
-

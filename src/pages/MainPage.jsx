@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { useFetchPosts } from "../api/TodoApi";
-import { sample1 } from "../assets/smaple1.avif";
+import Slider from "../components/slider/Slider";
 
 function MainPage() {
   const { data, isLoading, isError } = useFetchPosts();
@@ -27,14 +27,15 @@ function MainPage() {
 
         <h1>크루 POSTs</h1>
         <PostWrapper>
-          {data.map((post) => (
+          {/* {data.map((post) => (
             <Post key={post.id}>
               <div>{post.image}</div>
               <div>Title: {post.title}</div>
               <div>Content: {post.content}</div>
               <div>Date: {post.date}</div>
             </Post>
-          ))}
+          ))} */}
+          <Slider data={data} />
         </PostWrapper>
       </MainPageSection>
     </>
@@ -45,7 +46,7 @@ export default MainPage;
 
 const MainPageSection = styled.section`
   width: 100%;
-  height: 900px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,8 +59,8 @@ const MainPageSection = styled.section`
   }
 `;
 const MainPageCategory = styled.nav`
-  margin: 20px;
-  gap: 20px;
+  margin: 10px;
+  gap: 10px;
   & a {
     margin: 10px;
     padding: 5px;
@@ -69,12 +70,11 @@ const MainPageCategory = styled.nav`
 `;
 const PostWrapper = styled.section`
   gap: 20px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* display: flex; */
+  /* grid-template-columns: 1fr 1fr; */
   justify-items: center;
   margin-bottom: 60px;
   @media screen and (max-width: 1000px) {
-    grid-template-columns: 1fr;
   }
 `;
 const Post = styled.article`

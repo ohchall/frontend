@@ -5,7 +5,6 @@ import MyPage from "../pages/MyPage";
 import CrewWritePage from "../pages/CrewWritePage";
 import CrewPage from "../pages/CrewPage/CrewPage";
 import CrewDetailPage from "../pages/CrewDetailPage/CrewDetailPage";
-import MainLayout from "../components/layout/MainLayout";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
 import Template from "../components/layout/Template";
@@ -14,12 +13,39 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainLayout />}>
-          <Route index element={<MainPage />} />
-          <Route path="/mypage" element={<MyPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<SignUpPage />} />
-        </Route>
+        <Route
+          path="/"
+          element={
+            <Template footer>
+              <MainPage />
+            </Template>
+          }
+        />
+
+        <Route
+          path="/mypage"
+          element={
+            <Template header footer>
+              <MyPage />
+            </Template>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Template header footer>
+              <LoginPage />
+            </Template>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <Template header footer>
+              <SignUpPage />
+            </Template>
+          }
+        />
 
         <Route
           path="/crew"

@@ -7,7 +7,7 @@ export const FooterSection = styled.footer`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: fixed;
+  position: absolute;
   bottom: 0px;
 
   left: 50%;

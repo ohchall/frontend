@@ -16,9 +16,5 @@ const Weather = styled.section`
 
   @media screen and (max-width: 1000px) {
     display: none;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    width: 500px;
-    height: 200px;
   }
 `;

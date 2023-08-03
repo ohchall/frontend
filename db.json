@@ -1,5 +1,5 @@
 {
-  "todos": [
+  "crew": [
     {
       "id": 1,
       "title": "런닝",
@@ -37,10 +37,214 @@
       "date": "2023-08-10"
     },
     {
-      "id": 8,
-      "title": "사이클",
-      "content": "1시간",
-      "date": "2023-09-06"
+      "title": "ㄴㅇㄹ",
+      "content": "ㄴㅇㄹ",
+      "date": "2023-08-10",
+      "crewname": "ㄴㅇㄴㅇㄹ",
+      "category": "수영",
+      "image": {},
+      "id": 7
+    },
+    {
+      "title": "",
+      "content": "",
+      "date": "",
+      "crewname": "",
+      "category": "자전거",
+      "image": {},
+      "id": 8
+    },
+    {
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
+      "date": "",
+      "id": 9
+    },
+    {
+      "title": "",
+      "content": "",
+      "date": "",
+      "crewname": "",
+      "category": "",
+      "image": {},
+      "id": 10
+    },
+    {
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
+      "date": "",
+      "id": 11
+    },
+    {
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
+      "date": "",
+      "id": 12
+    },
+    {
+      "title": "ㄴㅇㄹㄴㅇㄹ",
+      "content": "ㄴㅇㄹㄴㅇㄹ",
+      "date": "2023-08-08",
+      "crewname": "크루연습",
+      "category": "런닝머신",
+      "image": {},
+      "id": 13
+    },
+    {
+      "title": "",
+      "content": "ㅈㄷㄱ",
+      "crewname": "크루2",
+      "category": "런닝머신",
+      "image": "",
+      "date": "2023-08-29",
+      "id": 14
+    },
+    {
+      "title": "ㄴㅇㄹ",
+      "content": "ㄴㅇㄹ",
+      "crewname": "크루3",
+      "category": "러닝",
+      "image": "",
+      "date": "2023-08-10",
+      "location": "",
+      "id": 15
+    },
+    {
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
+      "date": "",
+      "address": "",
+      "id": 16
+    },
+    {
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
+      "date": "",
+      "address": "111-111",
+      "id": 17
+    },
+    {
+      "title": "크루연습",
+      "content": "크루연습",
+      "crewname": "크루3",
+      "category": "러닝",
+      "image": "",
+      "date": "2023-08-08",
+      "address": "123-123호",
+      "id": 18
+    },
+    {
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
+      "date": "",
+      "address": "",
+      "id": 19
+    },
+    {
+      "title": "크-루",
+      "content": "크-루",
+      "crewname": "크-루5",
+      "category": "자전거",
+      "image": "",
+      "date": "2023-08-24",
+      "address": "서울 서초구 방배천로18길 11",
+      "detailAddress": "111-111",
+      "id": 20
+    },
+    {
+      "title": "ㅁㅁㅁ",
+      "content": "ㅁㅁㅁ",
+      "crewname": "크루6",
+      "category": "러닝",
+      "image": "",
+      "date": "2023-08-22",
+      "address": "서울 서초구 강남대로2길 3",
+      "detailAddress": "111-111",
+      "id": 21
+    },
+    {
+      "title": "크루7",
+      "content": "크루7",
+      "crewname": "크루7",
+      "category": "수영",
+      "image": "",
+      "date": "2023-08-11",
+      "address": "서울 서초구 방배천로18길 2",
+      "detailAddress": "111-111",
+      "id": 22
+    },
+    {
+      "title": "",
+      "content": "",
+      "date": "",
+      "crewname": "",
+      "category": "",
+      "address": "서울 서초구 방배천로18길 11",
+      "image": {},
+      "id": 23
+    },
+    {
+      "title": "크~",
+      "content": "크~",
+      "crewname": "크루7",
+      "category": "수영",
+      "image": "",
+      "date": "2023-08-23",
+      "address": "서울 서초구 방배천로18길 11",
+      "detailAddress": "1111-1111",
+      "id": 24
+    },
+    {
+      "title": "ㄴㅇㄹ",
+      "content": "ㄴㅇㄹ",
+      "crewname": "ㅋㅋㅋㅋ",
+      "category": "러닝",
+      "image": "",
+      "date": "2023-08-18",
+      "address": "서울 서초구 강남대로2길 3",
+      "detailAddress": "1111-1111",
+      "id": 25
+    },
+    {
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "image": "",
+      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "detailAddress": "111",
+      "id": 26
+    },
+    {
+      "title": "ㄴㅇㄹ",
+      "content": "ㄴㅇㄹ",
+      "crewname": "크루8",
+      "category": "당구",
+      "image": "",
+      "date": "2023-08-15",
+      "address": "서울 강남구 강남대로 238",
+      "detailaddress": "",
+      "detailAddress": "111",
+      "id": 27
     }
   ],
   "posts": [

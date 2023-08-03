@@ -66,7 +66,10 @@ function TodoModal({ onRequestClose }) {
           onChange={(e) => onChangeTodoHandler(e)}
         ></input>
       </div>
-      <button onClick={todoSubmithandler}>Todo 추가</button>
+      <div>
+        <button onClick={todoSubmithandler}>Todo 추가</button>
+        <button onClick={onRequestClose}>닫기</button>
+      </div>
     </>
   );
 }

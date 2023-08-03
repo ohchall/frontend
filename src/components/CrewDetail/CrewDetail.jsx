@@ -29,7 +29,11 @@ function CrewDetail() {
         </div>
 
         <div>
-          운동날짜: {crew?.data.date}
+          작성자: {crew?.data.nickname}
+        </div>
+
+        <div>
+          운동날짜: {crew?.data.exercisedate}
         </div>
       </TitleContainer>
 

@@ -1,36 +1,15 @@
-import { Link } from 'react-router-dom';
-import { 
-  StyledHeader,
-  InputContainer } from './Header.style';
-import { useState } from 'react';
+import {
+  HeaderBlock,
+  StyledLink } from './Header.style';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 function Header() {
-  const [keyword, setKeyword] = useState('');
-
-  const onChangeKeyword = (e) => {
-    setKeyword(e.target.value);
-  }
-
-  const onClickSearch = () => {
-    console.log('keyword: ', keyword);
-  }
-
   return (
     <>
-      <StyledHeader>
-        <div>
-          <Link to='/'>OhChalle</Link>
-        </div>
-
-        <InputContainer>
-          <input
-            type='text'
-            value={keyword}
-            onChange={onChangeKeyword}
-          />
-          <button onClick={onClickSearch}>검색</button>
-        </InputContainer>
-      </StyledHeader>
+      <HeaderBlock>
+        <StyledLink to='/crew'><AiOutlineArrowLeft /></StyledLink>
+        <p>참여하고 싶은 크루 둘러보기</p>
+      </HeaderBlock>
     </>
   )
 }

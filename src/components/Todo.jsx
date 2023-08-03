@@ -13,10 +13,17 @@ function Todo() {
   const { data, isLoading, isError } = useFetchTodos();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [events, setEvents] = useState([]);
-  const deleteTodoMutation = useDeleteTodoMutation();
+  const [filteredTodos, setFilteredTodos] = useState([]);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [todoToUpdate, setTodoToUpdate] = useState(null);
+
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
+
+  const onMonthChange = (month) => {
+    setCurrentMonth(month);
+  };
 
   const convertTodoToEvent = (todo) => {
     return {
@@ -46,8 +53,14 @@ function Todo() {
     if (data) {
       const convertedEvents = data.map(convertTodoToEvent);
       setEvents(convertedEvents);
+
+      const filtered = data.filter((todo) => {
+        const todoMonth = new Date(todo.date).getMonth();
+        return todoMonth === currentMonth;
+      });
+      setFilteredTodos(filtered);
     }
-  }, [data]);
+  }, [data, currentMonth]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -78,19 +91,19 @@ function Todo() {
   };
 
   return (
-    <>
-      <Calendar events={events} />
+    <TodosContainer>
+      <Calendar events={events} onMonthChange={onMonthChange} />
+      <br></br>
       <button onClick={openModal}>Todo 업로드</button>
       {isModalOpen && (
         <ModalContainer>
           <TodoModal isOpen={isModalOpen} onRequestClose={closeModal} />
-          <button onClick={closeModal}>닫기</button>
         </ModalContainer>
       )}
-      <h2>Todo</h2>
-      <TodosContainer>
+      <h2>TODO</h2>
+      <TodoListContainer>
         <TodoList>
-          {data.map((todo) => (
+          {filteredTodos.map((todo) => (
             <TodosBox key={todo.id}>
               <div>Title: {todo.title}</div>
               <div>Content: {todo.content}</div>
@@ -100,7 +113,7 @@ function Todo() {
             </TodosBox>
           ))}
         </TodoList>
-      </TodosContainer>
+      </TodoListContainer>
       {isUpdateModalOpen && (
         <ModalContainer>
           <TodoUpdateModal
@@ -111,30 +124,45 @@ function Todo() {
           />
         </ModalContainer>
       )}
-    </>
+    </TodosContainer>
   );
 }
 
 export default Todo;
 
 const TodosContainer = styled.div`
+  > button {
+    margin-bottom: 10px;
+  }
+`;
+
+const TodoListContainer = styled.div`
   display: flex;
+  overflow-x: auto;
   width: 100%;
+  max-width: 400px;
+  margin-bottom: 100px;
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const TodoList = styled.div`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  height: 75px;
 `;
 
 const TodosBox = styled.div`
-  border: 1px solid black;
-  width: 200px;
-  height: 80px;
+  border: 1px solid #9999;
+  border-radius: 10%;
+  width: 250px;
   text-align: center;
+  margin-right: 10px;
 `;
 
 const ModalContainer = styled.div`
@@ -147,5 +175,6 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   z-index: 1;
 `;

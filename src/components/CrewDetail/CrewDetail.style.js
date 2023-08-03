@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledCrewDetail = styled.div`
-  width: 430px;
-  margin: 0 auto;
+  width: 100%;
 `;
 
 export const TitleContainer = styled.div`

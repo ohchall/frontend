@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
-import { StyledHeader } from './Header.style';
+import {
+  HeaderBlock,
+  StyledLink } from './Header.style';
+import { AiOutlineArrowLeft } from 'react-icons/ai';
 
 function Header() {
   return (
     <>
-      <StyledHeader>
-        <div>
-          <Link to='/'>OhChalle</Link>
-        </div>
-      </StyledHeader>
+      <HeaderBlock>
+        <StyledLink to='/crew'><AiOutlineArrowLeft /></StyledLink>
+        <p>참여하고 싶은 크루 둘러보기</p>
+      </HeaderBlock>
     </>
   )
 }

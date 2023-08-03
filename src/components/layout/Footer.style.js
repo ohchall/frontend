@@ -22,7 +22,7 @@ export const StyledLink = styled(Link)`
 export const LinkContainer = styled.div`
   display: inline-block;
 
-  & ${StyledLink}:nth-of-type(1) {
-    margin-right: 10px;
+  & ${StyledLink}:nth-of-type(-n+4) {
+    margin-right: 20px;
   }
 `;

@@ -1,30 +1,28 @@
 import styled from 'styled-components';
 
 export const StyledCrewDetail = styled.div`
-  width: 100%;
-  max-width: 1000px;
-  margin: 60px auto;
+  width: 430px;
+  margin: 0 auto;
 `;
 
 export const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 60px;
-  padding: 0 20px;
+  padding: 20px;
+
+  & > div:nth-of-type(-n+2) {
+    margin-bottom: 10px;
+  }
 `;
 
 export const ImageWrapper = styled.div`
   width: 100%;
-  max-width: 960px;
-  height: 540px;
+  height: 430px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f2f2f2;
 `;
 
 export const ContentWrapper = styled.div`
-  height: 360px;
+  height: 200px;
   padding: 20px;
 `;
 
@@ -42,8 +40,7 @@ export const ButtonWrapper = styled.div`
 
 export const MapWrapper = styled.div`
   width: 100%;
-  max-width: 960px;
-  height: 320px;
+  height: 430px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f2f2f2;

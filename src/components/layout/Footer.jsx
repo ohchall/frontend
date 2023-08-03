@@ -1,18 +1,17 @@
 import {
-  StyledFooter,
   LinkContainer,
   StyledLink,
-  Footersection,
+  FooterSection,
 } from "./Footer.style";
 
 function Footer() {
   return (
-    <Footersection>
+    <FooterSection>
       <LinkContainer>
         <StyledLink to="/login">로그인</StyledLink>
         <StyledLink to="/register">회원가입</StyledLink>
       </LinkContainer>
-    </Footersection>
+    </FooterSection>
   );
 }
 

@@ -8,6 +8,7 @@ import CrewDetailPage from "../pages/CrewDetailPage";
 import MainLayout from "../components/layout/MainLayout";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
+import Template from "../components/layout/Template";
 
 function Router() {
   return (
@@ -16,12 +17,36 @@ function Router() {
         <Route path="/" element={<MainLayout />}>
           <Route index element={<MainPage />} />
           <Route path="/mypage" element={<MyPage />} />
-          <Route path="/crew/write" element={<CrewWritePage />} />
-          <Route path="/crew" element={<CrewPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<SignUpPage />} />
         </Route>
-        <Route path="/crew/:id" element={<CrewDetailPage />} />
+
+        <Route
+          path="/crew"
+          element={
+            <Template header footer>
+              <CrewPage />
+            </Template>
+          }
+        />
+
+        <Route
+          path="/crew/:id"
+          element={
+            <Template header footer>
+              <CrewDetailPage />
+            </Template>
+          }
+        />
+
+        <Route
+          path="/crew/write"
+          element={
+            <Template header footer>
+              <CrewWritePage />
+            </Template>
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

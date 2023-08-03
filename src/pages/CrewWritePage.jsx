@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CrewWriting from "../style/CrewWriting";
 import axios from "axios";
 import styled from "styled-components";
 import Header from "../components/layout/Header";
 import { useAddCrewMutation } from "../api/CrewUploadApi";
+import ReactDaumPost from 'react-daumpost-hook';
+import { useForm } from 'react-hook-form';
 
 
 
-function CrewWritePage() {
+
+
+function CrewWritePage(props) {
   const [addImg, setAddImg] = useState("");
   // const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
@@ -15,7 +19,10 @@ function CrewWritePage() {
   // const [title, setTitle] = useState("");
   // const [content, setContent] = useState("");
   // const [crewname, setCrewname] = useState("");
-  const [ selectDate, setSelectDate ] = useState(new Date());
+  const [address, setAddress] = useState("");
+  const [searchedAddress, setSearchedAddress] = useState("");
+  const { setValue, handleSubmit } = useForm();
+  const ref = useRef(null);
 
   const addCrewMutation = useAddCrewMutation();
   const [crew, setCrew] = useState({
@@ -24,7 +31,8 @@ function CrewWritePage() {
     crewname:"",
     category: "",
     image:"",
-    date: ""
+    date: "",
+    address:"",
   });
 
 
@@ -88,6 +96,7 @@ function CrewWritePage() {
           date: "",
           crewname:"",
           category: "",
+          address:"",
           image:{}
         });
       },
@@ -112,11 +121,24 @@ function CrewWritePage() {
       setCustomCategory(""); // Reset customCategory if other option is selected
     }
   }
+   
+ 
+
+  const postConfig = {
+    onComplete: (data) => {
+      setCrew({
+        ...crew,
+        address: data.address,
+      });
+      setSearchedAddress(data.address);
+      // ref.current.style.display = 'none';
+    },
+  };
   
-  // const selectsDate = (selectedDate) => {
-  //   const formattedDate = moment(selectedDate).format("YYYY-MM-DD");
-  //   setCrew({...crew, date: formattedDate});
-  // }
+  const postCode = ReactDaumPost(postConfig);
+
+
+
 
   return (
     <CrewWriting>
@@ -173,6 +195,29 @@ function CrewWritePage() {
                 <option>필라테스</option>
               </select>
               {category === "custom" && (<input type="text" value={customCategory}placeholder="원하는 카테고리를 입력해주세요" onChange={(e) => setCustomCategory(e.target.value)} />)}
+            </div>
+            <div className="location">
+              <strong>모일 장소</strong>
+              <div className="address">
+              <input 
+                type='text' 
+                onClick={postCode} 
+                placeholder="주소검색창입니다." 
+                ref={ref} 
+                name="address"
+                value={crew.address} 
+                onChange={handleInputChange}
+              />
+              <input 
+                type="text" 
+                name="detailAddress"
+                onChange={handleInputChange}
+                placeholder="상세주소를 입력해 주세요." 
+              />  
+              {/* <input type='text' onClick={postCode} placeholder="주소검색창입니다." ref={ref} value={searchedAddress} onChange={handleInputChange}/>
+              <input type="text" name="address" value={searchedAddress} onChange={handleInputChange}placholder="주소가 입력됩니다."/>
+              <input type="text" name="address" onChange={handleInputChange}placholder="상세주소를 입력해 주세요."/>   */}
+              </div>
             </div>
             <div className="button">
               <button type="submit">Send</button>

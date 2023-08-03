@@ -14,7 +14,8 @@ const Weather = styled.section`
   border-radius: 30px;
   margin-top: 30%;
 
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: 1000px) {
+    display: none;
     margin-top: 5%;
     margin-bottom: 5%;
     width: 500px;

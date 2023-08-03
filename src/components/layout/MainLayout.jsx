@@ -21,18 +21,16 @@ export default MainLayout;
 
 const MainLayoutSection = styled.section`
   position: relative;
-
-  width: 1000px;
-  height: auto;
+  width: 430px;
+  height: 100vh;
   background-color: white;
   align-items: center;
-  @media screen and (max-width: 1000px) {
-    width: 500px;
+  /* @media screen and (max-width: 1000px) {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
+  } */
 `;
 
 const Background = styled.div`
@@ -41,9 +39,7 @@ const Background = styled.div`
   justify-items: center;
   background-color: lightblue;
   height: 100vh;
+  overflow: hidden;
   @media screen and (max-width: 1500px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 `;

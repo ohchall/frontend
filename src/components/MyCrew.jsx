@@ -26,19 +26,7 @@ const MyCrew = () => {
         <div className="crewPostList">
           <button>More List</button>
         </div>
-        <div className="crewPosts">
-            {data.map((post, index)=>( 
-            <div className="crewPost" key={post.id}>
-                   <div className="crewPostImg">
-                    <img src={post.image} alt="" />
-                   </div>
-                  <div className="crewPostsText">
-                    <strong>{post.title}</strong>
-                    <p>{post.content}</p>
-                    <p>{post.date}</p>
-                  </div>
-                </div>))} 
-        </div>
+
      </div>
    </>
    

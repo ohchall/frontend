@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import CrewWriting from "../style/CrewWriting";
+import CrewWriting from "../components/crewpost/CrewWriting";
 import axios from "axios";
 import styled from "styled-components";
 import Header from "../components/layout/Header";
 import { useAddCrewMutation } from "../api/CrewUploadApi";
 import ReactDaumPost from 'react-daumpost-hook';
-import { useForm } from 'react-hook-form';
+
+import CrewDate from "../components/crewpost/CrewDate";
+
 
 
 
@@ -16,14 +18,12 @@ function CrewWritePage(props) {
   // const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [customCategory, setCustomCategory] = useState(""); 
-  // const [title, setTitle] = useState("");
-  // const [content, setContent] = useState("");
-  // const [crewname, setCrewname] = useState("");
   const [address, setAddress] = useState("");
   const [searchedAddress, setSearchedAddress] = useState("");
-  const { setValue, handleSubmit } = useForm();
   const ref = useRef(null);
-
+  const [dateRange, setDateRange] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
   const addCrewMutation = useAddCrewMutation();
   const [crew, setCrew] = useState({
     title: "",
@@ -31,8 +31,8 @@ function CrewWritePage(props) {
     crewname:"",
     category: "",
     image:"",
-    date: "",
     address:"",
+    total:""
   });
 
 
@@ -93,10 +93,10 @@ function CrewWritePage(props) {
         setCrew({
           title: "",
           content: "",
-          date: "",
           crewname:"",
           category: "",
           address:"",
+          total:"",
           image:{}
         });
       },
@@ -111,7 +111,8 @@ function CrewWritePage(props) {
 
     setCrew({
       ...crew,
-      [name]: value
+      [name]: value,
+      dateRange,
     });
   }
   const selectCategory = (e) => {
@@ -125,6 +126,7 @@ function CrewWritePage(props) {
  
 
   const postConfig = {
+    
     onComplete: (data) => {
       setCrew({
         ...crew,
@@ -137,6 +139,20 @@ function CrewWritePage(props) {
   
   const postCode = ReactDaumPost(postConfig);
 
+  const [group, setGroup] = useState(0);
+  const [members, setMembers] = useState(0);
+
+ 
+  const handleMembersChange = (e) => {
+    const newMembers = Number(e.target.value);
+    setMembers(newMembers);
+    setCrew({
+      ...crew,
+      total: newMembers
+    });
+  };
+
+
 
 
 
@@ -144,18 +160,17 @@ function CrewWritePage(props) {
     <CrewWriting>
       <CrewUpload>
         <form className="crewForm" onSubmit={onCrewUpload}>
-            <div className="crewImage">
-                <strong>Image File</strong>
+            <div className="crewImage">            
                 <div className='button'>
                     {!addImg && (
                       <label className='inputFileBtn' htmlFor='inputFile'>
-                        컴퓨터에서 선택
+                        크루 대표 이미지를 등록해주세요
                       </label>
                     )}
                     <input
                       type='file'
                       id='inputFile'
-                      accept='image/jpeg,image/jpg,image/png'
+                      accept='image/webp, image/png, image/jpeg'
                       onChange={upLoadImgHandler}
                     />
                 </div>
@@ -166,38 +181,22 @@ function CrewWritePage(props) {
                 )}
              </div>
              <div className="title">
-              <strong>Title</strong>
-              <input type="text" name="title" value={crew.title} placeholder="제목을 입력하세요" onChange={handleInputChange}/>
+              <input type="text" name="title" value={crew.title} placeholder="제목" onChange={handleInputChange}/>
             </div>
             <div className="content">
-              <strong>Content</strong>
+              <strong>내용</strong>
               <input type="text" name="content" value={crew.content} placeholder="내용을 입력하세요"onChange={handleInputChange} />
             </div>
             <div className="crewname">
-              <strong>Crewname</strong>
+              <strong>크루명</strong>
               <input type="text" name="crewname" value={crew.crewname} placeholder="크루이름을 입력하세요"onChange={handleInputChange} />
             </div>
             <div className="date">
-              <strong>크루 모임날짜</strong>
-              <input type="date" name="date" value={crew.date} placeholder="모집날짜를 입력하세요"onChange={handleInputChange}/>
-            </div>
-            <div className="category" value={crew.category}>
-              <strong>카테고리 선택</strong>
-              <select name="exerciseCategory" id=""onChange={selectCategory}>
-                <option value="">선택해주세요</option>
-                <option value="custom">직접입력</option>
-                <option>러닝</option>
-                <option>자전거</option>
-                <option>웨이트</option>
-                <option>요가</option>
-                <option>산책</option>
-                <option>복싱</option>
-                <option>필라테스</option>
-              </select>
-              {category === "custom" && (<input type="text" value={customCategory}placeholder="원하는 카테고리를 입력해주세요" onChange={(e) => setCustomCategory(e.target.value)} />)}
+              <strong>기간</strong>
+              <CrewDate setStartDate={setStartDate} setEndDate={setEndDate} setDateRange={setDateRange} />
             </div>
             <div className="location">
-              <strong>모일 장소</strong>
+              <strong>장소</strong>
               <div className="address">
               <input 
                 type='text' 
@@ -214,13 +213,30 @@ function CrewWritePage(props) {
                 onChange={handleInputChange}
                 placeholder="상세주소를 입력해 주세요." 
               />  
-              {/* <input type='text' onClick={postCode} placeholder="주소검색창입니다." ref={ref} value={searchedAddress} onChange={handleInputChange}/>
-              <input type="text" name="address" value={searchedAddress} onChange={handleInputChange}placholder="주소가 입력됩니다."/>
-              <input type="text" name="address" onChange={handleInputChange}placholder="상세주소를 입력해 주세요."/>   */}
               </div>
             </div>
+            <div className="category" value={crew.category}>
+              <strong>종목</strong>
+              <select name="exerciseCategory" id=""onChange={selectCategory}>
+                <option value="">운동종류를 선택해주세요</option>
+                <option value="custom">직접입력</option>
+                <option>러닝</option>
+                <option>자전거</option>
+                <option>웨이트</option>
+                <option>요가</option>
+                <option>산책</option>
+                <option>복싱</option>
+                <option>필라테스</option>
+              </select>
+              {category === "custom" && (<input type="text" value={customCategory}placeholder="원하는 카테고리를 입력해주세요" onChange={(e) => setCustomCategory(e.target.value)} />)}
+            </div>
+            <div className="totalmembers">
+              <strong>인원</strong>
+              <input type="number" className="total" max="100" placeholder="인원수를 선택하세요" onChange={handleMembersChange}/>
+            </div>
+            
             <div className="button">
-              <button type="submit">Send</button>
+              <button type="submit">등록하기</button>
             </div>
         </form>    
       </CrewUpload>

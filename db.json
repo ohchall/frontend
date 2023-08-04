@@ -1,57 +1,108 @@
 {
   "crew": [
     {
-      "id": 1,
-      "title": "런닝",
-      "content": "10km",
-      "date": "2023-08-24"
+      "title": "연습",
+      "content": "연습",
+      "crewname": "크루1",
+      "category": "러닝",
+      "image": "https://images.unsplash.com/photo-1679679008578-e3b6406bdb47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80",
+      "date": "2023-08-24",
+      "address": "서울 서초구 강남대로2길 3",
+      "detailAddress": "111호",
+      "id": 1
     },
     {
-      "id": 3,
-      "title": "풋살",
-      "content": "7:7풋살 일정",
-      "date": "2023-08-01"
+      "title": "제목인 건 맞아요",
+      "content": "내용인 것도 맞아요",
+      "crewname": "크루명인 것도 맞구요",
+      "category": "러닝",
+      "image": "",
+      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "total": 50,
+      "detailAddress": "111",
+      "id": 2
     },
     {
-      "id": 4,
-      "title": "헬스",
-      "content": "벤치프레스 10개",
-      "date": "2023-08-04"
+      "title": "연습",
+      "content": "연습",
+      "crewname": "크~루",
+      "category": "수영최고",
+      "image": "",
+      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "total": 50,
+      "detailAddress": "111",
+      "id": 3
     },
     {
-      "id": 5,
-      "title": "등산",
-      "content": "설악산 등산",
-      "date": "2023-08-20"
-    },
-    {
-      "id": 6,
-      "title": "수영",
-      "content": "1시간",
-      "date": "2023-09-21"
-    },
-    {
-      "id": 7,
-      "title": "테니스",
-      "content": "테니스 1시간",
-      "date": "2023-08-10"
-    },
-    {
-      "title": "ㄴㅇㄹ",
-      "content": "ㄴㅇㄹ",
-      "date": "2023-08-10",
-      "crewname": "ㄴㅇㄴㅇㄹ",
-      "category": "수영",
+      "title": "제목이네요",
+      "content": "강아지는 귀엽다",
+      "crewname": "강아지산책모임",
+      "category": "강아지산책쓰",
       "image": {},
+      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "total": 36,
+      "startDate": "2023-08-01T13:49:46.000Z",
+      "endDate": "2023-08-17T13:49:46.000Z",
+      "detailAddress": "111",
+      "id": 4
+    },
+    {
+      "title": "강아지는 귀엽군",
+      "content": "귀엽다니까",
+      "crewname": "강아지가 최고임",
+      "category": "강아지산책가자",
+      "image": {},
+      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "total": 8,
+      "startDate": "2023-08-01",
+      "endDate": "2023-08-25",
+      "detailAddress": "111",
+      "id": 5
+    },
+    {
+      "title": "머랭이",
+      "content": "머래니",
+      "crewname": "머래",
+      "category": "머래니데이",
+      "image": "",
+      "date": "",
+      "address": "서울 서초구 강남대로 27",
+      "total": 10,
+      "startDate": "2023-08-01",
+      "endDate": "2023-08-17",
+      "detailAddress": "111",
+      "id": 6
+    },
+    {
+      "title": "됐다! 대박",
+      "content": "ㄴㅇㄹ",
+      "crewname": "ㄴㅇㄹ",
+      "category": "대박이지 년월인이 된다니",
+      "image": {},
+      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "total": 8,
+      "startDate": "2023-02-01",
+      "endDate": "2023-08-17",
+      "detailAddress": "111",
       "id": 7
     },
     {
-      "title": "",
-      "content": "",
-      "date": "",
-      "crewname": "",
-      "category": "자전거",
+      "title": "오류가 사라졌나 볼까",
+      "content": "어디어디",
+      "crewname": "보자보자",
+      "category": "러닝",
       "image": {},
+      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "total": 29,
+      "startDate": "2023-08-11",
+      "endDate": "2023-08-23",
+      "detailAddress": "111",
       "id": 8
     },
     {
@@ -60,191 +111,91 @@
       "crewname": "",
       "category": "",
       "image": "",
-      "date": "",
+      "address": "",
+      "total": "",
+      "startDate": "2023-08-03",
+      "endDate": "2023-08-17",
       "id": 9
     },
     {
       "title": "",
       "content": "",
-      "date": "",
       "crewname": "",
       "category": "",
-      "image": {},
+      "image": "",
+      "address": "",
+      "total": "",
+      "startDate": "2023-08-03",
       "id": 10
     },
     {
-      "title": "",
-      "content": "",
+      "title": "보여",
+      "content": "보이지?",
       "crewname": "",
       "category": "",
       "image": "",
-      "date": "",
+      "address": "",
+      "total": "",
+      "startDate": "2023-08-02",
+      "endDate": "2023-08-03",
       "id": 11
     },
     {
-      "title": "",
-      "content": "",
-      "crewname": "",
-      "category": "",
+      "title": "날짜최종연습",
+      "content": "최종이되면 좋겠다",
+      "crewname": "최종이되려나",
+      "category": "날짜최종보내기",
       "image": "",
-      "date": "",
+      "address": "서울 서초구 강남대로2길 3",
+      "total": 8,
+      "dateRange": "2023-08-05 - 2023-08-11",
+      "detailAddress": "111",
       "id": 12
     },
     {
-      "title": "ㄴㅇㄹㄴㅇㄹ",
-      "content": "ㄴㅇㄹㄴㅇㄹ",
-      "date": "2023-08-08",
-      "crewname": "크루연습",
-      "category": "런닝머신",
+      "title": "오류가 뜰까 안 뜰까",
+      "content": "콘솔에서",
+      "crewname": "안뜨면 좋겠다",
+      "category": "날짜최종보내기",
+      "address": "서울 강남구 강남대로 238",
+      "total": 10,
       "image": {},
+      "dateRange": "2023-08-05 - 2023-08-11",
       "id": 13
     },
     {
-      "title": "",
-      "content": "ㅈㄷㄱ",
-      "crewname": "크루2",
-      "category": "런닝머신",
-      "image": "",
-      "date": "2023-08-29",
+      "title": "다시",
+      "content": "다시",
+      "crewname": "다시",
+      "category": "분홍신",
+      "image": {},
+      "address": "서울 서초구 강남대로 27",
+      "total": 10,
+      "dateRange": "",
+      "detailAddress": "111",
       "id": 14
     },
     {
-      "title": "ㄴㅇㄹ",
-      "content": "ㄴㅇㄹ",
-      "crewname": "크루3",
-      "category": "러닝",
-      "image": "",
-      "date": "2023-08-10",
-      "location": "",
+      "title": "",
+      "content": "",
+      "crewname": "",
+      "category": "",
+      "address": "서울 서초구 강남대로2길 6",
+      "total": "",
+      "image": {},
       "id": 15
     },
     {
-      "title": "",
-      "content": "",
-      "crewname": "",
-      "category": "",
-      "image": "",
-      "date": "",
-      "address": "",
-      "id": 16
-    },
-    {
-      "title": "",
-      "content": "",
-      "crewname": "",
-      "category": "",
-      "image": "",
-      "date": "",
-      "address": "111-111",
-      "id": 17
-    },
-    {
-      "title": "크루연습",
-      "content": "크루연습",
-      "crewname": "크루3",
-      "category": "러닝",
-      "image": "",
-      "date": "2023-08-08",
-      "address": "123-123호",
-      "id": 18
-    },
-    {
-      "title": "",
-      "content": "",
-      "crewname": "",
-      "category": "",
-      "image": "",
-      "date": "",
-      "address": "",
-      "id": 19
-    },
-    {
-      "title": "크-루",
-      "content": "크-루",
-      "crewname": "크-루5",
-      "category": "자전거",
-      "image": "",
-      "date": "2023-08-24",
-      "address": "서울 서초구 방배천로18길 11",
-      "detailAddress": "111-111",
-      "id": 20
-    },
-    {
-      "title": "ㅁㅁㅁ",
-      "content": "ㅁㅁㅁ",
-      "crewname": "크루6",
-      "category": "러닝",
-      "image": "",
-      "date": "2023-08-22",
-      "address": "서울 서초구 강남대로2길 3",
-      "detailAddress": "111-111",
-      "id": 21
-    },
-    {
-      "title": "크루7",
-      "content": "크루7",
-      "crewname": "크루7",
-      "category": "수영",
-      "image": "",
-      "date": "2023-08-11",
-      "address": "서울 서초구 방배천로18길 2",
-      "detailAddress": "111-111",
-      "id": 22
-    },
-    {
-      "title": "",
-      "content": "",
-      "date": "",
-      "crewname": "",
-      "category": "",
-      "address": "서울 서초구 방배천로18길 11",
+      "title": "다시1",
+      "content": "다시1",
+      "crewname": "분홍신",
+      "category": "핑크슈즈",
       "image": {},
-      "id": 23
-    },
-    {
-      "title": "크~",
-      "content": "크~",
-      "crewname": "크루7",
-      "category": "수영",
-      "image": "",
-      "date": "2023-08-23",
-      "address": "서울 서초구 방배천로18길 11",
-      "detailAddress": "1111-1111",
-      "id": 24
-    },
-    {
-      "title": "ㄴㅇㄹ",
-      "content": "ㄴㅇㄹ",
-      "crewname": "ㅋㅋㅋㅋ",
-      "category": "러닝",
-      "image": "",
-      "date": "2023-08-18",
-      "address": "서울 서초구 강남대로2길 3",
-      "detailAddress": "1111-1111",
-      "id": 25
-    },
-    {
-      "title": "",
-      "content": "",
-      "crewname": "",
-      "category": "",
-      "image": "",
-      "date": "",
-      "address": "서울 서초구 강남대로2길 3",
+      "address": "서울 서초구 강남대로2길 6",
+      "total": 9,
+      "dateRange": "2023-08-10 - 2023-08-31",
       "detailAddress": "111",
-      "id": 26
-    },
-    {
-      "title": "ㄴㅇㄹ",
-      "content": "ㄴㅇㄹ",
-      "crewname": "크루8",
-      "category": "당구",
-      "image": "",
-      "date": "2023-08-15",
-      "address": "서울 강남구 강남대로 238",
-      "detailaddress": "",
-      "detailAddress": "111",
-      "id": 27
+      "id": 16
     }
   ],
   "posts": [
@@ -541,6 +492,44 @@
       "title": "용병 구함",
       "content": "youngburn 서대문구에서 용병 구함",
       "date": "2023-08-01"
+    }
+  ],
+  "todos": [
+    {
+      "id": 1,
+      "title": "런닝",
+      "content": "10km",
+      "date": "2023-08-24"
+    },
+    {
+      "id": 3,
+      "title": "풋살",
+      "content": "7:7풋살 일정",
+      "date": "2023-08-01"
+    },
+    {
+      "id": 4,
+      "title": "헬스",
+      "content": "벤치프레스 10개",
+      "date": "2023-08-04"
+    },
+    {
+      "id": 5,
+      "title": "등산",
+      "content": "설악산 등산",
+      "date": "2023-08-20"
+    },
+    {
+      "id": 6,
+      "title": "수영",
+      "content": "1시간",
+      "date": "2023-09-21"
+    },
+    {
+      "id": 7,
+      "title": "테니스",
+      "content": "테니스 1시간",
+      "date": "2023-08-10"
     }
   ]
 }

@@ -2,7 +2,8 @@ import React from 'react'
 import { styled } from 'styled-components'
 
 const CrewWriting = styled.div`
-width:500px;
+padding-left:5px;
+width:430px;
  margin:0 auto;
  .header{display:flex;align-items:center;justify-content:space-between;width:100%;height:5%;}
  .crewForm{width:100%;height:100%;}

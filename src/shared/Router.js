@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Template from "../components/layout/Template";
 import MainPage from "../pages/MainPage";
 import MyPage from "../pages/MyPage";
-import CrewWritePage from "../pages/CrewWritePage";
-import CrewPage from "../pages/CrewPage/CrewPage";
-import CrewDetailPage from "../pages/CrewDetailPage/CrewDetailPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";
-import Template from "../components/layout/Template";
+import CrewPage from "../pages/crew/CrewPage";
+import CrewWritePage from "../pages/CrewWritePage";
+import CrewDetailPage from "../pages/crewdetail/CrewDetailPage";
 
 function Router() {
   return (

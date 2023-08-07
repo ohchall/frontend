@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const CrewBlock = styled.div`
+  width: 100%;
+  height: 100%;
 `;
 
 export const InputContainer = styled.div`
@@ -36,20 +38,10 @@ export const CrewListContainer = styled.div`
   padding: 24px 16px;
 `;
 
-export const CrewListTitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+export const CrewListTitle = styled.p`
+  font-size: 20px;
+  font-weight: bold;
   margin-bottom: 12px;
-
-  & p {
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  & button {
-    background-color: transparent;
-    border: none;
-  }
 `;
 
 export const ImageWrapper = styled.div`
@@ -75,6 +67,15 @@ export const Overview = styled.div`
   }
 `;
 
+export const CrewList = styled.div`
+  display: flex;
+  overflow: auto;
+
+  & > div {
+    margin-right: 12px;
+  }
+`;
+
 export const TitleContainer = styled.div`
   & > p {
     display: inline-block;
@@ -86,11 +87,31 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const CrewList = styled.div`
-  display: flex;
-  overflow: auto;
-
+export const PopularCrew = styled.div`
   & > div {
-    margin-right: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 8px;
+    padding: 0 12px;
+    background-color: #EAEAEA;
   }
-`
+`;
+
+export const PopularTitleContainer = styled.div`
+  & > p:first-child {
+    width: 30px;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #F3F3F3;
+  }
+
+  & > p {
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    font-size: 18px;
+  }
+`;

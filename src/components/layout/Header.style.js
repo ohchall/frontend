@@ -6,8 +6,7 @@ export const StyledLink = styled(Link)`
 `;
 
 export const HeaderBlock = styled.div`
-  width: 430px;
-  margin: 0 auto;
+  width: 100%;
   height: 60px;
   padding: 0 20px;
   display: flex;

@@ -5,5 +5,4 @@ export const TemplateBlock = styled.div`
   width: 430px;
   height: 100vh;
   background-color: white;
-  align-items: center;
 `;

@@ -9,6 +9,7 @@ export const StyledLink = styled(Link)`
   font-size: 10px;
   font-weight: bold;
   display: block;
+  border-radius: 50%;
   background-color: #D9D9D9;
 `;
 

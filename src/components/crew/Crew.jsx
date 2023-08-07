@@ -4,11 +4,14 @@ import {
   InputContainer,
   CategoryContainer,
   CrewListContainer,
-  CrewListTitleContainer,
+  CrewListTitle,
   ImageWrapper,
   Overview, 
+  CrewList,
   TitleContainer,
-  CrewList } from './Crew.style';
+  PopularCrew,
+  PopularTitleContainer
+  } from './Crew.style';
 import { getCrews } from '../../api/CrewApi';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
@@ -30,10 +33,6 @@ function Crew() {
 
   const onClickCategory = (category) => {
     console.log('category: ', category);
-  }
-
-  const onClickMore = () => {
-    console.log('More button clicked...!');
   }
 
   const onClickCrew = (itemId) => {
@@ -71,14 +70,9 @@ function Crew() {
       </CategoryContainer>
 
       <CrewListContainer>
-        <CrewListTitleContainer>
-          <p>최신 크루 리스트</p>
-          <button
-            onClick={onClickMore}
-          >
-            더보기
-          </button>
-        </CrewListTitleContainer>
+        <CrewListTitle>
+          최신 크루 리스트
+        </CrewListTitle>
 
         <CrewList>
           {data?.data.map((item) => (
@@ -105,6 +99,28 @@ function Crew() {
           </div>
           ))}
         </CrewList>
+      </CrewListContainer>
+
+      <CrewListContainer>
+        <CrewListTitle>
+          인기 크루 리스트
+        </CrewListTitle>
+
+        <PopularCrew>
+          {data?.data.map((item, idx) => (
+          <div
+            key={item.id}
+            onClick={() => onClickCrew(item.id)}
+          >
+            <PopularTitleContainer>
+              <p>{idx+1}</p>
+              <p>{item.title}</p>
+            </PopularTitleContainer>
+
+            <p>{item.exercisekind} / 서울 중구</p>
+          </div>
+          ))}
+        </PopularCrew>
       </CrewListContainer>
     </CrewBlock>
   )

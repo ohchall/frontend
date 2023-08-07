@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const getCrews = async () => {
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew`
+    `${process.env.REACT_APP_SERVER_URL}/crew?_limit=5`
   );
   return res;
 }

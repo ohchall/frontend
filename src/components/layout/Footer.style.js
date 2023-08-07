@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const FooterSection = styled.footer`
-  width: 430px;
+  width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-around;

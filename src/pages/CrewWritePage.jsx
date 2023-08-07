@@ -3,7 +3,7 @@ import CrewWriting from "../components/crewpost/CrewWriting";
 import axios from "axios";
 import styled from "styled-components";
 import Header from "../components/layout/Header";
-import { useAddCrewMutation } from "../api/CrewUploadApi";
+import { useAddCrewMutation } from "../api/CrewApi";
 import ReactDaumPost from 'react-daumpost-hook';
 
 import CrewDate from "../components/crewpost/CrewDate";

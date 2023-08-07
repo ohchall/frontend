@@ -1,15 +1,22 @@
 import { styled } from "styled-components";
-import { useFetchPosts } from "../api/TodoApi";
+// import { useFetchPosts } from "../api/TodoApi";
+import { getCrews } from "../api/CrewApi";
+import { useQuery } from "@tanstack/react-query";
 import Slider from "../components/slider/Slider";
 
 function MainPage() {
-  const { data, isLoading, isError } = useFetchPosts();
+  // const { data, isLoading, isError } = useFetchPosts();
+  const {
+    data,
+    isLoading,
+    error
+  } = useQuery(['crews'], getCrews);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (isError) {
+  if (error) {
     return <div>Error occurred while fetching data.</div>;
   }
 
@@ -35,7 +42,7 @@ function MainPage() {
               <div>Date: {post.date}</div>
             </Post>
           ))} */}
-          <Slider data={data} />
+          <Slider data={data?.data} />
         </PostWrapper>
       </MainPageSection>
     </>

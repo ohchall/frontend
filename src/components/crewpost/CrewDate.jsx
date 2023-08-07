@@ -5,6 +5,7 @@ import range from "lodash/range";
 import getYear from "date-fns/getYear";
 import getMonth from "date-fns/getMonth";
 import { ko } from "date-fns/esm/locale";
+import { styled } from "styled-components";
 
 const CrewDate = (props) => {
   const [startDate, setStartDate] = useState(new Date());
@@ -104,7 +105,7 @@ const CrewDate = (props) => {
   );
 
   return (
-    <div>
+    <CrewDates>
     <DatePicker
        locale={ko}
        dateFormat="yyyy-MM-dd"
@@ -113,6 +114,7 @@ const CrewDate = (props) => {
         renderCustomHeader={renderCustomHeader}
         maxDate={endDate}
       />
+      <span> - </span>
        <DatePicker
         locale={ko}
         dateFormat="yyyy-MM-dd"
@@ -121,8 +123,10 @@ const CrewDate = (props) => {
         renderCustomHeader={renderCustomHeader}
         minDate={startDate}
       />
-    </div>
+    </CrewDates>
   );
 };
-
+const CrewDates = styled.div`
+span{margin:0 10px;}
+.react-datepicker-wrapper{width:24%;}`
 export default CrewDate;

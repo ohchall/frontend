@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useAddTodoMutation, useUpdateTodoMutation } from "../api/TodoApi";
+import { useAddTodoMutation } from "../../api/TodoApi";
 
-function TodoModal({ onRequestClose }) {
+function TodoAddModal({ onRequestClose }) {
   const addTodoMutation = useAddTodoMutation();
   const [todo, setTodo] = useState({
     title: "",
@@ -74,4 +74,4 @@ function TodoModal({ onRequestClose }) {
   );
 }
 
-export default TodoModal;
+export default TodoAddModal;

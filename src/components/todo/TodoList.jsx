@@ -3,23 +3,43 @@ import {
   useFetchTodos,
   useDeleteTodoMutation,
   useUpdateTodoMutation,
-} from "../api/TodoApi";
-import { styled } from "styled-components";
-import TodoModal from "./TodoModal";
-import Calendar from "./Calendar";
+} from "../../api/TodoApi";
+import {
+  TodosContainer,
+  TodoListContainer,
+  TodosList,
+  TodosBox,
+  ModalContainer,
+  CalendarCenterBox,
+  MoreButton,
+  MoreButtonContainer,
+  DayColor,
+} from "./TodoList.style";
+import TodoAddModal from "./TodoAddModal";
+import Calendar from "../calendar/Calendar";
 import TodoUpdateModal from "./TodoUpdateModal";
 
-function Todo() {
+function TodoList() {
   const { data, isLoading, isError } = useFetchTodos();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [events, setEvents] = useState([]);
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [todoToUpdate, setTodoToUpdate] = useState(null);
-
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
+  const [visibleTodoId, setVisibleTodoId] = useState(null);
+
+  const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+
+  const toggleButtonsVisibility = (id) => {
+    if (visibleTodoId === id) {
+      setVisibleTodoId(null);
+    } else {
+      setVisibleTodoId(id);
+    }
+  };
 
   const onMonthChange = (month) => {
     setCurrentMonth(month);
@@ -91,29 +111,55 @@ function Todo() {
   };
 
   return (
-    <TodosContainer>
-      <Calendar events={events} onMonthChange={onMonthChange} />
+    <>
+      <CalendarCenterBox>
+        <Calendar events={events} onMonthChange={onMonthChange} />
+      </CalendarCenterBox>
       <br></br>
-      <button onClick={openModal}>Todo 업로드</button>
       {isModalOpen && (
         <ModalContainer>
-          <TodoModal isOpen={isModalOpen} onRequestClose={closeModal} />
+          <TodoAddModal isOpen={isModalOpen} onRequestClose={closeModal} />
         </ModalContainer>
       )}
-      <h2>TODO</h2>
-      <TodoListContainer>
-        <TodoList>
-          {filteredTodos.map((todo) => (
-            <TodosBox key={todo.id}>
-              <div>Title: {todo.title}</div>
-              <div>Content: {todo.content}</div>
-              <div>Date: {todo.date}</div>
-              <button onClick={() => todoDeleteHandler(todo.id)}>삭제</button>
-              <button onClick={() => openUpdateModal(todo)}>수정</button>
-            </TodosBox>
-          ))}
-        </TodoList>
-      </TodoListContainer>
+      <TodosContainer>
+        <h2>투두 리스트</h2>
+        <TodoListContainer>
+          <TodosList>
+            {filteredTodos.map((todo) => (
+              <TodosBox key={todo.id}>
+                <input type="checkbox"></input>
+                <div>
+                  <h2>{todo.title}</h2>
+                  <h3>{todo.content}</h3>
+                  <h4>날짜 | {todo.date}</h4>
+                  <div>
+                    {daysOfWeek.map((day, index) => (
+                      <DayColor
+                        key={index}
+                        isCurrent={index === new Date(todo.date).getDay()}
+                      >
+                        {day}
+                      </DayColor>
+                    ))}
+                  </div>
+                </div>
+                <MoreButton onClick={() => toggleButtonsVisibility(todo.id)}>
+                  ...
+                </MoreButton>
+                {visibleTodoId === todo.id && (
+                  <MoreButtonContainer>
+                    <button onClick={() => openUpdateModal(todo)}>수 정</button>
+                    <button onClick={() => todoDeleteHandler(todo.id)}>
+                      삭 제
+                    </button>
+                  </MoreButtonContainer>
+                )}
+              </TodosBox>
+            ))}
+          </TodosList>
+        </TodoListContainer>
+        <button onClick={openModal}>+</button>
+      </TodosContainer>
       {isUpdateModalOpen && (
         <ModalContainer>
           <TodoUpdateModal
@@ -124,57 +170,8 @@ function Todo() {
           />
         </ModalContainer>
       )}
-    </TodosContainer>
+    </>
   );
 }
 
-export default Todo;
-
-const TodosContainer = styled.div`
-  > button {
-    margin-bottom: 10px;
-  }
-`;
-
-const TodoListContainer = styled.div`
-  display: flex;
-  overflow-x: auto;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 100px;
-  scrollbar-width: none;
-  -ms-overflow-style: none; /* IE and Edge */
-  &::-webkit-scrollbar {
-    display: none;
-  }
-`;
-
-const TodoList = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  height: 75px;
-`;
-
-const TodosBox = styled.div`
-  border: 1px solid #9999;
-  border-radius: 10%;
-  width: 250px;
-  text-align: center;
-  margin-right: 10px;
-`;
-
-const ModalContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 1;
-`;
+export default TodoList;

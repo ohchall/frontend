@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const MainPageSection = styled.section`
+export const MainPageSection = styled.div`
   width: 430px;
   height: 100%;
   display: flex;

@@ -1,65 +1,61 @@
 import React from "react";
-import { useState } from "react";
-import { styled } from "styled-components";
+import { useState, useRef, useEffect } from "react";
+import styled from "styled-components";
+import useCarouselSize from "./useCarouselSize";
+import registDragEvent from "./DragEvent";
+import { inrange } from "./inRange";
+
 const Slider = ({ data }) => {
-  const slideLeft = () => {
-    var SliderPieces = document.getElementById("sliderpiece");
-    SliderPieces.scrollLeft = SliderPieces.scrollLeft - 500;
-  };
-  const slideright = () => {
-    var SliderPieces = document.getElementById("sliderpiece");
-    SliderPieces.scrollLeft = SliderPieces.scrollLeft + 500;
-  };
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [transX, setTransX] = useState(0);
+
+  const { ref } = useCarouselSize();
+  console.log(transX);
+  console.log(currentIndex);
   return (
     <>
       <SliderSection>
-        <SliderPiece id="sliderpiece">
-          <div onClick={slideLeft}>left</div>
+        <div
+          ref={ref}
+          className="flex"
+          style={{
+            transform: `translateX(${-currentIndex + transX}px)`,
+            transition: `transform ${transX ? 300 : 0}ms ease-in-out 0s`,
+          }}
+          {...registDragEvent({
+            onDragChange: (deltaX) => {
+              setTransX(inrange(deltaX));
+            },
+            onDragEnd: (deltaX) => {
+              const maxIndex = data.length - 1;
+
+              if (deltaX < -100)
+                setCurrentIndex(inrange(currentIndex + 1, 0, maxIndex));
+              if (deltaX > 100)
+                setCurrentIndex(inrange(currentIndex - 1, 0, maxIndex));
+
+              setTransX(0);
+            },
+          })}
+        >
           <PostWrapper>
             {data.map((post) => (
-              <Post key={post.id}>
+              <PostArticle key={post.id}>
                 <div>{post.image}</div>
                 <div>Title: {post.title}</div>
                 <div>Content: {post.content}</div>
                 <div>Date: {post.date}</div>
-              </Post>
+              </PostArticle>
             ))}
           </PostWrapper>
-          <div onClick={slideright}>right</div>
-        </SliderPiece>
+        </div>
       </SliderSection>
     </>
   );
 };
 
 export default Slider;
-// const SliderSection = styled.div`
-//   width: 100%;
-//   display: flex;
-//   flex-direction: row;
-//   position: relative;
-//   align-items: center;
-//   gap: 10px;
-// `;
-// const SliderPiece = styled.div`
-//   width: 100%;
-//   height: 100%;
-//   white-space: nowrap;
-//   overflow-x: scroll;
-//   overflow: scroll;
-//   scroll-behavior: smooth;
-// `;
-// const PostWrapper = styled.section`
-//   display: inline-block;
-//   gap: 20px;
-// `;
-// const Post = styled.article`
-//   background-color: grey;
-//   margin-bottom: 30px;
-//   height: 200px;
 
-//   cursor: pointer;
-// `;
 const SliderSection = styled.div`
   width: 100%;
   display: flex;
@@ -67,24 +63,16 @@ const SliderSection = styled.div`
   align-items: center;
   gap: 10px;
 `;
-
-const SliderPiece = styled.div`
-  width: 100%;
-  height: 100%;
-  white-space: nowrap;
-  overflow-x: scroll;
-  overflow: scroll;
-  scroll-behavior: smooth;
-`;
-
 const PostWrapper = styled.section`
-  display: inline-block;
+  display: flex;
   gap: 20px;
 `;
 
-const Post = styled.article`
+const PostArticle = styled.article`
   background-color: grey;
   margin-bottom: 30px;
   height: 200px;
-  display: inline-block; // 이 속성을 추가해서 각 요소들이 수평으로 정렬되도록 함
+  width: 300px;
+
+  display: inline-block;
 `;

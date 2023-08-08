@@ -5,5 +5,8 @@ export const TemplateBlock = styled.div`
   width: 430px;
   height: 100vh;
   background-color: white;
-
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;

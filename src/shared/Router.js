@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Template from "../components/layout/Template";
-import MainPage from "../pages/MainPage";
+import MainPage from "../pages/main/MainPage";
 import MyPage from "../pages/MyPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpPage from "../pages/SignUpPage";

@@ -7,10 +7,10 @@ export const FooterSection = styled.footer`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
+  position: absolute; 
   bottom: 0px;
 
-  left: 50%;
+   left: 50%;
   transform: translate(-50%, 0);
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

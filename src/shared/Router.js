@@ -8,6 +8,7 @@ import SignUpPage from "../pages/SignUpPage";
 import CrewPage from "../pages/crew/CrewPage";
 import CrewWritePage from "../pages/CrewWritePage";
 import CrewDetailPage from "../pages/crewdetail/CrewDetailPage";
+import PostModal from "../components/crewpost/PostModal";
 
 function Router() {
   return (
@@ -70,6 +71,14 @@ function Router() {
           element={
             <Template header footer>
               <CrewWritePage />
+            </Template>
+          }
+        />
+          <Route
+          path="/postmodal"
+          element={
+            <Template header footer>
+              <PostModal />
             </Template>
           }
         />

@@ -1,21 +1,19 @@
 import React from "react";
 import TodoList from "../components/todo/TodoList";
 import MyProfile from "../components/myprofile/MyProfile";
-import MyCrew from "../components/MyCrew";
+import MyCrews from "../components/MyCrews";
 import { styled } from "styled-components";
+
 
 function MyPage() {
   return (
     <MyPageSection>
       <MyProfile />
       <TodoList />
-      <div>
-        <MyCrew />
-      </div>
+        <MyCrews />
     </MyPageSection>
   );
 }
-
 export default MyPage;
 
 const MyPageSection = styled.section`
@@ -32,3 +30,4 @@ const MyPageSection = styled.section`
     display: none;
   }
 `;
+

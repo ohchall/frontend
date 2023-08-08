@@ -18,7 +18,6 @@ import CrewCategory from "../components/crewpost/CrewCategory";
 
 function CrewWritePage() {
   const [addImg, setAddImg] = useState("");
-  // const [image, setImage] = useState("");
   const [category, setCategory] = useState("");
   const [customCategory, setCustomCategory] = useState("");
   const [address, setAddress] = useState("");

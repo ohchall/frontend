@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import { useAddTodoMutation } from "../../api/TodoApi";
+import {
+  ModalContainer,
+  ModalContent,
+  ModalTitle,
+  ModalShadow,
+} from "./TodoAddModal.style";
 
 function TodoAddModal({ onRequestClose }) {
   const addTodoMutation = useAddTodoMutation();
@@ -7,6 +13,7 @@ function TodoAddModal({ onRequestClose }) {
     title: "",
     content: "",
     date: "",
+    isSuccess: false,
   });
 
   const onChangeTodoHandler = (e) => {
@@ -37,40 +44,50 @@ function TodoAddModal({ onRequestClose }) {
   };
 
   return (
-    <>
-      <h2>운동 기록 TODO</h2>
-      <div>
-        <input
-          type="text"
-          name="title"
-          placeholder="title"
-          value={todo.title}
-          onChange={(e) => onChangeTodoHandler(e)}
-        ></input>
-      </div>
-      <div>
-        <input
-          type="text"
-          name="content"
-          placeholder="content"
-          value={todo.content}
-          onChange={(e) => onChangeTodoHandler(e)}
-        ></input>
-      </div>
-      <div>
-        <input
-          type="date"
-          name="date"
-          placeholder="date"
-          value={todo.date}
-          onChange={(e) => onChangeTodoHandler(e)}
-        ></input>
-      </div>
-      <div>
-        <button onClick={todoSubmithandler}>Todo 추가</button>
-        <button onClick={onRequestClose}>닫기</button>
-      </div>
-    </>
+    <ModalShadow>
+      <ModalContainer>
+        <ModalTitle>
+          <h2>투두리스트</h2>
+          <button onClick={onRequestClose}>❌</button>
+        </ModalTitle>
+
+        <ModalContent>
+          <div>
+            <span>⛹️</span>
+            <input
+              type="text"
+              name="title"
+              placeholder="title"
+              value={todo.title}
+              onChange={(e) => onChangeTodoHandler(e)}
+            ></input>
+          </div>
+          <div>
+            <span>🏋️</span>
+            <input
+              type="text"
+              name="content"
+              placeholder="content"
+              value={todo.content}
+              onChange={(e) => onChangeTodoHandler(e)}
+            ></input>
+          </div>
+          <div>
+            <span>🏌️</span>
+            <input
+              type="date"
+              name="date"
+              placeholder="date"
+              value={todo.date}
+              onChange={(e) => onChangeTodoHandler(e)}
+            ></input>
+          </div>
+          <div>
+            <button onClick={todoSubmithandler}>등록하기</button>
+          </div>
+        </ModalContent>
+      </ModalContainer>
+    </ModalShadow>
   );
 }
 

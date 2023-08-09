@@ -3,13 +3,13 @@ import {
   useFetchTodos,
   useDeleteTodoMutation,
   useUpdateTodoMutation,
+  useUpdateIsSuccessMutation,
 } from "../../api/TodoApi";
 import {
   TodosContainer,
   TodoListContainer,
   TodosList,
   TodosBox,
-  ModalContainer,
   CalendarCenterBox,
   MoreButton,
   MoreButtonContainer,
@@ -30,6 +30,7 @@ function TodoList() {
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
   const [visibleTodoId, setVisibleTodoId] = useState(null);
+  const updateIsSuccessMutation = useUpdateIsSuccessMutation();
 
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -38,6 +39,16 @@ function TodoList() {
       setVisibleTodoId(null);
     } else {
       setVisibleTodoId(id);
+    }
+  };
+
+  const handleCheckboxChange = async (todo) => {
+    const updatedTodo = { ...todo, isSuccess: !todo.isSuccess };
+    try {
+      await updateIsSuccessMutation.mutateAsync(updatedTodo);
+      console.log("상태 업데이트 성공");
+    } catch (error) {
+      console.error("상태 업데이트 실패:", error);
     }
   };
 
@@ -94,6 +105,7 @@ function TodoList() {
     try {
       await deleteTodoMutation.mutateAsync(todoId);
       console.log("삭제 성공");
+      setVisibleTodoId(null);
     } catch (error) {
       console.error("삭제 실패:", error);
     }
@@ -105,6 +117,7 @@ function TodoList() {
       await updateTodoMutation.mutateAsync(updatedTodo);
       console.log("수정 성공");
       closeUpdateModal();
+      setVisibleTodoId(null);
     } catch (error) {
       console.error("수정 실패:", error);
     }
@@ -117,17 +130,19 @@ function TodoList() {
       </CalendarCenterBox>
       <br></br>
       {isModalOpen && (
-        <ModalContainer>
-          <TodoAddModal isOpen={isModalOpen} onRequestClose={closeModal} />
-        </ModalContainer>
+        <TodoAddModal isOpen={isModalOpen} onRequestClose={closeModal} />
       )}
       <TodosContainer>
         <h2>투두 리스트</h2>
         <TodoListContainer>
           <TodosList>
             {filteredTodos.map((todo) => (
-              <TodosBox key={todo.id}>
-                <input type="checkbox"></input>
+              <TodosBox key={todo.id} $isSuccess={todo.isSuccess}>
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckboxChange(todo)}
+                  checked={todo.isSuccess}
+                ></input>
                 <div>
                   <h2>{todo.title}</h2>
                   <h3>{todo.content}</h3>
@@ -137,6 +152,7 @@ function TodoList() {
                       <DayColor
                         key={index}
                         $isCurrent={index === new Date(todo.date).getDay()}
+                        $isSuccess={todo.isSuccess}
                       >
                         {day}
                       </DayColor>
@@ -161,14 +177,12 @@ function TodoList() {
         <button onClick={openModal}>+</button>
       </TodosContainer>
       {isUpdateModalOpen && (
-        <ModalContainer>
-          <TodoUpdateModal
-            isOpen={isUpdateModalOpen}
-            todo={todoToUpdate}
-            onSubmit={todoUpdateHandler}
-            onRequestClose={closeUpdateModal}
-          />
-        </ModalContainer>
+        <TodoUpdateModal
+          isOpen={isUpdateModalOpen}
+          todo={todoToUpdate}
+          onSubmit={todoUpdateHandler}
+          onRequestClose={closeUpdateModal}
+        />
       )}
     </>
   );

@@ -6,17 +6,33 @@ export const CrewBlock = styled.div`
 `;
 
 export const InputContainer = styled.div`
+  display: flex;
   width: 100%;
   padding: 24px 16px;
 
   & input {
+    display: block;
     width: calc(100% - 50px);
     height: 50px;
+    padding-left: 16px;
+    border: 1px solid #666666;
+    border-radius: 25px 0 0 25px;
+    border-right: none;
   }
 
   & button {
+    display: block;
     width: 50px;
     height: 50px;
+    background-color: transparent;
+    border: 1px solid #666666;
+    border-radius: 0 25px 25px 0;
+    border-left: none;
+    cursor: pointer;
+  }
+
+  & button > svg {
+    font-size: 20px;
   }
 `;
 
@@ -30,6 +46,7 @@ export const CategoryContainer = styled.div`
     border: none;
     border-radius: 5px;
     padding: 0 10px;
+    cursor: pointer;
   }
 `;
 
@@ -44,9 +61,20 @@ export const CrewListTitle = styled.p`
   margin-bottom: 12px;
 `;
 
+export const CrewList = styled.div`
+  display: flex;
+  overflow: auto;
+
+  & > div {
+    margin-right: 12px;
+    cursor: pointer;
+  }
+`;
+
 export const ImageWrapper = styled.div`
   width: 227px;
   height: 211px;
+  border-radius: 25px 25px 0 0;
   background-color: #EEEEEE;
 `;
 
@@ -54,25 +82,21 @@ export const Overview = styled.div`
   width: 227px;
   height: 70px;
   padding: 14px 16px;
+  border-radius: 0 0 25px 25px;
   background-color: #D9D9D9;
 
   & > div {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
   }
 
   & > p {
     font-size: 13px;
   }
-`;
 
-export const CrewList = styled.div`
-  display: flex;
-  overflow: auto;
-
-  & > div {
-    margin-right: 12px;
+  & > div > span > svg {
+    font-size: 20px;
   }
 `;
 
@@ -87,7 +111,7 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const PopularCrew = styled.div`
+export const PopularCrewList = styled.div`
   & > div {
     display: flex;
     justify-content: space-between;
@@ -96,11 +120,11 @@ export const PopularCrew = styled.div`
     margin-bottom: 8px;
     padding: 0 12px;
     background-color: #EAEAEA;
+    border-radius: 15px;
+    cursor: pointer;
   }
-`;
 
-export const PopularTitleContainer = styled.div`
-  & > p:first-child {
+  & > div > ${TitleContainer} > p:first-child {
     width: 30px;
     margin-right: 10px;
     text-align: center;
@@ -108,10 +132,28 @@ export const PopularTitleContainer = styled.div`
     background-color: #F3F3F3;
   }
 
-  & > p {
+  & > div > ${TitleContainer} > p {
     height: 30px;
     line-height: 30px;
     display: inline-block;
     font-size: 18px;
+  }
+`;
+
+export const RecommendedCrewList = styled.div`
+  display: flex;
+  overflow: auto;
+
+  & > div {
+    margin-right: 12px;
+    cursor: pointer;
+  }
+
+  & > div > ${ImageWrapper} {
+    width: 343px;
+  }
+
+  & > div > ${Overview} {
+    width: 343px;
   }
 `;

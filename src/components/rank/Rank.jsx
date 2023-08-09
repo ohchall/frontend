@@ -5,7 +5,7 @@ function Rank({ data }) {
   return (
     <>
       <FavPostContainer>
-        {data.slice(0, 5).map((post) => (
+        {data?.data.map((post) => (
           <FavPostArticle key={post.id}>
             <RankNumber>{post.id}</RankNumber>
             <div> {post.title}</div>

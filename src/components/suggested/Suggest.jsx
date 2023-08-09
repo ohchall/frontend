@@ -4,7 +4,7 @@ import React from "react";
 function Suggest({ data }) {
   return (
     <>
-      {data.slice(0, 1).map((post) => (
+      {data?.data.map((post) => (
         <SugPostArticle key={post.id}>
           <div>Title: {post.title}</div>
           <div>Content: {post.content}</div>

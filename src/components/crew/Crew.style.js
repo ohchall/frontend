@@ -87,7 +87,7 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const PopularCrew = styled.div`
+export const PopularCrewList = styled.div`
   & > div {
     display: flex;
     justify-content: space-between;
@@ -97,10 +97,8 @@ export const PopularCrew = styled.div`
     padding: 0 12px;
     background-color: #EAEAEA;
   }
-`;
 
-export const PopularTitleContainer = styled.div`
-  & > p:first-child {
+  & > div > ${TitleContainer} > p:first-child {
     width: 30px;
     margin-right: 10px;
     text-align: center;
@@ -108,10 +106,27 @@ export const PopularTitleContainer = styled.div`
     background-color: #F3F3F3;
   }
 
-  & > p {
+  & > div > ${TitleContainer} > p {
     height: 30px;
     line-height: 30px;
     display: inline-block;
     font-size: 18px;
+  }
+`;
+
+export const RecommendedCrewList = styled.div`
+  display: flex;
+  overflow: auto;
+
+  & > div {
+    margin-right: 12px;
+  }
+
+  & > div > ${ImageWrapper} {
+    width: 343px;
+  }
+
+  & > div > ${Overview} {
+    width: 343px;
   }
 `;

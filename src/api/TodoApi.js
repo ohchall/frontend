@@ -53,3 +53,28 @@ export const useFetchTodos = () => {
 };
 
 
+export const useUpdateIsSuccessMutation = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    async (updatedTodo) => {
+      const response = await axios.put(
+        `${BASE_URL}/todos/${updatedTodo.id}`,
+        updatedTodo
+      );
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("todos");
+      },
+    }
+  );
+};
+
+export const useFetchPosts = () => {
+  return useQuery(["posts"], async () => {
+    const { data } = await axios.get(`${BASE_URL}/posts`);
+    return data;
+  });
+};
+

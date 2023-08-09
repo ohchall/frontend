@@ -2,8 +2,7 @@ import { styled } from "styled-components";
 
 export const TodosContainer = styled.div`
   background-color: #eeeeee;
-  margin-bottom: 200px; /*화면 보는용*/
-  /* padding-bottom: 10px; */
+  margin-bottom: 200px;
 
   > button {
     background-color: white;
@@ -70,8 +69,10 @@ export const TodosBox = styled.div`
   min-height: 100px;
   width: 400px;
   text-align: center;
-  position: relative;
   overflow: hidden;
+  background-color: ${(props) => (props.isSuccess ? "#BBBBBB" : "white")};
+  text-decoration: ${(props) => (props.isSuccess ? "line-through" : "none")};
+  text-decoration-thickness: 2px; // 줄 굵기 설정
 
   &:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -92,14 +93,23 @@ export const TodosBox = styled.div`
       font-size: 14px;
       font-weight: bold;
       color: #000000;
+      text-decoration: ${(props) =>
+        props.$isSuccess ? "line-through" : "none"};
+      text-decoration-thickness: 2px;
     }
     > h3 {
       font-size: 13px;
       color: #454545;
+      text-decoration: ${(props) =>
+        props.$isSuccess ? "line-through" : "none"};
+      text-decoration-thickness: 2px;
     }
     > h4 {
       font-size: 13px;
       color: #454545;
+      text-decoration: ${(props) =>
+        props.$isSuccess ? "line-through" : "none"};
+      text-decoration-thickness: 2px;
     }
   }
 `;
@@ -109,27 +119,34 @@ export const DayColor = styled.span`
   margin-right: 2px;
   border-radius: 100%;
   padding: 3px 5px;
-  background-color: ${(props) => (props.$isCurrent ? "#BBBBBB" : "#EEEEEE")};
+  background-color: ${(props) =>
+    props.$isSuccess
+      ? "#transparent"
+      : props.$isCurrent
+      ? "#BBBBBB"
+      : "#EEEEEE"};
+  line-height: 1;
+  text-decoration: ${(props) => (props.$isSuccess ? "line-through" : "none")};
+  text-decoration-thickness: 2px;
 `;
 
 export const MoreButton = styled.button`
-  position: absolute;
+  position: relative;
   border: 0;
   background-color: transparent;
-  top: 10px;
-  right: 10px;
+  left: 160px;
+  bottom: 30px;
   font-size: 18px;
   font-weight: bold;
   &:hover {
-    font-size: 18.5px;
     cursor: pointer;
   }
 `;
 
 export const MoreButtonContainer = styled.div`
-  position: absolute;
-  top: 35px;
-  right: 7px;
+  position: relative;
+  left: 130px;
+  top: 10px;
   background: white;
   border-radius: 5px;
   padding: 1px;
@@ -150,18 +167,4 @@ export const MoreButtonContainer = styled.div`
       cursor: pointer;
     }
   }
-`;
-
-export const ModalContainer = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 999;
 `;

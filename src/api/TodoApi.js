@@ -52,6 +52,7 @@ export const useFetchTodos = () => {
   });
 };
 
+
 export const useUpdateIsSuccessMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
@@ -76,3 +77,4 @@ export const useFetchPosts = () => {
     return data;
   });
 };
+

@@ -6,17 +6,27 @@ export const CrewBlock = styled.div`
 `;
 
 export const InputContainer = styled.div`
+  display: flex;
   width: 100%;
   padding: 24px 16px;
 
   & input {
+    display: block;
     width: calc(100% - 50px);
     height: 50px;
+    border: 1px solid #666666;
+    border-radius: 25px 0 0 25px;
+    border-right: none;
   }
 
   & button {
+    display: block;
     width: 50px;
     height: 50px;
+    background-color: transparent;
+    border: 1px solid #666666;
+    border-radius: 0 25px 25px 0;
+    border-left: none;
   }
 `;
 
@@ -47,6 +57,7 @@ export const CrewListTitle = styled.p`
 export const ImageWrapper = styled.div`
   width: 227px;
   height: 211px;
+  border-radius: 25px 25px 0 0;
   background-color: #EEEEEE;
 `;
 
@@ -54,6 +65,7 @@ export const Overview = styled.div`
   width: 227px;
   height: 70px;
   padding: 14px 16px;
+  border-radius: 0 0 25px 25px;
   background-color: #D9D9D9;
 
   & > div {
@@ -96,6 +108,7 @@ export const PopularCrewList = styled.div`
     margin-bottom: 8px;
     padding: 0 12px;
     background-color: #EAEAEA;
+    border-radius: 15px;
   }
 
   & > div > ${TitleContainer} > p:first-child {

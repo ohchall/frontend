@@ -14,6 +14,8 @@ import {
 import { getCrews } from '../../api/CrewApi';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { FiSearch } from 'react-icons/fi';
+import { AiFillHeart } from 'react-icons/ai'
 
 function Crew() {
   const navigate = useNavigate();
@@ -56,7 +58,7 @@ function Crew() {
         />
         <button
           onClick={onClickSearch}
-        >검색</button>
+        ><FiSearch /></button>
       </InputContainer>
 
       <CategoryContainer>
@@ -90,7 +92,7 @@ function Crew() {
                   <span>15/16</span>
                 </TitleContainer>
 
-                <span>하트</span>
+                <span><AiFillHeart /></span>
               </div>
 
               <p>{item.exercisekind} / 서울 중구</p>
@@ -144,7 +146,7 @@ function Crew() {
                   <span>15/16</span>
                 </TitleContainer>
 
-                <span>하트</span>
+                <span><AiFillHeart /></span>
               </div>
 
               <p>{item.exercisekind} / 서울 중구</p>

@@ -136,7 +136,7 @@ function TodoList() {
                     {daysOfWeek.map((day, index) => (
                       <DayColor
                         key={index}
-                        isCurrent={index === new Date(todo.date).getDay()}
+                        $isCurrent={index === new Date(todo.date).getDay()}
                       >
                         {day}
                       </DayColor>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { useFetchCrew } from '../../api/CrewUploadApi';
+import { useFetchCrew } from '../../api/CrewApi';
 import { AiFillHeart, AiOutlineRight } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
 import { styled } from 'styled-components';
@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 const PostModal = () => {
   const { data, isLoading, isError, refetch } = useFetchCrew();
   
-  const getCityAndDistrictFromAddress = (address) => {
-    const parts = address.split(' ');
+  const getCityAndDistrictFromAddress = (location) => {
+    const parts = location.split(' ');
     if(parts.length >= 2) {
         return `${parts[0]} ${parts[1]}`;
     }
@@ -57,9 +57,9 @@ const PostModal = () => {
                   </div>            
                 </div>
                 <div className="crewPostInfo">
-                    <div className="category" length={post.category.length}>{post.category}</div>
+                    <div className="category" length={post.exercisekind.length}>{post.exercisekind}</div>
                     <div>/</div>
-                    <div className="location">{getCityAndDistrictFromAddress(post.address)}</div>
+                    <div className="location">{getCityAndDistrictFromAddress(post.location)}</div>
                   </div>
                   <div className="crewPersonMax">
                     <div className="crewPerson">

@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 
 export const CalendarContainer = styled.div`
+  position: relative;
+  z-index: 1;
   margin-top: 50px;
   display: flex;
   justify-content: center;

@@ -109,7 +109,7 @@ export const DayColor = styled.span`
   margin-right: 2px;
   border-radius: 100%;
   padding: 3px 5px;
-  background-color: ${(props) => (props.isCurrent ? "#BBBBBB" : "#EEEEEE")};
+  background-color: ${(props) => (props.$isCurrent ? "#BBBBBB" : "#EEEEEE")};
 `;
 
 export const MoreButton = styled.button`

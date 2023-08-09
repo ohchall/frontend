@@ -74,7 +74,8 @@ function Router() {
             </Template>
           }
         />
-          <Route
+        
+        <Route
           path="/postmodal"
           element={
             <Template header footer>

@@ -1,4 +1,5 @@
 import { useFetchPosts } from "../../api/TodoApi";
+import { useQuery } from "@tanstack/react-query";
 import Slider from "../../components/slider/Slider";
 import Banner from "../../components/banner/Banner";
 import Category from "../../components/category/Category";
@@ -15,7 +16,11 @@ import EventBanner from "../../components/banner/EventBanner";
 
 function MainPage() {
   const { data, isLoading, isError } = useFetchPosts();
-
+  // const {
+  //   data,
+  //   isLoading,
+  //   error
+  // } = useQuery(['crew'], () => useFetchPosts());
   if (isLoading) {
     return <div>Loading...</div>;
   }

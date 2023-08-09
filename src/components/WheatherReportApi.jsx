@@ -33,14 +33,17 @@ const WheatherReportApi = () => {
 export default WheatherReportApi;
 
 const Weather = styled.section`
-  width: 400px;
-  height: 100%;
-  /* background-color: green; */
+  width: 450px;
+  height: 500px;
+  padding: 3%;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   justify-content: center;
+
+  background-color: rgba(255, 255, 255, 0.7);
+
   @media screen and (max-width: 1000px) {
     display: none;
   }

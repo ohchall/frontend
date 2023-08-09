@@ -9,7 +9,7 @@ export const useAddCrewMutation = () => {
 };
 
 export const useFetchCrew = () => {
- return useQuery(["crewData"], async () => {
+ return useQuery(["crew"], async () => {
    // queryKey를 배열로 변경
    const { data } = await axios.get(`${BASE_URL}/crew`);
    return data;

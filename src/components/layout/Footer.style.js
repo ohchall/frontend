@@ -2,15 +2,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const FooterSection = styled.footer`
-  width: 430px;
+  width: 100%;
   height: 60px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
+  position: absolute; 
   bottom: 0px;
 
-  left: 50%;
+   left: 50%;
   transform: translate(-50%, 0);
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;

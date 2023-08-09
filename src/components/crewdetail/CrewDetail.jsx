@@ -8,7 +8,7 @@ import {
 } from './CrewDetail.style';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getCrew } from '../../api/CrewDetailApi';
+import { getCrew } from '../../api/CrewApi';
 
 function CrewDetail() {
   const params = useParams();

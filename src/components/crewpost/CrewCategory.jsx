@@ -6,7 +6,7 @@ const CrewCategory = ({ category, customCategory, onSelectCategory, onCustomCate
     const value = e.target.value;
     onSelectCategory(value);
     if (value !== "custom") {
-      onCustomCategoryChange(""); // Reset customCategory if other option is selected
+      onCustomCategoryChange(""); 
     }
   };
 

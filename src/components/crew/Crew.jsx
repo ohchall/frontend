@@ -4,21 +4,15 @@ import {
   InputContainer,
   CategoryContainer,
   CrewListContainer,
-  CrewListTitle,
-  CrewListSwiper,
-  CrewListSwiperSlide,
-  ImageWrapper,
-  Overview,
-  TitleContainer,
-  PopularCrewList,
-  R9dCrewListSwiper,
-  R9dCrewListSwiperSlide } from './Crew.style';
+  CrewListTitle } from './Crew.style';
 import { getCrews } from '../../api/CrewApi';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
-import { AiFillHeart } from 'react-icons/ai';
 import 'swiper/css';
+import LatestCrewList from '../common/LatestCrewList';
+import R9dCrewList from '../common/R9dCrewList';
+import PopularCrewList from '../common/PopularCrewList';
 
 function Crew() {
   const navigate = useNavigate();
@@ -77,35 +71,11 @@ function Crew() {
         <CrewListTitle>
           최신 크루 리스트
         </CrewListTitle>
-
-        <CrewListSwiper
-          slidesPerView={'auto'}
-          spaceBetween={12}
-        >
-          {data?.data.map((item) => (
-          <CrewListSwiperSlide
-            key={item.id}
-            onClick={() => onClickCrew(item.id)}
-          >
-            <ImageWrapper>
-              <img src='' alt='' />
-            </ImageWrapper>
-
-            <Overview>
-              <div>
-                <TitleContainer>
-                  <p>{item.title}</p>
-                  <span>15/16</span>
-                </TitleContainer>
-
-                <span><AiFillHeart /></span>
-              </div>
-
-              <p>{item.exercisekind} / 서울 중구</p>
-            </Overview>
-          </CrewListSwiperSlide>
-          ))}
-        </CrewListSwiper>
+        
+        <LatestCrewList
+          data={data}
+          onClickCrew={onClickCrew}
+        />
       </CrewListContainer>
 
       <CrewListContainer>
@@ -113,56 +83,21 @@ function Crew() {
           인기 크루 리스트
         </CrewListTitle>
 
-        <PopularCrewList>
-          {data?.data.map((item, idx) => (
-          <div
-            key={item.id}
-            onClick={() => onClickCrew(item.id)}
-          >
-            <TitleContainer>
-              <p>{idx+1}</p>
-              <p>{item.title}</p>
-            </TitleContainer>
-
-            <p>{item.exercisekind} / 서울 중구</p>
-          </div>
-          ))}
-        </PopularCrewList>
+        <PopularCrewList
+          data={data}
+          onClickCrew={onClickCrew}
+        />
       </CrewListContainer>
 
       <CrewListContainer>
         <CrewListTitle>
           추천 크루 리스트
         </CrewListTitle>
-
-        <R9dCrewListSwiper
-          slidesPerView={'auto'}
-          spaceBetween={12}
-        >
-          {data?.data.map((item) => (
-          <R9dCrewListSwiperSlide
-            key={item.id}
-            onClick={() => onClickCrew(item.id)}
-          >
-            <ImageWrapper>
-              <img src='' alt='' />
-            </ImageWrapper>
-
-            <Overview>
-              <div>
-                <TitleContainer>
-                  <p>{item.title}</p>
-                  <span>15/16</span>
-                </TitleContainer>
-
-                <span><AiFillHeart /></span>
-              </div>
-
-              <p>{item.exercisekind} / 서울 중구</p>
-            </Overview>
-          </R9dCrewListSwiperSlide>
-          ))}
-        </R9dCrewListSwiper>
+        
+        <R9dCrewList
+          data={data}
+          onClickCrew={onClickCrew}
+        />
       </CrewListContainer>
     </CrewBlock>
   )

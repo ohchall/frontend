@@ -3,10 +3,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Template from "../components/layout/Template";
 import MainPage from "../pages/main/MainPage";
 import MyPage from "../pages/MyPage";
-
 import CrewPage from "../pages/crew/CrewPage";
+import CrewDetailPage from "../pages/crew/CrewDetailPage";
 import CrewWritePage from "../pages/CrewWritePage";
-import CrewDetailPage from "../pages/crewdetail/CrewDetailPage";
 import PostModal from "../components/crewpost/PostModal";
 import LoginPage from "../pages/loginsignup/LoginPage";
 import SignUpPage from "../pages/loginsignup/SignUpPage";

@@ -1,5 +1,5 @@
 import { CrewDetaiPageBlock } from './CrewDetailPage.style';
-import CrewDetail from '../../components/crewdetail/CrewDetail';
+import CrewDetail from '../../components/crew/CrewDetail';
 import MyProfile from '../../components/myprofile/MyProfile';
 
 function CrewDetailPage() {

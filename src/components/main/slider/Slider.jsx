@@ -4,7 +4,7 @@ import {
   ImageWrapper,
   Overview,
   TitleContainer,
-} from "../crew/Crew.style";
+} from "../../crew/Crew.style";
 import { useNavigate } from "react-router-dom";
 const Slider = ({ data }) => {
   const navigate = useNavigate();

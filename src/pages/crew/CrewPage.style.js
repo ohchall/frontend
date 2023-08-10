@@ -5,4 +5,9 @@ export const CrewPageBlock = styled.div`
   height: calc(100% - 120px);
   overflow: auto;
   margin: 0 auto;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display:none;
+  }
 `;

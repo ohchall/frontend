@@ -1,10 +1,9 @@
-// import { useFetchPosts } from "../../api/TodoApi";
 import { getCrews } from "../../api/CrewApi";
-
 import { useQuery } from "@tanstack/react-query";
-
-import Banner from "../../components/banner/Banner";
+import { useNavigate } from 'react-router-dom';
+import Banner from "../../components/main/banner/Banner";
 import Category from "../../components/category/Category";
+import EventBanner from "../../components/main/banner/EventBanner";
 import {
   MainPageSection,
   RecentCrewList,
@@ -12,13 +11,20 @@ import {
   TopCrewList,
   SuggestCrewList,
 } from "./MainPage.style";
-import Rank from "../../components/rank/Rank";
-import Suggest from "../../components/suggested/Suggest";
-import EventBanner from "../../components/banner/EventBanner";
-import Slider from "../../components/slider/Slider";
+// import Rank from "../../components/main/rank/Rank";
+// import Suggest from "../../components/main/suggested/Suggest";
+// import Slider from "../../components/main/slider/Slider";
+import LatestCrewList from '../../components/common/LatestCrewList';
+import R9dCrewList from '../../components/common/R9dCrewList';
+import PopularCrewList from '../../components/common/PopularCrewList';
 
 function MainPage() {
-  // const { data, isLoading, isError } = useFetchPosts();
+  const navigate = useNavigate();
+
+  const onClickCrew = (itemId) => {
+    navigate(`/crew/${itemId}`);
+  }
+
   const { data, isLoading, error } = useQuery(["crews"], getCrews);
 
   if (isLoading) {
@@ -41,7 +47,10 @@ function MainPage() {
             <button>더보기</button>
           </TitleContainer>
 
-          <Slider data={data} />
+          <LatestCrewList
+            data={data}
+            onClickCrew={onClickCrew}
+          />
         </RecentCrewList>
 
         <TopCrewList>
@@ -49,7 +58,11 @@ function MainPage() {
             <h1>인기 크루 리스트</h1>
             <button>더보기</button>
           </TitleContainer>
-          <Rank data={data} />
+
+          <PopularCrewList
+            data={data}
+            onClickCrew={onClickCrew}
+          />
         </TopCrewList>
 
         <SuggestCrewList>
@@ -57,7 +70,11 @@ function MainPage() {
             <h1>추천 크루 리스트</h1>
             <button>더보기</button>
           </TitleContainer>
-          <Suggest data={data} />
+
+          <R9dCrewList
+            data={data}
+            onClickCrew={onClickCrew}
+          />
         </SuggestCrewList>
 
         <EventBanner />

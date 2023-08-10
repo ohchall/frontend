@@ -49,3 +49,12 @@ export const Register = () => {
     }
   );
 };
+
+//infinite scroll
+export const useFetchCrewByPage = async ({ pageParam = 1 }) => {
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/crew?page=${pageParam}`);
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
+};

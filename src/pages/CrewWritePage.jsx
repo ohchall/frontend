@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CrewWriting from "../components/crewpost/CrewWriting";
-import axios from "axios";
+
 import styled from "styled-components";
-import Header from "../components/layout/Header";
 import { useAddCrewMutation } from "../api/CrewApi";
 import ReactDaumPost from 'react-daumpost-hook';
 
@@ -18,28 +17,31 @@ import CrewCategory from "../components/crewpost/CrewCategory";
 
 function CrewWritePage() {
   const [addImg, setAddImg] = useState("");
-  const [category, setCategory] = useState("");
+  const [exercisekind, setExercisekind] = useState("");
   const [customCategory, setCustomCategory] = useState("");
-  const [address, setAddress] = useState("");
-  const [detailAddress, setDetailAddress] = useState("");
+
+  
   const [searchedAddress, setSearchedAddress] = useState("");
   const ref = useRef(null);
   const [dateRange, setDateRange] = useState('');
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [memberCount, setMemberCount] = useState(0);
+  const days = ["월", "화", "수", "목", "금", "토", "일"];
+  const [selectedDays, setSelectedDays] = useState([]);
+  const [selectAll, setSelectAll] = useState("")
   const addCrewMutation = useAddCrewMutation();
   const [crew, setCrew] = useState({
     title: "",
     content: "",
     crewname:"",
-    category: "",
+    exercisekind: "",
     image:"",
-    address:"",
+    location:"",
     dateRange:"",
     memberCount:0
   });
-
+  
 
 
 
@@ -59,18 +61,20 @@ function CrewWritePage() {
 
 
   useEffect(() => {
-    if (category === "custom") {
-      setCrew({
-        ...crew,
-        category: customCategory,
-      });
-    } else {
-      setCrew({
-        ...crew,
-        category,
-      });
-    }
-  }, [category, customCategory]);
+    setCrew((prevCrew) => {
+      if (exercisekind === "custom") {
+        return {
+          ...prevCrew,
+          exercisekind: customCategory,
+        };
+      } else {
+        return {
+          ...prevCrew,
+          exercisekind,
+        };
+      }
+    });
+  }, [exercisekind, customCategory]);
 
 
 
@@ -82,8 +86,9 @@ function CrewWritePage() {
     e.preventDefault();
     const crewToUpload = {
       ...crew,
-      address: `${crew.address}`,
+      days: selectedDays.join("")
     };
+    
     console.log(crewToUpload)
     addCrewMutation.mutate(crewToUpload, {
       onSuccess: (data) => {
@@ -92,9 +97,9 @@ function CrewWritePage() {
           title: "",
           content: "",
           crewname:"",
-          category: "",
-          address:"",
-          image:{},
+          exercisekind: "",
+          location:"", 
+          image:"",
           dateRange:"",
           memberCount:0
         });
@@ -119,13 +124,14 @@ function CrewWritePage() {
 
    
 
-  useEffect(() => {
-    setCrew({
-      ...crew,
-      address: `${searchedAddress}`,
-    });
-  }, [searchedAddress]);
- 
+useEffect(() => {
+  setCrew((prevCrew) => {
+    return {
+      ...prevCrew,
+      location: `${searchedAddress}`,
+    };
+  });
+}, [searchedAddress]);
  
   const postConfig = {
     onComplete: (data) => {
@@ -134,9 +140,6 @@ function CrewWritePage() {
   };
   
   const postCode = ReactDaumPost(postConfig);
-
-  const [group, setGroup] = useState(0);
-  const [members, setMembers] = useState(0);
 
  
   const handleMembersChange = (e) => {
@@ -165,6 +168,22 @@ function CrewWritePage() {
       setDateRange(value);
       setCrew({ ...crew, dateRange: value })
     }
+    const dayHandler=(day)=>{
+      if(selectedDays.includes(day)){
+        setSelectedDays(prevDays => prevDays.filter(d => d !== day));
+      } else{
+        setSelectedDays(prevDays => [...prevDays, day]);
+      }
+    }
+    const everydayHandler=(e)=>{
+      if (e.target.checked) {
+        setSelectedDays(days);
+        setSelectAll(true);
+      } else {
+        setSelectedDays([]);
+        setSelectAll(false);
+      }
+    }
   return (
     <CrewWriting>
       <CrewUpload>
@@ -184,7 +203,7 @@ function CrewWritePage() {
                     />
                   </div>
                 ) : (
-                  <div className='imageUploadSize' value={crew.image}>
+                  <div className='imageUploadSize'>
                     <img src={addImg} alt='' />
                   </div>
             )}
@@ -208,32 +227,43 @@ function CrewWritePage() {
                 <div className="weekends">
                   <strong>요일</strong>
                   <div className="days">
-                    <div className="day">일</div>
-                    <div className="day">월</div>
-                    <div className="day">화</div>
-                    <div className="day">수</div>
-                    <div className="day">목</div>
-                    <div className="day">금</div>
-                    <div className="day">토</div>
+                    {days.map((day, index) => (
+                      <div 
+                      className={`day ${selectedDays.includes(day) ? 'selected' : ''}`} 
+                      key={index} 
+                      onClick={() => dayHandler(day)}
+                      >
+                      <p>{day}</p>
+                      </div>
+                      ))}
+                  </div>
+                  <div className="everyday">
+                    <input 
+                      type="checkbox" 
+                      checked={selectAll}
+                      onChange={everydayHandler}
+                    />
+                    <p>매일</p>
                   </div>
                 </div>
+
                 <div className="location identicalStyle">
                   <strong>장소</strong>
                   <div className="address">
                   <input 
                     type='text' 
                     onClick={postCode} 
-                    placeholder="주소검색+상세주소 입력해주세요." 
+                    placeholder="주소검색을 눌러주세요." 
                     ref={ref} 
-                    name="address"
-                    value={crew.address} 
+                    name="location"
+                    value={crew.location} 
                     onChange={handleInputChange}
                   />
                   </div>
                 </div>
-                <CrewCategory category={category}
+                <CrewCategory category={exercisekind}
                   customCategory={customCategory}
-                  onSelectCategory={setCategory}
+                  onSelectCategory={setExercisekind}
                   onCustomCategoryChange={setCustomCategory}/>    
           
                 <div className="totalmembers identicalStyle">

@@ -4,18 +4,15 @@ import {
   InputContainer,
   CategoryContainer,
   CrewListContainer,
-  CrewListTitle,
-  ImageWrapper,
-  Overview, 
-  CrewList,
-  TitleContainer,
-  PopularCrewList,
-  RecommendedCrewList } from './Crew.style';
+  CrewListTitle } from './Crew.style';
 import { getCrews } from '../../api/CrewApi';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
-import { AiFillHeart } from 'react-icons/ai'
+import 'swiper/css';
+import LatestCrewList from '../common/LatestCrewList';
+import R9dCrewList from '../common/R9dCrewList';
+import PopularCrewList from '../common/PopularCrewList';
 
 function Crew() {
   const navigate = useNavigate();
@@ -74,32 +71,11 @@ function Crew() {
         <CrewListTitle>
           최신 크루 리스트
         </CrewListTitle>
-
-        <CrewList>
-          {data?.data.map((item) => (
-          <div
-            key={item.id}
-            onClick={() => onClickCrew(item.id)}
-          >
-            <ImageWrapper>
-              <img src='' alt='' />
-            </ImageWrapper>
-
-            <Overview>
-              <div>
-                <TitleContainer>
-                  <p>{item.title}</p>
-                  <span>15/16</span>
-                </TitleContainer>
-
-                <span><AiFillHeart /></span>
-              </div>
-
-              <p>{item.exercisekind} / 서울 중구</p>
-            </Overview>
-          </div>
-          ))}
-        </CrewList>
+        
+        <LatestCrewList
+          data={data}
+          onClickCrew={onClickCrew}
+        />
       </CrewListContainer>
 
       <CrewListContainer>
@@ -107,53 +83,21 @@ function Crew() {
           인기 크루 리스트
         </CrewListTitle>
 
-        <PopularCrewList>
-          {data?.data.map((item, idx) => (
-          <div
-            key={item.id}
-            onClick={() => onClickCrew(item.id)}
-          >
-            <TitleContainer>
-              <p>{idx+1}</p>
-              <p>{item.title}</p>
-            </TitleContainer>
-
-            <p>{item.exercisekind} / 서울 중구</p>
-          </div>
-          ))}
-        </PopularCrewList>
+        <PopularCrewList
+          data={data}
+          onClickCrew={onClickCrew}
+        />
       </CrewListContainer>
 
       <CrewListContainer>
         <CrewListTitle>
           추천 크루 리스트
         </CrewListTitle>
-
-        <RecommendedCrewList>
-          {data?.data.map((item) => (
-          <div
-            key={item.id}
-            onClick={() => onClickCrew(item.id)}
-          >
-            <ImageWrapper>
-              <img src='' alt='' />
-            </ImageWrapper>
-
-            <Overview>
-              <div>
-                <TitleContainer>
-                  <p>{item.title}</p>
-                  <span>15/16</span>
-                </TitleContainer>
-
-                <span><AiFillHeart /></span>
-              </div>
-
-              <p>{item.exercisekind} / 서울 중구</p>
-            </Overview>
-          </div>
-          ))}
-        </RecommendedCrewList>
+        
+        <R9dCrewList
+          data={data}
+          onClickCrew={onClickCrew}
+        />
       </CrewListContainer>
     </CrewBlock>
   )

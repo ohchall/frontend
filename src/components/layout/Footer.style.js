@@ -19,9 +19,14 @@ export const FooterSection = styled.footer`
 export const StyledLink = styled(Link)``;
 
 export const LinkContainer = styled.div`
-  display: inline-block;
+  display: flex;
+
+  align-items: center;
 
   & ${StyledLink}:nth-of-type(-n+4) {
     margin-right: 20px;
   }
+`;
+export const HomeIconStyle = styled.img`
+  width: 40px;
 `;

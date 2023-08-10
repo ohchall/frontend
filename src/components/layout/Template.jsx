@@ -2,14 +2,14 @@ import Header from './Header';
 import Footer from './Footer';
 import { TemplateBlock } from './Template.style';
 import { styled } from "styled-components";
-import WheatherReportApi from "../WheatherReportApi";
-import illustration from "../../assets/OhChalle4.svg";
+import BackgroundDoc from "../layout/BackgroundDoc";
+import illustration from "../../assets/OhChalle7.svg";
 // import illustration2 from "../../assets/OhChalle4.svg";
 function Template({ children, header, footer }) {
   return (
     <>
       <Background>
-        <WheatherReportApi />
+        <BackgroundDoc />
         <TemplateBlock>
           {header && <Header />}
           {children}

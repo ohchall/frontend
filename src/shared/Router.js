@@ -9,6 +9,8 @@ import CrewWritePage from "../pages/CrewWritePage";
 import PostModal from "../components/crewpost/PostModal";
 import LoginPage from "../pages/loginsignup/LoginPage";
 import SignUpPage from "../pages/loginsignup/SignUpPage";
+import TodoListPage from "../pages/TodoListPage";
+
 function Router() {
   return (
     <BrowserRouter>
@@ -27,6 +29,14 @@ function Router() {
           element={
             <Template header footer>
               <MyPage />
+            </Template>
+          }
+        />
+        <Route
+          path="/mypage/todolist"
+          element={
+            <Template header footer>
+              <TodoListPage />
             </Template>
           }
         />
@@ -73,7 +83,7 @@ function Router() {
             </Template>
           }
         />
-        
+
         <Route
           path="/postmodal"
           element={

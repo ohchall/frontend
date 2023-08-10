@@ -10,15 +10,12 @@ import {
   TodoListContainer,
   TodosList,
   TodosBox,
-  CalendarCenterBox,
   MoreButton,
   MoreButtonContainer,
   DayColor,
-} from "./TodoList.style";
+} from "./TodoDetailList.style";
 import TodoAddModal from "./TodoAddModal";
-import Calendar from "../calendar/Calendar";
 import TodoUpdateModal from "./TodoUpdateModal";
-import { useNavigate } from "react-router-dom";
 
 function TodoList() {
   const { data, isLoading, isError } = useFetchTodos();
@@ -32,7 +29,7 @@ function TodoList() {
   const updateTodoMutation = useUpdateTodoMutation();
   const [visibleTodoId, setVisibleTodoId] = useState(null);
   const updateIsSuccessMutation = useUpdateIsSuccessMutation();
-  const navigate = useNavigate();
+
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
   const toggleButtonsVisibility = (id) => {
@@ -53,20 +50,11 @@ function TodoList() {
     }
   };
 
-  const onMonthChange = (month) => {
-    setCurrentMonth(month);
-  };
-
   const convertTodoToEvent = (todo) => {
     return {
       title: todo.title,
       start: todo.date,
-      isSuccess: todo.isSuccess,
     };
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
   };
 
   const closeModal = () => {
@@ -125,25 +113,17 @@ function TodoList() {
     }
   };
 
-  const onClickMoveTodolist = () => {
-    navigate("/mypage/todolist");
-  };
-
   const uncompletedTodos = filteredTodos.filter((todo) => !todo.isSuccess);
+  const completedTodos = filteredTodos.filter((todo) => todo.isSuccess);
 
   return (
     <>
-      <CalendarCenterBox>
-        <Calendar events={events} onMonthChange={onMonthChange} />
-      </CalendarCenterBox>
-      <br></br>
       {isModalOpen && (
         <TodoAddModal isOpen={isModalOpen} onRequestClose={closeModal} />
       )}
       <TodosContainer>
         <div className="TodolsitTitle">
-          <h2>투두 리스트</h2>
-          <p onClick={() => onClickMoveTodolist()}>더보기</p>
+          <h2>미완료</h2>
         </div>
         <TodoListContainer>
           <TodosList>
@@ -185,7 +165,49 @@ function TodoList() {
             ))}
           </TodosList>
         </TodoListContainer>
-        <button onClick={openModal}>+</button>
+        <div className="TodolsitTitle">
+          <h2>완료</h2>
+        </div>
+        <TodoListContainer>
+          <TodosList>
+            {completedTodos.map((todo) => (
+              <TodosBox key={todo.id} $isSuccess={todo.isSuccess}>
+                <input
+                  type="checkbox"
+                  onChange={() => handleCheckboxChange(todo)}
+                  checked={todo.isSuccess}
+                ></input>
+                <div>
+                  <h2>{todo.title}</h2>
+                  <h3>{todo.content}</h3>
+                  <h4>날짜 | {todo.date}</h4>
+                  <div>
+                    {daysOfWeek.map((day, index) => (
+                      <DayColor
+                        key={index}
+                        $isCurrent={index === new Date(todo.date).getDay()}
+                        $isSuccess={todo.isSuccess}
+                      >
+                        {day}
+                      </DayColor>
+                    ))}
+                  </div>
+                </div>
+                <MoreButton onClick={() => toggleButtonsVisibility(todo.id)}>
+                  ...
+                </MoreButton>
+                {visibleTodoId === todo.id && (
+                  <MoreButtonContainer>
+                    <button onClick={() => openUpdateModal(todo)}>수 정</button>
+                    <button onClick={() => todoDeleteHandler(todo.id)}>
+                      삭 제
+                    </button>
+                  </MoreButtonContainer>
+                )}
+              </TodosBox>
+            ))}
+          </TodosList>
+        </TodoListContainer>
       </TodosContainer>
       {isUpdateModalOpen && (
         <TodoUpdateModal

@@ -1,9 +1,9 @@
 import { getCrews } from "../../api/CrewApi";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from 'react-router-dom';
-import Banner from "../../components/main/banner/Banner";
+import Banner from "../../components/banner/Banner";
 import Category from "../../components/category/Category";
-import EventBanner from "../../components/main/banner/EventBanner";
+import EventBanner from "../../components/banner/EventBanner";
 import {
   MainPageSection,
   RecentCrewList,
@@ -11,9 +11,7 @@ import {
   TopCrewList,
   SuggestCrewList,
 } from "./MainPage.style";
-// import Rank from "../../components/main/rank/Rank";
-// import Suggest from "../../components/main/suggested/Suggest";
-// import Slider from "../../components/main/slider/Slider";
+
 import LatestCrewList from '../../components/common/LatestCrewList';
 import R9dCrewList from '../../components/common/R9dCrewList';
 import PopularCrewList from '../../components/common/PopularCrewList';

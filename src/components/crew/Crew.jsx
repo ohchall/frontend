@@ -5,17 +5,20 @@ import {
   CategoryContainer,
   CrewListContainer,
   CrewListTitle,
+  CrewListSwiper,
+  CrewListSwiperSlide,
   ImageWrapper,
-  Overview, 
-  CrewList,
+  Overview,
   TitleContainer,
   PopularCrewList,
-  RecommendedCrewList } from './Crew.style';
+  R9dCrewListSwiper,
+  R9dCrewListSwiperSlide } from './Crew.style';
 import { getCrews } from '../../api/CrewApi';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { FiSearch } from 'react-icons/fi';
-import { AiFillHeart } from 'react-icons/ai'
+import { AiFillHeart } from 'react-icons/ai';
+import 'swiper/css';
 
 function Crew() {
   const navigate = useNavigate();
@@ -75,9 +78,12 @@ function Crew() {
           최신 크루 리스트
         </CrewListTitle>
 
-        <CrewList>
+        <CrewListSwiper
+          slidesPerView={'auto'}
+          spaceBetween={12}
+        >
           {data?.data.map((item) => (
-          <div
+          <CrewListSwiperSlide
             key={item.id}
             onClick={() => onClickCrew(item.id)}
           >
@@ -97,9 +103,9 @@ function Crew() {
 
               <p>{item.exercisekind} / 서울 중구</p>
             </Overview>
-          </div>
+          </CrewListSwiperSlide>
           ))}
-        </CrewList>
+        </CrewListSwiper>
       </CrewListContainer>
 
       <CrewListContainer>
@@ -129,9 +135,12 @@ function Crew() {
           추천 크루 리스트
         </CrewListTitle>
 
-        <RecommendedCrewList>
+        <R9dCrewListSwiper
+          slidesPerView={'auto'}
+          spaceBetween={12}
+        >
           {data?.data.map((item) => (
-          <div
+          <R9dCrewListSwiperSlide
             key={item.id}
             onClick={() => onClickCrew(item.id)}
           >
@@ -151,9 +160,9 @@ function Crew() {
 
               <p>{item.exercisekind} / 서울 중구</p>
             </Overview>
-          </div>
+          </R9dCrewListSwiperSlide>
           ))}
-        </RecommendedCrewList>
+        </R9dCrewListSwiper>
       </CrewListContainer>
     </CrewBlock>
   )

@@ -1,3 +1,4 @@
+import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
 
 export const CrewBlock = styled.div`
@@ -71,15 +72,25 @@ export const CrewList = styled.div`
   }
 `;
 
+export const CrewListSwiper = styled(Swiper)`
+  width: 100%;
+`;
+
+export const CrewListSwiperSlide = styled(SwiperSlide)`
+  width: 285px;
+  height: 329px;
+  cursor: pointer;
+`;
+
 export const ImageWrapper = styled.div`
-  width: 227px;
-  height: 211px;
+  width: 100%;
+  height: 259px;
   border-radius: 25px 25px 0 0;
   background-color: #EEEEEE;
 `;
 
 export const Overview = styled.div`
-  width: 227px;
+  width: 100%;
   height: 70px;
   padding: 14px 16px;
   border-radius: 0 0 25px 25px;
@@ -137,6 +148,26 @@ export const PopularCrewList = styled.div`
     line-height: 30px;
     display: inline-block;
     font-size: 18px;
+  }
+`;
+
+export const R9dCrewListSwiper = styled(Swiper)`
+  width: 100%;
+`;
+
+export const R9dCrewListSwiperSlide = styled(SwiperSlide)`
+  width: 343px;
+  height: 232px;
+  cursor: pointer;
+
+  & ${ImageWrapper} {
+    width: 343px;
+    height: 160px;
+  }
+
+  & ${Overview} {
+    width: 343px;
+    height: 72px;
   }
 `;
 

@@ -28,7 +28,7 @@ width:100%;
   .crewForm>.crewImage>.imageUploadSize{width:100%;height:100%;display: flex;align-items: center;justify-content: center;}
   .crewForm>.crewImage>.imageUploadSize>img{width:100%;height:100%;object-fit:cover;}
 
-  .crewForm strong{width:13%;margin-right:10px;font-size:14px;font-weight:600;}
+  .crewForm strong{width:16%;margin-right:10px;font-size:14px;font-weight:600;}
   .identicalStyle {
   border-bottom:1px solid #999999;
   display:flex;
@@ -59,8 +59,32 @@ width:100%;
   .crewForm>.crewFormContent>.date>div>.space{margin-right:10px;}
   .react-datepicker-wrapper{width:30%;}
 
-  .crewForm>.crewFormContent>.weekends{display:flex;align-items:center;justify-content:space-between;width:100%;border-bottom: 1px solid #999999;font-size:14px;padding:5px 0;}
-  .crewForm>.crewFormContent>.weekends>.days{width:85%;display:flex;}
+  .crewForm>.crewFormContent>.weekends{display: flex; align-items: center; justify-content: center; width: 100%; border-bottom: 1px solid #999999; font-size: 14px;height: 30px;}
+  .crewForm>.crewFormContent>.weekends>.days{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   }
+  .weekends>.days>.day{
+    width: 11%;
+    height: 24px;
+    border-radius: 50%;
+    background: #eeeeee;
+    text-align: center;
+    display: flex;       
+    justify-content: center;  
+    align-items: center; 
+    font-size: 14px;
+    margin-right: 3px;
+    @media screen and (max-width: 500px){
+       width:20%;
+    }
+  }
+  .weekends>.days>.day:hover{background:#bbbbbb;cursor:pointer;}
+  .weekends>.days>.day>p{height:auto;}
+  .crewForm>.crewFormContent>.weekends>.everyday{display: flex; width: 20%; align-items: center; justify-content: center;}
   .react-datepicker-wrapper input{width:100%;border:none;outline:none;cursor:pointer;}
   .crewForm>.crewFormContent>.location{width:100%;}
   .crewForm>.crewFormContent>.location>.address{display:flex; width:100%;}
@@ -68,7 +92,7 @@ width:100%;
 
   
   .crewForm>.crewFormContent>.category>div{display:flex;width:87%;}
-  .crewForm>.crewFormContent>.category>div>select{width:35%;border:none;}
+  .crewForm>.crewFormContent>.category>div>select{width:46%;border:none;}
   .crewForm>.crewFormContent>.category>div>input{width:70%;border:none;}
  
   .crewForm>.crewFormContent>.totalmembers>div{    

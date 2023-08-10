@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { useFetchCrew } from '../../api/CrewApi';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useFetchCrew, useFetchCrewByPage } from '../../api/CrewApi';
 import { AiFillHeart, AiOutlineRight } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
 import { styled } from 'styled-components';
@@ -88,8 +87,11 @@ const PostModals = styled.div`
  height:80%;
  margin-bottom:200px;
  position:relative;
- .crewPostUpload{width:100%;height:60%;padding:2%;position:relative;}
- .crewPostUpload>h3{font-size:20px;margin-bottom:5px;}
+ .crewPostUpload{width:100%; height:100%;padding: 5px 15px;
+ @media screen and (max-width:500px){
+  padding: 5px 38px;
+ }}
+ .crewPostUpload>h3{font-size:20px;margin-bottom:5px;padding:2%;font-weight:600;}
  .crewPostUpload>.crewPostButton{
   background-color:#666666;
   color:#ffffff;
@@ -97,26 +99,44 @@ const PostModals = styled.div`
   align-items:center;
   justify-content:space-between;
   width:100%;
-  height:12%;
-  cursor:pointer;
+  height: 10%;
+  cursor: pointer;
+  padding:0 10px;
+  border-radius: 10px;
+ 
  }
  .crewPostUpload>.crewPostButton>p{font-size:14px;font-weight:300;}
  .crewPostUpload>.crewPostButton>button{ background: transparent; border: none; color: #ffffff;
     font-size: 14px; height: auto; width: 10%;cursor:pointer;}
- .crewPostUpload>.crewPostRecents{width:100%;height:82%;display:flex;flex-wrap:wrap;justify-content:space-between;}
- .crewPostRecents>.crewPostRecent{width:49%;height:90%;background-color:#d9d9d9;border:1px solid #eeeeee;border-radius:20px; margin: 5px 2px;}
- .crewPostRecent>.crewPostReImg{width:100%;height:65%;border-radius:10px;overflow:hidden;background-color:#eeeeee;}
+ .crewPostUpload>.crewPostRecents{width:100%;height:40%;display:flex;flex-wrap:wrap;justify-content:center;}
+ .crewPostRecents>.crewPostRecent{width:43%;height:100%;background-color:#d9d9d9;border:1px solid #eeeeee;border-radius:20px; margin: 7px 7px;}
+ .crewPostRecent>.crewPostReImg{width:100%;height:65%;border-radius:20px;overflow:hidden;background-color:#eeeeee;}
   .crewPostRecent>.crewPostReImg>img{width:100%;height:100%;object-fit:cover;}
-  .crewPostRecent>.crewPostReContent{width:100%;height:35%;;border-radius:10px;overflow:hidden;padding:2%;}
-  .crewPostRecent>.crewPostReContent>.CrewPostTitle{ width: 100%; height: 15%; display: flex;
-    align-items: center; justify-content: space-between; padding: 10px 10px;}
+  .crewPostRecent>.crewPostReContent{width:100%;height:35%;;border-radius:10px;overflow:hidden;font-size:15px;@media screen and (max-width:500px){font-size:15px;}}
+  .crewPostRecent>.crewPostReContent>.CrewPostTitle{ width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 6px 7px;}
   
-    .crewPostReContent>.crewPostInfo{display:flex;justify-content:flex-start;padding:5px 10px;}
-    .crewPostInfo>.category{width: ${({ length }) => (length * 10)}px;}
-    .crewPostInfo>.location{width:50%;margin-left:5px;}
-  .crewPostRecent>.crewPostReContent>.crewPersonMax{display:flex;align-items:center;}
-  .crewPostRecent>.crewPostReContent>.crewPersonMax>.crewPerson{display:flex;padding:0 10px;}
-  .crewPersonMax>.crewPerson>.maxPeople{display:flex;align-items:center;}
-  .moreButton{position:absolute;width:100%;height:8%;border:1px solid #eeeeee;border-radius:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+    .crewPostReContent>.crewPostInfo{display:flex;justify-content:flex-start;width:100%;padding:6px 7px;
+    @media screen and (max-width:500px){
+      padding:5px 5px;
+    }
+   }
+    .crewPostInfo>.category{ white-space: nowrap; 
+    flex-shrink: 0; }
+    .crewPostInfo>.location{white-space: nowrap; 
+    flex-grow: 1;}
+  .crewPostRecent>.crewPostReContent>.crewPersonMax{width:100%;display:flex;align-items:center;padding:5px 0;}
+  .crewPostRecent>.crewPostReContent>.crewPersonMax>.crewPerson{width:100%;display:flex;padding:0 10px;}
+  .crewPersonMax>.crewPerson>.maxPeople{width:100%;display:flex;align-items:center;}
+  .crewPostRecents>.moreButton{    
+    width: 100%;
+    height: 12%;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 15px;
+    padding: 6px 7px;}
   .moreButton>p{font-size:16px;font-weight:500;color:#333333;}
 `;

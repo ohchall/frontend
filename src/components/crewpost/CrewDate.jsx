@@ -128,5 +128,5 @@ const CrewDate = (props) => {
 };
 const CrewDates = styled.div`
 span{margin:0 10px;}
-.react-datepicker-wrapper{width:25%;}`
+.react-datepicker-wrapper{width:31%;}`
 export default CrewDate;

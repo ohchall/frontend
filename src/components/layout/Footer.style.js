@@ -33,11 +33,12 @@ export const LinkContainer = styled.div`
 
 export const StyledLink = styled(Link)`
   text-align: center;
+  text-decoration: none;
+  color: #111111;
 
   & > span {
     display: block;
     font-size: 10px;
-    text-decoration: none;
   }
 `;
 

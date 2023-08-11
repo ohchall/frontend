@@ -29,7 +29,16 @@ export const TitleContainer = styled.div`
   }
 `;
 
-export const RecentCrewList = styled.section``;
+export const RecentCrewList = styled.div`
+  width: 100%;
+  padding: 24px 16px;
+`;
 
-export const TopCrewList = styled.section``;
-export const SuggestCrewList = styled.section``;
+export const TopCrewList = styled.div`
+  width: 100%;
+  padding: 24px 16px;
+`;
+export const SuggestCrewList = styled.div`
+  width: 100%;
+  padding: 24px 16px;
+`;

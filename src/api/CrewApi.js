@@ -33,21 +33,35 @@ export const useFetchCrew = () => {
   });
 };
 
-export const Register = () => {
-  const queryClient = useQueryClient();
-  return useMutation(
-    (register) => {
-      return axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/api/signup`,
-        register
-      );
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("register");
-      },
-    }
-  );
+
+export const Register = async (newuser) => {
+  try {
+    const { data } = await axios.post(
+      "https://api.ohchall.shop/api/signup",
+      newuser,
+
+      { headers: { withCredentials: true } }
+    );
+    console.log("resdata", data);
+    return data;
+  } catch (e) {
+    alert(e.response.data.msg);
+  }
+};
+
+export const UserCheck = async (user) => {
+  try {
+    const { data } = await axios.post(
+      "https://api.ohchall.shop/api/login",
+      user,
+
+      { headers: { withCredentials: true } }
+    );
+    console.log("resuserdata", data);
+    return data;
+  } catch (e) {
+    alert(e.response.data.msg);
+  }
 };
 
 //infinite scroll

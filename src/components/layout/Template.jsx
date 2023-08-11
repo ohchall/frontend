@@ -40,9 +40,12 @@ const Background = styled.div`
 
   gap: 30px;
 
-  @media screen and (max-width: 1000px) {
+  @media screen and (max-width: 1366px) {
     /* background-image: url(${illustration}); */
     display: flex;
     justify-content: center;
+
+    padding-left: 0;
+    padding-right: 0;
   }
 `;

@@ -54,11 +54,12 @@ export const TodoListContainer = styled.div`
   justify-content: center;
   overflow: auto;
   width: 100%;
+  height: 360px;
   background-color: #eeeeee;
-  scrollbar-width: none;
-  -ms-overflow-style: none; /* IE and Edge */
   padding: 0 0;
 
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -158,7 +159,7 @@ export const MoreButton = styled.button`
 
 export const MoreButtonContainer = styled.div`
   position: relative;
-  left: 130px;
+  left: 125px;
   top: 10px;
   background: white;
   border-radius: 5px;

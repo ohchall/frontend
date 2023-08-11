@@ -32,7 +32,8 @@ export const InputContainer = styled.div`
   }
 
   & button > svg {
-    font-size: 20px;
+    width: 18px;
+    height: 18px;
   }
 `;
 

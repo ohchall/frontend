@@ -1,9 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { CalendarContainer } from "./Calendar.style";
 
 function Calendar({ events, onMonthChange }) {
+  const [isCalendarVisible, setIsCalendarVisible] = useState(true);
+
+  const toggleCalendarVisibility = () => {
+    setIsCalendarVisible(!isCalendarVisible);
+  };
+
   const calendarOptions = {
     plugins: [dayGridPlugin],
     initialView: "dayGridMonth",
@@ -23,6 +29,10 @@ function Calendar({ events, onMonthChange }) {
       return `${year}.${month}`;
     },
     events,
+    eventColor: "#3498db",
+    eventClassNames: (event) => {
+      return event.event.extendedProps.isSuccess ? ["completed"] : [];
+    },
     height: "auto",
     datesSet: (info) => {
       const currentMonth = info.start.getMonth() + 1;
@@ -31,7 +41,15 @@ function Calendar({ events, onMonthChange }) {
   };
   return (
     <CalendarContainer>
-      <FullCalendar {...calendarOptions} />
+      <div className="calendarTitle">
+        <h2>오챌 캘린더</h2>
+        <p onClick={toggleCalendarVisibility}>⬆️</p>
+      </div>
+      {isCalendarVisible && (
+        <div className="calendarStyle">
+          <FullCalendar {...calendarOptions} />
+        </div>
+      )}
     </CalendarContainer>
   );
 }

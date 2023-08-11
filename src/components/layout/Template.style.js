@@ -6,4 +6,8 @@ export const TemplateBlock = styled.div`
   height: 100vh;
   background-color: white;
   align-items: center;
+
+  @media (max-width: 430px) {
+    width: 100%;
+  }
 `;

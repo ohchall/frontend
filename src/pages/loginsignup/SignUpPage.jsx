@@ -6,23 +6,39 @@ import { useNavigate } from "react-router-dom";
 import {
   Nav,
   Buttons,
-  LoginSignupInputs,
+  LoginSignupInputsContainers,
   SNSLoginContainer,
   SNSButtonWrapper,
 } from "./Common.style";
 import { styled } from "styled-components";
 import { Register } from "../../api/CrewApi";
+import { useMutation } from "@tanstack/react-query";
 const SignupPage = () => {
-  const registerquery = Register();
-  const emailRef = useRef();
+  const mutation = useMutation(Register, {
+    onSuccess: () => {
+      console.log("success");
+      navigate("/login");
+    },
+    onError: (error) => {
+      console.log("error", error);
+      // alert(error);
+      // navigate("/register");
+      // window.location.reload(); // 새로고침
+    },
+  });
+  const useremailRef = useRef();
   const passwordRef = useRef();
-  const confirmRef = useRef();
+  const pwCheckRef = useRef();
   const nicknameRef = useRef();
+  const userNameRef = useRef();
+  const phonenumberRef = useRef();
   const [newuser, setNewuser] = useState({
-    email: "",
+    useremail: "",
     password: "",
-    confrim: "",
+    pwCheck: "",
     nickname: "",
+    userName: "",
+    phonenumber: "",
   });
   const navigate = useNavigate();
 
@@ -38,35 +54,78 @@ const SignupPage = () => {
     console.log(newuser);
   };
 
+  // const validation = [
+  //   {
+  //     check: newuser.email.length < 1,
+  //     ref: emailRef,
+  //     message: "",
+  //   },
+  //   {
+  //     check: newuser.phonenumber.length < 1,
+  //     ref: phonenumberRef,
+  //     message: "",
+  //   },
+  //   {
+  //     check: /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/.test(newuser.password),
+  //     ref: passwordRef,
+  //     message: "비밀 번호가 조건에 맞지 않습니다.",
+  //   },
+  //   {
+  //     check: !newuser.pwCheck,
+  //     ref: pwCheckRef,
+  //     message: "",
+  //   },
+  //   {
+  //     check: !newuser.nickname,
+  //     ref: nicknameRef,
+  //     message: "",
+  //   },
+  //   {
+  //     check: newuser.pwCheck === newuser.password,
+  //     ref: pwCheckRef,
+  //     message: "비밀번호 확인이 올바르지 않습니다.",
+  //   },
+  // ];
+  // const newUserInfoCheck = () => {
+  //   for (const { check, ref, message } of validation) {
+  //     if (!check) {
+  //       if (message) {
+  //         alert(message);
+  //       }
+  //       ref.current.focus();
+  //       return;
+  //     }
+  //   }
+  //   console.log("Check!");
+  //   return mutation.mutate(newuser);
+  // };
+
   const newUserInfoCheck = () => {
     const passwordCondition = /^(?=.*[a-zA-Z])(?=.*\d).{8,}$/;
-    if (newuser.email < 1) {
-      return emailRef.current.focus();
+    if (newuser.userName < 1) {
+      return userNameRef.current.focus();
+    }
+    if (newuser.useremail < 1) {
+      return useremailRef.current.focus();
+    }
+    if (newuser.phonenumber < 1) {
+      return phonenumberRef.current.focus();
     }
     if (!passwordCondition.test(newuser.password)) {
       alert("비밀 번호가 조건에 맞지 않습니다.");
       return passwordRef.current.focus();
     }
-    if (newuser.confrim === "") {
-      return confirmRef.current.focus();
+    if (newuser.pwCheck === "") {
+      return pwCheckRef.current.focus();
     }
     if (newuser.nickname === "") {
       return nicknameRef.current.focus();
     }
-    if (newuser.confrim !== newuser.password) {
+    if (newuser.pwCheck !== newuser.password) {
       alert("비밀번호 확인이 올바르지 않습니다.");
-      return confirmRef.current.focus();
+      return pwCheckRef.current.focus();
     }
-    return register();
-  };
-
-  const register = () => {
-    console.log(newuser);
-    registerquery.mutate(newuser, {
-      onSuccess: (data) => {
-        console.log("회원가입 성공", data);
-      },
-    });
+    return mutation.mutate(newuser);
   };
 
   return (
@@ -86,25 +145,45 @@ const SignupPage = () => {
       </SNSLoginContainer>
 
       <SignUpForm onSubmit={handleSubmit}>
-        <h3>이메일</h3>
-        <LoginSignupInputs>
+        <h3>유저 이름</h3>
+        <LoginSignupInputsContainers>
           <input
-            name="email"
-            value={newuser.email}
+            name="userName"
+            value={newuser.userName}
+            type="text"
+            onChange={handleChange}
+            ref={userNameRef}
+            placeholder="이름을 적어주세요."
+          />
+        </LoginSignupInputsContainers>
+
+        <h3>이메일</h3>
+        <LoginSignupInputsContainers>
+          <input
+            name="useremail"
+            value={newuser.useremail}
             type="email"
             onChange={handleChange}
-            ref={emailRef}
+            ref={useremailRef}
             placeholder="이메일"
           />
+        </LoginSignupInputsContainers>
 
-          <Buttons onClick={newUserInfoCheck} type="submit">
-            이메일 인증하기
-          </Buttons>
-        </LoginSignupInputs>
+        <h3>핸드폰 번호</h3>
+        <LoginSignupInputsContainers>
+          <input
+            name="phonenumber"
+            value={newuser.phonenumber}
+            type="tel"
+            onChange={handleChange}
+            ref={phonenumberRef}
+            placeholder="핸드폰 번호를 입력해주세요."
+          />
+        </LoginSignupInputsContainers>
 
         <h3>비밀번호</h3>
         <span>영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</span>
-        <LoginSignupInputs>
+        <LoginSignupInputsContainers>
           <input
             name="password"
             value={newuser.password}
@@ -113,23 +192,23 @@ const SignupPage = () => {
             ref={passwordRef}
             placeholder="비밀번호"
           />
-        </LoginSignupInputs>
+        </LoginSignupInputsContainers>
 
         <h3>비밀번호 확인</h3>
-        <LoginSignupInputs>
+        <LoginSignupInputsContainers>
           <input
-            name="confrim"
-            value={newuser.confrim}
+            name="pwCheck"
+            value={newuser.pwCheck}
             onChange={handleChange}
-            ref={confirmRef}
+            ref={pwCheckRef}
             type="password"
             placeholder="비밀번호"
           />
-        </LoginSignupInputs>
+        </LoginSignupInputsContainers>
 
         <h3>닉네임</h3>
         <span>다른 유저와 겹치지 않도록 입력해주세요. (2~15자)</span>
-        <LoginSignupInputs>
+        <LoginSignupInputsContainers>
           <input
             name="nickname"
             value={newuser.nickname}
@@ -138,9 +217,8 @@ const SignupPage = () => {
             ref={nicknameRef}
             placeholder="별명 (2~15자)"
           />
-        </LoginSignupInputs>
+        </LoginSignupInputsContainers>
       </SignUpForm>
-
       <h3>약관동의</h3>
       <AgreementBox></AgreementBox>
       <Buttons onClick={newUserInfoCheck} type="submit">

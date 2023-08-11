@@ -7,7 +7,7 @@ export const Buttons = styled.button`
   margin-top: 5px;
   border: none;
 `;
-export const LoginSignupInputs = styled.form`
+export const LoginSignupInputsContainers = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

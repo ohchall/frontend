@@ -1,24 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
 export const getCrews = async () => {
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew?_limit=5`
+    `${process.env.REACT_APP_MOCK_SERVER_URL}/crew?_limit=5`
   );
   return res;
 };
 
 // queryKey = crew
 export const getCrew = async (id) => {
-  const res = await axios.get(`${process.env.REACT_APP_SERVER_URL}/crew/${id}`);
+  const res = await axios.get(
+    `${process.env.REACT_APP_MOCK_SERVER_URL}/crew/${id}`
+  );
   return res;
 };
 
 // queryKey = ???
 export const useAddCrewMutation = () => {
   return useMutation((crew) => {
-    return axios.post(`${process.env.REACT_APP_SERVER_URL}/crew`, crew);
+    return axios.post(`${process.env.REACT_APP_MOCK_SERVER_URL}/crew`, crew);
   });
 };
 
@@ -27,7 +29,7 @@ export const useFetchCrew = () => {
   return useQuery(["crewData"], async () => {
     // queryKey를 배열로 변경
     const { data } = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/crew`
+      `${process.env.REACT_APP_MOCK_SERVER_URL}/crew`
     );
     return data;
   });
@@ -35,7 +37,9 @@ export const useFetchCrew = () => {
 
 //infinite scroll
 export const useFetchCrewByPage = async ({ pageParam = 1 }) => {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/crew?page=${pageParam}`);
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/crew?page=${pageParam}`
+  );
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
@@ -74,62 +78,60 @@ export const UserCheck = async (user) => {
     });
 };
 
-  //유저프로필 요청
-  export const CheckuserInfo = async () => {
-    try {
-      const access = localStorage.getItem("Access");
-      const refresh = localStorage.getItem("Refresh");
-      const currentUserToken = {
-        headers: {
-          Access: `${access}`,
-          Refresh: `${refresh}`,
-        },
-      };
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
-        currentUserToken
-      );
-      // console.log("API response:", response);
-      if (response.status === 200) {
-        // console.log("API response is successful");
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
+//유저프로필 요청
+export const CheckuserInfo = async () => {
+  try {
+    const access = localStorage.getItem("Access");
+    const refresh = localStorage.getItem("Refresh");
+    const currentUserToken = {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    };
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
+      currentUserToken
+    );
+    // console.log("API response:", response);
+    if (response.status === 200) {
+      // console.log("API response is successful");
+      return true;
+    } else {
       return false;
     }
-  };
+  } catch (error) {
+    return false;
+  }
+};
 
-  // 로그인 여부 인증
-  export const LoginStatus = async () => {
-    const accesstoken = localStorage.getItem("Access");
-    const refreshtoken = localStorage.getItem("Refresh");
-    if (!accesstoken || !refreshtoken) return false;
-    try {
-      const currentUserToken = {
-        headers: {
-          Access: `${accesstoken}`,
-          Refresh: `${refreshtoken}`,
-        },
-      };
-      const response = await axios.get(
-        `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
-        currentUserToken
-      );
-      // console.log(response);
-      if (response.status === 200) {
-        return true;
-      } else {
-        console.log("인증 실패");
-        alert("인증 실패");
-        return false;
-      }
-    } catch (error) {
-      // console.log(error);
-      alert("로그인유효성검사 실패");
+// 로그인 여부 인증
+export const LoginStatus = async () => {
+  const accesstoken = localStorage.getItem("Access");
+  const refreshtoken = localStorage.getItem("Refresh");
+  if (!accesstoken || !refreshtoken) return false;
+  try {
+    const currentUserToken = {
+      headers: {
+        Access: `${accesstoken}`,
+        Refresh: `${refreshtoken}`,
+      },
+    };
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
+      currentUserToken
+    );
+    // console.log(response);
+    if (response.status === 200) {
+      return true;
+    } else {
+      console.log("인증 실패");
+      alert("인증 실패");
       return false;
     }
-  };
-
-
+  } catch (error) {
+    // console.log(error);
+    alert("로그인유효성검사 실패");
+    return false;
+  }
+};

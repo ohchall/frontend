@@ -1,11 +1,8 @@
 import {
-  StyledCrewDetail,
-  TitleContainer,
-  ImageWrapper,
-  ContentWrapper,
-  ButtonWrapper,
-  MapWrapper
-} from './CrewDetail.style';
+  CrewDetailBlock,
+  Header,
+  MapWrapper,
+  ButtonWrapper } from './CrewDetail.style';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getCrew } from '../../api/CrewApi';
@@ -19,40 +16,38 @@ function CrewDetail() {
   } = useQuery(['crew', params.id], () => getCrew(params.id));
 
   return (
-    <StyledCrewDetail>
+    <CrewDetailBlock>
       { isLoading && 'Loading...' }
       { error && 'An error has occurred: ' + error.message }
 
-      <TitleContainer>
+      <Header>
         <div>
-          {crew?.data.title}
+          <p>일정 |</p>
+          <div>{crew?.data.exercisedate}</div>
         </div>
 
         <div>
-          작성자: {crew?.data.nickname}
+          <p>인원 |</p>
+          <div>{crew?.data.totalNumber}</div>
         </div>
 
         <div>
-          운동날짜: {crew?.data.exercisedate}
+          <p>장소 |</p>
+          <div>{crew?.data.location}</div>
         </div>
-      </TitleContainer>
 
-      <ImageWrapper>
-        Crew Detail Image
-      </ImageWrapper>
+        <div>
+          <p>내용 |</p>
+          <div>{crew?.data.content}</div>
+        </div>
+      </Header>
 
-      <ContentWrapper>
-        {crew?.data.content}
-      </ContentWrapper>
+      <MapWrapper />
 
       <ButtonWrapper>
         <button>Join</button>
       </ButtonWrapper>
-
-      <MapWrapper>
-        Crew Detail Map
-      </MapWrapper>
-    </StyledCrewDetail>
+    </CrewDetailBlock>
   );
 };
 

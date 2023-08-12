@@ -10,6 +10,7 @@ import PostModal from "../components/crewpost/PostModal";
 import LoginPage from "../pages/loginsignup/LoginPage";
 import SignUpPage from "../pages/loginsignup/SignUpPage";
 import TodoListPage from "../pages/TodoListPage";
+import UserRoute from "./UserRoute";
 
 function Router() {
   return (
@@ -27,9 +28,13 @@ function Router() {
         <Route
           path="/mypage"
           element={
-            <Template header footer>
-              <MyPage />
-            </Template>
+            <UserRoute
+              element={
+                <Template header footer>
+                  <MyPage />
+                </Template>
+              }
+            />
           }
         />
         <Route

@@ -45,10 +45,7 @@ function MainPage() {
             <button>더보기</button>
           </TitleContainer>
 
-          <LatestCrewList
-            data={data}
-            onClickCrew={onClickCrew}
-          />
+          <LatestCrewList data={data} onClickCrew={onClickCrew} />
         </RecentCrewList>
 
         <TopCrewList>
@@ -57,10 +54,7 @@ function MainPage() {
             <button>더보기</button>
           </TitleContainer>
 
-          <PopularCrewList
-            data={data}
-            onClickCrew={onClickCrew}
-          />
+          <PopularCrewList data={data} onClickCrew={onClickCrew} />
         </TopCrewList>
 
         <SuggestCrewList>
@@ -69,10 +63,7 @@ function MainPage() {
             <button>더보기</button>
           </TitleContainer>
 
-          <R9dCrewList
-            data={data}
-            onClickCrew={onClickCrew}
-          />
+          <R9dCrewList data={data} onClickCrew={onClickCrew} />
         </SuggestCrewList>
 
         <EventBanner />

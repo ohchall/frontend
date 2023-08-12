@@ -1,20 +1,27 @@
+import { useNavigate } from "react-router-dom";
 import {
   MyProfileBlock,
   StyledLink,
   TitleContainer,
   TableWrapper,
-  LinkContainer
- } from './MyProfile.style';
+  LinkContainer,
+} from "./MyProfile.style";
 
 function MyProfile() {
+  const logoutHandler = () => {
+    localStorage.removeItem("Access");
+    localStorage.removeItem("Refresh");
+  };
   return (
     <MyProfileBlock>
       <TitleContainer>
         <p>김오챌</p>
         <LinkContainer>
-          <StyledLink to='/mypage'>마이페이지</StyledLink>
-          <StyledLink to='/'>알림</StyledLink>
-          <StyledLink to='/logout'>로그아웃</StyledLink>
+          <StyledLink to="/mypage">마이페이지</StyledLink>
+          <StyledLink to="/">알림</StyledLink>
+          <StyledLink to="/" onClick={logoutHandler}>
+            로그아웃
+          </StyledLink>
         </LinkContainer>
       </TitleContainer>
 
@@ -28,7 +35,7 @@ function MyProfile() {
           </thead>
           <tbody>
             <tr>
-              <td rowSpan='3'>이번주 투두</td>
+              <td rowSpan="3">이번주 투두</td>
               <td>화 | 오후07시 테니스 '텟텟'크루 참여</td>
             </tr>
             <tr>
@@ -41,7 +48,7 @@ function MyProfile() {
         </table>
       </TableWrapper>
     </MyProfileBlock>
-  )
+  );
 }
 
 export default MyProfile;

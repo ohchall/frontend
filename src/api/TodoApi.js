@@ -8,7 +8,7 @@ export const useAddTodoMutation = () => {
   return useMutation(
     (todo) => {
       return axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
+        `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos`,
         todo
       );
     },
@@ -27,7 +27,7 @@ export const useDeleteTodoMutation = () => {
       // return axios.delete(
       //   `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${todoId}`
       // );
-      const deleteUrl = `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${todoId}`;
+      const deleteUrl = `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${todoId}`;
       console.log("Deleting Todo with URL:", deleteUrl);
       return axios.delete(deleteUrl);
     },
@@ -44,7 +44,7 @@ export const useUpdateTodoMutation = () => {
   return useMutation(
     (updatedTodo) => {
       return axios.put(
-        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
+        `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
         updatedTodo
       );
     },
@@ -59,7 +59,7 @@ export const useUpdateTodoMutation = () => {
 export const useFetchTodos = () => {
   return useQuery(["todos"], async () => {
     const { data } = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`
+      `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos`
     );
     return data;
   });
@@ -70,7 +70,7 @@ export const useUpdateIsSuccessMutation = () => {
   return useMutation(
     async (updatedTodo) => {
       const response = await axios.put(
-        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
+        `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
         updatedTodo
       );
       return response.data;

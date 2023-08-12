@@ -1,9 +1,9 @@
 import {
+  R9dCrewListBlock,
+  R9dCrew,
   ImageWrapper,
   Overview,
-  TitleContainer,
-  R9dCrewListSwiper,
-  R9dCrewListSwiperSlide } from './R9dCrewList.style';
+  TitleContainer } from './R9dCrewList.style';
 import { AiFillHeart } from 'react-icons/ai';
 import 'swiper/css';
 
@@ -12,12 +12,9 @@ function R9dCrewList({
   onClickCrew
 }) {
   return (
-    <R9dCrewListSwiper
-      slidesPerView={'auto'}
-      spaceBetween={12}
-    >
+    <R9dCrewListBlock>
       {data?.data.map((item) => (
-      <R9dCrewListSwiperSlide
+      <R9dCrew
         key={item.id}
         onClick={() => onClickCrew(item.id)}
       >
@@ -37,9 +34,9 @@ function R9dCrewList({
 
           <p>{item.exercisekind} / 서울 중구</p>
         </Overview>
-      </R9dCrewListSwiperSlide>
+      </R9dCrew>
       ))}
-    </R9dCrewListSwiper>
+    </R9dCrewListBlock>
   )
 }
 

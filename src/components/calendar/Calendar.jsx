@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import { CalendarContainer } from "./Calendar.style";
+import UpArrow from "../../assets/UpArrow.svg";
 
 function Calendar({ events, onMonthChange }) {
   const [isCalendarVisible, setIsCalendarVisible] = useState(true);
@@ -43,7 +44,7 @@ function Calendar({ events, onMonthChange }) {
     <CalendarContainer>
       <div className="calendarTitle">
         <h2>오챌 캘린더</h2>
-        <p onClick={toggleCalendarVisibility}>⬆️</p>
+        <img src={UpArrow} onClick={toggleCalendarVisibility} alt="arrow" />
       </div>
       {isCalendarVisible && (
         <div className="calendarStyle">

@@ -6,6 +6,10 @@ import {
   ModalTitle,
   ModalShadow,
 } from "./TodoAddModal.style";
+import TodoAdd1 from "../../assets/TodoAdd1.svg";
+import TodoAdd2 from "../../assets/TodoAdd2.svg";
+import TodoAdd3 from "../../assets/TodoAdd3.svg";
+import TodoAdd4 from "../../assets/TodoAdd4.svg";
 
 function TodoAddModal({ onRequestClose }) {
   const addTodoMutation = useAddTodoMutation();
@@ -48,12 +52,12 @@ function TodoAddModal({ onRequestClose }) {
       <ModalContainer>
         <ModalTitle>
           <h2>투두리스트</h2>
-          <button onClick={onRequestClose}>❌</button>
+          <img src={TodoAdd4} onClick={onRequestClose} alt="x" />
         </ModalTitle>
 
         <ModalContent>
           <div>
-            <span>⛹️</span>
+            <img src={TodoAdd1} alt="title" />
             <input
               type="text"
               name="title"
@@ -63,7 +67,7 @@ function TodoAddModal({ onRequestClose }) {
             ></input>
           </div>
           <div>
-            <span>🏋️</span>
+            <img src={TodoAdd2} alt="content" />
             <input
               type="text"
               name="content"
@@ -73,7 +77,7 @@ function TodoAddModal({ onRequestClose }) {
             ></input>
           </div>
           <div>
-            <span>🏌️</span>
+            <img src={TodoAdd3} alt="date" />
             <input
               type="date"
               name="date"

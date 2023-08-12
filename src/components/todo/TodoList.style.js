@@ -3,22 +3,23 @@ import { styled } from "styled-components";
 export const TodosContainer = styled.div`
   background-color: #eeeeee;
   margin-bottom: 20px;
+  width: 100%;
 
   > button {
-    background-color: white;
+    background-color: #dadada;
     border: none;
     width: 400px;
     height: 50px;
     border-radius: 10px;
-    margin: 15px 10px 15px;
+    margin: 15px 15px 15px;
     padding: 10px 0 20px 0;
     font-size: 30px;
     border: 1px solid transparent;
 
     &:hover {
-      font-size: 32px;
+      font-size: 31px;
       cursor: pointer;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     }
   }
   .TodolsitTitle {

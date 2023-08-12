@@ -330,6 +330,113 @@
       "memberCount": 6,
       "days": "월화수목금토일",
       "id": 24
+    },
+    {
+      "title": "필라테스 같이 하실 분",
+      "content": "연습",
+      "crewname": "필테크루",
+      "exercisekind": "필라테스",
+      "image": "",
+      "location": "서울 강남구 강남대로94길 36 11CM 문",
+      "dateRange": "2023-08-10 - 2023-08-10",
+      "memberCount": 7,
+      "days": "월수금",
+      "id": 25
+    },
+    {
+      "title": "이제는 되려나",
+      "content": "넘어가면 좋겠네",
+      "crewname": "일정으로 바꿨다요",
+      "exercisekind": "러닝",
+      "image": "",
+      "location": "서울 서초구 강남대로34길 8 아이유빌딩 1층",
+      "totalnumber": 6,
+      "exercisedate": "2023-08-10",
+      "id": 26
+    },
+    {
+      "title": "시간값이 넘어가는지만",
+      "content": "확인",
+      "crewname": "시간확인용",
+      "exercisekind": "포켓볼쓰",
+      "location": "서울 서초구 강남대로12길 8",
+      "image": "",
+      "exercisedate": "2023-08-13",
+      "time": "",
+      "totalnumber": 11,
+      "id": 27
+    },
+    {
+      "title": "시간반영까지",
+      "content": "해보자",
+      "crewname": "고고",
+      "exercisekind": "수영",
+      "image": {},
+      "location": "서울 강북구 덕릉로 1 석경영빌딩 1층 101호",
+      "exercisedate": "2023-08-11",
+      "time": "오전 06:10",
+      "totalnumber": 8,
+      "id": 28
+    },
+    {
+      "title": "오늘하루도 정말 좋다",
+      "content": "적당히 비가 오고",
+      "crewname": "그대가 오면",
+      "exercisekind": "수영",
+      "image": "",
+      "location": "서울 강서구 가로공원로 174 세로모 2층",
+      "exercisedate": "2023-08-12",
+      "time": "",
+      "totalnumber": 8,
+      "id": 29
+    },
+    {
+      "title": "wewe",
+      "content": "wewe",
+      "crewname": "wewewe",
+      "exercisekind": "바다에서 조개캐기",
+      "image": {},
+      "location": "강원특별자치도 고성군 토성면 봉포2길 7 바다가고싶다",
+      "exercisedate": "2023-08-11",
+      "time": "",
+      "totalnumber": 7,
+      "id": 30
+    },
+    {
+      "title": "ㄴㅇㄹㄴㅇㄹ",
+      "content": "ㄴㅇㄹㄴㅇㄹ",
+      "crewname": "ㄴㅇㄹㄴㅇㄹ",
+      "exercisekind": "",
+      "image": {},
+      "location": "충남 서천군 장항읍 신창동로 25 가나다",
+      "exercisedate": "2023-08-11",
+      "time": "오전 06:00",
+      "totalnumber": 6,
+      "id": 31
+    },
+    {
+      "title": "되나",
+      "content": "안되나",
+      "crewname": "오전만",
+      "exercisekind": "강아지산책",
+      "image": {},
+      "location": "서울 강서구 등촌로39다길 6-3 가나다라마바사 1111",
+      "exercisedate": "2023-08-18",
+      "time": "오전 08:00",
+      "totalnumber": 10,
+      "id": 32
+    },
+    {
+      "title": "오후만오후만",
+      "content": "오후만",
+      "crewname": "오후크루",
+      "exercisekind": "필라테스",
+      "image": {},
+      "location": "광주 남구 서문대로663번길 34-2 토요일오후",
+      "exercisedate": "2023-08-16",
+      "time": "오후 10:40",
+      "totalnumber": 9,
+      "id": 33
     }
   ],
   "todos": [

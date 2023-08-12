@@ -1,46 +1,45 @@
 import styled from 'styled-components';
 
-export const StyledCrewDetail = styled.div`
+export const CrewDetailBlock = styled.div`
   width: 100%;
+  padding: 16px;
 `;
 
-export const TitleContainer = styled.div`
-  padding: 20px;
-
-  & > div:nth-of-type(-n+2) {
-    margin-bottom: 10px;
-  }
-`;
-
-export const ImageWrapper = styled.div`
+export const Header = styled.div`
   width: 100%;
-  height: 430px;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f2f2f2;
-`;
+  border: 1px solid #5B5B5B;
+  border-radius: 10px;
+  padding: 16px;
+  font-size: 14px;
+  margin-bottom: 5px;
 
-export const ContentWrapper = styled.div`
-  height: 200px;
-  padding: 20px;
-`;
+  & > div {
+    display: flex;
 
-export const ButtonWrapper = styled.div`
-  height: 60px;
-  line-height: 60px;
-  padding: 0 20px;
+    & > div {
+      margin-left: 5px;
+      white-space: pre-line;
+    }
 
-  & button {
-    height: 40px;
-    padding: 0 16px;
-    border: none;
+    &:nth-of-type(-n+3) {
+      margin-bottom: 10px;
+    }
   }
 `;
 
 export const MapWrapper = styled.div`
   width: 100%;
-  height: 430px;
-  margin: 0 auto;
-  padding: 20px;
+  height: 200px;
+  border-radius: 10px;
   background-color: #f2f2f2;
+  margin-bottom: 16px;
+`;
+
+export const ButtonWrapper = styled.div`
+
+  & button {
+    width: 100%;
+    height: 54px;
+    border: none;
+  }
 `;

@@ -1,19 +1,17 @@
 import { CrewDetaiPageBlock } from './CrewDetailPage.style';
 import CrewDetail from '../../components/crew/CrewDetail';
 import MyProfile from '../../components/myprofile/MyProfile';
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 function CrewDetailPage() {
   const [loggedin, setLoggedin] = useState(false);
-  // const navigate = useNavigate();
   useEffect(() => {
     console.log("실행");
     CheckuserInfo();
   }, []);
 
-  //유저프로필 요청
+  // Request User Profile
   const CheckuserInfo = async () => {
     console.log("실행2");
     try {
@@ -26,7 +24,7 @@ function CrewDetailPage() {
         },
       };
       const response = await axios.get(
-        `${process.env.REACT_APP_REALSERVER_URL}/auth/mypage`,
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
         currentUserToken
       );
 

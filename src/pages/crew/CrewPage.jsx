@@ -2,17 +2,15 @@ import { CrewPageBlock } from './CrewPage.style';
 import MyProfile from '../../components/myprofile/MyProfile';
 import Crew from '../../components/crew/Crew';
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from 'react';
 
 function CrewPage() {
   const [loggedin, setLoggedin] = useState(false);
-  // const navigate = useNavigate();
   useEffect(() => {
     CheckuserInfo();
   }, []);
 
-  //유저프로필 요청
+  // Request User Profile
   const CheckuserInfo = async () => {
     try {
       const access = localStorage.getItem("Access");
@@ -24,7 +22,7 @@ function CrewPage() {
         },
       };
       const response = await axios.get(
-        `${process.env.REACT_APP_REALSERVER_URL}/auth/mypage`,
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
         currentUserToken
       );
 
@@ -43,6 +41,7 @@ function CrewPage() {
     }
   };
   console.log(loggedin);
+
   return (
     <CrewPageBlock>
       {loggedin ? <MyProfile /> : null}

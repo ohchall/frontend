@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   MyProfileBlock,
   Header,
@@ -10,25 +11,30 @@ import {
   ThisMonthGoal,
   ThisWeekTodo,
   Todo,
-  Week } from './MyProfile.style';
+  Week,
+} from "./MyProfile.style";
 
 function MyProfile() {
+  const logoutHandler = () => {
+    localStorage.removeItem("Access");
+    localStorage.removeItem("Refresh");
+  };
   return (
     <MyProfileBlock>
       <Header>
         <p>김오챌</p>
         <LinkContainer>
-          <StyledLink to='/mypage'>
+          <StyledLink to="/mypage">
             <StyledLuUser />
           </StyledLink>
-          <StyledLink to='/mypage'>
+          <StyledLink to="/mypage">
             <StyledLuInbox />
           </StyledLink>
-          <StyledLink to='/'>
+          <StyledLink to="/">
             <StyledLuBell />
           </StyledLink>
-          <StyledLink to='/logout'>
-            <StyledLuLogOut />  
+          <StyledLink to="/" onClick={logoutHandler}>
+            <StyledLuLogOut />
           </StyledLink>
         </LinkContainer>
       </Header>
@@ -97,7 +103,7 @@ function MyProfile() {
         </ThisWeekTodo>
       </div>
     </MyProfileBlock>
-  )
+  );
 }
 
 export default MyProfile;

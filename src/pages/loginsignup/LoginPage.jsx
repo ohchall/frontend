@@ -9,20 +9,18 @@ import { UserCheck } from "../../api/CrewApi";
 function LoginPage() {
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
-      console.log("success");
+      navigate("/");
     },
-    onError: (error) => {
-      console.log("error", error);
-      alert(error);
-      // navigate("/login");
-      // window.location.reload(); // 새로고침
+    onError: () => {
+      navigate("/login");
+      window.location.reload(); // 새로고침
     },
   });
 
-  const emailRef = useRef();
+  const useremailRef = useRef();
   const passwordRef = useRef();
   const [user, setUser] = useState({
-    email: "",
+    useremail: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -38,8 +36,8 @@ function LoginPage() {
   };
 
   const userCheck = () => {
-    if (user.email < 1) {
-      emailRef.current.focus();
+    if (user.useremail < 1) {
+      useremailRef.current.focus();
     }
     if (user.password < 1) {
       passwordRef.current.focus();
@@ -53,9 +51,9 @@ function LoginPage() {
       <form onSubmit={handleSubmit}>
         <LoginSignupInputsContainers>
           <input
-            ref={emailRef}
-            name="email"
-            value={user.email}
+            ref={useremailRef}
+            name="useremail"
+            value={user.useremail}
             type="email"
             placeholder="이메일"
             onChange={handleChange}

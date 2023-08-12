@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
 export const getCrews = async () => {
@@ -33,13 +33,12 @@ export const useFetchCrew = () => {
   });
 };
 
-
+// 회원가입
 export const Register = async (newuser) => {
   try {
     const { data } = await axios.post(
       "https://api.ohchall.shop/api/signup",
       newuser,
-
       { headers: { withCredentials: true } }
     );
     console.log("resdata", data);
@@ -49,20 +48,25 @@ export const Register = async (newuser) => {
   }
 };
 
+//로그인
 export const UserCheck = async (user) => {
-  try {
-    const { data } = await axios.post(
-      "https://api.ohchall.shop/api/login",
-      user,
+  await axios
+    .post("https://api.ohchall.shop/api/login", user)
+    .then((response) => {
+      const access = response.headers.get("Access");
+      const refresh = response.headers.get("Refresh");
+      localStorage.setItem("Access", access);
+      localStorage.setItem("Refresh", refresh);
 
-      { headers: { withCredentials: true } }
-    );
-    console.log("resuserdata", data);
-    return data;
-  } catch (e) {
-    alert(e.response.data.msg);
-  }
+      return console.log("response", response);
+    })
+    .catch((error) => {
+      console.log("an error occurred:", error.response);
+      alert(error.response.data.msg);
+    });
 };
+
+
 
 //infinite scroll
 export const useFetchCrewByPage = async ({ pageParam = 1 }) => {

@@ -1,4 +1,3 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
 
 export const ImageWrapper = styled.div`
@@ -13,7 +12,7 @@ export const Overview = styled.div`
   height: 70px;
   padding: 14px 16px;
   border-radius: 0 0 25px 25px;
-  background-color: #D9D9D9;
+  background-color: #F3F3F3;
 
   & > div {
     display: flex;
@@ -30,6 +29,28 @@ export const Overview = styled.div`
   }
 `;
 
+export const R9dCrewListBlock = styled.div`
+  width: 100%;
+`;
+
+export const R9dCrew = styled.div`
+  width: 398px;
+  height: 232px;
+  cursor: pointer;
+
+  &:nth-of-type(-n+4) {
+    margin-bottom: 12px;
+  }
+
+  & ${ImageWrapper} {
+    height: 160px;
+  }
+
+  & ${Overview} {
+    height: 72px;
+  }
+`;
+
 export const TitleContainer = styled.div`
   & > p {
     display: inline-block;
@@ -38,25 +59,5 @@ export const TitleContainer = styled.div`
 
   & > span {
     display: inline-block;
-  }
-`;
-
-export const R9dCrewListSwiper = styled(Swiper)`
-  width: 100%;
-`;
-
-export const R9dCrewListSwiperSlide = styled(SwiperSlide)`
-  width: 343px;
-  height: 232px;
-  cursor: pointer;
-
-  & ${ImageWrapper} {
-    width: 343px;
-    height: 160px;
-  }
-
-  & ${Overview} {
-    width: 343px;
-    height: 72px;
   }
 `;

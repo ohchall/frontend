@@ -9,7 +9,6 @@ import { styled } from "styled-components";
 
 const CrewDate = (props) => {
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
   const years = range(1990, getYear(new Date()) + 1, 1);
   const months = [
     "1월",
@@ -36,24 +35,9 @@ const CrewDate = (props) => {
   const formattedDate = formatDate(date);
   setStartDate(date);
   props.setStartDate(formattedDate);
+ }
 
-
-  const endDateFormatted = formatDate(endDate);
-  const range = `${formattedDate} - ${endDateFormatted}`;
-  props.setDateRange(range);
-   };
-
-
-   const handleEndDateChange = (date) => {
-    const formattedDate = formatDate(date);
-    setEndDate(date);
-    props.setEndDate(formattedDate);
-
-    
-    const startDateFormatted = formatDate(startDate);
-    const range = `${startDateFormatted} - ${formattedDate}`;
-    props.setDateRange(range);
-  };
+  
 
   const renderCustomHeader = ({
     date,
@@ -112,16 +96,6 @@ const CrewDate = (props) => {
         selected={startDate}
         onChange={handleStartDateChange}
         renderCustomHeader={renderCustomHeader}
-        maxDate={endDate}
-      />
-      <span> - </span>
-       <DatePicker
-        locale={ko}
-        dateFormat="yyyy-MM-dd"
-        selected={endDate}
-        onChange={handleEndDateChange}
-        renderCustomHeader={renderCustomHeader}
-        minDate={startDate}
       />
     </CrewDates>
   );

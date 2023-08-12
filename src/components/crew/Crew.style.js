@@ -47,6 +47,7 @@ export const CategoryContainer = styled.div`
     border: none;
     border-radius: 5px;
     padding: 0 10px;
+    background-color: #F3F3F3;
     cursor: pointer;
   }
 `;

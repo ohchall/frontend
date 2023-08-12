@@ -13,7 +13,7 @@ export const Overview = styled.div`
   height: 70px;
   padding: 14px 16px;
   border-radius: 0 0 25px 25px;
-  background-color: #D9D9D9;
+  background-color: #F3F3F3;
 
   & > div {
     display: flex;

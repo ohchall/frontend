@@ -1,6 +1,6 @@
-import { getCrews } from "../../api/CrewApi";
+import { CheckuserInfo, getCrews } from "../../api/CrewApi";
 import { useQuery } from "@tanstack/react-query";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Banner from "../../components/banner/Banner";
 import Category from "../../components/category/Category";
 import EventBanner from "../../components/banner/EventBanner";
@@ -11,17 +11,28 @@ import {
   TopCrewList,
   SuggestCrewList,
 } from "./MainPage.style";
-
-import LatestCrewList from '../../components/common/LatestCrewList';
-import R9dCrewList from '../../components/common/R9dCrewList';
-import PopularCrewList from '../../components/common/PopularCrewList';
+import LatestCrewList from "../../components/common/LatestCrewList";
+import R9dCrewList from "../../components/common/R9dCrewList";
+import PopularCrewList from "../../components/common/PopularCrewList";
+import MyProfile from "../../components/myprofile/MyProfile";
+import { useEffect, useState } from "react";
 
 function MainPage() {
   const navigate = useNavigate();
+  const [loggedin, setLoggedin] = useState(false);
+  useEffect(() => {
+    // console.log("triggered");
+    const getUserInfo = async () => {
+      const isUserLoggedIn = await CheckuserInfo();
+      setLoggedin(isUserLoggedIn);
+    };
+
+    getUserInfo();
+  }, []);
 
   const onClickCrew = (itemId) => {
     navigate(`/crew/${itemId}`);
-  }
+  };
 
   const { data, isLoading, error } = useQuery(["crews"], getCrews);
 
@@ -36,6 +47,7 @@ function MainPage() {
   return (
     <>
       <MainPageSection>
+        {loggedin ? <MyProfile /> : null}
         <Banner />
         <Category />
 

@@ -18,6 +18,8 @@ function MyProfile() {
   const logoutHandler = () => {
     localStorage.removeItem("Access");
     localStorage.removeItem("Refresh");
+    window.location.reload();
+
   };
   return (
     <MyProfileBlock>

@@ -2,10 +2,16 @@ import { useState, useRef } from "react";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-import { styled } from "styled-components";
+
 import { Buttons, LoginSignupInputsContainers, Nav } from "./Common.style";
 import { useMutation } from "@tanstack/react-query";
 import { UserCheck } from "../../api/CrewApi";
+import {
+  LoginPageBlock,
+  SNSButtonWrapper,
+  SNSLoginContainer,
+  Etc,
+} from "./LoginPage.style";
 function LoginPage() {
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
@@ -92,41 +98,3 @@ function LoginPage() {
 }
 
 export default LoginPage;
-const LoginPageBlock = styled.div`
-  & h1 {
-    margin: 3%;
-    font-size: 18px;
-    font-weight: bold;
-  }
-`;
-
-const SNSButtonWrapper = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-const SNSLoginContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  margin: 10%;
-
-  & button {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    border: none;
-    background-color: darkgray;
-  }
-`;
-
-const Etc = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  & button {
-    border: none;
-    background-color: none;
-  }
-`;

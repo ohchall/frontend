@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
@@ -11,7 +11,9 @@ export const getCrews = async () => {
 
 // queryKey = crew
 export const getCrew = async (id) => {
-  const res = await axios.get(`${process.env.REACT_APP_MOCK_SERVER_URL}/crew/${id}`);
+  const res = await axios.get(
+    `${process.env.REACT_APP_MOCK_SERVER_URL}/crew/${id}`
+  );
   return res;
 };
 
@@ -31,6 +33,17 @@ export const useFetchCrew = () => {
     );
     return data;
   });
+};
+
+//infinite scroll
+export const useFetchCrewByPage = async ({ pageParam = 1 }) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_SERVER_URL}/crew?page=${pageParam}`
+  );
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+  return response.json();
 };
 
 // 회원가입
@@ -57,7 +70,6 @@ export const UserCheck = async (user) => {
       const refresh = response.headers.get("Refresh");
       localStorage.setItem("Access", access);
       localStorage.setItem("Refresh", refresh);
-
       return console.log("response", response);
     })
     .catch((error) => {
@@ -66,11 +78,69 @@ export const UserCheck = async (user) => {
     });
 };
 
-//infinite scroll
-export const useFetchCrewByPage = async ({ pageParam = 1 }) => {
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/crew?page=${pageParam}`);
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
+//유저프로필 요청
+export const CheckuserInfo = async () => {
+  try {
+    const access = localStorage.getItem("Access");
+    const refresh = localStorage.getItem("Refresh");
+    const currentUserToken = {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    };
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
+      currentUserToken
+    );
+    // console.log("API response:", response);
+    if (response.status === 200) {
+      // console.log("API response is successful");
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    return false;
   }
-  return response.json();
+};
+
+// 로그인 여부 인증
+export const LoginStatus = async () => {
+  const accesstoken = localStorage.getItem("Access");
+  const refreshtoken = localStorage.getItem("Refresh");
+  if (!accesstoken || !refreshtoken) return false;
+  try {
+    const currentUserToken = {
+      headers: {
+        Access: `${accesstoken}`,
+        Refresh: `${refreshtoken}`,
+      },
+    };
+    const response = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
+      currentUserToken
+    );
+    // console.log(response);
+    if (response.status === 200) {
+      return true;
+    } else {
+      console.log("인증 실패");
+      alert("인증 실패");
+      return false;
+    }
+  } catch (error) {
+    // console.log(error);
+    alert("로그인유효성검사 실패");
+    return false;
+  }
+};
+
+export const useFetchPosts = () => {
+  return useQuery(["posts"], async () => {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_MOCK_SERVER_URL}/posts`
+    );
+    return data;
+  });
 };

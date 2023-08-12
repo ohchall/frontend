@@ -7,7 +7,10 @@ export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (todo) => {
-      return axios.post(`${BASE_URL}/todos`, todo);
+      return axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
+        todo
+      );
     },
     {
       onSuccess: () => {
@@ -21,7 +24,12 @@ export const useDeleteTodoMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (todoId) => {
-      return axios.delete(`${BASE_URL}/todos/${todoId}`);
+      // return axios.delete(
+      //   `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${todoId}`
+      // );
+      const deleteUrl = `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${todoId}`;
+      console.log("Deleting Todo with URL:", deleteUrl);
+      return axios.delete(deleteUrl);
     },
     {
       onSuccess: () => {
@@ -35,7 +43,10 @@ export const useUpdateTodoMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (updatedTodo) => {
-      return axios.put(`${BASE_URL}/todos/${updatedTodo.id}`, updatedTodo);
+      return axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
+        updatedTodo
+      );
     },
     {
       onSuccess: () => {
@@ -47,7 +58,9 @@ export const useUpdateTodoMutation = () => {
 
 export const useFetchTodos = () => {
   return useQuery(["todos"], async () => {
-    const { data } = await axios.get(`${BASE_URL}/todos`);
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`
+    );
     return data;
   });
 };
@@ -57,7 +70,7 @@ export const useUpdateIsSuccessMutation = () => {
   return useMutation(
     async (updatedTodo) => {
       const response = await axios.put(
-        `${BASE_URL}/todos/${updatedTodo.id}`,
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
         updatedTodo
       );
       return response.data;

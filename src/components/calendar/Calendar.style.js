@@ -16,13 +16,10 @@ export const CalendarContainer = styled.div`
     font-weight: bold;
     border-bottom: 1px solid #999999;
 
-    > p {
+    > img {
+      width: 20px;
       margin-right: 15px;
       cursor: pointer;
-
-      &:hover {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-      }
     }
   }
 

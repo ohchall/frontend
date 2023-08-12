@@ -26,7 +26,7 @@ function CrewDetailPage() {
         },
       };
       const response = await axios.get(
-        "https://api.ohchall.shop/api/auth/mypage",
+        `${process.env.REACT_APP_REALSERVER_URL}/auth/mypage`,
         currentUserToken
       );
 

@@ -37,7 +37,7 @@ export const useFetchCrew = () => {
 export const Register = async (newuser) => {
   try {
     const { data } = await axios.post(
-      "https://api.ohchall.shop/api/signup",
+      `${process.env.REACT_APP_REALSERVER_URL}/signup`,
       newuser,
       { headers: { withCredentials: true } }
     );
@@ -51,7 +51,7 @@ export const Register = async (newuser) => {
 //로그인
 export const UserCheck = async (user) => {
   await axios
-    .post("https://api.ohchall.shop/api/login", user)
+    .post(`${process.env.REACT_APP_REALSERVER_URL}/login`, user)
     .then((response) => {
       const access = response.headers.get("Access");
       const refresh = response.headers.get("Refresh");

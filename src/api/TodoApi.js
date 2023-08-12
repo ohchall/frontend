@@ -70,9 +70,4 @@ export const useUpdateIsSuccessMutation = () => {
   );
 };
 
-export const useFetchPosts = () => {
-  return useQuery(["posts"], async () => {
-    const { data } = await axios.get(`${BASE_URL}/posts`);
-    return data;
-  });
-};
+

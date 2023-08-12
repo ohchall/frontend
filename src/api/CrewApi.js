@@ -135,3 +135,12 @@ export const LoginStatus = async () => {
     return false;
   }
 };
+
+export const useFetchPosts = () => {
+  return useQuery(["posts"], async () => {
+    const { data } = await axios.get(
+      `${process.env.REACT_APP_MOCK_SERVER_URL}/posts`
+    );
+    return data;
+  });
+};

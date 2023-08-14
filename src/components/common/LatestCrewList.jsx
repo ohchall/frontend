@@ -12,36 +12,35 @@ function LatestCrewList({
   onClickCrew
 }) {
   return (
-    <LatestCrewListSwiper
-    slidesPerView={'auto'}
-    spaceBetween={12}
-    >
+    <LatestCrewListSwiper slidesPerView={"auto"} spaceBetween={12}>
       {/* {data?.data.map((item) => ( */}
       {data?.data.crewList.map((item) => (
-      <LatestCrewListSwiperSlide
-        key={item.crewRecruitmentId}
-        onClick={() => onClickCrew(item.crewRecruitmentId)}
-      >
-        <ImageWrapper>
-          <img src='' alt='' />
-        </ImageWrapper>
+        <LatestCrewListSwiperSlide
+          key={item.crewRecruitmentId}
+          onClick={() => onClickCrew(item.crewRecruitmentId)}
+        >
+          <ImageWrapper>
+            <img src="" alt="" />
+          </ImageWrapper>
 
-        <Overview>
-          <div>
-            <TitleContainer>
-              <p>{item.title}</p>
-              <span>15/16</span>
-            </TitleContainer>
+          <Overview>
+            <div>
+              <TitleContainer>
+                <p>{item.title}</p>
+                <span>15/16</span>
+              </TitleContainer>
 
-            <span><AiFillHeart /></span>
-          </div>
+              <span>
+                <AiFillHeart />
+              </span>
+            </div>
 
-          <p>{item.exercisekind} / 서울 중구</p>
-        </Overview>
-      </LatestCrewListSwiperSlide>
+            <p>{item.exercisekind} / 서울 중구</p>
+          </Overview>
+        </LatestCrewListSwiperSlide>
       ))}
     </LatestCrewListSwiper>
-  )
+  );
 }
 
 export default LatestCrewList;

@@ -11,12 +11,13 @@ function R9dCrewList({
   data,
   onClickCrew
 }) {
+  const item = data?.data.crewList[0];
+  
   return (
     <R9dCrewListBlock>
-      {data?.data.map((item) => (
       <R9dCrew
-        key={item.id}
-        onClick={() => onClickCrew(item.id)}
+        key={item.crewRecruitmentId}
+        onClick={() => onClickCrew(item.crewRecruitmentId)}
       >
         <ImageWrapper>
           <img src='' alt='' />
@@ -35,7 +36,6 @@ function R9dCrewList({
           <p>{item.exercisekind} / 서울 중구</p>
         </Overview>
       </R9dCrew>
-      ))}
     </R9dCrewListBlock>
   )
 }

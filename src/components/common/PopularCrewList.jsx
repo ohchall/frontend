@@ -8,11 +8,11 @@ function PopularCrewList({
 }) {
   return (
     <PopularCrewListBlock>
-      {/* {data?.data.crewList.map((item, idx) => ( */}
-      {data?.data.map((item, idx) => (
+      {/* {data?.data.map((item, idx) => ( */}
+      {data?.data.crewList.map((item, idx) => (
       <div
-        key={item.id}
-        onClick={() => onClickCrew(item.id)}
+        key={item.crewRecruitmentId}
+        onClick={() => onClickCrew(item.crewRecruitmentId)}
       >
         <TitleContainer>
           <p>{idx+1}</p>

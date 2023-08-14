@@ -1,5 +1,5 @@
 import { CheckuserInfo } from "../../api/AuthApi";
-import { getCrews } from "../../api/mock/CrewApi";
+import { getCrews } from "../../api/CrewApi";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Banner from "../../components/banner/Banner";

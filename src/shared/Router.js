@@ -48,7 +48,7 @@ function Router() {
         <Route
           path="/login"
           element={
-            <Template header footer>
+            <Template footer>
               <LoginPage />
             </Template>
           }
@@ -56,7 +56,7 @@ function Router() {
         <Route
           path="/register"
           element={
-            <Template header footer>
+            <Template footer>
               <SignUpPage />
             </Template>
           }

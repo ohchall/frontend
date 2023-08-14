@@ -1,16 +1,19 @@
 import { useState, useRef } from "react";
-import { SiNaver } from "react-icons/si";
-import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { Buttons, LoginSignupInputsContainers, Nav } from "./Common.style";
 import { useMutation } from "@tanstack/react-query";
 import { UserCheck } from "../../api/AuthApi";
 import {
-  LoginPageBlock,
-  SNSButtonWrapper,
+  Buttons,
+  LoginSignupInputsContainers,
+  Nav,
   SNSLoginContainer,
   Etc,
-} from "./LoginPage.style";
+} from "./Common.style";
+import { useMutation } from "@tanstack/react-query";
+import { UserCheck } from "../../api/CrewApi";
+import { LoginPageBlock } from "./LoginPage.style";
+import { SNSlogin } from "../../components/login&signup/SNSlogin";
 function LoginPage() {
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
@@ -79,14 +82,7 @@ function LoginPage() {
       </form>
       <SNSLoginContainer>
         <span>SNS계정으로 간편 로그인</span>
-        <SNSButtonWrapper>
-          <button>
-            <SiNaver />
-          </button>
-          <button>
-            <RiKakaoTalkFill />
-          </button>
-        </SNSButtonWrapper>
+        <SNSlogin />
       </SNSLoginContainer>
       <Etc>
         로그인에 문제가 있으신가요?

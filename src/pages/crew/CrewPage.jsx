@@ -2,7 +2,7 @@ import { CrewPageBlock } from "./CrewPage.style";
 import MyProfile from "../../components/myprofile/MyProfile";
 import Crew from "../../components/crew/Crew";
 import { useEffect, useState } from "react";
-import { CheckuserInfo } from "../../api/CrewApi";
+import { CheckuserInfo } from "../../api/AuthApi";
 
 function CrewPage() {
   const access = localStorage.getItem("Access");
@@ -17,7 +17,7 @@ function CrewPage() {
     if (access && refresh) {
       getUserInfo();
     }
-  }, []);
+  }, [access, refresh]);
 
   return (
     <CrewPageBlock>

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { LoginStatus } from "../api/CrewApi";
+import { LoginStatus } from "../api/AuthApi";
 
 const UserRoute = ({ element }) => {
   const navigate = useNavigate();

@@ -3,32 +3,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
 export const getCrews = async () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=true`,
-    {
-      headers: {
-        Access: `${access}`,
-        Refresh: `${refresh}`,
-      }
-    },
+    `${process.env.REACT_APP_MOCK_SERVER_URL}/crew?_limit=5`,
   );
   return res;
 };
 
 // queryKey = crew
 export const getCrew = async (id) => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew/${id}`,
-    {
-      headers: {
-        Access: `${access}`,
-        Refresh: `${refresh}`,
-      }
-    },
+    `${process.env.REACT_APP_MOCK_SERVER_URL}/crew/${id}`
   );
   return res;
 };
@@ -61,12 +45,3 @@ export const useFetchCrewByPage = async ({ pageParam = 1 }) => {
   }
   return response.json();
 };
-
-// export const useFetchPosts = () => {
-//   return useQuery(["posts"], async () => {
-//     const { data } = await axios.get(
-//       `${process.env.REACT_APP_MOCK_SERVER_URL}/posts`
-//     );
-//     return data;
-//   });
-// };

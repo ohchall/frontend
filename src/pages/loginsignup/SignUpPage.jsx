@@ -8,7 +8,7 @@ import {
   SNSLoginContainer,
   Etc,
 } from "./Common.style";
-import { Register } from "../../api/CrewApi";
+import { Register } from "../../api/AuthApi";
 import { useMutation } from "@tanstack/react-query";
 import { AgreementDetail } from "../../components/login&signup/AgreementDetail";
 import { AgreementBox, SignUpForm, SignUpPageBlock } from "./SignUpPage.style";

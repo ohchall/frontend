@@ -4,7 +4,7 @@ import TodoList from "../components/todo/TodoList";
 import MyProfile from "../components/myprofile/MyProfile";
 import MyCrews from "../components/MyCrews";
 import { styled } from "styled-components";
-import { CheckuserInfo } from "../api/CrewApi";
+import { CheckuserInfo } from "../api/AuthApi";
 
 function MyPage() {
   const access = localStorage.getItem("Access");
@@ -19,7 +19,7 @@ function MyPage() {
     if (access && refresh) {
       getUserInfo();
     }
-  }, []);
+  }, [access, refresh]);
 
   return (
     <MyPageSection>

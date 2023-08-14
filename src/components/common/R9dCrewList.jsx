@@ -13,10 +13,10 @@ function R9dCrewList({
 }) {
   return (
     <R9dCrewListBlock>
-      {data?.data.map((item) => (
+      {data &&
       <R9dCrew
-        key={item.id}
-        onClick={() => onClickCrew(item.id)}
+        key={data?.data.crewList[0].crewRecruitmentId}
+        onClick={() => onClickCrew(data?.data.crewList[0].crewRecruitmentId)}
       >
         <ImageWrapper>
           <img src='' alt='' />
@@ -25,17 +25,17 @@ function R9dCrewList({
         <Overview>
           <div>
             <TitleContainer>
-              <p>{item.title}</p>
+              <p>{data?.data.crewList[0].title}</p>
               <span>15/16</span>
             </TitleContainer>
 
             <span><AiFillHeart /></span>
           </div>
 
-          <p>{item.exercisekind} / 서울 중구</p>
+          <p>{data?.data.crewList[0].exercisekind} / 서울 중구</p>
         </Overview>
       </R9dCrew>
-      ))}
+      }
     </R9dCrewListBlock>
   )
 }

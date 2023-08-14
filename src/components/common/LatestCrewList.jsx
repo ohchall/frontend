@@ -16,10 +16,11 @@ function LatestCrewList({
     slidesPerView={'auto'}
     spaceBetween={12}
     >
-      {data?.data.map((item) => (
+      {/* {data?.data.map((item) => ( */}
+      {data?.data.crewList.map((item) => (
       <LatestCrewListSwiperSlide
-        key={item.id}
-        onClick={() => onClickCrew(item.id)}
+        key={item.crewRecruitmentId}
+        onClick={() => onClickCrew(item.crewRecruitmentId)}
       >
         <ImageWrapper>
           <img src='' alt='' />

@@ -1,4 +1,5 @@
-import { CheckuserInfo, getCrews } from "../../api/CrewApi";
+import { CheckuserInfo } from "../../api/AuthApi";
+import { getCrews } from "../../api/CrewApi";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Banner from "../../components/banner/Banner";
@@ -31,7 +32,7 @@ function MainPage() {
     if (access && refresh) {
       getUserInfo();
     }
-  }, []);
+  }, [access, refresh]);
 
   const onClickCrew = (itemId) => {
     navigate(`/crew/${itemId}`);

@@ -23,7 +23,7 @@ function CrewDetail() {
       <Header>
         <div>
           <p>일정 |</p>
-          <div>{crew?.data.exercisedate}</div>
+          <div>{crew?.data.exerciseDate}</div>
         </div>
 
         <div>

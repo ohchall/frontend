@@ -3,16 +3,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
 export const getCrews = async () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  // const access = localStorage.getItem("Access");
+  // const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=true`,
-    {
-      headers: {
-        Access: `${access}`,
-        Refresh: `${refresh}`,
-      }
-    },
+    `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=false`,
+    // {
+    //   headers: {
+    //     Access: `${access}`,
+    //     Refresh: `${refresh}`,
+    //   }
+    // },
   );
   return res;
 };
@@ -27,7 +27,7 @@ export const getCrew = async (id) => {
       headers: {
         Access: `${access}`,
         Refresh: `${refresh}`,
-      }
+      },
     },
   );
   return res;

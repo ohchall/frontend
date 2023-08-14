@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 import { UserCheck } from "../../api/AuthApi";
 import {
   Buttons,
@@ -9,6 +8,7 @@ import {
   SNSLoginContainer,
   Etc,
 } from "./Common.style";
+import { useMutation } from "@tanstack/react-query";
 import { LoginPageBlock } from "./LoginPage.style";
 import { SNSlogin } from "../../components/login&signup/SNSlogin";
 function LoginPage() {

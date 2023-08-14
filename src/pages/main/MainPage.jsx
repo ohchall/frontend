@@ -19,6 +19,8 @@ import { useEffect, useState } from "react";
 
 function MainPage() {
   const navigate = useNavigate();
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log("triggered");
@@ -26,8 +28,9 @@ function MainPage() {
       const isUserLoggedIn = await CheckuserInfo();
       setLoggedin(isUserLoggedIn);
     };
-
-    getUserInfo();
+    if (access && refresh) {
+      getUserInfo();
+    }
   }, []);
 
   const onClickCrew = (itemId) => {

@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { CheckuserInfo } from "../../api/CrewApi";
 
 function CrewPage() {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log("triggered");
@@ -12,8 +14,9 @@ function CrewPage() {
       const isUserLoggedIn = await CheckuserInfo();
       setLoggedin(isUserLoggedIn);
     };
-
-    getUserInfo();
+    if (access && refresh) {
+      getUserInfo();
+    }
   }, []);
 
   return (

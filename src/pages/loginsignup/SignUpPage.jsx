@@ -11,7 +11,7 @@ import {
   SNSButtonWrapper,
 } from "./Common.style";
 import { styled } from "styled-components";
-import { Register } from "../../api/CrewApi";
+import { Register } from "../../api/AuthApi";
 import { useMutation } from "@tanstack/react-query";
 const SignupPage = () => {
   const mutation = useMutation(Register, {

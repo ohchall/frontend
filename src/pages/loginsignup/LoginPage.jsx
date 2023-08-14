@@ -2,10 +2,9 @@ import { useState, useRef } from "react";
 import { SiNaver } from "react-icons/si";
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
-
 import { Buttons, LoginSignupInputsContainers, Nav } from "./Common.style";
 import { useMutation } from "@tanstack/react-query";
-import { UserCheck } from "../../api/CrewApi";
+import { UserCheck } from "../../api/AuthApi";
 import {
   LoginPageBlock,
   SNSButtonWrapper,

@@ -5,7 +5,7 @@ import {
   ButtonWrapper } from './CrewDetail.style';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getCrew } from '../../api/CrewApi';
+import { getCrew } from '../../api/mock/CrewApi';
 
 function CrewDetail() {
   const params = useParams();

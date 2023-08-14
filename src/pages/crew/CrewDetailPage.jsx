@@ -2,7 +2,7 @@ import { CrewDetaiPageBlock } from "./CrewDetailPage.style";
 import CrewDetail from "../../components/crew/CrewDetail";
 import MyProfile from "../../components/myprofile/MyProfile";
 import { useEffect, useState } from "react";
-import { CheckuserInfo } from "../../api/CrewApi";
+import { CheckuserInfo } from "../../api/AuthApi";
 
 function CrewDetailPage() {
   const access = localStorage.getItem("Access");
@@ -17,7 +17,7 @@ function CrewDetailPage() {
     if (access && refresh) {
       getUserInfo();
     }
-  }, []);
+  }, [access, refresh]);
 
   // console.log(loggedin);
 

@@ -12,7 +12,6 @@ export const ModalContainer = styled.div`
   background-color: white;
   border-radius: 20px;
   display: flex;
-
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -31,12 +30,8 @@ export const ModalTitle = styled.div`
     height: 40px;
     font-size: 22px;
   }
-  > button {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-    background-color: transparent;
-    border: none;
+  > img {
+    width: 30px;
     cursor: pointer;
   }
 `;
@@ -76,6 +71,9 @@ export const ModalContent = styled.div`
       padding: 6px 0;
       border-radius: 10px;
       cursor: pointer;
+    }
+    > img {
+      margin-right: 5px;
     }
   }
 `;

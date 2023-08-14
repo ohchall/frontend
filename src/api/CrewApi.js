@@ -38,7 +38,7 @@ export const useFetchCrew = () => {
 //infinite scroll
 export const useFetchCrewByPage = async ({ pageParam = 1 }) => {
   const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}/crew?page=${pageParam}`
+    `${process.env.REACT_APP_MOCK_SERVER_URL}/crew?page=${pageParam}`
   );
   if (!response.ok) {
     throw new Error("Network response was not ok");
@@ -50,7 +50,7 @@ export const useFetchCrewByPage = async ({ pageParam = 1 }) => {
 export const Register = async (newuser) => {
   try {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/signup`,
+      `${process.env.REACT_APP_SERVER_URL }/signup`,
       newuser,
       { headers: { withCredentials: true } }
     );
@@ -64,7 +64,7 @@ export const Register = async (newuser) => {
 //로그인
 export const UserCheck = async (user) => {
   await axios
-    .post(`${process.env.REACT_APP_SERVER_URL}/login`, user)
+    .post(`${process.env.REACT_APP_SERVER_URL }/login`, user)
     .then((response) => {
       const access = response.headers.get("Access");
       const refresh = response.headers.get("Refresh");
@@ -90,7 +90,7 @@ export const CheckuserInfo = async () => {
       },
     };
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
+      `${process.env.REACT_APP_SERVER_URL }/auth/mypage`,
       currentUserToken
     );
     // console.log("API response:", response);
@@ -119,7 +119,7 @@ export const LoginStatus = async () => {
       },
     };
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
+      `${process.env.REACT_APP_SERVER_URL }/auth/mypage`,
       currentUserToken
     );
     // console.log(response);

@@ -4,11 +4,11 @@ import axios from "axios";
 export const Register = async (newuser) => {
   try {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL }/signup`,
+      `${process.env.REACT_APP_SERVER_URL}/signup`,
       newuser,
       { headers: { withCredentials: true } }
     );
-    console.log("resdata", data);
+    // console.log("resdata", data);
     return data;
   } catch (e) {
     alert(e.response.data.msg);
@@ -24,7 +24,7 @@ export const UserCheck = async (user) => {
       const refresh = response.headers.get("Refresh");
       localStorage.setItem("Access", access);
       localStorage.setItem("Refresh", refresh);
-      return console.log("response", response);
+      return;
     })
     .catch((error) => {
       console.log("an error occurred:", error.response);

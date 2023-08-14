@@ -5,20 +5,19 @@ import {
   ButtonWrapper } from './CrewDetail.style';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import { getCrew } from '../../api/CrewApi';
-
+import { getCrew } from "../../api/CrewApi";
 function CrewDetail() {
   const params = useParams();
   const {
     data: crew,
     isLoading,
-    error
-  } = useQuery(['crew', params.id], () => getCrew(params.id));
+    error,
+  } = useQuery(["crew", params.id], () => getCrew(params.id));
 
   return (
     <CrewDetailBlock>
-      { isLoading && 'Loading...' }
-      { error && 'An error has occurred: ' + error.message }
+      {isLoading && "Loading..."}
+      {error && "An error has occurred: " + error.message}
 
       <Header>
         <div>

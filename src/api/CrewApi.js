@@ -6,7 +6,7 @@ export const getCrews = async () => {
   // const access = localStorage.getItem("Access");
   // const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=false`,
+    `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=false`
     // {
     //   headers: {
     //     Access: `${access}`,
@@ -28,7 +28,7 @@ export const getCrew = async (id) => {
         Access: `${access}`,
         Refresh: `${refresh}`,
       },
-    },
+    }
   );
   return res;
 };

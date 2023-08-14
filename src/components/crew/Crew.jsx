@@ -45,62 +45,42 @@ function Crew() {
 
   return (
     <CrewBlock>
-      { isLoading && 'Loading...' }
-      { error && 'An error has occurred: ' + error.message }
+      {isLoading && "Loading..."}
+      {error && "An error has occurred: " + error.message}
       <InputContainer>
-        <input
-          type='text'
-          value={keyword}
-          onChange={onChangeKeyword}
-        />
-        <button
-          onClick={onClickSearch}
-        ><FiSearch /></button>
+        <input type="text" value={keyword} onChange={onChangeKeyword} />
+        <button onClick={onClickSearch}>
+          <FiSearch />
+        </button>
       </InputContainer>
 
       <CategoryContainer>
         {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => onClickCategory(category)}
-          >{category}</button>
+          <button key={category} onClick={() => onClickCategory(category)}>
+            {category}
+          </button>
         ))}
       </CategoryContainer>
 
       <CrewListContainer>
-        <CrewListTitle>
-          최신 크루 리스트
-        </CrewListTitle>
-        
-        <LatestCrewList
-          data={data}
-          onClickCrew={onClickCrew}
-        />
+        <CrewListTitle>최신 크루 리스트</CrewListTitle>
+
+        <LatestCrewList data={data} onClickCrew={onClickCrew} />
       </CrewListContainer>
 
       <CrewListContainer>
-        <CrewListTitle>
-          인기 크루 리스트
-        </CrewListTitle>
+        <CrewListTitle>인기 크루 리스트</CrewListTitle>
 
-        <PopularCrewList
-          data={data}
-          onClickCrew={onClickCrew}
-        />
+        <PopularCrewList data={data} onClickCrew={onClickCrew} />
       </CrewListContainer>
 
       <CrewListContainer>
-        <CrewListTitle>
-          추천 크루 리스트
-        </CrewListTitle>
-        
-        <R9dCrewList
-          data={data}
-          onClickCrew={onClickCrew}
-        />
+        <CrewListTitle>추천 크루 리스트</CrewListTitle>
+
+        <R9dCrewList data={data} onClickCrew={onClickCrew} />
       </CrewListContainer>
     </CrewBlock>
-  )
+  );
 }
 
 export default Crew;

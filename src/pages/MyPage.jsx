@@ -7,6 +7,8 @@ import { styled } from "styled-components";
 import { CheckuserInfo } from "../api/CrewApi";
 
 function MyPage() {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log("triggered");
@@ -14,8 +16,9 @@ function MyPage() {
       const isUserLoggedIn = await CheckuserInfo();
       setLoggedin(isUserLoggedIn);
     };
-
-    getUserInfo();
+    if (access && refresh) {
+      getUserInfo();
+    }
   }, []);
 
   return (

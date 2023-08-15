@@ -10,12 +10,11 @@ import { useNavigate } from 'react-router-dom';
 const MyCrews = () => {
 
   
-  const fetchCrews = async ({pageParam = 1, size = 2}) => {
-    const { data } = await axios.get(`${process.env.REACT_APP_MOCK_SERVER_URL}/crew?page=${pageParam}&size=${size}`);
+  const fetchCrews = async () => {
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/crew`);
     return data;
-    
   };
-  
+ 
   const {
     data,
     fetchNextPage,
@@ -49,7 +48,7 @@ const MyCrews = () => {
       fetchNextPage();
     }
   };
-  console.log(data)
+  
 
 
   const addressSubstraction = (location) => {

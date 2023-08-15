@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { useFetchTodos } from "../../api/TodoApi";
+import { startOfWeek, endOfWeek, isWithinInterval, parseISO } from "date-fns";
 import {
   MyProfileBlock,
   Header,
@@ -12,6 +14,7 @@ import {
   ThisWeekTodo,
   Todo,
   Week,
+  WeekSpan,
 } from "./MyProfile.style";
 
 function MyProfile() {
@@ -19,8 +22,28 @@ function MyProfile() {
     localStorage.removeItem("Access");
     localStorage.removeItem("Refresh");
     window.location.reload();
-
   };
+
+  const { data, isLoading, isError } = useFetchTodos();
+  const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+  const startOfThisWeek = startOfWeek(new Date());
+  const endOfThisWeek = endOfWeek(new Date());
+  const thisWeekTodos = data
+    ? data.filter((todo) => {
+        const todoDate = parseISO(todo.date);
+        return isWithinInterval(todoDate, {
+          start: startOfThisWeek,
+          end: endOfThisWeek,
+        });
+      })
+    : [];
+
+  const thisWeekUncompletedTodos = thisWeekTodos.filter(
+    (todo) => !todo.isSuccess
+  );
+
+  if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div>Error...</div>;
   return (
     <MyProfileBlock>
       <Header>
@@ -50,57 +73,25 @@ function MyProfile() {
         <ThisWeekTodo>
           <p>이번주 투두.</p>
           <div>
-            <Todo>
-              <span>매일 아침 러닝 30분</span>
-              <Week>
-                <span>M</span>
-                <span>T</span>
-                <span>W</span>
-                <span>T</span>
-                <span>F</span>
-                <span>S</span>
-                <span>S</span>
-              </Week>
-            </Todo>
-
-            <Todo>
-              <span>주 3회 헬스장 가기</span>
-              <Week>
-                <span>M</span>
-                <span>T</span>
-                <span>W</span>
-                <span>T</span>
-                <span>F</span>
-                <span>S</span>
-                <span>S</span>
-              </Week>
-            </Todo>
-
-            <Todo>
-              <span>오전06시 테니스 텟..</span>
-              <Week>
-                <span>M</span>
-                <span>T</span>
-                <span>W</span>
-                <span>T</span>
-                <span>F</span>
-                <span>S</span>
-                <span>S</span>
-              </Week>
-            </Todo>
-
-            <Todo>
-              <span>오전11시 필라테스..</span>
-              <Week>
-                <span>M</span>
-                <span>T</span>
-                <span>W</span>
-                <span>T</span>
-                <span>F</span>
-                <span>S</span>
-                <span>S</span>
-              </Week>
-            </Todo>
+            {thisWeekUncompletedTodos.length > 0 ? (
+              thisWeekUncompletedTodos.map((todo) => (
+                <Todo key={todo.id}>
+                  <span>{todo.content}</span>
+                  <Week>
+                    {daysOfWeek.map((day, index) => (
+                      <WeekSpan
+                        key={day}
+                        $isCurrent={index === new Date(todo.date).getDay()}
+                      >
+                        {day}
+                      </WeekSpan>
+                    ))}
+                  </Week>
+                </Todo>
+              ))
+            ) : (
+              <h3>이번주 투두가 없습니다....</h3>
+            )}
           </div>
         </ThisWeekTodo>
       </div>

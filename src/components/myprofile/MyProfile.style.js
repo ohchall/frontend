@@ -9,7 +9,7 @@ import styled from 'styled-components';
 export const MyProfileBlock = styled.div`
   width: 100%;
   height: 249px;
-  background-color: #F3F3F3;
+  background-color: #ef902a;
   padding: 16px;
 `;
 

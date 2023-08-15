@@ -19,7 +19,7 @@ export const PopularCrewListBlock = styled.div`
     height: 50px;
     margin-bottom: 8px;
     padding: 0 12px;
-    background-color: #EAEAEA;
+    background-color: #baf2ff;
     border-radius: 15px;
     cursor: pointer;
   }
@@ -29,7 +29,7 @@ export const PopularCrewListBlock = styled.div`
     margin-right: 10px;
     text-align: center;
     border-radius: 50%;
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
   }
 
   & > div > ${TitleContainer} > p {

@@ -65,7 +65,7 @@ function Router() {
         <Route
           path="/crew"
           element={
-            <Template header footer>
+            <Template footer>
               <CrewPage />
             </Template>
           }

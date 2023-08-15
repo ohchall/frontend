@@ -1,69 +1,29 @@
 import axios from "axios";
-import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
+import {  useMutation, useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
 export const getCrews = async () => {
-  // const access = localStorage.getItem("Access");
-  // const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
   `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=false`
-  // {
-  // headers: {
-  // Access: `${access}`,
-  // Refresh: `${refresh}`,
-  // }
-  // },
   );
   return res;
-  };
+};
 
 // queryKey = crew
 export const getCrew = async (id) => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
-  `${process.env.REACT_APP_SERVER_URL}/crew/${id}`,
-  {
-  headers: {
-  Access: `${access}`,
-  Refresh: `${refresh}`,
-  },
-  }
-  );
-  return res;
-  };
-
-// queryKey = crew
-// export const addPost = async (FormData) => {
-//   console.log(FormData);
-//   const res = await axios.post("/crew", FormData);
-//   return res;
-//   };
-export const useAddCrewMutation = () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
-  const currentUserToken = {
-    headers: {
+    `${process.env.REACT_APP_SERVER_URL}/crew/${id}`,
+    {
+      headers: {
       Access: `${access}`,
       Refresh: `${refresh}`,
-      'Content-Type': 'multipart/form-data',
-    },
-  };
-
-  return useMutation(["crewData"],  async (formData) => {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/crew`,
-      formData,
-      currentUserToken
-    );
-    return data;
-  });
+      },
+    }
+  );
+  return res;
 };
-
-
-
-
 
 // queryKey = crewData
 export const useFetchCrew = () => {
@@ -85,101 +45,23 @@ export const useFetchCrew = () => {
   });
 };
 
+// queryKey = crewData
+export const useAddCrewMutation = () => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const currentUserToken = {
+    headers: {
+      Access: `${access}`,
+      Refresh: `${refresh}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  };
 
-// 회원가입
-export const Register = async (newuser) => {
-  try {
+  return useMutation(["crewData"],  async (formData) => {
     const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL }/signup`,
-      newuser,
-      { headers: { withCredentials: true } }
-    );
-    console.log("resdata", data);
-    return data;
-  } catch (e) {
-    alert(e.response.data.msg);
-  }
-};
-
-//로그인
-export const UserCheck = async (user) => {
-  await axios
-    .post(`${process.env.REACT_APP_SERVER_URL }/login`, user)
-    .then((response) => {
-      const access = response.headers.get("Access");
-      const refresh = response.headers.get("Refresh");
-      localStorage.setItem("Access", access);
-      localStorage.setItem("Refresh", refresh);
-      return console.log("response", response);
-    })
-    .catch((error) => {
-      console.log("an error occurred:", error.response);
-      alert(error.response.data.msg);
-    });
-};
-
-//유저프로필 요청
-export const CheckuserInfo = async () => {
-  try {
-    const access = localStorage.getItem("Access");
-    const refresh = localStorage.getItem("Refresh");
-    const currentUserToken = {
-      headers: {
-        Access: `${access}`,
-        Refresh: `${refresh}`,
-      },
-    };
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL }/auth/mypage`,
+      `${process.env.REACT_APP_SERVER_URL}/crew`,
+      formData,
       currentUserToken
-    );
-    // console.log("API response:", response);
-    if (response.status === 200) {
-      // console.log("API response is successful");
-      return true;
-    } else {
-      return false;
-    }
-  } catch (error) {
-    return false;
-  }
-};
-
-// 로그인 여부 인증
-export const LoginStatus = async () => {
-  const accesstoken = localStorage.getItem("Access");
-  const refreshtoken = localStorage.getItem("Refresh");
-  if (!accesstoken || !refreshtoken) return false;
-  try {
-    const currentUserToken = {
-      headers: {
-        Access: `${accesstoken}`,
-        Refresh: `${refreshtoken}`,
-      },
-    };
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL }/auth/mypage`,
-      currentUserToken
-    );
-    // console.log(response);
-    if (response.status === 200) {
-      return true;
-    } else {
-      console.log("인증 실패");
-      alert("인증 실패");
-      return false;
-    }
-  } catch (error) {
-    // console.log(error);
-    alert("로그인유효성검사 실패");
-    return false;
-  }
-};
-
-export const useFetchPosts = () => {
-  return useQuery(["posts"], async () => {
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_MOCK_SERVER_URL}/posts`
     );
     return data;
   });

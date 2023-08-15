@@ -12,7 +12,10 @@ function LatestCrewList({
   onClickCrew
 }) {
   return (
-    <LatestCrewListSwiper slidesPerView={"auto"} spaceBetween={12}>
+    <LatestCrewListSwiper
+      slidesPerView={'auto'}
+      spaceBetween={12}
+    >
       {/* {data?.data.map((item) => ( */}
       {data?.data.crewList.map((item) => (
         <LatestCrewListSwiperSlide
@@ -20,7 +23,13 @@ function LatestCrewList({
           onClick={() => onClickCrew(item.crewRecruitmentId)}
         >
           <ImageWrapper>
-            <img src="" alt="" />
+            <img
+              src={
+                item.image?.length !== 0  && 
+                item.image?.length !== undefined ? item.image[0] : ''
+              }
+              alt=''
+            />
           </ImageWrapper>
 
           <Overview>

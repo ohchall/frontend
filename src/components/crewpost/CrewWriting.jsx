@@ -1,11 +1,8 @@
-import React from 'react'
 import { styled } from 'styled-components'
 
-
 const CrewWriting = styled.div`
-
-width:100%;
- margin:0 auto;
+  width:100%;
+  margin:0 auto;
  .header{display:flex;align-items:center;justify-content:space-between;width:100%;height:5%;}
  .crewForm{width:100%;height:100%;padding:6px 40px;}
  .crewForm>.crewImage{width: 100%;
@@ -23,26 +20,26 @@ width:100%;
     flex-direction: column; width: 100%; height: 100%;}
 
 
- .crewForm>.crewImage>.button>.inputFileBtn {color:#999999;border-radius: 4px;cursor: pointer;font-size:13px;font-family:"Roboto", sans-serif;display:flex;flex-direction: column;align-items:center;justify-content:center;width:100%;height:100%;}
+  .crewForm>.crewImage>.button>.inputFileBtn {color:#999999;border-radius: 4px;cursor: pointer;font-size:13px;font-family:"Roboto", sans-serif;display:flex;flex-direction: column;align-items:center;justify-content:center;width:100%;height:100%;}
   .crewForm>.crewImage>.button>input{display:none;}
   .crewForm>.crewImage>.imageUploadSize{width:100%;height:100%;display: flex;align-items: center;justify-content: center;}
   .crewForm>.crewImage>.imageUploadSize>img{width:100%;height:100%;object-fit:cover;}
 
   .crewForm strong{width:16%;margin-right:10px;font-size:14px;font-weight:600;}
   .identicalStyle {
-  border-bottom:1px solid #999999;
-  display:flex;
-  align-items: center;
-  justify-content: center;
-  padding:5px 0;
-  width:100%;
-   }
+    border-bottom:1px solid #999999;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    padding:5px 0;
+    width:100%;
+  }
 
-.identicalStyle > input {
-  width:85%;
-  border:none;
-  outline:none;
- }
+  .identicalStyle > input {
+    width:85%;
+    border:none;
+    outline:none;
+  }
 
   
   .crewForm>.crewFormContent{
@@ -94,7 +91,6 @@ width:100%;
   .crewForm>.crewFormContent>.location>.address{display:flex; width:100%;}
   .crewForm>.crewFormContent>.location>.address>input{width:100%;border:none;outline:none;}
 
-  
   .crewForm>.crewFormContent>.category>div{display:flex;width:87%;}
   .crewForm>.crewFormContent>.category>div>select{width:46%;border:none;}
   .crewForm>.crewFormContent>.category>div>input{width:70%;border:none;}
@@ -116,7 +112,6 @@ width:100%;
     -moz-appearance: textfield;
   }
 
-
   .crewForm>.crewFormContent>.totalmembers>.numberChoice>input{width:100%;border: 1px solid #999999;border:none;}
   .crewForm>.crewFormContent>.totalmembers>div>.numberUpDown{position:absolute;top:0;right:10px;padding-top:2px;}
   
@@ -125,4 +120,3 @@ width:100%;
 `
 
 export default CrewWriting
-

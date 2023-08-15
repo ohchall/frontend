@@ -66,3 +66,21 @@ export const useAddCrewMutation = () => {
     return data;
   });
 };
+
+// // 좋아요 버튼
+// export const useLike = async () => {
+//     const queryClient = useQueryClient();
+//     return useMutation(
+//       () => {
+//         return axios.post(
+//           `${process.env.REACT_APP_SERVER_URL}/`,
+          
+//         );
+//       },
+//       {
+//         onSuccess: () => {
+//           queryClient.invalidateQueries("");
+//         },
+//       }
+//     );
+//   };

@@ -4,18 +4,12 @@ import {
   TitleContainer,
   LatestCrewListSwiper,
   LatestCrewListSwiperSlide } from './LatestCrewList.style';
-import { AiFillHeart } from 'react-icons/ai';
-import 'swiper/css';
+import "swiper/css";
+import LikeButton from "../LikeButton";
 
-function LatestCrewList({
-  data,
-  onClickCrew
-}) {
+function LatestCrewList({ data, onClickCrew }) {
   return (
-    <LatestCrewListSwiper
-      slidesPerView={'auto'}
-      spaceBetween={12}
-    >
+    <LatestCrewListSwiper slidesPerView={"auto"} spaceBetween={12}>
       {/* {data?.data.map((item) => ( */}
       {data?.data.crewList.map((item) => (
         <LatestCrewListSwiperSlide
@@ -25,10 +19,11 @@ function LatestCrewList({
           <ImageWrapper>
             <img
               src={
-                item.image?.length !== 0  && 
-                item.image?.length !== undefined ? item.image[0] : ''
+                item.image?.length !== 0 && item.image?.length !== undefined
+                  ? item.image[0]
+                  : ""
               }
-              alt=''
+              alt=""
             />
           </ImageWrapper>
 
@@ -39,11 +34,8 @@ function LatestCrewList({
                 <span>15/16</span>
               </TitleContainer>
 
-              <span>
-                <AiFillHeart />
-              </span>
+              <LikeButton />
             </div>
-
             <p>{item.exercisekind} / 서울 중구</p>
           </Overview>
         </LatestCrewListSwiperSlide>

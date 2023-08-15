@@ -5,7 +5,7 @@ export const MainPageSection = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   padding-bottom: 60px;
   overflow: scroll;
   &::-webkit-scrollbar {
@@ -16,29 +16,18 @@ export const MainPageSection = styled.div`
 export const TitleContainer = styled.div`
   display: flex;
   align-items: center;
-  gap: 10px;
   width: 100%;
-  margin-bottom: 3%;
   & h1 {
     font-size: 20px;
-    flex: 1;
-    margin-left: 3%;
+    font-weight: bold;
+    margin-bottom: 12px;
   }
   & button {
     margin-right: 5%;
   }
 `;
 
-export const RecentCrewList = styled.div`
+export const CrewListContainer = styled.div`
   width: 100%;
-  padding: 24px 16px;
-`;
-
-export const TopCrewList = styled.div`
-  width: 100%;
-  padding: 24px 16px;
-`;
-export const SuggestCrewList = styled.div`
-  width: 100%;
-  padding: 24px 16px;
+  padding: 0 16px;
 `;

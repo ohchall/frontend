@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const MyProfileBlock = styled.div`
   width: 100%;
   height: 249px;
-  background-color: #ef902a;
+  background-image: linear-gradient(to bottom, #ef902a, #fff, #baf2ff);
   padding: 16px;
 `;
 

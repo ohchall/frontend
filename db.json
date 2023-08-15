@@ -458,8 +458,8 @@
       "image": "https://images.unsplash.com/photo-1501147830916-ce44a6359892?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80",
       "location": "서울 서초구 강남대로34길 7 오랜만이야 1층",
       "dateRange": "2023-07-31 - 2023-08-26",
-      "totalnumber":12,
-      "time":"오전 9:50",
+      "totalnumber": 12,
+      "time": "오전 9:50",
       "id": 35
     },
     {
@@ -471,7 +471,7 @@
       "location": "경기 고양시 덕양구 어울림로 14 달빛공원 정문",
       "dateRange": "2023-07-31 - 2023-08-05",
       "totalnumber": 6,
-       "time":"오전 7:50",
+      "time": "오전 7:50",
       "id": 36
     }
   ],
@@ -481,27 +481,31 @@
       "title": "풋살",
       "content": "6:6풋살 일정",
       "date": "2023-08-01",
-      "isSuccess": true
+      "isSuccess": false,
+      "authId": "mypage"
     },
     {
       "id": 4,
       "title": "헬스",
-      "content": "벤치프레스 10개",
-      "isSuccess": true,
-      "date": "2023-08-04"
+      "content": "벤치프레스 100개 해버리기",
+      "date": "2023-08-04",
+      "authId": "mypage",
+      "isSuccess": false
     },
     {
       "id": 5,
       "title": "등산",
-      "content": "설악산 등산",
-      "date": "2023-08-20",
-      "isSuccess": false
+      "content": "한라산 등반",
+      "isSuccess": false,
+      "authId": "mypage",
+      "date": "2023-08-20"
     },
     {
       "id": 6,
       "title": "수영",
       "content": "1시간",
       "isSuccess": false,
+      "authId": "mypage",
       "date": "2023-09-21"
     },
     {
@@ -509,6 +513,7 @@
       "content": "한강에서 2시간",
       "date": "2023-08-16",
       "isSuccess": false,
+      "authId": "mypage",
       "id": 8
     },
     {
@@ -516,6 +521,7 @@
       "content": "2리터 마시기",
       "date": "2023-08-18",
       "isSuccess": false,
+      "authId": "mypage",
       "id": 9
     },
     {
@@ -523,23 +529,16 @@
       "content": "30분 2세트",
       "date": "2023-08-29",
       "isSuccess": false,
+      "authId": "mypage",
       "id": 10
     },
     {
-      "title": "1234",
-      "content": "1234",
-      "date": "2023-08-17",
-      "isSuccess": false,
+      "id": 11,
+      "title": "수영대결",
+      "content": "수영대결 100,000원 내기",
+      "date": "2023-08-19",
       "authId": "mypage",
-      "id": 11
-    },
-    {
-      "title": "test",
-      "content": "test1",
-      "date": "2023-08-14",
-      "isSuccess": false,
-      "authId": "mypage",
-      "id": 12
+      "isSuccess": false
     }
   ]
 }

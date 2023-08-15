@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const BASE_URL = "http://localhost:4000";
-
 export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
@@ -24,12 +22,10 @@ export const useDeleteTodoMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
     (todoId) => {
-      // return axios.delete(
-      //   `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${todoId}`
-      // );
-      const deleteUrl = `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${todoId}`;
-      console.log("Deleting Todo with URL:", deleteUrl);
-      return axios.delete(deleteUrl);
+      return axios.delete(
+        `${process.env.REACT_APP_MOCK_SERVER_URL}/todos/${todoId}`
+        // `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${todoId}`
+      );
     },
     {
       onSuccess: () => {
@@ -44,7 +40,8 @@ export const useUpdateTodoMutation = () => {
   return useMutation(
     (updatedTodo) => {
       return axios.put(
-        `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
+        `${process.env.REACT_APP_MOCK_SERVER_URL}/todos/${updatedTodo.id}`,
+        // `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`
         updatedTodo
       );
     },
@@ -70,7 +67,8 @@ export const useUpdateIsSuccessMutation = () => {
   return useMutation(
     async (updatedTodo) => {
       const response = await axios.put(
-        `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`,
+        `${process.env.REACT_APP_MOCK_SERVER_URL}/todos/${updatedTodo.id}`,
+        // `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`
         updatedTodo
       );
       return response.data;
@@ -82,5 +80,3 @@ export const useUpdateIsSuccessMutation = () => {
     }
   );
 };
-
-

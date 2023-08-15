@@ -5,7 +5,7 @@ import {
   Overview,
   TitleContainer,
 } from "./R9dCrewList.style";
-import 'swiper/css';
+import "swiper/css";
 import LikeButton from "../LikeButton";
 
 function R9dCrewList({ data, onClickCrew }) {
@@ -17,7 +17,15 @@ function R9dCrewList({ data, onClickCrew }) {
           onClick={() => onClickCrew(data?.data.crewList[0].crewRecruitmentId)}
         >
           <ImageWrapper>
-            <img src="" alt="" />
+            <img
+              src={
+                data?.data.crewList[0].image?.length !== 0 &&
+                data?.data.crewList[0].image?.length !== undefined
+                  ? data?.data.crewList[0].image[0]
+                  : ""
+              }
+              alt=""
+            />
           </ImageWrapper>
 
           <Overview>

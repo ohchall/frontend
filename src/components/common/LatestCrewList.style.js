@@ -4,8 +4,15 @@ import styled from 'styled-components';
 export const ImageWrapper = styled.div`
   width: 100%;
   height: 259px;
+  display: flex;
+  justify-content: center;
   border-radius: 25px 25px 0 0;
   background-color: #EEEEEE;
+  overflow: hidden;
+
+  & > img {
+    height: 100%;
+  }
 `;
 
 export const Overview = styled.div`

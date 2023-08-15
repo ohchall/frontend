@@ -12,23 +12,24 @@ import { useMutation } from "@tanstack/react-query";
 
 function CrewWritePage() {
   const [addImg, setAddImg] = useState("");
-  const [exercisekind, setExercisekind] = useState("");
+  const [exerciseKind, setExerciseKind] = useState("");
   const [customCategory, setCustomCategory] = useState("");
   const [searchedAddress, setSearchedAddress] = useState("");
   const ref = useRef(null);
   const [exerciseDate, setExerciseDate] = useState(new Date());
-  const [totalnumber, setTotalnumber] = useState(0);
-  const addCrewMutation = useAddCrewMutation();
+  const [totalNumber, setTotalNumber] = useState(0);
+  const { mutate } = useAddCrewMutation();
+
   const [crew, setCrew] = useState({
     title: "",
     content: "",
-    crewname: "",
-    exercisekind: "",
-    image: "",
+    crewName: "",
     location: "",
-    exercisedate: new Date(),
-    time: "오전 06:00",
-    totalnumber: 0,
+    exerciseDate: new Date(),
+    exerciseKind: "",
+    totalNumber: 0,
+    image: "",
+    time: "",
   });
 
   const upLoadImgHandler = (e) => {
@@ -47,51 +48,52 @@ function CrewWritePage() {
 
   useEffect(() => {
     setCrew((prevCrew) => {
-      if (exercisekind === "custom") {
+      if (exerciseKind === "custom") {
         return {
           ...prevCrew,
-          exercisekind: customCategory,
+          exerciseKind: customCategory,
         };
       } else {
         return {
           ...prevCrew,
-          exercisekind,
+          exerciseKind,
         };
       }
     });
-  }, [exercisekind, customCategory]);
+  }, [exerciseKind, customCategory]);
 
-  const onCrewUpload = (e) => {
+  const onCrewUpload = async (e) => {
     e.preventDefault();
-    const crewToUpload = {
-      ...crew,
-    };
-    console.log(crewToUpload);
 
-    addCrewMutation.mutate(crewToUpload, {
-      onSuccess: (data) => {
-        console.log("저장 성공:", data);
-        setCrew({
-          title: "",
-          content: "",
-          crewname: "",
-          exercisekind: "",
-          location: "",
-          image: "",
-          exercisedate: "",
-          time: "",
-          totalnumber: 0,
-        });
-      },
-      onError: (error) => {
-        console.error("저장 실패:", error);
-      },
-    });
+    const formData = new FormData();
+    const contents = {
+      title: crew.title,
+      content: crew.content,
+      crewName: crew.crewName,
+      exerciseKind: crew.exerciseKind,
+      location: crew.location,
+      usersLocation: "",
+      exerciseDate: crew.exerciseDate,
+      totalNumber: crew.totalNumber,
+      time: crew.time,
+    };
+    const jsonContent = JSON.stringify(contents);
+    const blob = new Blob([jsonContent], { type: "application/json" });
+
+    formData.append("data", blob);
+    formData.append("image", crew.image);
+
+    mutate(formData);
+
+    try {
+      // console.log(response.data);
+    } catch (error) {
+      console.error("Error uploading crew data:", error);
+    }
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(crew);
     setCrew({
       ...crew,
       [name]: value,
@@ -112,35 +114,34 @@ function CrewWritePage() {
       setSearchedAddress(data.address);
     },
   };
-
   const postCode = ReactDaumPost(postConfig);
-
   const handleMembersChange = (e) => {
     const newCount = Number(e.target.value);
 
-    setCrew({ ...crew, totalnumber: newCount });
+    setCrew({ ...crew, totalNumber: newCount });
   };
 
   const increaseMembers = () => {
-    if (totalnumber < 100) {
-      const newCount = totalnumber + 1;
-      setTotalnumber(newCount);
-      setCrew({ ...crew, totalnumber: newCount });
+    if (totalNumber < 100) {
+      const newCount = totalNumber + 1;
+      setTotalNumber(newCount);
+      setCrew({ ...crew, totalNumber: newCount });
     }
   };
 
   const decreaseMembers = () => {
-    if (totalnumber > 0) {
-      const newCount = totalnumber - 1;
-      setTotalnumber(newCount);
-      setCrew({ ...crew, totalnumber: newCount });
+    if (totalNumber > 0) {
+      const newCount = totalNumber - 1;
+      setTotalNumber(newCount);
+      setCrew({ ...crew, totalNumber: newCount });
     }
   };
 
   const setExerciseDates = (value) => {
     setExerciseDate(value);
-    setCrew({ ...crew, exercisedate: value });
+    setCrew({ ...crew, exerciseDate });
   };
+
   const setCrewTime = (selectedTime) => {
     setCrew((prevCrew) => ({ ...prevCrew, time: selectedTime }));
   };
@@ -169,6 +170,7 @@ function CrewWritePage() {
               </div>
             )}
           </div>
+
           <div className="crewFormContent">
             <div className="title identicalStyle">
               <input
@@ -176,7 +178,7 @@ function CrewWritePage() {
                 name="title"
                 value={crew.title}
                 placeholder="제목"
-                maxLength="11"
+                maxLength="7"
                 onChange={handleInputChange}
               />
             </div>
@@ -194,8 +196,8 @@ function CrewWritePage() {
               <strong>크루명</strong>
               <input
                 type="text"
-                name="crewname"
-                value={crew.crewname}
+                name="crewName"
+                value={crew.crewName}
                 placeholder="크루이름을 입력하세요"
                 onChange={handleInputChange}
               />
@@ -224,9 +226,9 @@ function CrewWritePage() {
               </div>
             </div>
             <CrewCategory
-              category={exercisekind}
+              category={exerciseKind}
               customCategory={customCategory}
-              onSelectCategory={setExercisekind}
+              onSelectCategory={setExerciseKind}
               onCustomCategoryChange={setCustomCategory}
             />
 
@@ -238,7 +240,7 @@ function CrewWritePage() {
                   className="total"
                   max="100"
                   placeholder="인원수를 선택하세요"
-                  value={crew.totalnumber}
+                  value={crew.totalNumber}
                   onChange={handleMembersChange}
                 />
                 <div className="numberUpDown">
@@ -260,10 +262,7 @@ function CrewWritePage() {
 }
 export default CrewWritePage;
 
-
-const CrewUpload = styled.div
-`
-width:100%;
-height:90vh;
-
-`
+const CrewUpload = styled.div`
+  width: 100%;
+  height: 90vh;
+`;

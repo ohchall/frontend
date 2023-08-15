@@ -1,10 +1,6 @@
-import { Link } from 'react-router-dom';
-import {
-  LuUser,
-  LuInbox,
-  LuBell,
-  LuLogOut } from 'react-icons/lu';
-import styled from 'styled-components';
+import { Link } from "react-router-dom";
+import { LuUser, LuInbox, LuBell, LuLogOut } from "react-icons/lu";
+import styled from "styled-components";
 
 export const MyProfileBlock = styled.div`
   width: 100%;
@@ -18,7 +14,7 @@ export const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
-  
+
   & p {
     font-size: 24px;
     font-weight: bold;
@@ -69,7 +65,7 @@ export const ThisMonthGoal = styled.div`
   border-radius: 10px;
   padding-left: 10px;
   margin-bottom: 6px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-size: 14px;
 
   & > p {
@@ -91,9 +87,15 @@ export const ThisWeekTodo = styled.div`
   display: flex;
   border-radius: 10px;
   padding: 10px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-size: 14px;
 
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   & p {
     width: 68px;
     font-weight: bold;
@@ -112,12 +114,18 @@ export const Todo = styled.div`
   display: flex;
   justify-content: space-between;
 
-  &:nth-of-type(-n+3) {
+  /* &:nth-of-type(-n + 3) {
     margin-bottom: 10px;
-  }
+  } */
+
+  margin-bottom: 10px;
 
   & > span {
     display: block;
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 
@@ -133,10 +141,23 @@ export const Week = styled.div`
     line-height: 16px;
     font-size: 8px;
     font-weight: normal;
-    background-color: #F2F2F2;
 
-    &:nth-of-type(-n+6) {
+    &:nth-of-type(-n + 6) {
       margin-right: 5px;
     }
+
+    margin-right: 5px;
   }
+`;
+
+export const WeekSpan = styled.span`
+  width: 12px;
+  height: 16px;
+  border-radius: 6px;
+  display: block;
+  text-align: center;
+  line-height: 16px;
+  font-size: 8px;
+  font-weight: normal;
+  background-color: ${(props) => (props.$isCurrent ? "#93C3BC" : "#EEEEEE")};
 `;

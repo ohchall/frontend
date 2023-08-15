@@ -16,6 +16,8 @@ function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
     title: todo.title,
     content: todo.content,
     date: todo.date,
+    authId: "mypage", //로그인 시 생기는 authId가 필요할 경우 로직 만들어야함
+    isSuccess: todo.isSuccess,
   });
 
   const onChangeTodoHandler = (e) => {

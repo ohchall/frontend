@@ -5,6 +5,14 @@ export const ImageWrapper = styled.div`
   height: 259px;
   border-radius: 25px 25px 0 0;
   background-color: #EEEEEE;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  & img {
+    width: 100%;
+  }
 `;
 
 export const Overview = styled.div`

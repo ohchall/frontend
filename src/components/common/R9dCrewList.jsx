@@ -3,41 +3,39 @@ import {
   R9dCrew,
   ImageWrapper,
   Overview,
-  TitleContainer } from './R9dCrewList.style';
-import { AiFillHeart } from 'react-icons/ai';
+  TitleContainer,
+} from "./R9dCrewList.style";
 import 'swiper/css';
+import LikeButton from "../LikeButton";
 
-function R9dCrewList({
-  data,
-  onClickCrew
-}) {
+function R9dCrewList({ data, onClickCrew }) {
   return (
     <R9dCrewListBlock>
-      {data &&
-      <R9dCrew
-        key={data?.data.crewList[0].crewRecruitmentId}
-        onClick={() => onClickCrew(data?.data.crewList[0].crewRecruitmentId)}
-      >
-        <ImageWrapper>
-          <img src='' alt='' />
-        </ImageWrapper>
+      {data && (
+        <R9dCrew
+          key={data?.data.crewList[0].crewRecruitmentId}
+          onClick={() => onClickCrew(data?.data.crewList[0].crewRecruitmentId)}
+        >
+          <ImageWrapper>
+            <img src="" alt="" />
+          </ImageWrapper>
 
-        <Overview>
-          <div>
-            <TitleContainer>
-              <p>{data?.data.crewList[0].title}</p>
-              <span>15/16</span>
-            </TitleContainer>
+          <Overview>
+            <div>
+              <TitleContainer>
+                <p>{data?.data.crewList[0].title}</p>
+                <span>15/16</span>
+              </TitleContainer>
 
-            <span><AiFillHeart /></span>
-          </div>
+              <LikeButton />
+            </div>
 
-          <p>{data?.data.crewList[0].exercisekind} / 서울 중구</p>
-        </Overview>
-      </R9dCrew>
-      }
+            <p>{data?.data.crewList[0].exercisekind} / 서울 중구</p>
+          </Overview>
+        </R9dCrew>
+      )}
     </R9dCrewListBlock>
-  )
+  );
 }
 
 export default R9dCrewList;

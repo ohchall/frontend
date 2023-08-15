@@ -7,10 +7,8 @@ import Category from "../../components/category/Category";
 import EventBanner from "../../components/banner/EventBanner";
 import {
   MainPageSection,
-  RecentCrewList,
   TitleContainer,
-  TopCrewList,
-  SuggestCrewList,
+  CrewListContainer,
 } from "./MainPage.style";
 import LatestCrewList from "../../components/common/LatestCrewList";
 import R9dCrewList from "../../components/common/R9dCrewList";
@@ -57,32 +55,32 @@ function MainPage() {
         <Banner data={bannerData} />
         <Category />
 
-        <RecentCrewList>
+        <CrewListContainer>
           <TitleContainer>
             <h1>최신 크루 리스트</h1>
             {/* <button>더보기</button> */}
           </TitleContainer>
 
           <LatestCrewList data={data} onClickCrew={onClickCrew} />
-        </RecentCrewList>
+        </CrewListContainer>
 
-        <TopCrewList>
+        <CrewListContainer>
           <TitleContainer>
             <h1>인기 크루 리스트</h1>
             {/* <button>더보기</button> */}
           </TitleContainer>
 
           <PopularCrewList data={data} onClickCrew={onClickCrew} />
-        </TopCrewList>
+        </CrewListContainer>
 
-        <SuggestCrewList>
+        <CrewListContainer>
           <TitleContainer>
             <h1>추천 크루 리스트</h1>
             {/* <button>더보기</button> */}
           </TitleContainer>
 
           <R9dCrewList data={data} onClickCrew={onClickCrew} />
-        </SuggestCrewList>
+        </CrewListContainer>
 
         <EventBanner />
       </MainPageSection>

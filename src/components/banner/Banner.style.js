@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const BannerSection = styled.div`
-  margin-top: -20px;
+  margin-top: -30px;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   width: 100%;
-  height: 200px;
+  height: 330px;
   background-color: grey;
   background-size: cover;
   background-position: center;

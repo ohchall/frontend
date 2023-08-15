@@ -20,10 +20,11 @@ export const Overview = styled.div`
   height: 70px;
   padding: 14px 16px;
   border-radius: 0 0 25px 25px;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 
   & > div {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 6px;
   }

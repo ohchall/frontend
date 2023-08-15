@@ -1,5 +1,5 @@
 import React from "react";
-import { CategoryContainer } from "./Category.style";
+import { CategoryButton, CategoryContainer } from "./Category.style";
 function Category() {
   const categories = [
     "전체",
@@ -18,9 +18,12 @@ function Category() {
   return (
     <CategoryContainer>
       {categories.map((category) => (
-        <button key={category} onClick={() => onClickCategory(category)}>
+        <CategoryButton
+          key={category}
+          onClick={() => onClickCategory(category)}
+        >
           {category}
-        </button>
+        </CategoryButton>
       ))}
     </CategoryContainer>
   );

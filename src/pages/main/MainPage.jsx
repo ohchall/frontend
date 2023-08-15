@@ -48,17 +48,19 @@ function MainPage() {
     return <div>Error occurred while fetching data.</div>;
   }
 
+  const bannerData = data.data.crewList[0];
+  //  console.log("bannerData", bannerData);
   return (
     <>
       <MainPageSection>
         {loggedin ? <MyProfile /> : null}
-        <Banner />
+        <Banner data={bannerData} />
         <Category />
 
         <RecentCrewList>
           <TitleContainer>
             <h1>최신 크루 리스트</h1>
-            <button>더보기</button>
+            {/* <button>더보기</button> */}
           </TitleContainer>
 
           <LatestCrewList data={data} onClickCrew={onClickCrew} />
@@ -67,7 +69,7 @@ function MainPage() {
         <TopCrewList>
           <TitleContainer>
             <h1>인기 크루 리스트</h1>
-            <button>더보기</button>
+            {/* <button>더보기</button> */}
           </TitleContainer>
 
           <PopularCrewList data={data} onClickCrew={onClickCrew} />
@@ -76,7 +78,7 @@ function MainPage() {
         <SuggestCrewList>
           <TitleContainer>
             <h1>추천 크루 리스트</h1>
-            <button>더보기</button>
+            {/* <button>더보기</button> */}
           </TitleContainer>
 
           <R9dCrewList data={data} onClickCrew={onClickCrew} />

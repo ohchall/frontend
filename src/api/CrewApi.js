@@ -1,10 +1,10 @@
 import axios from "axios";
-import {  useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
 export const getCrews = async () => {
   const res = await axios.get(
-  `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=false`
+    `${process.env.REACT_APP_SERVER_URL}/crew?page=1&size=5&sortBy=createPostDate&isAsc=false`
   );
   return res;
 };
@@ -17,8 +17,8 @@ export const getCrew = async (id) => {
     `${process.env.REACT_APP_SERVER_URL}/crew/${id}`,
     {
       headers: {
-      Access: `${access}`,
-      Refresh: `${refresh}`,
+        Access: `${access}`,
+        Refresh: `${refresh}`,
       },
     }
   );
@@ -53,11 +53,11 @@ export const useAddCrewMutation = () => {
     headers: {
       Access: `${access}`,
       Refresh: `${refresh}`,
-      'Content-Type': 'multipart/form-data',
+      "Content-Type": "multipart/form-data",
     },
   };
 
-  return useMutation(["crewData"],  async (formData) => {
+  return useMutation(["crewData"], async (formData) => {
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/crew`,
       formData,

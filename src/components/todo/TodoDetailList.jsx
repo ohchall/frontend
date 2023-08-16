@@ -17,18 +17,18 @@ import {
 import TodoAddModal from "./TodoAddModal";
 import TodoUpdateModal from "./TodoUpdateModal";
 
-function TodoList() {
+function TodoDetailList() {
   const { data, isLoading, isError } = useFetchTodos();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [events, setEvents] = useState([]);
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [todoToUpdate, setTodoToUpdate] = useState(null);
-  const currentMonth = useState(new Date().getMonth());
+  const currentMonth = new Date().getMonth();
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
   const [visibleTodoId, setVisibleTodoId] = useState(null);
-  const updateIsSuccessMutation = useUpdateIsSuccessMutation();
+  const updateisCompleteMutation = useUpdateIsSuccessMutation();
 
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -41,9 +41,9 @@ function TodoList() {
   };
 
   const handleCheckboxChange = async (todo) => {
-    const updatedTodo = { ...todo, isSuccess: !todo.isSuccess };
+    const updatedTodo = { ...todo, isComplete: !todo.isComplete };
     try {
-      await updateIsSuccessMutation.mutateAsync(updatedTodo);
+      await updateisCompleteMutation.mutateAsync(updatedTodo);
       console.log("상태 업데이트 성공");
     } catch (error) {
       console.error("상태 업데이트 실패:", error);
@@ -54,6 +54,7 @@ function TodoList() {
     return {
       title: todo.title,
       start: todo.date,
+      isComplete: todo.isComplete,
     };
   };
 
@@ -74,7 +75,6 @@ function TodoList() {
     if (data) {
       const convertedEvents = data.map(convertTodoToEvent);
       setEvents(convertedEvents);
-      console.log(events);
 
       const filtered = data.filter((todo) => {
         const todoMonth = new Date(todo.date).getMonth();
@@ -82,7 +82,7 @@ function TodoList() {
       });
       setFilteredTodos(filtered);
     }
-  }, [data, currentMonth, events]);
+  }, [data, currentMonth]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -114,8 +114,8 @@ function TodoList() {
     }
   };
 
-  const uncompletedTodos = filteredTodos.filter((todo) => !todo.isSuccess);
-  const completedTodos = filteredTodos.filter((todo) => todo.isSuccess);
+  const uncompletedTodos = filteredTodos.filter((todo) => !todo.isComplete);
+  const completedTodos = filteredTodos.filter((todo) => todo.isComplete);
 
   return (
     <>
@@ -129,11 +129,11 @@ function TodoList() {
         <TodoListContainer>
           <TodosList>
             {uncompletedTodos.map((todo) => (
-              <TodosBox key={todo.id} $isSuccess={todo.isSuccess}>
+              <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
                 <input
                   type="checkbox"
                   onChange={() => handleCheckboxChange(todo)}
-                  checked={todo.isSuccess}
+                  checked={todo.isComplete}
                 ></input>
                 <div>
                   <h2>{todo.title}</h2>
@@ -144,20 +144,22 @@ function TodoList() {
                       <DayColor
                         key={index}
                         $isCurrent={index === new Date(todo.date).getDay()}
-                        $isSuccess={todo.isSuccess}
+                        $isComplete={todo.isComplete}
                       >
                         {day}
                       </DayColor>
                     ))}
                   </div>
                 </div>
-                <MoreButton onClick={() => toggleButtonsVisibility(todo.id)}>
+                <MoreButton
+                  onClick={() => toggleButtonsVisibility(todo.toDoId)}
+                >
                   ...
                 </MoreButton>
-                {visibleTodoId === todo.id && (
+                {visibleTodoId === todo.toDoId && (
                   <MoreButtonContainer>
                     <button onClick={() => openUpdateModal(todo)}>수 정</button>
-                    <button onClick={() => todoDeleteHandler(todo.id)}>
+                    <button onClick={() => todoDeleteHandler(todo.toDoId)}>
                       삭 제
                     </button>
                   </MoreButtonContainer>
@@ -172,11 +174,11 @@ function TodoList() {
         <TodoListContainer>
           <TodosList>
             {completedTodos.map((todo) => (
-              <TodosBox key={todo.id} $isSuccess={todo.isSuccess}>
+              <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
                 <input
                   type="checkbox"
                   onChange={() => handleCheckboxChange(todo)}
-                  checked={todo.isSuccess}
+                  checked={todo.isComplete}
                 ></input>
                 <div>
                   <h2>{todo.title}</h2>
@@ -187,20 +189,22 @@ function TodoList() {
                       <DayColor
                         key={index}
                         $isCurrent={index === new Date(todo.date).getDay()}
-                        $isSuccess={todo.isSuccess}
+                        $isComplete={todo.isComplete}
                       >
                         {day}
                       </DayColor>
                     ))}
                   </div>
                 </div>
-                <MoreButton onClick={() => toggleButtonsVisibility(todo.id)}>
+                <MoreButton
+                  onClick={() => toggleButtonsVisibility(todo.toDoId)}
+                >
                   ...
                 </MoreButton>
-                {visibleTodoId === todo.id && (
+                {visibleTodoId === todo.toDoId && (
                   <MoreButtonContainer>
                     <button onClick={() => openUpdateModal(todo)}>수 정</button>
-                    <button onClick={() => todoDeleteHandler(todo.id)}>
+                    <button onClick={() => todoDeleteHandler(todo.toDoId)}>
                       삭 제
                     </button>
                   </MoreButtonContainer>
@@ -222,4 +226,4 @@ function TodoList() {
   );
 }
 
-export default TodoList;
+export default TodoDetailList;

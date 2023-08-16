@@ -1,15 +1,22 @@
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+const access = localStorage.getItem("Access");
+const refresh = localStorage.getItem("Refresh");
+const headers = {
+  Access: `${access}`,
+  Refresh: `${refresh}`,
+};
+
 export const useAddTodoMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    (todo) => {
-      return axios.post(
-        `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos`,
-        todo
-      );
-    },
+    (todo) =>
+      axios.post(
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
+        todo,
+        { headers }
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("todos");
@@ -20,13 +27,15 @@ export const useAddTodoMutation = () => {
 
 export const useDeleteTodoMutation = () => {
   const queryClient = useQueryClient();
+
   return useMutation(
-    (todoId) => {
-      return axios.delete(
-        `${process.env.REACT_APP_MOCK_SERVER_URL}/todos/${todoId}`
-        // `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${todoId}`
-      );
-    },
+    (toDoId) =>
+      axios.delete(
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${toDoId}`,
+        {
+          headers,
+        }
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("todos");
@@ -38,13 +47,12 @@ export const useDeleteTodoMutation = () => {
 export const useUpdateTodoMutation = () => {
   const queryClient = useQueryClient();
   return useMutation(
-    (updatedTodo) => {
-      return axios.put(
-        `${process.env.REACT_APP_MOCK_SERVER_URL}/todos/${updatedTodo.id}`,
-        // `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`
-        updatedTodo
-      );
-    },
+    (updatedTodo) =>
+      axios.put(
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.toDoId}`,
+        updatedTodo,
+        { headers }
+      ),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("todos");
@@ -56,7 +64,8 @@ export const useUpdateTodoMutation = () => {
 export const useFetchTodos = () => {
   return useQuery(["todos"], async () => {
     const { data } = await axios.get(
-      `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos`
+      `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
+      { headers }
     );
     return data;
   });
@@ -67,9 +76,9 @@ export const useUpdateIsSuccessMutation = () => {
   return useMutation(
     async (updatedTodo) => {
       const response = await axios.put(
-        `${process.env.REACT_APP_MOCK_SERVER_URL}/todos/${updatedTodo.id}`,
-        // `${process.env.REACT_APP_MOCK_SERVER_URL}/auth/mypage/todos/${updatedTodo.id}`
-        updatedTodo
+        `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.toDoId}`,
+        updatedTodo,
+        { headers }
       );
       return response.data;
     },

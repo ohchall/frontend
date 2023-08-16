@@ -79,18 +79,18 @@ const MyCrews = () => {
 
   return (
     <CrewPosts>
-    <section className="crewPostUpload">
-      <h3>크루 모집 포스팅</h3>
-      <div className="crewPostButton" onClick={navigationOne}>
-        <p>크루를 모집 해보세요</p>
-        <button onClick={navigationOne}>
-          <AiOutlineRight />
-        </button>
-      </div>
-     
-      {isSuccess && data?.pages[0].data.crewList.map((crew, crewIndex) => (
-        <div className="crewPostRecents" key={crewIndex}>
-          <div className="crewPostRecent" key={crew.crewRecruitmentId || crew.title}>
+      <section className="crewPostUpload">
+        <h3>크루 모집 포스팅</h3>
+        <div className="crewPostButton" onClick={navigationOne}>
+          <p>크루를 모집 해보세요</p>
+          <button onClick={navigationOne}>
+            <AiOutlineRight />
+          </button>
+        </div>
+        
+        <div className="crewPostRecents">
+        {isSuccess && data?.pages[0].data.crewList.map((crew) => (
+          <div className="crewPostRecent" key={crew.crewRecruitmentId}>
             <div className="crewPostReImg">
               <img
                 src={
@@ -127,8 +127,8 @@ const MyCrews = () => {
               </div>
             </div>
           </div>
+        ))}
         </div>
-      ))}
       <div className='loader' ref={observerRef}>
       {isFetchingNextPage && hasNextPage ? 'Loading...' : 'No search left'}
       </div>
@@ -149,27 +149,36 @@ const CrewPosts = styled.div`
   margin-bottom:55px;
   /* display:flex;
   flex-direction:column; */
-  .crewPostUpload{width:100%; height:inherit;padding: 5px 15px;
+  .crewPostUpload {
+    width:100%;
+    height:inherit;
+    padding: 5px 15px;
     @media screen and (max-width:500px) {
       padding: 5px 38px;
     }
   }
-  .crewPostUpload>h3{font-size:20px;margin-bottom:5px;padding:2%;font-weight:600;}
-  .crewPostUpload>.crewPostButton{
-  background-color: #ef902a;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 92%;
-  height: 9%;
-  cursor: pointer;
-  padding: 7px 10px;
-  margin-left: 14px;
-  border-radius: 10px;
-
+  .crewPostUpload > h3 {
+    font-size:20px;
+    margin-bottom:5px;
+    padding:2%;
+    font-weight:600;
   }
-  .crewPostUpload > .crewPostButton > p {font-size:14px;font-weight:300;}
+  .crewPostUpload > .crewPostButton{
+    background-color: #ef902a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    cursor: pointer;
+    padding: 7px 10px;
+    border-radius: 10px;
+  }
+  .crewPostUpload > .crewPostButton > p {
+    font-size:14px;
+    font-weight:300;
+  }
   .crewPostUpload > .crewPostButton > button {
     background: transparent;
     border: none;
@@ -181,14 +190,33 @@ const CrewPosts = styled.div`
   }
   .crewPostUpload > .crewPostRecents{
     width: 100%;
-    height: 71%;
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
+    margin: 10px 0;
   }
-  .crewPostRecents > .crewPostRecent {width:43.5%;height:74%;background-color:#d9d9d9;border:1px solid #eeeeee;border-radius:30px; margin: 17px 7px;}
-  .crewPostRecent > .crewPostReImg {width:100%;height:60%;border-radius:30px;overflow:hidden;background-color:#eeeeee;}
-  .crewPostRecent > .crewPostReImg > img {width:100%;height:100%;object-fit:cover;}
+  .crewPostRecents > .crewPostRecent {
+    width: calc(50% - 5px);
+    height: 253px;
+    background-color: #d9d9d9;
+    border: 1px solid  #eeeeee;
+    border-radius: 30px;
+  }
+  .crewPostRecents > .crewPostRecent:nth-child(odd) {
+    margin-right: 10px;
+  }
+  .crewPostRecent > .crewPostReImg {
+    width: 100%;
+    height: 152px;
+    border-radius: 30px;
+    overflow: hidden;
+    background-color:#eeeeee;
+  }
+  .crewPostRecent > .crewPostReImg > img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
   .crewPostRecent > .crewPostReContent {
     width:100%;
     height:35%;
@@ -199,88 +227,6 @@ const CrewPosts = styled.div`
       font-size:12px;
     }
   }
-  .crewPostRecent>.crewPostReContent>.CrewPostTitle{ width: 100%; height: 15%; display: flex; align-items: center; justify-content: space-between; padding: 14px 7px;font-size:16px;}
-
-  .crewPostReContent>.crewPostInfo{
-    display:flex;
-    justify-content:flex-start;
-    width:100%;
-    padding:5px 7px;
-    font-size:14px;
-    @media screen and (max-width:500px) {
-      padding:5px 5px;
-    }
-  }
-  .crewPostUpload > h3 {
-    font-size: 20px;
-    margin-bottom: 5px;
-    padding: 2%;
-    font-weight: 600;
-  }
-  .crewPostUpload > .crewPostButton {
-    background-color: #ef902a;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 92%;
-    height: 9%;
-    cursor: pointer;
-    padding: 7px 10px;
-    margin-left: 14px;
-    border-radius: 10px;
-  }
-  .crewPostUpload > .crewPostButton > p {
-    font-size: 14px;
-    font-weight: 300;
-  }
-  .crewPostUpload > .crewPostButton > button {
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 14px;
-    height: auto;
-    width: 10%;
-    cursor: pointer;
-  }
-  .crewPostUpload > .crewPostRecents {
-    width: 100%;
-    height: 71%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    overflow-y: auto;
-  }
-  .crewPostRecents > .crewPostRecent {
-    width: 43.5%;
-    height: 74%;
-    background-color: #d9d9d9;
-    border: 1px solid #eeeeee;
-    border-radius: 30px;
-    margin: 17px 7px;
-  }
-  .crewPostRecent > .crewPostReImg {
-    width: 100%;
-    height: 60%;
-    border-radius: 30px;
-    overflow: hidden;
-    background-color: #eeeeee;
-  }
-  .crewPostRecent > .crewPostReImg > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .crewPostRecent > .crewPostReContent {
-    width: 100%;
-    height: 35%;
-    border-radius: 30px;
-    overflow: hidden;
-    padding-top: 10px;
-    @media screen and (max-width: 500px) {
-      font-size: 12px;
-    }
-  }
   .crewPostRecent > .crewPostReContent > .CrewPostTitle {
     width: 100%;
     height: 15%;
@@ -288,16 +234,16 @@ const CrewPosts = styled.div`
     align-items: center;
     justify-content: space-between;
     padding: 14px 7px;
-    font-size: 16px;
+    font-size:16px;
   }
   .crewPostReContent > .crewPostInfo {
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    padding: 5px 7px;
-    font-size: 14px;
-    @media screen and (max-width: 500px) {
-      padding: 5px 5px;
+    display:flex;
+    justify-content:flex-start;
+    width:100%;
+    padding:5px 7px;
+    font-size:14px;
+    @media screen and (max-width:500px) {
+      padding:5px 5px;
     }
   }
   .crewPostInfo > .category {
@@ -334,6 +280,10 @@ const CrewPosts = styled.div`
     justify-content: center;
     cursor: pointer;
     padding: 5px 0;
-    margin-bottom:17px}
-  .moreButton > p {font-size:16px;font-weight:500;color:#333333;}
+    margin-bottom: 17px}
+  .moreButton > p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333333;
+    }
 `;

@@ -6,6 +6,8 @@ import {
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getCrew } from "../../api/CrewApi";
+import { Map, MapMarker } from 'react-kakao-maps-sdk';
+
 function CrewDetail() {
   const params = useParams();
   const {
@@ -41,7 +43,16 @@ function CrewDetail() {
         </div>
       </Header>
 
-      <MapWrapper />
+      <MapWrapper>
+        <Map
+          center={{ lat: 33.5563, lng: 126.79581 }}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <MapMarker position={{ lat: 33.55635, lng: 126.795841 }}>
+            <div style={{color:'#000'}}>location</div>
+          </MapMarker>
+        </Map>
+      </MapWrapper>
 
       <ButtonWrapper>
         <button>Join</button>

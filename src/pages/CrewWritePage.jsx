@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import CrewWriting from "../components/crewpost/CrewWriting";
 import styled from "styled-components";
 import { useAddCrewMutation } from "../api/CrewApi";
@@ -141,9 +141,9 @@ function CrewWritePage() {
     setCrew({ ...crew, exerciseDate });
   };
 
-  const setCrewTime = (selectedTime) => {
+  const setCrewTime = useCallback((selectedTime) => {
     setCrew((prevCrew) => ({ ...prevCrew, time: selectedTime }));
-  };
+  }, []);
 
   return (
     <CrewWriting>

@@ -33,6 +33,7 @@ export const MapWrapper = styled.div`
   border-radius: 10px;
   background-color: #f2f2f2;
   margin-bottom: 16px;
+  overflow: hidden;
 `;
 
 export const ButtonWrapper = styled.div`

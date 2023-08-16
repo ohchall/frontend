@@ -24,7 +24,7 @@ function TodoList() {
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [todoToUpdate, setTodoToUpdate] = useState(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const currentMonth = useState(new Date().getMonth());
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
   const [visibleTodoId, setVisibleTodoId] = useState(null);
@@ -74,6 +74,7 @@ function TodoList() {
     if (data) {
       const convertedEvents = data.map(convertTodoToEvent);
       setEvents(convertedEvents);
+      console.log(events);
 
       const filtered = data.filter((todo) => {
         const todoMonth = new Date(todo.date).getMonth();
@@ -81,7 +82,7 @@ function TodoList() {
       });
       setFilteredTodos(filtered);
     }
-  }, [data, currentMonth]);
+  }, [data, currentMonth, events]);
 
   if (isLoading) {
     return <div>Loading...</div>;

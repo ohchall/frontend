@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 
 function CrewTime({setCrewTime}) {
     let hours = Array.from({length: 18}, (_, i) => (i + 6) % 24);  
     let minutes = Array.from({length: 6}, (_, i) => i*10);
 
-    let timeOptions = [];
+    // let timeOptions = [];
+
+    const timeOptions = useMemo(() => {
+      return [];
+    }, []);
    
     useEffect(() => {
         setCrewTime(timeOptions[0]); 
-    }, []);
+    }, [setCrewTime, timeOptions]);
 
     const handleTimeChange = (e) => {
         setCrewTime(e.target.value);

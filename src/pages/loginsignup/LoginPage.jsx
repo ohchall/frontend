@@ -37,7 +37,7 @@ function LoginPage() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("user", user);
+    // console.log("user", user);
   };
 
   const userCheck = () => {

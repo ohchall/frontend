@@ -11,6 +11,7 @@ import LoginPage from "../pages/loginsignup/LoginPage";
 import SignUpPage from "../pages/loginsignup/SignUpPage";
 import TodoListPage from "../pages/TodoListPage";
 import UserRoute from "./UserRoute";
+import SearchPage from "../pages/search/SearchPage";
 
 function Router() {
   return (
@@ -94,6 +95,14 @@ function Router() {
           element={
             <Template header footer>
               <PostModal />
+            </Template>
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <Template header footer>
+              <SearchPage />
             </Template>
           }
         />

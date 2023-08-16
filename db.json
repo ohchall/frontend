@@ -490,13 +490,13 @@
       "content": "벤치프레스 100개 해버리기",
       "date": "2023-08-04",
       "authId": "mypage",
-      "isSuccess": false
+      "isSuccess": true
     },
     {
       "id": 5,
       "title": "등산",
       "content": "한라산 등반",
-      "isSuccess": false,
+      "isSuccess": true,
       "authId": "mypage",
       "date": "2023-08-20"
     },

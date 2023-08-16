@@ -11,25 +11,19 @@ import TodoAdd3 from "../../assets/TodoAdd3.svg";
 import TodoAdd4 from "../../assets/TodoAdd4.svg";
 
 function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
-  const [updatedTodo, setUpdatedTodo] = useState({
-    id: todo.id,
-    title: todo.title,
-    content: todo.content,
-    date: todo.date,
-    authId: "mypage", //로그인 시 생기는 authId가 필요할 경우 로직 만들어야함
-    isSuccess: todo.isSuccess,
-  });
-
-  const onChangeTodoHandler = (e) => {
-    const { name, value } = e.target;
-    setUpdatedTodo({
-      ...updatedTodo,
-      [name]: value,
-    });
-  };
+  const [title, setTitle] = useState(todo.title);
+  const [content, setContent] = useState(todo.content);
+  const [date, setDate] = useState(todo.date);
+  const [isComplete, setIsComplete] = useState(todo.isComplete);
 
   const handleSubmit = () => {
-    onSubmit(updatedTodo);
+    onSubmit({
+      toDoId: todo.toDoId,
+      title,
+      content,
+      date,
+      isComplete,
+    });
   };
 
   return (
@@ -47,9 +41,9 @@ function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
                 type="text"
                 name="title"
                 placeholder="title"
-                value={updatedTodo.title}
-                onChange={onChangeTodoHandler}
-              ></input>
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
             </div>
             <div>
               <img src={TodoAdd2} alt="content" />
@@ -57,9 +51,9 @@ function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
                 type="text"
                 name="content"
                 placeholder="content"
-                value={updatedTodo.content}
-                onChange={onChangeTodoHandler}
-              ></input>
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+              />
             </div>
             <div>
               <img src={TodoAdd3} alt="date" />
@@ -67,9 +61,9 @@ function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
                 type="date"
                 name="date"
                 placeholder="date"
-                value={updatedTodo.date}
-                onChange={onChangeTodoHandler}
-              ></input>
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
             </div>
             <div>
               <button onClick={handleSubmit}>수정하기</button>

@@ -84,8 +84,8 @@ export const TodosBox = styled.div`
   width: 400px;
   text-align: center;
   overflow: hidden;
-  background-color: ${(props) => (props.isSuccess ? "#BBBBBB" : "white")};
-  text-decoration: ${(props) => (props.isSuccess ? "line-through" : "none")};
+  background-color: ${(props) => (props.isComplete ? "#BBBBBB" : "white")};
+  text-decoration: ${(props) => (props.isComplete ? "line-through" : "none")};
   text-decoration-thickness: 2px; // 줄 굵기 설정
 
   &:hover {
@@ -108,21 +108,21 @@ export const TodosBox = styled.div`
       font-weight: bold;
       color: #000000;
       text-decoration: ${(props) =>
-        props.$isSuccess ? "line-through" : "none"};
+        props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
     }
     > h3 {
       font-size: 13px;
       color: #454545;
       text-decoration: ${(props) =>
-        props.$isSuccess ? "line-through" : "none"};
+        props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
     }
     > h4 {
       font-size: 13px;
       color: #454545;
       text-decoration: ${(props) =>
-        props.$isSuccess ? "line-through" : "none"};
+        props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
     }
   }
@@ -134,13 +134,13 @@ export const DayColor = styled.span`
   border-radius: 100%;
   padding: 3px 5px;
   background-color: ${(props) =>
-    props.$isSuccess
+    props.$isComplete
       ? "#transparent"
       : props.$isCurrent
       ? "#93C3BC"
       : "#EEEEEE"};
   line-height: 1;
-  text-decoration: ${(props) => (props.$isSuccess ? "line-through" : "none")};
+  text-decoration: ${(props) => (props.$isComplete ? "line-through" : "none")};
   text-decoration-thickness: 2px;
 `;
 

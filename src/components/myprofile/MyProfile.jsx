@@ -41,6 +41,14 @@ function MyProfile() {
     (todo) => !todo.isSuccess
   );
 
+  const sortedThisWeekUncompletedTodos = thisWeekUncompletedTodos.sort(
+    (a, b) => {
+      const dateA = new Date(a.date);
+      const dateB = new Date(b.date);
+      return dateA - dateB; // 날짜가 빠른 순으로 정렬
+    }
+  );
+
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
   return (
@@ -72,8 +80,8 @@ function MyProfile() {
         <ThisWeekTodo>
           <p>이번주 투두.</p>
           <div>
-            {thisWeekUncompletedTodos.length > 0 ? (
-              thisWeekUncompletedTodos.map((todo) => (
+            {sortedThisWeekUncompletedTodos.length > 0 ? (
+              sortedThisWeekUncompletedTodos.map((todo) => (
                 <Todo key={todo.id}>
                   <span>{todo.content}</span>
                   <Week>

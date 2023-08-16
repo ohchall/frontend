@@ -40,7 +40,6 @@ export const ModalContent = styled.div`
   background-color: white;
   width: 430px;
   height: 220px;
-  /* box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.8); */
 
   > div {
     display: flex;

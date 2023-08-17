@@ -3,9 +3,10 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { AiFillHeart, AiOutlineRight } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
-// import {IoIosArrowDown} from 'react-icons/io'
 import  styled  from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import {IoIosArrowDown}from 'react-icons/io';
+
 
 const MyCrews = () => {
   const observerRef = useRef(null);
@@ -27,31 +28,35 @@ const MyCrews = () => {
     }),
       {
         getNextPageParam: (lastPage, totalPage) => {
-          const nextPage = totalPage.length + 1; 
-          return lastPage.data.totalPages !== 0 ? nextPage : undefined;
+          // const nextPage = totalPage.length + 1; 
+          // return lastPage.data.totalPages !== 0 ? nextPage : undefined;
+          return totalPage.last? undefined: totalPage.length + 2  
       }}
   );
-  console.log("Data:", data)
- 
+  //  console.log("data",data)
+
   const handleObserver = useCallback((entries) => {
-    const [target] = entries
-    if(target.isIntersecting && hasNextPage) {
-      fetchNextPage()
+    const [target] = entries;
+    if (target.isIntersecting && hasNextPage) {
+      fetchNextPage();
     }
-  }, [fetchNextPage, hasNextPage])
+  }, [fetchNextPage, hasNextPage]);
   
   useEffect(() => {
     const element = observerRef.current;
     if (!element) {
-      return; // if the element is not yet available, exit early
+      return;
     }
     
     const option = { threshold: 0 };
     const observer = new IntersectionObserver(handleObserver, option);
     observer.observe(element);
-    
+
     return () => observer.unobserve(element);
-  }, [fetchNextPage, hasNextPage, handleObserver]);
+  }, [fetchNextPage, hasNextPage,handleObserver]);
+ 
+
+
 
   const addressSubstraction = (location) => {
     const parts = location.split(" ");
@@ -75,7 +80,10 @@ const MyCrews = () => {
     return <div>Error...</div>;
   };
 
-  console.log(data?.pages[0].data.crewList)
+  // console.log(data?.pages[0].data.crewList)
+
+
+  const flattenedCrewList = data?.pages.flatMap(page => page.data.crewList);
 
   return (
     <CrewPosts>
@@ -89,7 +97,7 @@ const MyCrews = () => {
         </div>
         
         <div className="crewPostRecents">
-        {isSuccess && data?.pages[0].data.crewList.map((crew) => (
+        {isSuccess && flattenedCrewList.map((crew) => (
           <div className="crewPostRecent" key={crew.crewRecruitmentId}>
             <div className="crewPostReImg">
               <img
@@ -104,9 +112,6 @@ const MyCrews = () => {
             <div className="crewPostReContent">
               <div className="CrewPostTitle">
                 <p>{crew.title}</p>
-                <div className="crewPostLike">
-                  <AiFillHeart />
-                </div>
               </div>
               <div className="crewPostInfo">
                 <div className="category">{crew.exerciseKind}</div>
@@ -129,9 +134,15 @@ const MyCrews = () => {
           </div>
         ))}
         </div>
-      <div className='loader' ref={observerRef}>
+      {/* <div className='loader' ref={observerRef}>
       {isFetchingNextPage && hasNextPage ? 'Loading...' : 'No search left'}
-      </div>
+      </div> */}
+
+    <button className="moreButton" onClick={()=>fetchNextPage()}>
+      <p>more</p>
+      <IoIosArrowDown />
+    </button>
+
     </section>
   </CrewPosts>
   );
@@ -146,13 +157,14 @@ export default MyCrews;
 const CrewPosts = styled.div`
   width:100%;
   height:inherit;
-  margin-bottom:55px;
+  margin-bottom:120px;
   /* display:flex;
   flex-direction:column; */
   .crewPostUpload {
     width:100%;
     height:inherit;
     padding: 5px 15px;
+    overflow-y:auto;
     @media screen and (max-width:500px) {
       padding: 5px 38px;
     }
@@ -200,7 +212,8 @@ const CrewPosts = styled.div`
     height: 253px;
     background-color: #d9d9d9;
     border: 1px solid  #eeeeee;
-    border-radius: 30px;
+    border-radius: 25px;
+    margin:5px 0;
   }
   .crewPostRecents > .crewPostRecent:nth-child(odd) {
     margin-right: 10px;
@@ -208,7 +221,7 @@ const CrewPosts = styled.div`
   .crewPostRecent > .crewPostReImg {
     width: 100%;
     height: 152px;
-    border-radius: 30px;
+    border-radius: 25px 25px 0 0;
     overflow: hidden;
     background-color:#eeeeee;
   }
@@ -270,9 +283,9 @@ const CrewPosts = styled.div`
     align-items: center;
     font-size: 12px;
   }
-  .crewPostRecents > .moreButton {
-    width: 90%;
-    height: 13%;
+  .crewPostUpload > .moreButton {
+    width: 100%;
+    height: 7%;
     border: 1px solid #eeeeee;
     border-radius: 10px;
     display: flex;

@@ -13,38 +13,38 @@ import TodoAdd4 from "../../assets/TodoAdd4.svg";
 
 function TodoAddModal({ onRequestClose }) {
   const addTodoMutation = useAddTodoMutation();
-  const [todo, setTodo] = useState({
-    title: "",
-    content: "",
-    date: "",
-    isSuccess: false,
-  });
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [date, setDate] = useState("");
 
   const onChangeTodoHandler = (e) => {
     const { name, value } = e.target;
-    console.log(value);
-    setTodo({
-      ...todo,
-      [name]: value,
-    });
+    if (name === "title") setTitle(value);
+    if (name === "content") setContent(value);
+    if (name === "date") setDate(value);
   };
 
   const todoSubmithandler = () => {
-    console.log(todo);
-    addTodoMutation.mutate(todo, {
-      onSuccess: (data) => {
-        console.log("저장 성공:", data);
-        setTodo({
-          title: "",
-          content: "",
-          date: "",
-        });
-        onRequestClose();
-      },
-      onError: (error) => {
-        console.error("저장 실패:", error);
-      },
-    });
+    if (!title || !content || !date) {
+      alert("입력창을 다시 한 번 확인해주세요!");
+      return;
+    }
+
+    addTodoMutation.mutate(
+      { title, content, date, isComplete: null },
+      {
+        onSuccess: (data) => {
+          console.log("저장 성공:", data);
+          setTitle("");
+          setContent("");
+          setDate("");
+          onRequestClose();
+        },
+        onError: (error) => {
+          console.error("저장 실패:", error);
+        },
+      }
+    );
   };
 
   return (
@@ -62,7 +62,7 @@ function TodoAddModal({ onRequestClose }) {
               type="text"
               name="title"
               placeholder="title"
-              value={todo.title}
+              value={title}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>
           </div>
@@ -72,7 +72,7 @@ function TodoAddModal({ onRequestClose }) {
               type="text"
               name="content"
               placeholder="content"
-              value={todo.content}
+              value={content}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>
           </div>
@@ -82,7 +82,7 @@ function TodoAddModal({ onRequestClose }) {
               type="date"
               name="date"
               placeholder="date"
-              value={todo.date}
+              value={date}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>
           </div>

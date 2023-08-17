@@ -31,7 +31,7 @@ function TodoList() {
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
   const [visibleTodoId, setVisibleTodoId] = useState(null);
-  const updateIsSuccessMutation = useUpdateIsSuccessMutation();
+  const updateisCompleteMutation = useUpdateIsSuccessMutation();
   const navigate = useNavigate();
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
@@ -44,9 +44,9 @@ function TodoList() {
   };
 
   const handleCheckboxChange = async (todo) => {
-    const updatedTodo = { ...todo, isSuccess: !todo.isSuccess };
+    const updatedTodo = { ...todo, isComplete: !todo.isComplete };
     try {
-      await updateIsSuccessMutation.mutateAsync(updatedTodo);
+      await updateisCompleteMutation.mutateAsync(updatedTodo);
       console.log("상태 업데이트 성공");
     } catch (error) {
       console.error("상태 업데이트 실패:", error);
@@ -61,7 +61,7 @@ function TodoList() {
     return {
       title: todo.title,
       start: todo.date,
-      isSuccess: todo.isSuccess,
+      isComplete: todo.isComplete,
     };
   };
 
@@ -109,6 +109,7 @@ function TodoList() {
       console.log("삭제 성공");
       setVisibleTodoId(null);
     } catch (error) {
+      console.log("todoId", todoId);
       console.error("삭제 실패:", error);
     }
   };
@@ -129,7 +130,7 @@ function TodoList() {
     navigate("/mypage/todolist");
   };
 
-  const uncompletedTodos = filteredTodos.filter((todo) => !todo.isSuccess);
+  const uncompletedTodos = filteredTodos.filter((todo) => !todo.isComplete);
 
   return (
     <>
@@ -148,11 +149,11 @@ function TodoList() {
         <TodoListContainer>
           <TodosList>
             {uncompletedTodos.map((todo) => (
-              <TodosBox key={todo.id} $isSuccess={todo.isSuccess}>
+              <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
                 <input
                   type="checkbox"
                   onChange={() => handleCheckboxChange(todo)}
-                  checked={todo.isSuccess}
+                  checked={todo.isComplete}
                 ></input>
                 <div>
                   <h2>{todo.title}</h2>
@@ -163,20 +164,22 @@ function TodoList() {
                       <DayColor
                         key={index}
                         $isCurrent={index === new Date(todo.date).getDay()}
-                        $isSuccess={todo.isSuccess}
+                        $isComplete={todo.isComplete}
                       >
                         {day}
                       </DayColor>
                     ))}
                   </div>
                 </div>
-                <MoreButton onClick={() => toggleButtonsVisibility(todo.id)}>
+                <MoreButton
+                  onClick={() => toggleButtonsVisibility(todo.toDoId)}
+                >
                   ...
                 </MoreButton>
-                {visibleTodoId === todo.id && (
+                {visibleTodoId === todo.toDoId && (
                   <MoreButtonContainer>
                     <button onClick={() => openUpdateModal(todo)}>수 정</button>
-                    <button onClick={() => todoDeleteHandler(todo.id)}>
+                    <button onClick={() => todoDeleteHandler(todo.toDoId)}>
                       삭 제
                     </button>
                   </MoreButtonContainer>

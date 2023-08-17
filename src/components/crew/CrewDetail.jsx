@@ -1,4 +1,5 @@
 import {
+  ImageWrapper,
   CrewDetailBlock,
   Header,
   MapWrapper,
@@ -50,6 +51,17 @@ function CrewDetail() {
       {isLoading && "Loading..."}
       {error && "An error has occurred: " + error.message}
 
+      <ImageWrapper>
+        <img
+          src={
+            crew?.data.images?.length !== 0 && crew?.data.images?.length !== undefined
+              ? crew?.data.images[0]
+              : ''
+          }
+          alt=''
+        />
+      </ImageWrapper>
+
       <Header>
         <div>
           <p>일정 |</p>
@@ -82,7 +94,7 @@ function CrewDetail() {
       </MapWrapper>
 
       <ButtonWrapper>
-        <button>Join</button>
+        <button>크루 참여하기</button>
       </ButtonWrapper>
     </CrewDetailBlock>
   );

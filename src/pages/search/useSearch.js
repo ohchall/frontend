@@ -73,29 +73,21 @@ const useSearch = (keyword, pageNumber) => {
     try {
       const response = await axios.get(
         `${process.env.REACT_APP_SERVER_URL}${url}`
-        // {
-        //   withCredentials: true,
-        // }
       );
-
-      // 여기서 setSearchResult, setHasMore 등을 업데이트하세요.
-      // (예시) setSearchResult(response.data.results);
-      // (예시) setHasMore(response.data.hasMore);
-
       setLoading(false);
     } catch (e) {
       console.log("e", e);
       setError(true);
       setLoading(false);
     }
-
     console.log("keyword", keyword);
   }, []);
-
   console.log("searchResult", searchResult);
   return { loading, error, searchResult, hasMore, searchCrews };
 };
-
+   // 여기서 setSearchResult, setHasMore 등을 업데이트하세요.
+      // (예시) setSearchResult(response.data.results);
+      // (예시) setHasMore(response.data.hasMore);
 export default useSearch;
 
 // import { useState, useEffect, useCallback } from "react";

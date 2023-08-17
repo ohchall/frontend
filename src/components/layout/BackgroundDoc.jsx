@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "styled-components";
-import Logo from "../../assets/OhChalleLogo2.svg";
+import Logo from "../../assets/Logo.svg";
 import { Link } from "react-router-dom";
 const BackgroundDoc = () => {
   return (
@@ -42,7 +42,10 @@ const Logos = styled(Link)`
   border-bottom: 4px solid black;
 
   & img {
-    width: 150px;
+    height: 60px;
+    width: 210px;
+    margin-bottom: -15px;
+    margin-right: -5px;
   }
 `;
 

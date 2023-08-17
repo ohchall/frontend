@@ -42,9 +42,9 @@ function CrewDetail() {
     });
   }, [crew?.data.location, kakao.maps.LatLng, kakao.maps.services.Geocoder, kakao.maps.services.Status.OK]);
 
-  useEffect(() => {
-    console.log(coordinate);
-  }, [coordinate]);
+  // useEffect(() => {
+  //   console.log(coordinate);
+  // }, [coordinate]);
 
   return (
     <CrewDetailBlock>

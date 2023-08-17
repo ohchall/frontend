@@ -8,7 +8,7 @@ import { AiOutlineCamera } from "react-icons/ai";
 import { RxTriangleDown, RxTriangleUp } from "react-icons/rx";
 import CrewCategory from "../components/crewpost/CrewCategory";
 import CrewTime from "../components/crewpost/CrewTime";
-import imageCompression from 'browser-image-compression';
+
 
 function CrewWritePage() {
   const [addImg, setAddImg] = useState("");

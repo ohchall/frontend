@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'googleABeeZee';
+    font-family: 'googleABeeZee',;
   }
   @font-face {
 	font-family: "BowlByOneSC";

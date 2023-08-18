@@ -16,6 +16,7 @@ import {
   WeekSpan,
 } from "./MyProfile.style";
 
+
 function MyProfile() {
   const logoutHandler = () => {
     localStorage.removeItem("Access");
@@ -51,6 +52,7 @@ function MyProfile() {
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
+
   return (
     <MyProfileBlock>
       <Header>

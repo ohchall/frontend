@@ -12,6 +12,7 @@ import SignUpPage from "../pages/loginsignup/SignUpPage";
 import TodoListPage from "../pages/TodoListPage";
 import UserRoute from "./UserRoute";
 import SearchPage from "../pages/search/SearchPage";
+import Oauth from "../components/login&signup/Oauth";
 
 function Router() {
   return (
@@ -106,6 +107,7 @@ function Router() {
             </Template>
           }
         />
+        <Route path="/oauth" element={<Oauth />} />
       </Routes>
     </BrowserRouter>
   );

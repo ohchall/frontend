@@ -1,14 +1,20 @@
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-const access = localStorage.getItem("Access");
-const refresh = localStorage.getItem("Refresh");
-const headers = {
-  Access: `${access}`,
-  Refresh: `${refresh}`,
-};
+// const access = localStorage.getItem("Access");
+// const refresh = localStorage.getItem("Refresh");
+// const headers = {
+//   Access: `${access}`,
+//   Refresh: `${refresh}`,
+// };
 
 export const useAddTodoMutation = () => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const headers = {
+    Access: `${access}`,
+    Refresh: `${refresh}`,
+  };
   const queryClient = useQueryClient();
   return useMutation(
     (todo) =>
@@ -27,7 +33,12 @@ export const useAddTodoMutation = () => {
 
 export const useDeleteTodoMutation = () => {
   const queryClient = useQueryClient();
-
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const headers = {
+    Access: `${access}`,
+    Refresh: `${refresh}`,
+  };
   return useMutation(
     (toDoId) =>
       axios.delete(
@@ -45,6 +56,12 @@ export const useDeleteTodoMutation = () => {
 };
 
 export const useUpdateTodoMutation = () => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const headers = {
+    Access: `${access}`,
+    Refresh: `${refresh}`,
+  };
   const queryClient = useQueryClient();
   return useMutation(
     (updatedTodo) =>
@@ -62,6 +79,12 @@ export const useUpdateTodoMutation = () => {
 };
 
 export const useFetchTodos = () => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const headers = {
+    Access: `${access}`,
+    Refresh: `${refresh}`,
+  };
   return useQuery(["todos"], async () => {
     const { data } = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
@@ -72,6 +95,12 @@ export const useFetchTodos = () => {
 };
 
 export const useUpdateIsSuccessMutation = () => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const headers = {
+    Access: `${access}`,
+    Refresh: `${refresh}`,
+  };
   const queryClient = useQueryClient();
   return useMutation(
     async (updatedTodo) => {

@@ -14,6 +14,8 @@ import PopularCrewList from "../common/PopularCrewList";
 import SearchBar from "../search/SearchBar";
 
 function Crew() {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
   const categories = [
     "전체",
@@ -31,7 +33,11 @@ function Crew() {
   };
 
   const onClickCrew = (itemId) => {
-    navigate(`/crew/${itemId}`);
+    if (access && refresh !== "") {
+      navigate(`/crew/${itemId}`);
+    } else {
+      navigate("/login");
+    }
   };
 
   const { data, isLoading, error } = useQuery(["crews"], getCrews);

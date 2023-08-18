@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Banner from "../../components/banner/Banner";
 import Category from "../../components/category/Category";
-import EventBanner from "../../components/banner/EventBanner";
+// import EventBanner from "../../components/banner/EventBanner";
 import {
   MainPageSection,
   TitleContainer,
@@ -33,7 +33,11 @@ function MainPage() {
   }, [access, refresh]);
 
   const onClickCrew = (itemId) => {
-    navigate(`/crew/${itemId}`);
+    if (access && refresh !== "") {
+      navigate(`/crew/${itemId}`);
+    } else {
+      navigate("/login");
+    }
   };
 
   const { data, isLoading, error } = useQuery(["crews"], getCrews);
@@ -82,7 +86,7 @@ function MainPage() {
           <R9dCrewList data={data} onClickCrew={onClickCrew} />
         </CrewListContainer>
 
-        <EventBanner />
+        {/* <EventBanner /> */}
       </MainPageSection>
     </>
   );

@@ -85,9 +85,9 @@ const CrewWriting = styled.div`
   .crewForm>.crewFormContent>.weekends>.everyday{display: flex; width: 20%; align-items: center; justify-content: center;}
   .react-datepicker-wrapper input{width:100%;border:none;outline:none;cursor:pointer;}
 
-  .time{display:flex;width:100%;align-items:center;justify-content:flex-start;border-bottom:1px solid #999999;}
+  .time{display:flex;width:100%;align-items:center;justify-content:flex-start;border-bottom:1px solid #999999;padding:5px 0;}
   .time>.times{width:84%;}
-
+  .time>.times>select{border:none;outline:none;cursor:pointer;}
   .crewForm>.crewFormContent>.location{width:100%;}
   .crewForm>.crewFormContent>.location>.address{display:flex; width:100%;}
   .crewForm>.crewFormContent>.location>.address>input{width:100%;border:none;outline:none;}

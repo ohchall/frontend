@@ -129,7 +129,7 @@ const MyCrews = () => {
                 <div className="crewPerson">
                   <BsPerson />
                   <div className="maxPeople">
-                    <p>현재인원수</p>
+                    <p>15</p>
                     <p>/</p>
                     <p>{crew.totalNumber}</p>
                   </div>

@@ -74,6 +74,11 @@ function CrewWritePage() {
   const onCrewUpload = async (e) => {
     e.preventDefault();
   
+    if (!crew.title || !crew.content || !crew.crewName || !crew.location || !crew.exerciseKind || crew.totalNumber === 0 || !crew.time) {
+      alert("모든 항목을 입력하거나 선택해주세요.");
+      return;
+    }
+
     const formData = new FormData();
     const contents = {
       title: crew.title,
@@ -183,7 +188,7 @@ function CrewWritePage() {
                 name="title"
                 value={crew.title}
                 placeholder="제목"
-                maxLength="7"
+                maxLength="12"
                 onChange={handleInputChange}
               />
             </div>

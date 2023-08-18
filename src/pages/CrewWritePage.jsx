@@ -10,8 +10,6 @@ import CrewCategory from "../components/crewpost/CrewCategory";
 import CrewTime from "../components/crewpost/CrewTime";
 import { useNavigate } from "react-router";
 
-
-
 function CrewWritePage() {
   const [addImg, setAddImg] = useState("");
   const [exerciseKind, setExerciseKind] = useState("");
@@ -49,11 +47,7 @@ function CrewWritePage() {
     };
     reader.readAsDataURL(file);
   }
-  console.log(crew.image)
-
-
-
-
+  // console.log(crew.image)
 
   useEffect(() => {
     setCrew((prevCrew) => {
@@ -188,7 +182,6 @@ function CrewWritePage() {
                 name="title"
                 value={crew.title}
                 placeholder="제목"
-                maxLength="12"
                 onChange={handleInputChange}
               />
             </div>

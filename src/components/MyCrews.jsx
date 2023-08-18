@@ -7,14 +7,11 @@ import  styled  from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import {IoIosArrowDown}from 'react-icons/io';
 
-
-
 const MyCrews = () => {
- 
   const observerRef = useRef(null);
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const {data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage} = useInfiniteQuery(
+  const {data, isSuccess, hasNextPage, fetchNextPage} = useInfiniteQuery(
     ['crewData'],
     ({ pageParam = 1 }) => axios.get(`${process.env.REACT_APP_SERVER_URL}/crew/more`, { 
       params: {
@@ -56,9 +53,6 @@ const MyCrews = () => {
     return () => observer.unobserve(element);
   }, [fetchNextPage, hasNextPage,handleObserver]);
  
-
-
-
   const addressSubstraction = (location) => {
     const parts = location.split(" ");
     if (parts.length >= 2) {
@@ -82,13 +76,12 @@ const MyCrews = () => {
   };
   
   // console.log(data?.pages[0].data.crewList)
- const navigateDetail=(id)=>{
+  const navigateDetail=(id)=>{
   navigate(`/crew/${id}`)
- }
-
+  }
 
   const flattenedCrewList = data?.pages.flatMap(page => page.data.crewList);
-  console.log(flattenedCrewList)
+  // console.log(flattenedCrewList)
 
   return (
     <CrewPosts>
@@ -155,9 +148,6 @@ export default MyCrews;
 // const MainColor = styled.div`
 //   background-color: ${(props) => props.bgColor || "#ef902a"};
 // `;
-
-
-
 
 const CrewPosts = styled.div`
   width:100%;

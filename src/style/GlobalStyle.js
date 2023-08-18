@@ -3,7 +3,6 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-  
 
   * {
     box-sizing: border-box;
@@ -12,6 +11,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'googleABeeZee';
   }
-  `;
+`;
 
 export default GlobalStyle;

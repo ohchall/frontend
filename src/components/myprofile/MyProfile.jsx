@@ -39,16 +39,32 @@ function MyProfile() {
     : [];
 
   const thisWeekUncompletedTodos = thisWeekTodos.filter(
-    (todo) => !todo.isSuccess
+    (todo) => !todo.isComplete
   );
 
   const sortedThisWeekUncompletedTodos = thisWeekUncompletedTodos.sort(
     (a, b) => {
       const dateA = new Date(a.date);
       const dateB = new Date(b.date);
-      return dateA - dateB; // 날짜가 빠른 순으로 정렬
+      return dateA - dateB;
     }
   );
+
+  const motivationQuotes = [
+    "지금부터라도 시작하세요!",
+    "운동은 건강의 지름길이에요!",
+    "힘들 때가 성장하는 시간이에요!",
+    "땀은 지방이 우는 소리!",
+    "헬스장은 나의 친구!",
+    "오늘의 땀이 내일의 미소를 만들어!",
+    "지금 힘들면, 내일은 쉬워져요!",
+    "무거운 철을 들어, 가벼운 몸을 만들어!",
+    "나만의 시간, 건강한 나를 만드는 시간!",
+    "네가 원하는 몸, 오늘도 포기하지 마!",
+  ];
+
+  const randomQuote =
+    motivationQuotes[Math.floor(Math.random() * motivationQuotes.length)];
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Error...</div>;
@@ -75,8 +91,7 @@ function MyProfile() {
 
       <div>
         <ThisMonthGoal>
-          <p>이번달 목표.</p>
-          <span>매주 3회 이상 운동하기</span>
+          <p>" {randomQuote} "</p>
         </ThisMonthGoal>
 
         <ThisWeekTodo>
@@ -84,7 +99,7 @@ function MyProfile() {
           <div>
             {sortedThisWeekUncompletedTodos.length > 0 ? (
               sortedThisWeekUncompletedTodos.map((todo) => (
-                <Todo key={todo.id}>
+                <Todo key={todo.toDoId}>
                   <span>{todo.content}</span>
                   <Week>
                     {daysOfWeek.map((day, index) => (

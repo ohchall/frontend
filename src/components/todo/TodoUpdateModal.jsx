@@ -10,19 +10,35 @@ import TodoAdd2 from "../../assets/TodoAdd2.svg";
 import TodoAdd3 from "../../assets/TodoAdd3.svg";
 import TodoAdd4 from "../../assets/TodoAdd4.svg";
 
-function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
-  const [title, setTitle] = useState(todo.title);
-  const [content, setContent] = useState(todo.content);
-  const [date, setDate] = useState(todo.date);
-  const [isComplete, setIsComplete] = useState(todo.isComplete);
+function TodoUpdateModal({
+  isOpen,
+  todo,
+  onSubmit,
+  onRequestClose,
+  isComplete,
+}) {
+  const [title, setTitle] = useState(todo.title || "");
+  const [content, setContent] = useState(todo.content || "");
+  const [date, setDate] = useState(todo.date || "");
 
   const handleSubmit = () => {
+    if (!title.trim() || !content.trim() || !date.trim()) {
+      alert("빈 값으로 수정할 수 없습니다.");
+      return;
+    }
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todoDate = new Date(date);
+    todoDate.setHours(0, 0, 0, 0);
+    const isCompleteToUpdate = todoDate < today;
+
     onSubmit({
       toDoId: todo.toDoId,
       title,
       content,
       date,
-      isComplete,
+      isComplete: isCompleteToUpdate,
     });
   };
 
@@ -42,6 +58,7 @@ function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
                 name="title"
                 placeholder="title"
                 value={title}
+                maxLength={24}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
@@ -52,6 +69,7 @@ function TodoUpdateModal({ isOpen, todo, onSubmit, onRequestClose }) {
                 name="content"
                 placeholder="content"
                 value={content}
+                maxLength={50}
                 onChange={(e) => setContent(e.target.value)}
               />
             </div>

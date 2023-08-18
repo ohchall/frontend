@@ -8,6 +8,9 @@ import { AiOutlineCamera } from "react-icons/ai";
 import { RxTriangleDown, RxTriangleUp } from "react-icons/rx";
 import CrewCategory from "../components/crewpost/CrewCategory";
 import CrewTime from "../components/crewpost/CrewTime";
+import { useNavigate } from "react-router";
+
+
 
 function CrewWritePage() {
   const [addImg, setAddImg] = useState("");
@@ -18,20 +21,22 @@ function CrewWritePage() {
   const [exerciseDate, setExerciseDate] = useState(new Date());
   const [totalNumber, setTotalNumber] = useState(0);
   const { mutate } = useAddCrewMutation();
+  const navigate= useNavigate();
 
   const [crew, setCrew] = useState({
     title: "",
     content: "",
     crewName: "",
     location: "",
+    usersLocation: "",
     exerciseDate: new Date(),
     exerciseKind: "",
     totalNumber: 0,
-    image: "",
+    image: {},
     time: "",
   });
 
-  const upLoadImgHandler = (e) => {
+  const upLoadImgHandler = async(e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -43,7 +48,12 @@ function CrewWritePage() {
       });
     };
     reader.readAsDataURL(file);
-  };
+  }
+  console.log(crew.image)
+
+
+
+
 
   useEffect(() => {
     setCrew((prevCrew) => {
@@ -63,7 +73,7 @@ function CrewWritePage() {
 
   const onCrewUpload = async (e) => {
     e.preventDefault();
-
+  
     const formData = new FormData();
     const contents = {
       title: crew.title,
@@ -78,17 +88,13 @@ function CrewWritePage() {
     };
     const jsonContent = JSON.stringify(contents);
     const blob = new Blob([jsonContent], { type: "application/json" });
-
     formData.append("data", blob);
-    formData.append("image", crew.image);
-
-    mutate(formData);
-
-    try {
-      // console.log(response.data);
-    } catch (error) {
-      console.error("Error uploading crew data:", error);
-    }
+    formData.append("images", crew.image);
+    
+     mutate(formData);
+      alert("성공적으로 데이터를 전송하였습니다.");
+     navigate("/mypage")
+    
   };
 
   const handleInputChange = (e) => {
@@ -151,23 +157,23 @@ function CrewWritePage() {
         <form className="crewForm" onSubmit={onCrewUpload}>
           <div className="crewImage">
             {!addImg ? (
-              <div className="button">
-                <label className="inputFileBtn" htmlFor="inputFile">
-                  <AiOutlineCamera />
-                  크루 대표 이미지를 등록해주세요
-                </label>
-                <input
-                  type="file"
-                  id="inputFile"
-                  accept="image/webp, image/png, image/jpeg"
-                  onChange={upLoadImgHandler}
-                />
-              </div>
-            ) : (
-              <div className="imageUploadSize">
-                <img src={addImg} alt="" />
-              </div>
-            )}
+                <div className="button">
+                  <label className="inputFileBtn" htmlFor="inputFile">
+                    <AiOutlineCamera />
+                    크루 대표 이미지를 등록해주세요
+                  </label>
+                  <input
+                    type="file"
+                    id="inputFile"
+                    accept="image/*"
+                    onChange={upLoadImgHandler}
+                  />
+                </div>
+              ) : (
+                <div className="imageUploadSize">
+                  <img src={addImg} alt="" />
+                </div>
+              )}
           </div>
 
           <div className="crewFormContent">

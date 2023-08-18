@@ -42,7 +42,7 @@ export const R9dCrewListBlock = styled.div`
 `;
 
 export const R9dCrew = styled.div`
-  width: 398px;
+  width: 100%;
   height: 232px;
   cursor: pointer;
 

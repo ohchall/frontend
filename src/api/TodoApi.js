@@ -1,13 +1,6 @@
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-// const access = localStorage.getItem("Access");
-// const refresh = localStorage.getItem("Refresh");
-// const headers = {
-//   Access: `${access}`,
-//   Refresh: `${refresh}`,
-// };
-
 export const useAddTodoMutation = () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -32,6 +25,12 @@ export const useAddTodoMutation = () => {
 };
 
 export const useDeleteTodoMutation = () => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const headers = {
+    Access: `${access}`,
+    Refresh: `${refresh}`,
+  };
   const queryClient = useQueryClient();
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -85,11 +84,16 @@ export const useFetchTodos = () => {
     Access: `${access}`,
     Refresh: `${refresh}`,
   };
+<<<<<<< HEAD
+=======
+
+>>>>>>> c731d480c81da48aff48482317da318e64bcd3ba
   return useQuery(["todos"], async () => {
     const { data } = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
       { headers }
     );
+
     return data;
   });
 };

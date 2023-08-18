@@ -1,18 +1,21 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef} from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { AiFillHeart, AiOutlineRight } from 'react-icons/ai';
+import {AiOutlineDoubleRight } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
-// import {IoIosArrowDown} from 'react-icons/io'
 import  styled  from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import {IoIosArrowDown}from 'react-icons/io';
+
+
 
 const MyCrews = () => {
+ 
   const observerRef = useRef(null);
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const {data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage} = useInfiniteQuery(
-    ['crewDatas'],
+    ['crewData'],
     ({ pageParam = 1 }) => axios.get(`${process.env.REACT_APP_SERVER_URL}/crew/more`, { 
       params: {
         page: pageParam,
@@ -27,31 +30,34 @@ const MyCrews = () => {
     }),
       {
         getNextPageParam: (lastPage, totalPage) => {
-          const nextPage = totalPage.length + 1; 
-          return lastPage.data.totalPages !== 0 ? nextPage : undefined;
+          // const nextPage = totalPage.length + 1; 
+          // return lastPage.data.totalPages !== 0 ? nextPage : undefined;
+          return totalPage.last? undefined: totalPage.length + 2  
       }}
   );
-  console.log("Data:", data)
- 
+
   const handleObserver = useCallback((entries) => {
-    const [target] = entries
-    if(target.isIntersecting && hasNextPage) {
-      fetchNextPage()
+    const [target] = entries;
+    if (target.isIntersecting && hasNextPage) {
+      fetchNextPage();
     }
-  }, [fetchNextPage, hasNextPage])
+  }, [fetchNextPage, hasNextPage]);
   
   useEffect(() => {
     const element = observerRef.current;
     if (!element) {
-      return; // if the element is not yet available, exit early
+      return;
     }
     
     const option = { threshold: 0 };
     const observer = new IntersectionObserver(handleObserver, option);
     observer.observe(element);
-    
+
     return () => observer.unobserve(element);
-  }, [fetchNextPage, hasNextPage, handleObserver]);
+  }, [fetchNextPage, hasNextPage,handleObserver]);
+ 
+
+
 
   const addressSubstraction = (location) => {
     const parts = location.split(" ");
@@ -74,8 +80,15 @@ const MyCrews = () => {
   if (!isSuccess) {
     return <div>Error...</div>;
   };
+  
+  // console.log(data?.pages[0].data.crewList)
+ const navigateDetail=(id)=>{
+  navigate(`/crew/${id}`)
+ }
 
-  console.log(data?.pages[0].data.crewList)
+
+  const flattenedCrewList = data?.pages.flatMap(page => page.data.crewList);
+  console.log(flattenedCrewList)
 
   return (
     <CrewPosts>
@@ -84,13 +97,13 @@ const MyCrews = () => {
         <div className="crewPostButton" onClick={navigationOne}>
           <p>크루를 모집 해보세요</p>
           <button onClick={navigationOne}>
-            <AiOutlineRight />
+          <AiOutlineDoubleRight/>
           </button>
         </div>
         
         <div className="crewPostRecents">
-        {isSuccess && data?.pages[0].data.crewList.map((crew) => (
-          <div className="crewPostRecent" key={crew.crewRecruitmentId}>
+        {isSuccess && flattenedCrewList.map((crew) => (
+          <div className="crewPostRecent" key={crew.crewRecruitmentId} onClick={() => navigateDetail(crew.crewRecruitmentId)}>
             <div className="crewPostReImg">
               <img
                 src={
@@ -104,9 +117,6 @@ const MyCrews = () => {
             <div className="crewPostReContent">
               <div className="CrewPostTitle">
                 <p>{crew.title}</p>
-                <div className="crewPostLike">
-                  <AiFillHeart />
-                </div>
               </div>
               <div className="crewPostInfo">
                 <div className="category">{crew.exerciseKind}</div>
@@ -129,9 +139,12 @@ const MyCrews = () => {
           </div>
         ))}
         </div>
-      <div className='loader' ref={observerRef}>
-      {isFetchingNextPage && hasNextPage ? 'Loading...' : 'No search left'}
-      </div>
+
+    <button className="moreButton" onClick={()=>fetchNextPage()}>
+      <p>more</p>
+      <IoIosArrowDown />
+    </button>
+
     </section>
   </CrewPosts>
   );
@@ -143,50 +156,56 @@ export default MyCrews;
 //   background-color: ${(props) => props.bgColor || "#ef902a"};
 // `;
 
+
+
+
 const CrewPosts = styled.div`
   width:100%;
   height:inherit;
-  margin-bottom:55px;
+  margin-bottom:120px;
   /* display:flex;
   flex-direction:column; */
+  
   .crewPostUpload {
     width:100%;
     height:inherit;
-    padding: 5px 15px;
+    padding: 0 16px;
+    overflow-y:auto;
     @media screen and (max-width:500px) {
       padding: 5px 38px;
     }
   }
   .crewPostUpload > h3 {
-    font-size:20px;
-    margin-bottom:5px;
-    padding:2%;
-    font-weight:600;
+    font-size: 22px;
+    margin-bottom: 5px;
+    padding: 16px 4px 16px 0px;
+    font-weight: 600;
   }
   .crewPostUpload > .crewPostButton{
     background-color: #ef902a;
-    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 50px;
     cursor: pointer;
-    padding: 7px 10px;
+    padding: 13px 16px;
     border-radius: 10px;
   }
   .crewPostUpload > .crewPostButton > p {
-    font-size:14px;
-    font-weight:300;
+    font-size:15px;
+    font-weight:400;
+    color:#111111; 
   }
   .crewPostUpload > .crewPostButton > button {
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #111111;
     font-size: 14px;
+    font-weight:900;
     width: 10%;
-    height: auto;
-    cursor:pointer;
+    height: 18px;
+    cursor: pointer;
   }
   .crewPostUpload > .crewPostRecents{
     width: 100%;
@@ -196,11 +215,12 @@ const CrewPosts = styled.div`
     margin: 10px 0;
   }
   .crewPostRecents > .crewPostRecent {
-    width: calc(50% - 5px);
+    width: calc(50% - 20px);
     height: 253px;
     background-color: #d9d9d9;
     border: 1px solid  #eeeeee;
-    border-radius: 30px;
+    border-radius: 25px;
+    margin:5px 0;
   }
   .crewPostRecents > .crewPostRecent:nth-child(odd) {
     margin-right: 10px;
@@ -208,7 +228,7 @@ const CrewPosts = styled.div`
   .crewPostRecent > .crewPostReImg {
     width: 100%;
     height: 152px;
-    border-radius: 30px;
+    border-radius: 25px 25px 0 0;
     overflow: hidden;
     background-color:#eeeeee;
   }
@@ -270,9 +290,9 @@ const CrewPosts = styled.div`
     align-items: center;
     font-size: 12px;
   }
-  .crewPostRecents > .moreButton {
-    width: 90%;
-    height: 13%;
+  .crewPostUpload > .moreButton {
+    width: 100%;
+    height: 7%;
     border: 1px solid #eeeeee;
     border-radius: 10px;
     display: flex;

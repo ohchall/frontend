@@ -26,11 +26,13 @@ export const CalendarContainer = styled.div`
   .calendarStyle {
     display: flex;
 
-    .completed {
-      background-color: #bbbbbb !important;
-      color: white !important;
+    .nearest {
+      background-color: orange !important; // 오렌지색으로 배경색 변경
     }
 
+    .completed {
+      background-color: grey !important; // 완료된 투두의 배경색 변경
+    }
     .fc .fc-scrollgrid {
       border: none;
     }

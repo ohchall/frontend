@@ -1,1 +1,1 @@
-__LINK__: [OHCHALLE-FE-S3](http://ohchalle.s3-website.ap-northeast-2.amazonaws.com)
+__LINK__: [ohchalle.com](https://ohchalle.com)

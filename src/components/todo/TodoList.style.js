@@ -98,18 +98,21 @@ export const TodosBox = styled.div`
     height: 20px;
     margin: 15px;
   }
-  > div {
+  .TodolistContent {
     display: flex;
     flex-direction: column;
     align-items: baseline;
+    width: 285px;
 
     > h2 {
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: bold;
       color: #000000;
       text-decoration: ${(props) =>
         props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
+      white-space: nowrap;
+      max-width: 285px;
     }
     > h3 {
       font-size: 13px;
@@ -117,6 +120,14 @@ export const TodosBox = styled.div`
       text-decoration: ${(props) =>
         props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      text-align: left;
+      max-width: 285px;
+      overflow-wrap: break-word;
+      white-space: normal;
+      word-break: break-all;
     }
     > h4 {
       font-size: 13px;
@@ -124,6 +135,8 @@ export const TodosBox = styled.div`
       text-decoration: ${(props) =>
         props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
+      height: 16px;
+      padding-left: 2px;
     }
   }
 `;
@@ -148,7 +161,7 @@ export const MoreButton = styled.button`
   position: relative;
   border: 0;
   background-color: transparent;
-  left: 160px;
+  left: 20px;
   bottom: 30px;
   font-size: 18px;
   font-weight: bold;
@@ -159,13 +172,12 @@ export const MoreButton = styled.button`
 
 export const MoreButtonContainer = styled.div`
   position: relative;
-  left: 130px;
+  right: 10px;
   top: 10px;
   background: white;
   border-radius: 5px;
   padding: 1px;
-
-  display: ${(props) => (props.visible ? "block" : "none")};
+  display: ${(props) => (props.visible ? "none" : "block")};
   border: 1px solid black;
 
   > button {
@@ -175,6 +187,8 @@ export const MoreButtonContainer = styled.div`
     border-radius: 3px;
     padding: 5px 0;
     background-color: transparent;
+    display: flex;
+    justify-content: center;
 
     &:hover {
       background-color: #eeeeee;

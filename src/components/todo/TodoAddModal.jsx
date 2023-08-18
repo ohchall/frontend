@@ -29,9 +29,14 @@ function TodoAddModal({ onRequestClose }) {
       alert("입력창을 다시 한 번 확인해주세요!");
       return;
     }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const todoDate = new Date(date);
+    todoDate.setHours(0, 0, 0, 0);
+    const isComplete = todoDate < today;
 
     addTodoMutation.mutate(
-      { title, content, date, isComplete: null },
+      { title, content, date, isComplete },
       {
         onSuccess: (data) => {
           console.log("저장 성공:", data);
@@ -63,6 +68,7 @@ function TodoAddModal({ onRequestClose }) {
               name="title"
               placeholder="title"
               value={title}
+              maxLength={24}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>
           </div>
@@ -73,6 +79,7 @@ function TodoAddModal({ onRequestClose }) {
               name="content"
               placeholder="content"
               value={content}
+              maxLength={50}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>
           </div>

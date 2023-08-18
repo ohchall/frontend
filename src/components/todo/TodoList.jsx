@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   useFetchTodos,
   useDeleteTodoMutation,
@@ -19,31 +19,36 @@ import TodoAddModal from "./TodoAddModal";
 import Calendar from "../calendar/Calendar";
 import TodoUpdateModal from "./TodoUpdateModal";
 import { useNavigate } from "react-router-dom";
+import useTodoState from "../../hook/useTodoState";
+import useModal from "../../hook/useModal";
 
 function TodoList() {
-  const { data, isLoading, isError } = useFetchTodos();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [events, setEvents] = useState([]);
-  const [filteredTodos, setFilteredTodos] = useState([]);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
+  const { data: todos, isLoading, isError } = useFetchTodos();
   const [todoToUpdate, setTodoToUpdate] = useState(null);
-  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
-  const [visibleTodoId, setVisibleTodoId] = useState(null);
   const updateisCompleteMutation = useUpdateIsSuccessMutation();
   const navigate = useNavigate();
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-
-  const toggleButtonsVisibility = (id) => {
-    if (visibleTodoId === id) {
-      setVisibleTodoId(null);
-    } else {
-      setVisibleTodoId(id);
-    }
-  };
+  const {
+    events,
+    filteredTodos,
+    toggleButtonsVisibility,
+    onMonthChange,
+    visibleTodoId,
+  } = useTodoState(todos);
+  const addTodoModal = useModal();
+  const updateTodoModal = useModal();
 
   const handleCheckboxChange = async (todo) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (new Date(todo.date) < today) {
+      console.log("오늘 이전의 todo는 변경할 수 없습니다.");
+      return;
+    }
+
     const updatedTodo = { ...todo, isComplete: !todo.isComplete };
     try {
       await updateisCompleteMutation.mutateAsync(updatedTodo);
@@ -53,74 +58,23 @@ function TodoList() {
     }
   };
 
-  const onMonthChange = (month) => {
-    setCurrentMonth(month);
-  };
-
-  const convertTodoToEvent = (todo) => {
-    return {
-      title: todo.title,
-      start: todo.date,
-      isComplete: todo.isComplete,
-    };
-  };
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const openUpdateModal = (todo) => {
-    setTodoToUpdate(todo);
-    setIsUpdateModalOpen(true);
-  };
-
-  const closeUpdateModal = () => {
-    setIsUpdateModalOpen(false);
-  };
-
-  useEffect(() => {
-    if (data) {
-      const convertedEvents = data.map(convertTodoToEvent);
-      setEvents(convertedEvents);
-
-      const filtered = data.filter((todo) => {
-        const todoMonth = new Date(todo.date).getMonth();
-        return todoMonth === currentMonth;
-      });
-      setFilteredTodos(filtered);
-    }
-  }, [data, currentMonth]);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>Error...</div>;
-  }
-
   const todoDeleteHandler = async (todoId) => {
     try {
       await deleteTodoMutation.mutateAsync(todoId);
       console.log("삭제 성공");
-      setVisibleTodoId(null);
+      toggleButtonsVisibility(null);
     } catch (error) {
       console.log("todoId", todoId);
       console.error("삭제 실패:", error);
     }
   };
 
-  //
   const todoUpdateHandler = async (updatedTodo) => {
     try {
       await updateTodoMutation.mutateAsync(updatedTodo);
       console.log("수정 성공");
-      closeUpdateModal();
-      setVisibleTodoId(null);
+      updateTodoModal.closeModal();
+      toggleButtonsVisibility(null);
     } catch (error) {
       console.error("수정 실패:", error);
     }
@@ -132,14 +86,25 @@ function TodoList() {
 
   const uncompletedTodos = filteredTodos.filter((todo) => !todo.isComplete);
 
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isError) {
+    return <div>Error...</div>;
+  }
+
   return (
     <>
       <CalendarCenterBox>
         <Calendar events={events} onMonthChange={onMonthChange} />
       </CalendarCenterBox>
       <br></br>
-      {isModalOpen && (
-        <TodoAddModal isOpen={isModalOpen} onRequestClose={closeModal} />
+      {addTodoModal.isOpen && (
+        <TodoAddModal
+          isOpen={addTodoModal.isOpen}
+          onRequestClose={addTodoModal.closeModal}
+        />
       )}
       <TodosContainer>
         <div className="TodolsitTitle">
@@ -155,7 +120,7 @@ function TodoList() {
                   onChange={() => handleCheckboxChange(todo)}
                   checked={todo.isComplete}
                 ></input>
-                <div>
+                <div className="TodolistContent">
                   <h2>{todo.title}</h2>
                   <h3>{todo.content}</h3>
                   <h4>날짜 | {todo.date}</h4>
@@ -178,7 +143,14 @@ function TodoList() {
                 </MoreButton>
                 {visibleTodoId === todo.toDoId && (
                   <MoreButtonContainer>
-                    <button onClick={() => openUpdateModal(todo)}>수 정</button>
+                    <button
+                      onClick={() => {
+                        setTodoToUpdate(todo);
+                        updateTodoModal.openModal();
+                      }}
+                    >
+                      수 정
+                    </button>
                     <button onClick={() => todoDeleteHandler(todo.toDoId)}>
                       삭 제
                     </button>
@@ -188,14 +160,14 @@ function TodoList() {
             ))}
           </TodosList>
         </TodoListContainer>
-        <button onClick={openModal}>+</button>
+        <button onClick={addTodoModal.openModal}>+</button>
       </TodosContainer>
-      {isUpdateModalOpen && (
+      {updateTodoModal.isOpen && (
         <TodoUpdateModal
-          isOpen={isUpdateModalOpen}
+          isOpen={updateTodoModal.isOpen}
           todo={todoToUpdate}
           onSubmit={todoUpdateHandler}
-          onRequestClose={closeUpdateModal}
+          onRequestClose={updateTodoModal.closeModal}
         />
       )}
     </>

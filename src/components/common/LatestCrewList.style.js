@@ -1,4 +1,3 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
 import styled from 'styled-components';
 
 export const ImageWrapper = styled.div`
@@ -47,14 +46,4 @@ export const TitleContainer = styled.div`
   & > span {
     display: inline-block;
   }
-`;
-
-export const LatestCrewListSwiper = styled(Swiper)`
-  width: 100%;
-`;
-
-export const LatestCrewListSwiperSlide = styled(SwiperSlide)`
-  width: 285px;
-  height: 329px;
-  cursor: pointer;
 `;

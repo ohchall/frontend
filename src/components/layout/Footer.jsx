@@ -20,7 +20,7 @@ function Footer() {
           <StyledLuUsers />
           <span>커뮤니티</span>
         </StyledLink>
-        
+
         <StyledLink to="/">
           <HomeIcon
             width="42.6px"
@@ -30,12 +30,12 @@ function Footer() {
           />
           <span>홈</span>
         </StyledLink>
-        
-        <StyledLink to="/">
+
+        <StyledLink to="/search">
           <StyledFiSearch />
           <span>검색</span>
         </StyledLink>
-        
+
         <StyledLink to="/mypage">
           <StyledLuUser />
           <span>마이페이지</span>

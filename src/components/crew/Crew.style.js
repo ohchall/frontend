@@ -39,7 +39,7 @@ export const InputContainer = styled.div`
 
 export const CategoryContainer = styled.div`
   width: 100%;
-  padding: 0 16px;
+  padding: 16px;
 
   & button {
     height: 34px;
@@ -47,7 +47,7 @@ export const CategoryContainer = styled.div`
     border: none;
     border-radius: 5px;
     padding: 0 10px;
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
     cursor: pointer;
   }
 `;

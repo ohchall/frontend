@@ -20,7 +20,7 @@ import TodoUpdateModal from "./TodoUpdateModal";
 function TodoDetailList() {
   const { data, isLoading, isError } = useFetchTodos();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [events, setEvents] = useState([]);
+  const [, setEvents] = useState([]);
   const [filteredTodos, setFilteredTodos] = useState([]);
   const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
   const [todoToUpdate, setTodoToUpdate] = useState(null);
@@ -41,6 +41,14 @@ function TodoDetailList() {
   };
 
   const handleCheckboxChange = async (todo) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (new Date(todo.date) < today) {
+      alert("지난 todo의 완료 여부는 변경할 수 없습니다.");
+      return;
+    }
+
     const updatedTodo = { ...todo, isComplete: !todo.isComplete };
     try {
       await updateisCompleteMutation.mutateAsync(updatedTodo);
@@ -135,7 +143,7 @@ function TodoDetailList() {
                   onChange={() => handleCheckboxChange(todo)}
                   checked={todo.isComplete}
                 ></input>
-                <div>
+                <div className="TodolistContent">
                   <h2>{todo.title}</h2>
                   <h3>{todo.content}</h3>
                   <h4>날짜 | {todo.date}</h4>
@@ -168,6 +176,7 @@ function TodoDetailList() {
             ))}
           </TodosList>
         </TodoListContainer>
+        <br></br>
         <div className="TodolsitTitle">
           <h2>완료</h2>
         </div>
@@ -180,7 +189,7 @@ function TodoDetailList() {
                   onChange={() => handleCheckboxChange(todo)}
                   checked={todo.isComplete}
                 ></input>
-                <div>
+                <div className="TodolistContent">
                   <h2>{todo.title}</h2>
                   <h3>{todo.content}</h3>
                   <h4>날짜 | {todo.date}</h4>

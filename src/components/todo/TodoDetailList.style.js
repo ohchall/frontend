@@ -3,27 +3,30 @@ import { styled } from "styled-components";
 export const TodosContainer = styled.div`
   background-color: #eeeeee;
   margin-bottom: 20px;
+  width: 100%;
+  height: 100%;
 
   > button {
-    background-color: white;
+    background-color: #dadada;
     border: none;
     width: 400px;
     height: 50px;
     border-radius: 10px;
-    margin: 15px 10px 15px;
+    margin: 15px 15px 15px;
     padding: 10px 0 20px 0;
     font-size: 30px;
     border: 1px solid transparent;
 
     &:hover {
-      font-size: 32px;
+      font-size: 31px;
       cursor: pointer;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     }
   }
   .TodolsitTitle {
     display: flex;
     justify-content: space-between;
+    border-bottom: 2px solid black;
 
     > h2 {
       line-height: 2;
@@ -54,12 +57,12 @@ export const TodoListContainer = styled.div`
   justify-content: center;
   overflow: auto;
   width: 100%;
-  height: 360px;
   background-color: #eeeeee;
-  padding: 0 0;
-
   scrollbar-width: none;
-  -ms-overflow-style: none;
+  -ms-overflow-style: none; /* IE and Edge */
+  padding: 0 0;
+  height: 395px;
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -98,18 +101,21 @@ export const TodosBox = styled.div`
     height: 20px;
     margin: 15px;
   }
-  > div {
+  .TodolistContent {
     display: flex;
     flex-direction: column;
     align-items: baseline;
+    width: 285px;
 
     > h2 {
-      font-size: 14px;
+      font-size: 14.5px;
       font-weight: bold;
       color: #000000;
       text-decoration: ${(props) =>
         props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
+      white-space: nowrap;
+      max-width: 285px;
     }
     > h3 {
       font-size: 13px;
@@ -117,6 +123,14 @@ export const TodosBox = styled.div`
       text-decoration: ${(props) =>
         props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      text-align: left;
+      max-width: 285px;
+      overflow-wrap: break-word;
+      white-space: normal;
+      word-break: break-all;
     }
     > h4 {
       font-size: 13px;
@@ -124,6 +138,8 @@ export const TodosBox = styled.div`
       text-decoration: ${(props) =>
         props.$isComplete ? "line-through" : "none"};
       text-decoration-thickness: 2px;
+      height: 16px;
+      padding-left: 2px;
     }
   }
 `;
@@ -148,7 +164,7 @@ export const MoreButton = styled.button`
   position: relative;
   border: 0;
   background-color: transparent;
-  left: 160px;
+  left: 20px;
   bottom: 30px;
   font-size: 18px;
   font-weight: bold;
@@ -159,13 +175,12 @@ export const MoreButton = styled.button`
 
 export const MoreButtonContainer = styled.div`
   position: relative;
-  left: 125px;
+  right: 10px;
   top: 10px;
   background: white;
   border-radius: 5px;
   padding: 1px;
-
-  display: ${(props) => (props.visible ? "block" : "none")};
+  display: ${(props) => (props.visible ? "none" : "block")};
   border: 1px solid black;
 
   > button {
@@ -175,6 +190,8 @@ export const MoreButtonContainer = styled.div`
     border-radius: 3px;
     padding: 5px 0;
     background-color: transparent;
+    display: flex;
+    justify-content: center;
 
     &:hover {
       background-color: #eeeeee;

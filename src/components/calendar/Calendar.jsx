@@ -32,7 +32,14 @@ function Calendar({ events, onMonthChange }) {
     events,
     eventColor: "#3498db",
     eventClassNames: (event) => {
-      return event.event.extendedProps.isComplete ? ["completed"] : [];
+      const classes = [];
+      if (event.event.extendedProps.isComplete) {
+        classes.push("completed");
+      }
+      if (event.event.extendedProps.isNearest) {
+        classes.push("nearest");
+      }
+      return classes;
     },
     height: "auto",
     datesSet: (info) => {

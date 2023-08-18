@@ -66,18 +66,12 @@ export const ThisMonthGoal = styled.div`
   padding-left: 10px;
   margin-bottom: 6px;
   background-color: #ffffff;
-  font-size: 14px;
+  justify-content: center;
 
   & > p {
-    width: 68px;
-    font-weight: bold;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: clip;
-  }
-
-  & > span {
-    margin-left: 14px;
+    font-size: 15px;
+    color: #4a4a4a;
+    font-style: italic;
   }
 `;
 

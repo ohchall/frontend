@@ -11,7 +11,7 @@ import "swiper/css";
 import LatestCrewList from "../common/LatestCrewList";
 import R9dCrewList from "../common/R9dCrewList";
 import PopularCrewList from "../common/PopularCrewList";
-import SearchBar from "../search/SearchBar";
+// import SearchBar from "../search/SearchBar";
 
 function Crew() {
   const access = localStorage.getItem("Access");
@@ -46,7 +46,7 @@ function Crew() {
     <CrewBlock>
       {isLoading && "Loading..."}
       {error && "An error has occurred: " + error.message}
-      <SearchBar />
+      {/* <SearchBar /> */}
       <CategoryContainer>
         {categories.map((category) => (
           <button key={category} onClick={() => onClickCategory(category)}>

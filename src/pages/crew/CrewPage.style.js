@@ -6,7 +6,6 @@ export const CrewPageBlock = styled.div`
   overflow: auto;
   margin: 0 auto;
   -ms-overflow-style: none;
-
   &::-webkit-scrollbar {
     display: none;
   }

@@ -10,12 +10,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'googleABeeZee',;
+    font-family: 'googleABeeZee';
   }
-  @font-face {
-	font-family: "BowlByOneSC";
-	src: url(./assets/fonts/ABeeZee/Bowlby_One_SC/BowlbyOneSC-Regular.ttf);
-}
   `;
 
 export default GlobalStyle;

@@ -1,19 +1,21 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef} from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import { AiFillHeart, AiOutlineRight } from 'react-icons/ai';
+import {AiOutlineDoubleRight } from 'react-icons/ai';
 import { BsPerson } from 'react-icons/bs';
 import  styled  from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import {IoIosArrowDown}from 'react-icons/io';
 
 
+
 const MyCrews = () => {
+ 
   const observerRef = useRef(null);
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const {data, isSuccess, hasNextPage, fetchNextPage, isFetchingNextPage} = useInfiniteQuery(
-    ['crewDatas'],
+    ['crewData'],
     ({ pageParam = 1 }) => axios.get(`${process.env.REACT_APP_SERVER_URL}/crew/more`, { 
       params: {
         page: pageParam,
@@ -33,7 +35,6 @@ const MyCrews = () => {
           return totalPage.last? undefined: totalPage.length + 2  
       }}
   );
-  //  console.log("data",data)
 
   const handleObserver = useCallback((entries) => {
     const [target] = entries;
@@ -79,11 +80,15 @@ const MyCrews = () => {
   if (!isSuccess) {
     return <div>Error...</div>;
   };
-
+  
   // console.log(data?.pages[0].data.crewList)
+ const navigateDetail=(id)=>{
+  navigate(`/crew/${id}`)
+ }
 
 
   const flattenedCrewList = data?.pages.flatMap(page => page.data.crewList);
+  console.log(flattenedCrewList)
 
   return (
     <CrewPosts>
@@ -92,13 +97,13 @@ const MyCrews = () => {
         <div className="crewPostButton" onClick={navigationOne}>
           <p>크루를 모집 해보세요</p>
           <button onClick={navigationOne}>
-            <AiOutlineRight />
+          <AiOutlineDoubleRight/>
           </button>
         </div>
         
         <div className="crewPostRecents">
         {isSuccess && flattenedCrewList.map((crew) => (
-          <div className="crewPostRecent" key={crew.crewRecruitmentId}>
+          <div className="crewPostRecent" key={crew.crewRecruitmentId} onClick={() => navigateDetail(crew.crewRecruitmentId)}>
             <div className="crewPostReImg">
               <img
                 src={
@@ -134,9 +139,6 @@ const MyCrews = () => {
           </div>
         ))}
         </div>
-      {/* <div className='loader' ref={observerRef}>
-      {isFetchingNextPage && hasNextPage ? 'Loading...' : 'No search left'}
-      </div> */}
 
     <button className="moreButton" onClick={()=>fetchNextPage()}>
       <p>more</p>
@@ -154,51 +156,56 @@ export default MyCrews;
 //   background-color: ${(props) => props.bgColor || "#ef902a"};
 // `;
 
+
+
+
 const CrewPosts = styled.div`
   width:100%;
   height:inherit;
   margin-bottom:120px;
   /* display:flex;
   flex-direction:column; */
+  
   .crewPostUpload {
     width:100%;
     height:inherit;
-    padding: 5px 15px;
+    padding: 0 16px;
     overflow-y:auto;
     @media screen and (max-width:500px) {
       padding: 5px 38px;
     }
   }
   .crewPostUpload > h3 {
-    font-size:20px;
-    margin-bottom:5px;
-    padding:2%;
-    font-weight:600;
+    font-size: 22px;
+    margin-bottom: 5px;
+    padding: 16px 4px 16px 0px;
+    font-weight: 600;
   }
   .crewPostUpload > .crewPostButton{
     background-color: #ef902a;
-    color: #ffffff;
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
     height: 50px;
     cursor: pointer;
-    padding: 7px 10px;
+    padding: 13px 16px;
     border-radius: 10px;
   }
   .crewPostUpload > .crewPostButton > p {
-    font-size:14px;
-    font-weight:300;
+    font-size:15px;
+    font-weight:400;
+    color:#111111; 
   }
   .crewPostUpload > .crewPostButton > button {
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #111111;
     font-size: 14px;
+    font-weight:900;
     width: 10%;
-    height: auto;
-    cursor:pointer;
+    height: 18px;
+    cursor: pointer;
   }
   .crewPostUpload > .crewPostRecents{
     width: 100%;
@@ -208,7 +215,7 @@ const CrewPosts = styled.div`
     margin: 10px 0;
   }
   .crewPostRecents > .crewPostRecent {
-    width: calc(50% - 5px);
+    width: calc(50% - 20px);
     height: 253px;
     background-color: #d9d9d9;
     border: 1px solid  #eeeeee;

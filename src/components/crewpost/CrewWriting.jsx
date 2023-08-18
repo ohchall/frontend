@@ -22,7 +22,8 @@ const CrewWriting = styled.div`
 
   .crewForm>.crewImage>.button>.inputFileBtn {color:#999999;border-radius: 4px;cursor: pointer;font-size:13px;font-family:"Roboto", sans-serif;display:flex;flex-direction: column;align-items:center;justify-content:center;width:100%;height:100%;}
   .crewForm>.crewImage>.button>input{display:none;}
-  .crewForm>.crewImage>.imageUploadSize{width:100%;height:100%;display: flex;align-items: center;justify-content: center;}
+  .crewForm>.crewImage>.imageUploadSize{width:100%;height:100%;display: flex;align-items: center;justify-content: center;flex-wrap:wrap;}
+ 
   .crewForm>.crewImage>.imageUploadSize>img{width:100%;height:100%;object-fit:cover;}
 
   .crewForm strong{width:16%;margin-right:10px;font-size:14px;font-weight:600;}

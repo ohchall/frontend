@@ -8,6 +8,8 @@ import { AiOutlineCamera } from "react-icons/ai";
 import { RxTriangleDown, RxTriangleUp } from "react-icons/rx";
 import CrewCategory from "../components/crewpost/CrewCategory";
 import CrewTime from "../components/crewpost/CrewTime";
+import { useNavigate } from "react-router";
+
 
 
 function CrewWritePage() {
@@ -19,12 +21,14 @@ function CrewWritePage() {
   const [exerciseDate, setExerciseDate] = useState(new Date());
   const [totalNumber, setTotalNumber] = useState(0);
   const { mutate } = useAddCrewMutation();
+  const navigate= useNavigate();
 
   const [crew, setCrew] = useState({
     title: "",
     content: "",
     crewName: "",
     location: "",
+    usersLocation: "",
     exerciseDate: new Date(),
     exerciseKind: "",
     totalNumber: 0,
@@ -32,71 +36,20 @@ function CrewWritePage() {
     time: "",
   });
 
-  // const upLoadImgHandler = async(e) => {
-  //   const file = e.target.files[0];
-  //   const reader = new FileReader();
-  //   reader.onloadend = () => {
-  //     const imageDataUrl = reader.result;
-  //     setAddImg(imageDataUrl);
-  //     setCrew({
-  //       ...crew,
-  //       image: file,
-  //     });
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
-  const upLoadImgHandler = (e) => {
+  const upLoadImgHandler = async(e) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-
     reader.onloadend = () => {
-        const imageDataUrl = reader.result;
-
-        const img = new Image();
-        img.src = imageDataUrl;
-
-        img.onload = () => {
-            let { width, height } = img;
-            if (width > 1000 || height > 1000) {
-                if (width > height) {
-                    height *= (1000 / width);
-                    width = 1000;
-                } else {
-                    width *= (1000 / height);
-                    height = 1000;
-                }
-            }
-
-            const canvas = document.createElement("canvas");
-            canvas.width = width;
-            canvas.height = height;
-            const ctx = canvas.getContext("2d");
-            ctx.drawImage(img, 0, 0, width, height);
-
-            let quality = 0.9;
-            let newDataUrl = canvas.toDataURL(file.type, quality);
-            
-            let base64DataLength = newDataUrl.length - 'data:image/png;base64,'.length;
-            let approxBinaryDataLength = base64DataLength * (3/4) - (base64DataLength / 1024);
-
-            while (approxBinaryDataLength > 1024 * 1024 && quality > 0.1) {
-                quality -= 0.8; 
-                newDataUrl = canvas.toDataURL(file.type, quality);
-                base64DataLength = newDataUrl.length - 'data:image/png;base64,'.length;
-                approxBinaryDataLength = base64DataLength * (3/4) - (base64DataLength / 1024);
-            }
-
-            setAddImg(newDataUrl);
-            setCrew({
-                ...crew,
-                image: file,
-            });
-        };
+      const imageDataUrl = reader.result;
+      setAddImg(imageDataUrl);
+      setCrew({
+        ...crew,
+        image: file,
+      });
     };
-
     reader.readAsDataURL(file);
-}
-
+  }
+  console.log(crew.image)
 
 
 
@@ -120,7 +73,7 @@ function CrewWritePage() {
 
   const onCrewUpload = async (e) => {
     e.preventDefault();
-
+  
     const formData = new FormData();
     const contents = {
       title: crew.title,
@@ -135,17 +88,13 @@ function CrewWritePage() {
     };
     const jsonContent = JSON.stringify(contents);
     const blob = new Blob([jsonContent], { type: "application/json" });
-    formData.append("image", crew.image);
     formData.append("data", blob);
-   
-
-    mutate(formData);
-
-    try {
-      // console.log(response.data);
-    } catch (error) {
-      console.error("Error uploading crew data:", error);
-    }
+    formData.append("images", crew.image);
+    
+     mutate(formData);
+      alert("성공적으로 데이터를 전송하였습니다.");
+     navigate("/mypage")
+    
   };
 
   const handleInputChange = (e) => {
@@ -208,23 +157,23 @@ function CrewWritePage() {
         <form className="crewForm" onSubmit={onCrewUpload}>
           <div className="crewImage">
             {!addImg ? (
-              <div className="button">
-                <label className="inputFileBtn" htmlFor="inputFile">
-                  <AiOutlineCamera />
-                  크루 대표 이미지를 등록해주세요
-                </label>
-                <input
-                  type="file"
-                  id="inputFile"
-                  accept="image/*"
-                  onChange={upLoadImgHandler}
-                />
-              </div>
-            ) : (
-              <div className="imageUploadSize">
-                <img src={addImg} alt="" />
-              </div>
-            )}
+                <div className="button">
+                  <label className="inputFileBtn" htmlFor="inputFile">
+                    <AiOutlineCamera />
+                    크루 대표 이미지를 등록해주세요
+                  </label>
+                  <input
+                    type="file"
+                    id="inputFile"
+                    accept="image/*"
+                    onChange={upLoadImgHandler}
+                  />
+                </div>
+              ) : (
+                <div className="imageUploadSize">
+                  <img src={addImg} alt="" />
+                </div>
+              )}
           </div>
 
           <div className="crewFormContent">

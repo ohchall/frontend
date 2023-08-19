@@ -4,14 +4,20 @@ const CrewWriting = styled.div`
   width:100%;
   margin:0 auto;
  .header{display:flex;align-items:center;justify-content:space-between;width:100%;height:5%;}
- .crewForm{width:100%;height:100%;padding:6px 40px;}
- .crewForm>.crewImage{width: 100%;
+ .crewForm{
+  width:100%;
+  height:100%;
+  padding:6px 16px;
+  margin-top:10px;}
+ .crewForm>.crewImage{
+    width: 100%;
     height: 40%;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background-color:#eeeeee;
+    border-radius: 10px;
   }
 
   .crewForm>.crewImage svg{font-size:1.6rem;color:#000000;margin-bottom:10px;}
@@ -25,7 +31,9 @@ const CrewWriting = styled.div`
   .crewForm>.crewImage>.imageUploadSize{width:100%;height:100%;display: flex;align-items: center;justify-content: center;flex-wrap:wrap;}
  
   .crewForm>.crewImage>.imageUploadSize>img{width:100%;height:100%;object-fit:cover;}
-
+  .crewForm>.crewImage>.imageUploadSize>img:nth-child(1){width:100%;height:50%;}
+  .crewForm>.crewImage>.imageUploadSize>img:nth-child(2),
+  .crewForm>.crewImage>.imageUploadSize>img:nth-child(3) {width:50%;height:50%;}
   .crewForm strong{width:16%;margin-right:10px;font-size:14px;font-weight:600;}
   .identicalStyle {
     border-bottom:1px solid #999999;
@@ -51,6 +59,9 @@ const CrewWriting = styled.div`
 
   .crewForm>.crewFormContent>.title{border-bottom:1px solid #999999;}
   .crewForm>.crewFormContent>.title>input{width:100%;font-size:17px;}
+
+  .crewForm>.crewFormContent>.content>strong{width:16%;}
+  .crewForm>.crewFormContent>.content>textarea{width:84%;}
 
   .crewForm>.crewFormContent>.date>div{width:85%; display: flex; align-items: center; justify-content: flex-start;}
 

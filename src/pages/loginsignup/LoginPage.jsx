@@ -10,7 +10,7 @@ import {
 } from "./Common.style";
 import { useMutation } from "@tanstack/react-query";
 import { LoginPageBlock } from "./LoginPage.style";
-import { SNSlogin } from "../../components/login&signup/SNSlogin";
+import { SNSlogin } from "../../components/loginsignup/SNSlogin";
 function LoginPage() {
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {

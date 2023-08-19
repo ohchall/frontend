@@ -3,17 +3,17 @@ import { getCrews } from "../../api/CrewApi";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import Banner from "../../components/banner/Banner";
-import Category from "../../components/category/Category";
+import Category from "../../components/common/category/Category";
 // import EventBanner from "../../components/banner/EventBanner";
 import {
   MainPageSection,
   TitleContainer,
   CrewListContainer,
 } from "./MainPage.style";
-import LatestCrewList from "../../components/common/LatestCrewList";
-import R9dCrewList from "../../components/common/R9dCrewList";
-import PopularCrewList from "../../components/common/PopularCrewList";
-import MyProfile from "../../components/myprofile/MyProfile";
+import LatestCrewList from "../../components/common/crewlist/LatestCrewList";
+import R9dCrewList from "../../components/common/crewlist/R9dCrewList";
+import PopularCrewList from "../../components/common/crewlist/PopularCrewList";
+import MyProfile from "../../components/common/myprofile/MyProfile";
 import { useEffect, useState } from "react";
 
 function MainPage() {

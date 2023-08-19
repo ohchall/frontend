@@ -3,7 +3,7 @@ import { styled } from "styled-components";
 import { FiSearch } from "react-icons/fi";
 import useSearch from "./useSearch";
 import Skeleton from "./Skeleton";
-import LikeButton from "../../components/LikeButton";
+import LikeButton from "../../components/common/LikeButton";
 import { useNavigate } from "react-router-dom";
 const SearchPage = () => {
   const access = localStorage.getItem("Access");

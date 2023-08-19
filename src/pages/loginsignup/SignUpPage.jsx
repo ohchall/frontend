@@ -10,9 +10,9 @@ import {
 } from "./Common.style";
 import { Register } from "../../api/AuthApi";
 import { useMutation } from "@tanstack/react-query";
-import { AgreementDetail } from "../../components/login&signup/AgreementDetail";
+import { AgreementDetail } from "../../components/loginsignup/AgreementDetail";
 import { AgreementBox, SignUpForm, SignUpPageBlock } from "./SignUpPage.style";
-import { SNSlogin } from "../../components/login&signup/SNSlogin";
+import { SNSlogin } from "../../components/loginsignup/SNSlogin";
 import useFormValidation from "./UserInputCheck";
 
 const SignupPage = () => {

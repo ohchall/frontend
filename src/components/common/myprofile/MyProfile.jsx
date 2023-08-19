@@ -1,4 +1,4 @@
-import { useFetchTodos } from "../../api/TodoApi";
+import { useFetchTodos } from "../../../api/TodoApi";
 import { startOfWeek, endOfWeek, isWithinInterval, parseISO } from "date-fns";
 import {
   MyProfileBlock,
@@ -15,7 +15,6 @@ import {
   Week,
   WeekSpan,
 } from "./MyProfile.style";
-
 
 function MyProfile() {
   const logoutHandler = () => {

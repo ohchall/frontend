@@ -1,5 +1,5 @@
 import { CrewPageBlock } from "./CrewPage.style";
-import MyProfile from "../../components/myprofile/MyProfile";
+import MyProfile from "../../components/common/myprofile/MyProfile";
 import Crew from "../../components/crew/Crew";
 import { useEffect, useState } from "react";
 import { CheckuserInfo } from "../../api/AuthApi";

@@ -9,45 +9,86 @@ import { RxTriangleDown, RxTriangleUp } from "react-icons/rx";
 import CrewCategory from "../components/crewpost/CrewCategory";
 import CrewTime from "../components/crewpost/CrewTime";
 import { useNavigate } from "react-router";
+import imageCompression from "browser-image-compression";
+
 
 function CrewWritePage() {
-  const [addImg, setAddImg] = useState("");
+  const [addImg, setAddImg] = useState([]);
   const [exerciseKind, setExerciseKind] = useState("");
   const [customCategory, setCustomCategory] = useState("");
   const [searchedAddress, setSearchedAddress] = useState("");
   const ref = useRef(null);
+  const textareaRef = useRef(null);
   const [exerciseDate, setExerciseDate] = useState(new Date());
   const [totalNumber, setTotalNumber] = useState(0);
   const { mutate } = useAddCrewMutation();
   const navigate= useNavigate();
 
+  //crew 초기값 세팅
   const [crew, setCrew] = useState({
     title: "",
     content: "",
     crewName: "",
     location: "",
     usersLocation: "",
-    exerciseDate: new Date(),
+    exerciseDate: new Date().toISOString(),
     exerciseKind: "",
     totalNumber: 0,
-    image: {},
+    images: [],
     time: "",
   });
 
+  
+   
+
+  // 이미지 미리보기+압축 조정
   const upLoadImgHandler = async(e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const imageDataUrl = reader.result;
-      setAddImg(imageDataUrl);
-      setCrew({
-        ...crew,
-        image: file,
-      });
+    const files = e.target.files;
+  
+    if (!files || files.length === 0) {
+        console.error("No files provided");
+        return;
+    }
+  
+    const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1000,
+        useWebWorker: true,
     };
-    reader.readAsDataURL(file);
-  }
-  // console.log(crew.image)
+  
+    const compressedFiles = [];
+    const previewURLs = [];
+  
+    for (let i = 0; i < files.length; i++) {
+        if (!(files[i] instanceof File)) {
+            console.error("The provided item is not a File");
+            continue; // Skip this iteration and move to the next file
+        }
+  
+        try {
+            const compressedFile = await imageCompression(files[i], options);
+            compressedFiles.push(compressedFile);
+  
+            const reader = new FileReader();
+            reader.onloadend = function(event) {
+                previewURLs.push(event.target.result);
+  
+                if (previewURLs.length === compressedFiles.length) {
+                    setAddImg(previewURLs);
+                    setCrew(prevCrew => ({
+                        ...prevCrew,
+                        images: [...prevCrew.images, ...compressedFiles]
+                    }));
+                }
+            };
+            reader.readAsDataURL(compressedFile);
+        } catch (error) {
+            console.error("Error compressing the file:", error);
+        }
+    }
+  };
+
+
 
   useEffect(() => {
     setCrew((prevCrew) => {
@@ -88,8 +129,11 @@ function CrewWritePage() {
     const jsonContent = JSON.stringify(contents);
     const blob = new Blob([jsonContent], { type: "application/json" });
     formData.append("data", blob);
-    formData.append("images", crew.image);
-    
+    // formData.append("images", crew.image);
+    for (let i = 0; i < crew.images.length; i++) {
+      formData.append(`images`, crew.images[i]);
+      console.log(crew.images[i]);
+      }
      mutate(formData);
       alert("성공적으로 데이터를 전송하였습니다.");
      navigate("/mypage")
@@ -102,6 +146,10 @@ function CrewWritePage() {
       ...crew,
       [name]: value,
     });
+    if (name === "content" && textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+   }
   };
 
   useEffect(() => {
@@ -149,29 +197,38 @@ function CrewWritePage() {
   const setCrewTime = useCallback((selectedTime) => {
     setCrew((prevCrew) => ({ ...prevCrew, time: selectedTime }));
   }, []);
+  
 
   return (
     <CrewWriting>
       <CrewUpload>
         <form className="crewForm" onSubmit={onCrewUpload}>
           <div className="crewImage">
-            {!addImg ? (
-                <div className="button">
+          {addImg.length === 0 ? (
+               <div className="button">
                   <label className="inputFileBtn" htmlFor="inputFile">
-                    <AiOutlineCamera />
-                    크루 대표 이미지를 등록해주세요
+                      <AiOutlineCamera />
+                      크루 대표 이미지를 등록해주세요
                   </label>
                   <input
-                    type="file"
-                    id="inputFile"
-                    accept="image/*"
-                    onChange={upLoadImgHandler}
+                      type="file"
+                      id="inputFile"
+                      accept="image/*"
+                      onChange={upLoadImgHandler}
+                      multiple
                   />
-                </div>
-              ) : (
-                <div className="imageUploadSize">
-                  <img src={addImg} alt="" />
-                </div>
+               </div>
+               ) : (
+              <div className="imageUploadSize">
+                  {addImg.map((imgSrc, index) => (
+                      <img 
+                          key={index} 
+                          src={imgSrc} 
+                          alt={`Uploaded ${index}`}
+                          className={index === 0 ? 'largeImage' : 'smallImage'}
+                      />
+                  ))}
+              </div>
               )}
           </div>
 
@@ -187,12 +244,15 @@ function CrewWritePage() {
             </div>
             <div className="content identicalStyle">
               <strong>내용</strong>
-              <input
+              <textarea
+                ref={textareaRef}
+                rows="1" 
                 type="text"
                 name="content"
                 value={crew.content}
                 placeholder="내용을 입력하세요"
                 onChange={handleInputChange}
+                style={{ overflow: "hidden", resize: "none",border:"none" }}
               />
             </div>
             <div className="crewname identicalStyle">

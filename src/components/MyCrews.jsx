@@ -27,8 +27,6 @@ const MyCrews = () => {
     }),
       {
         getNextPageParam: (lastPage, totalPage) => {
-          // const nextPage = totalPage.length + 1; 
-          // return lastPage.data.totalPages !== 0 ? nextPage : undefined;
           return totalPage.last? undefined: totalPage.length + 2  
       }}
   );
@@ -75,7 +73,6 @@ const MyCrews = () => {
     return <div>Error...</div>;
   };
   
-  // console.log(data?.pages[0].data.crewList)
   const navigateDetail=(id)=>{
   navigate(`/crew/${id}`)
   }
@@ -101,7 +98,7 @@ const MyCrews = () => {
               <img
                 src={
                   crew.image?.length !== 0 && crew.image?.length !== undefined
-                  ? crew.image
+                  ? crew.image[0]
                   : ""
                 }
                 alt=""
@@ -227,6 +224,7 @@ const CrewPosts = styled.div`
     height:100%;
     object-fit:cover;
   }
+
   .crewPostRecent > .crewPostReContent {
     width:100%;
     height:35%;

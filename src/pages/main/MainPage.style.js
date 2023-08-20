@@ -6,7 +6,7 @@ export const MainPageSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  padding-bottom: 60px;
+  padding-bottom: 80px;
   overflow: scroll;
   &::-webkit-scrollbar {
     display: none;

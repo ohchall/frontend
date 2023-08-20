@@ -1,17 +1,18 @@
 import React, { useRef, useState } from "react";
 import { styled } from "styled-components";
 import { FiSearch } from "react-icons/fi";
-import useSearch from "./useSearch";
-import Skeleton from "./Skeleton";
+import useSearch from "../../hook/useSearch";
+import Skeleton from "../../components/Skeleton";
 import LikeButton from "../../components/common/LikeButton";
 import { useNavigate } from "react-router-dom";
 const SearchPage = () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
+  const [watchOption, setWatchOption] = useState(true);
   const [keyword, setKeyword] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const { searchResult, loading, error, searchCrews } = useSearch(
+  const { searchResult, loading, error, search } = useSearch(
     keyword,
     pageNumber
   );
@@ -24,7 +25,7 @@ const SearchPage = () => {
   const onClickSearch = async () => {
     if (keyword !== "") {
       // console.log("keyword: ", keyword);
-      await searchCrews(keyword);
+      await search(keyword);
     } else {
       searchInputRef.current.focus();
     }
@@ -38,6 +39,13 @@ const SearchPage = () => {
     }
   };
 
+  const listOptions = () => {
+    setWatchOption(true);
+  };
+  const mapOptions = () => {
+    setWatchOption(false);
+  };
+  console.log(watchOption);
   // console.log("loading", loading, "error", error);
   // console.log("searched", searchResult?.data?.crewList);
   return (
@@ -54,21 +62,25 @@ const SearchPage = () => {
           <FiSearch />
         </button>
       </InputContainer>
-      {searchResult?.data?.crewList?.length > 0 &&
+
+      <ButtonWrapper>
+        <button onClick={mapOptions}>맵으로 보기</button>
+        <button onClick={listOptions}>리스트로 보기</button>
+      </ButtonWrapper>
+
+      {watchOption &&
+        searchResult?.data?.crewList?.length > 0 &&
         searchResult.data.crewList.map((post) => {
           return (
             <R9dCrew
               key={post.crewRecruitmentId}
-              onClick={() =>
-                onClickCrew(searchResult.data.crewList[0].crewRecruitmentId)
-              }
+              onClick={() => onClickCrew(post.crewRecruitmentId)}
             >
               <ImageWrapper>
                 <img
                   src={
-                    searchResult.data.crewList[0].image?.length !== 0 &&
-                    searchResult.data.crewList[0].image?.length !== undefined
-                      ? searchResult.data.crewList[0].image[0]
+                    post.length !== 0 && post.image?.length !== undefined
+                      ? post.image[0]
                       : ""
                   }
                   alt=""
@@ -78,21 +90,20 @@ const SearchPage = () => {
               <Overview>
                 <div>
                   <TitleContainer>
-                    <p>{searchResult.data.crewList[0].title}</p>
-                    <span>15/16</span>
+                    <p>{post.title}</p>
                   </TitleContainer>
 
                   <LikeButton />
                 </div>
 
-                <p>{searchResult.data.crewList[0].exercisekind} / 서울 중구</p>
+                <p>{post.exercisekind} / 서울 중구</p>
               </Overview>
             </R9dCrew>
           );
         })}
-      <div>{loading ? <Skeleton /> : ""}</div>
-
-      <div>{error ? alert("입력하신 키워드를 찾지 못하였습니다.") : ""}</div>
+      {!watchOption && ""}
+      {loading ? <Skeleton /> : ""}
+      {error ? alert("입력하신 키워드를 찾지 못하였습니다.") : ""}
     </SearchPageBlock>
   );
 };
@@ -208,5 +219,14 @@ const R9dCrew = styled.div`
 
   & ${Overview} {
     height: 72px;
+  }
+`;
+const ButtonWrapper = styled.section`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  & button {
+    border: none;
   }
 `;

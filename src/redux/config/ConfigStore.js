@@ -1,7 +1,10 @@
-import React from "react";
+import { configureStore } from "@reduxjs/toolkit";
+import Modules from "../modules/Modules";
 
-function Configstore() {
-  return <div>Configstore</div>;
-}
+const store = configureStore({
+  reducer: {
+    display: Modules,
+  },
+});
 
-export default Configstore;
+export default store;

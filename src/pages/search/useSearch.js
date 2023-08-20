@@ -2,11 +2,11 @@ import { useState, useCallback } from "react";
 import axios from "axios";
 
 const useSearch = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
 
-  const searchCrews = useCallback(async (keyword) => {
+  const search = useCallback(async (keyword) => {
     setLoading(true);
     setError(false);
 
@@ -22,14 +22,19 @@ const useSearch = () => {
       // console.log(response);
       setSearchResult(response);
       setLoading(false);
+      if (response.data.crewList.length === 0) {
+        setError(true);
+        window.location.reload();
+      }
     } catch (e) {
       // console.log("e", e);
       setError(true);
       setLoading(false);
+      window.location.reload();
     }
     // console.log("keyword", keyword);
   }, []);
   // console.log("searchResult", searchResult);
-  return { loading, error, searchResult, searchCrews };
+  return { loading, error, searchResult, search };
 };
 export default useSearch;

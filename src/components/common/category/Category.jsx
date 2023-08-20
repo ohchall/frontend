@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import useSearch from "../../../pages/search/useSearch";
+
 import { CategoryBlock } from "./Category.style";
 import { styled } from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Skeleton from "../../Skeleton";
 import { setDisplayRemainingComponents } from "../../../redux/modules/Modules";
+import useSearch from "../../../hook/useSearch";
 function Category() {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -102,7 +104,7 @@ function Category() {
             })}
         </CategoryContents>
       )}
-      {loading ? "loading" : ""}
+      {loading ? <Skeleton /> : ""}
 
       {error ? alert("입력하신 키워드를 찾지 못하였습니다.") : ""}
     </CategoryBlock>

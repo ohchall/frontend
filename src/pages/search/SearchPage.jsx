@@ -45,7 +45,7 @@ const SearchPage = () => {
   const mapOptions = () => {
     setWatchOption(false);
   };
-  console.log(watchOption);
+  // console.log(watchOption);
   // console.log("loading", loading, "error", error);
   // console.log("searched", searchResult?.data?.crewList);
   return (

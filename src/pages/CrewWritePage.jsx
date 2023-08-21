@@ -132,7 +132,7 @@ function CrewWritePage() {
     // formData.append("images", crew.image);
     for (let i = 0; i < crew.images.length; i++) {
       formData.append(`images`, crew.images[i]);
-      console.log(crew.images[i]);
+      // console.log(crew.images[i]);
       }
      mutate(formData);
       alert("성공적으로 데이터를 전송하였습니다.");

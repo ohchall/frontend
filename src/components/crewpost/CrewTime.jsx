@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { CrewTimes } from '../../pages/crewwrite/CrewWritePage.style';
 
 function CrewTime({setCrewTime}) {
   const [timeOptions, setTimeOptions] = useState([]);
@@ -44,6 +44,3 @@ function CrewTime({setCrewTime}) {
 
 export default CrewTime;
 
-const CrewTimes = styled.div`
-    .times>select{border:none;}
-`

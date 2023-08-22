@@ -11,12 +11,27 @@ import Category from '../common/category/Category';
 import LatestCrewList from '../common/crewlist/LatestCrewList';
 import R9dCrewList from '../common/crewlist/R9dCrewList';
 import PopularCrewList from '../common/crewlist/PopularCrewList';
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/config/ConfigStore';
+import MyProfile from '../../components/common/myprofile/MyProfile';
+import { useEffect, useState } from 'react';
+import { CheckuserInfo } from '../../api/AuthApi';
 
 function Crew() {
   const access = localStorage.getItem('Access');
   const refresh = localStorage.getItem('Refresh');
+  const [loggedin, setLoggedin] = useState(false);
+  useEffect(() => {
+    // console.log("triggered");
+    const getUserInfo = async () => {
+      const isUserLoggedIn = await CheckuserInfo();
+      setLoggedin(isUserLoggedIn);
+    };
+    if (access && refresh) {
+      getUserInfo();
+    }
+  }, [access, refresh]);
+
   const navigate = useNavigate();
 
   const displayRemainingComponents = useSelector(
@@ -40,33 +55,36 @@ function Crew() {
   }
 
   return (
-    <CrewBlock>
-      {isLoading && 'Loading...'}
-      {errorMessage}
-      {/* {error && 'An error has occurred: ' + error.message} */}
-      <Category />
+    <>
+      {loggedin ? <MyProfile /> : null}
+      <CrewBlock>
+        {isLoading && 'Loading...'}
+        {errorMessage}
+        {/* {error && 'An error has occurred: ' + error.message} */}
+        <Category />
 
-      {displayRemainingComponents && (
-        <>
-          {' '}
-          <CrewListContainer>
-            <CrewListTitle>최신 크루 리스트</CrewListTitle>
+        {displayRemainingComponents && (
+          <>
+            {' '}
+            <CrewListContainer>
+              <CrewListTitle>최신 크루 리스트</CrewListTitle>
 
-            <LatestCrewList data={data} onClickCrew={onClickCrew} />
-          </CrewListContainer>
-          <CrewListContainer>
-            <CrewListTitle>인기 크루 리스트</CrewListTitle>
+              <LatestCrewList data={data} onClickCrew={onClickCrew} />
+            </CrewListContainer>
+            <CrewListContainer>
+              <CrewListTitle>인기 크루 리스트</CrewListTitle>
 
-            <PopularCrewList data={data} onClickCrew={onClickCrew} />
-          </CrewListContainer>
-          <CrewListContainer>
-            <CrewListTitle>추천 크루 리스트</CrewListTitle>
+              <PopularCrewList data={data} onClickCrew={onClickCrew} />
+            </CrewListContainer>
+            <CrewListContainer>
+              <CrewListTitle>추천 크루 리스트</CrewListTitle>
 
-            <R9dCrewList data={data} onClickCrew={onClickCrew} />
-          </CrewListContainer>
-        </>
-      )}
-    </CrewBlock>
+              <R9dCrewList data={data} onClickCrew={onClickCrew} />
+            </CrewListContainer>
+          </>
+        )}
+      </CrewBlock>
+    </>
   );
 }
 

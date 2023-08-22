@@ -10,7 +10,7 @@ import {CrewButtons, CrewContent, CrewDates, CrewForm, CrewFormContents, CrewLoc
 import CrewDrag from "../../components/crewpost/CrewDrag";
 
 function CrewWritePage() {
-  const [setAddImg] = useState([]);
+  const [addImg,setAddImg] = useState([]);
   const [exerciseKind, setExerciseKind] = useState("");
   const [customCategory, setCustomCategory] = useState("");
   const [searchedAddress, setSearchedAddress] = useState("");
@@ -152,7 +152,7 @@ function CrewWritePage() {
   return (
     <CrewWriteBlock>
         <CrewForm onSubmit={onCrewUpload}>
-         <CrewDrag setAddImg={setAddImg} setCrew={setCrew}/>
+         <CrewDrag setAddImg={setAddImg} setCrew={setCrew} crew={crew}/>
 
           <CrewFormContents>
             <CrewTitle className="identicalStyle">

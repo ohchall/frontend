@@ -3,78 +3,162 @@ import { CrewImage, CrewImageUpLoad } from './CrewDrag.style';
 import { AiOutlineCamera } from "react-icons/ai";
 import imageCompression from "browser-image-compression";
 
-const CrewDrag = ({setCrew}) => {
+const CrewDrag = ({crew,setCrew}) => {
  const [draggingIndex, setDraggingIndex] = useState(-1);
  const [overIndex, setOverIndex] = useState(-1);
  const [addImg, setAddImg] = useState([]);
- const [crew, setCrewState] = useState({
-    title: "",
-    content: "",
-    crewName: "",
-    location: "",
-    usersLocation: "",
-    exerciseDate: new Date().toISOString(),
-    exerciseKind: "",
-    totalNumber: 0,
-    images: [],
-    time: "",
-  });
-    
 
   // 이미지 미리보기+압축 조정
-  const upLoadImgHandler = async(e) => {
-   const files = e.target.files;
-   console.log('Current crew.images:', crew.images);
+//   const upLoadImgHandler = async(e) => {
+//    const files = e.target.files;
+//    console.log('Current crew.images:', crew.images);
  
-   if (!files || files.length === 0) {
-       console.error("No files provided");
-       return;
-   }
+//    if (!files || files.length === 0) {
+//        console.error("No files provided");
+//        return;
+//    }
  
-   const options = {
-       maxSizeMB: 1,
-       maxWidthOrHeight: 1000,
-       useWebWorker: true,
-   };
+//    const options = {
+//        maxSizeMB: 1,
+//        maxWidthOrHeight: 1000,
+//        useWebWorker: true,
+//    };
  
-   const compressedFiles = [];
-   const previewURLs = [];
+//    const compressedFiles = [];
+//    const previewURLs = [];
  
-   for (let i = 0; i < files.length; i++) {
-       if (!(files[i] instanceof File)) {
-           console.error("The provided item is not a File");
-           continue; // Skip this iteration and move to the next file
-       }
+//    for (let i = 0; i < files.length; i++) {
+//        if (!(files[i] instanceof File)) {
+//            console.error("The provided item is not a File");
+//            continue; // Skip this iteration and move to the next file
+//        }
  
-       try {
-           const compressedFile = await imageCompression(files[i], options);
-           compressedFiles.push(compressedFile);
+//        try {
+//            const compressedFile = await imageCompression(files[i], options);
+//            compressedFiles.push(compressedFile);
  
-           const reader = new FileReader();
-           reader.onloadend = function(event) {
-               previewURLs.push(event.target.result);
+//            const reader = new FileReader();
+//            reader.onloadend = function(event) {
+//                previewURLs.push(event.target.result);
  
-               
-            if (previewURLs.length === compressedFiles.length) {
-                setAddImg(previewURLs);
-                setCrewState(prevCrew => {
-                    console.log('Before setCrewState:', prevCrew.images);
-                    const newImages = [...prevCrew.images, ...compressedFiles];
-                    console.log('After setCrewState:', newImages);
-                    return {
-                        ...prevCrew,
-                        images: newImages
-                    };
-                });
+//                if (previewURLs.length === compressedFiles.length) {
+//                    setAddImg(previewURLs);
+//                    setCrew(prevCrew => ({
+//                        ...prevCrew,
+//                        images: [...prevCrew.images, ...compressedFiles]
+//                    }));
+//                }
+//            };
+//            reader.readAsDataURL(compressedFile);
+//        } catch (error) {
+//            console.error("Error compressing the file:", error);
+//        }
+//    }
+//  }; 
+// const upLoadImgHandler = async(e) => {
+//     const files = e.target.files;
+//     console.log('Current crew.images:', crew.images);
+
+//     if (!files || files.length === 0) {
+//         console.error("No files provided");
+//         return;
+//     }
+
+//     const options = {
+//         maxSizeMB: 1,
+//         maxWidthOrHeight: 1000,
+//         useWebWorker: true,
+//     };
+
+//     const allFilePromises = Array.from(files).map(file => {
+//         if (!(file instanceof File)) {
+//             console.error("The provided item is not a File");
+//             return;
+//         }
+
+//         // 이미지 압축 및 미리보기 URL 생성 작업
+//         return new Promise(async (resolve, reject) => {
+//             try {
+//                 const compressedFile = await imageCompression(file, options);
+//                 const reader = new FileReader();
+//                 reader.onloadend = () => resolve({ url: reader.result, file: compressedFile });
+//                 reader.readAsDataURL(compressedFile);
+//             } catch (error) {
+//                 reject(error);
+//             }
+//         });
+//     });
+
+//     try {
+//         const results = await Promise.all(allFilePromises);
+//         const previewURLs = results.map(result => result.url);
+//         const compressedFiles = results.map(result => result.file);
+
+//         setAddImg(prevURLs => [...prevURLs, ...previewURLs]);
+//         setCrew(prevCrew => ({
+//             ...prevCrew,
+//             images: [...prevCrew.images, ...compressedFiles]
+//         }));
+//     } catch (error) {
+//         console.error("Error during image processing:", error);
+//     }
+// };
+const upLoadImgHandler = async(e) => {
+    const files = e.target.files;
+    console.log('Selected files:', Array.from(files).map(f => f.name));
+    console.log('Current crew.images:', crew.images);
+  
+    if (!files || files.length === 0) {
+        console.error("No files provided");
+        return;
+    }
+  
+    const options = {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1000,
+        useWebWorker: true,
+    };
+
+    const allFilePromises = Array.from(files).map(file => {
+        if (!(file instanceof File)) {
+            console.error("The provided item is not a File");
+            return;
+        }
+
+        return new Promise(async (resolve, reject) => {
+            try {
+                const compressedFile = await imageCompression(file, options);
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    resolve({ url: reader.result, file: compressedFile });
+                };
+                reader.readAsDataURL(compressedFile);
+            } catch (error) {
+                reject(error);
             }
-           };
-           reader.readAsDataURL(compressedFile);
-       } catch (error) {
-           console.error("Error compressing the file:", error);
-       }
-   }
- }; 
- 
+        });
+    });
+
+    try {
+        const results = await Promise.all(allFilePromises);
+        const previewURLs = results.filter(Boolean).map(result => result.url);
+        const compressedFiles = results.filter(Boolean).map(result => result.file);
+
+        setAddImg(prevURLs => [...prevURLs, ...previewURLs]);
+        setCrew(prevCrew => {
+            const newImages = [...prevCrew.images, ...compressedFiles];
+            return {
+                ...prevCrew,
+                images: newImages
+            };
+        });
+    } catch (error) {
+        console.error("Error during image processing:", error);
+    }
+};
+
+
+
  const handleDragStart = (e, index) => {
   e.dataTransfer.effectAllowed = "move";
   setDraggingIndex(index);

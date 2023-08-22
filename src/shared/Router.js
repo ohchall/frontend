@@ -5,7 +5,7 @@ import MainPage from "../pages/main/MainPage";
 import MyPage from "../pages/MyPage";
 import CrewPage from "../pages/crew/CrewPage";
 import CrewDetailPage from "../pages/crew/CrewDetailPage";
-import CrewWritePage from "../pages/CrewWritePage";
+import CrewWritePage from "../pages/crewwrite/CrewWritePage";
 import PostModal from "../components/crewpost/PostModal";
 import LoginPage from "../pages/loginsignup/LoginPage";
 import SignUpPage from "../pages/loginsignup/SignUpPage";
@@ -13,6 +13,7 @@ import TodoListPage from "../pages/TodoListPage";
 import UserRoute from "./UserRoute";
 import SearchPage from "../pages/search/SearchPage";
 import Oauth from "../components/loginsignup/Oauth";
+
 
 function Router() {
   return (

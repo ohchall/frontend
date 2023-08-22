@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import TodoList from '../components/todo/TodoList';
 import MyProfile from '../components/common/myprofile/MyProfile';
-import MyCrews from '../components/MyCrews';
+import MyCrews from '../components/mycrew/MyCrews';
 import { styled } from 'styled-components';
 import { CheckuserInfo } from '../api/AuthApi';
 

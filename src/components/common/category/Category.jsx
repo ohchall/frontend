@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "../../Skeleton";
 import { setDisplayRemainingComponents } from "../../../redux/modules/Modules";
 import useSearch from "../../../hook/useSearch";
+import LikeButton from "../LikeButton";
 function Category() {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -89,12 +90,17 @@ function Category() {
                   </ImageWrapper>
 
                   <Overview>
-                    <div>
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
                       <TitleContainer>
                         <p>{post.title}</p>
                       </TitleContainer>
 
-                      {/* <LikeButton /> */}
+                      <LikeButton />
                     </div>
 
                     <p>{post.exercisekind} / 서울 중구</p>

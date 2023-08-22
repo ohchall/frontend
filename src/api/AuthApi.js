@@ -44,7 +44,7 @@ export const CheckuserInfo = async () => {
       },
     };
     const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL }/auth/mypage`,
+      `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
       currentUserToken
     );
     // console.log("API response:", response);
@@ -55,7 +55,6 @@ export const CheckuserInfo = async () => {
       return false;
     }
   } catch (error) {
-
     return false;
   }
 };
@@ -76,7 +75,7 @@ export const LoginStatus = async () => {
       `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
       currentUserToken
     );
-    // console.log(response);
+    console.log(response);
     if (response.status === 200) {
       return true;
     } else {

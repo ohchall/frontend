@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import {
   CrewBlock,
   CrewListContainer,
@@ -11,6 +12,7 @@ import LatestCrewList from '../common/crewlist/LatestCrewList';
 import R9dCrewList from '../common/crewlist/R9dCrewList';
 import PopularCrewList from '../common/crewlist/PopularCrewList';
 import { useSelector } from "react-redux";
+import { RootState } from '../../redux/config/ConfigStore';
 
 function Crew() {
   const access = localStorage.getItem('Access');
@@ -18,10 +20,10 @@ function Crew() {
   const navigate = useNavigate();
 
   const displayRemainingComponents = useSelector(
-    (state) => state.display.displayRemainingComponents
+    (state: RootState) => state.display.displayRemainingComponents
   );
 
-  const onClickCrew = (itemId) => {
+  const onClickCrew = (itemId: number) => {
     if (access && refresh !== '') {
       navigate(`/crew/${itemId}`);
     } else {
@@ -29,17 +31,24 @@ function Crew() {
     }
   };
 
-  const { data, isLoading, error } = useQuery(['crews'], getCrews);
+  const { data, isLoading, error: queryError } = useQuery(['crews'], getCrews);
+
+  let errorMessage: ReactNode = null;
+  if (queryError) {
+    const error = queryError as Error;
+    errorMessage = "An error has occurred: " + error.message;
+  }
 
   return (
     <CrewBlock>
-      {isLoading && "Loading..."}
-      {error && "An error has occurred: " + error.message}
+      {isLoading && 'Loading...'}
+      {errorMessage}
+      {/* {error && 'An error has occurred: ' + error.message} */}
       <Category />
 
       {displayRemainingComponents && (
         <>
-          {" "}
+          {' '}
           <CrewListContainer>
             <CrewListTitle>최신 크루 리스트</CrewListTitle>
 

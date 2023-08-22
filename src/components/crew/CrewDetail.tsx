@@ -8,7 +8,11 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getCrew } from "../../api/CrewApi";
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+  ReactNode
+} from 'react';
 
 function CrewDetail() {
   const { kakao } = window;
@@ -18,7 +22,7 @@ function CrewDetail() {
   const {
     data: crew,
     isLoading,
-    error,
+    error: queryError,
   } = useQuery(["crew", params.id], () => getCrew(params.id));
 
   useEffect(() => {
@@ -27,7 +31,10 @@ function CrewDetail() {
 
     geocoder.addressSearch(address, function(result, status) {
       if (status === kakao.maps.services.Status.OK) {
-        const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+        const coords = new kakao.maps.LatLng(
+          Number(result[0].y),
+          Number(result[0].x)
+        );
   
         // console.log(coords);
   
@@ -46,10 +53,17 @@ function CrewDetail() {
   //   console.log(coordinate);
   // }, [coordinate]);
 
+  let errorMessage: ReactNode = null;
+  if (queryError) {
+    const error = queryError as Error;
+    errorMessage = "An error has occurred: " + error.message;
+  }
+
   return (
     <CrewDetailBlock>
       {isLoading && "Loading..."}
-      {error && "An error has occurred: " + error.message}
+      {errorMessage}
+      {/* {error && "An error has occurred: " + error.message} */}
 
       <ImageWrapper>
         <img

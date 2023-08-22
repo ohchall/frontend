@@ -1,19 +1,16 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import CrewWriting from "../components/crewpost/CrewWriting";
-import styled from "styled-components";
-import { useAddCrewMutation } from "../api/CrewApi";
+import { useAddCrewMutation } from "../../api/CrewApi"
 import ReactDaumPost from "react-daumpost-hook";
-import CrewDate from "../components/crewpost/CrewDate";
-import { AiOutlineCamera } from "react-icons/ai";
+import CrewTime from "../../components/crewpost/CrewTime";
 import { RxTriangleDown, RxTriangleUp } from "react-icons/rx";
-import CrewCategory from "../components/crewpost/CrewCategory";
-import CrewTime from "../components/crewpost/CrewTime";
-import { useNavigate } from "react-router";
-import imageCompression from "browser-image-compression";
-
+import CrewDate from "../../components/crewpost/CrewDate";
+import CrewCategory from "../../components/crewpost/CrewCategory";
+import { useNavigate } from "react-router-dom";
+import {CrewButtons, CrewContent, CrewDates, CrewForm, CrewFormContents, CrewLocation, CrewName, CrewTimes, CrewTitle, CrewTotalMembers, CrewWriteBlock} from "./CrewWritePage.style"
+import CrewDrag from "../../components/crewpost/CrewDrag";
 
 function CrewWritePage() {
-  const [addImg, setAddImg] = useState([]);
+  const [setAddImg] = useState([]);
   const [exerciseKind, setExerciseKind] = useState("");
   const [customCategory, setCustomCategory] = useState("");
   const [searchedAddress, setSearchedAddress] = useState("");
@@ -39,54 +36,7 @@ function CrewWritePage() {
   });
 
   
-   
 
-  // 이미지 미리보기+압축 조정
-  const upLoadImgHandler = async(e) => {
-    const files = e.target.files;
-  
-    if (!files || files.length === 0) {
-        console.error("No files provided");
-        return;
-    }
-  
-    const options = {
-        maxSizeMB: 1,
-        maxWidthOrHeight: 1000,
-        useWebWorker: true,
-    };
-  
-    const compressedFiles = [];
-    const previewURLs = [];
-  
-    for (let i = 0; i < files.length; i++) {
-        if (!(files[i] instanceof File)) {
-            console.error("The provided item is not a File");
-            continue; // Skip this iteration and move to the next file
-        }
-  
-        try {
-            const compressedFile = await imageCompression(files[i], options);
-            compressedFiles.push(compressedFile);
-  
-            const reader = new FileReader();
-            reader.onloadend = function(event) {
-                previewURLs.push(event.target.result);
-  
-                if (previewURLs.length === compressedFiles.length) {
-                    setAddImg(previewURLs);
-                    setCrew(prevCrew => ({
-                        ...prevCrew,
-                        images: [...prevCrew.images, ...compressedFiles]
-                    }));
-                }
-            };
-            reader.readAsDataURL(compressedFile);
-        } catch (error) {
-            console.error("Error compressing the file:", error);
-        }
-    }
-  };
 
 
 
@@ -132,7 +82,7 @@ function CrewWritePage() {
     // formData.append("images", crew.image);
     for (let i = 0; i < crew.images.length; i++) {
       formData.append(`images`, crew.images[i]);
-      // console.log(crew.images[i]);
+      console.log(crew.images[i]);
       }
      mutate(formData);
       alert("성공적으로 데이터를 전송하였습니다.");
@@ -200,40 +150,12 @@ function CrewWritePage() {
   
 
   return (
-    <CrewWriting>
-      <CrewUpload>
-        <form className="crewForm" onSubmit={onCrewUpload}>
-          <div className="crewImage">
-          {addImg.length === 0 ? (
-               <div className="button">
-                  <label className="inputFileBtn" htmlFor="inputFile">
-                      <AiOutlineCamera />
-                      크루 대표 이미지를 등록해주세요
-                  </label>
-                  <input
-                      type="file"
-                      id="inputFile"
-                      accept="image/*"
-                      onChange={upLoadImgHandler}
-                      multiple
-                  />
-               </div>
-               ) : (
-              <div className="imageUploadSize">
-                  {addImg.map((imgSrc, index) => (
-                      <img 
-                          key={index} 
-                          src={imgSrc} 
-                          alt={`Uploaded ${index}`}
-                          className={index === 0 ? 'largeImage' : 'smallImage'}
-                      />
-                  ))}
-              </div>
-              )}
-          </div>
+    <CrewWriteBlock>
+        <CrewForm onSubmit={onCrewUpload}>
+         <CrewDrag setAddImg={setAddImg} setCrew={setCrew}/>
 
-          <div className="crewFormContent">
-            <div className="title identicalStyle">
+          <CrewFormContents>
+            <CrewTitle className="identicalStyle">
               <input
                 type="text"
                 name="title"
@@ -241,8 +163,8 @@ function CrewWritePage() {
                 placeholder="제목"
                 onChange={handleInputChange}
               />
-            </div>
-            <div className="content identicalStyle">
+            </CrewTitle>
+            <CrewContent className="identicalStyle">
               <strong>내용</strong>
               <textarea
                 ref={textareaRef}
@@ -254,8 +176,8 @@ function CrewWritePage() {
                 onChange={handleInputChange}
                 style={{ overflow: "hidden", resize: "none",border:"none" }}
               />
-            </div>
-            <div className="crewname identicalStyle">
+            </CrewContent>
+            <CrewName className="identicalStyle">
               <strong>크루명</strong>
               <input
                 type="text"
@@ -264,17 +186,17 @@ function CrewWritePage() {
                 placeholder="크루이름을 입력하세요"
                 onChange={handleInputChange}
               />
-            </div>
-            <div className="date identicalStyle">
+            </CrewName>
+            <CrewDates className="identicalStyle">
               <strong>일정</strong>
               <CrewDate setStartDate={setExerciseDates} />
-            </div>
-            <div className="time">
+            </CrewDates>
+            <CrewTimes className="time identicalStyle">
               <strong>시간</strong>
               <CrewTime setCrewTime={setCrewTime} />
-            </div>
+            </CrewTimes>
 
-            <div className="location identicalStyle">
+            <CrewLocation className="identicalStyle">
               <strong>장소</strong>
               <div className="address">
                 <input
@@ -287,7 +209,7 @@ function CrewWritePage() {
                   onChange={handleInputChange}
                 />
               </div>
-            </div>
+            </CrewLocation>
             <CrewCategory
               category={exerciseKind}
               customCategory={customCategory}
@@ -295,7 +217,7 @@ function CrewWritePage() {
               onCustomCategoryChange={setCustomCategory}
             />
 
-            <div className="totalmembers identicalStyle">
+            <CrewTotalMembers className="totalmembers identicalStyle">
               <strong>인원</strong>
               <div className="numberChoice">
                 <input
@@ -311,21 +233,16 @@ function CrewWritePage() {
                   <RxTriangleDown onClick={decreaseMembers} />
                 </div>
               </div>
-            </div>
-            <div className="button">
+            </CrewTotalMembers>
+            <CrewButtons className="button">
               <button type="submit" className="submit">
                 등록하기
               </button>
-            </div>
-          </div>
-        </form>
-      </CrewUpload>
-    </CrewWriting>
+            </CrewButtons>
+          </CrewFormContents>
+        </CrewForm>
+      </CrewWriteBlock>
   );
 }
 export default CrewWritePage;
 
-const CrewUpload = styled.div`
-  width: 100%;
-  height: 90vh;
-`;

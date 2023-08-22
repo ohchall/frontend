@@ -13,8 +13,26 @@ import {
   useState,
   ReactNode
 } from 'react';
+import MyProfile from '../../components/common/myprofile/MyProfile';
+import { CheckuserInfo } from '../../api/AuthApi';
 
 function CrewDetail() {
+  const access = localStorage.getItem('Access');
+  const refresh = localStorage.getItem('Refresh');
+  const [loggedin, setLoggedin] = useState(false);
+  useEffect(() => {
+    // console.log('triggered');
+    const getUserInfo = async () => {
+      const isUserLoggedIn = await CheckuserInfo();
+      setLoggedin(isUserLoggedIn);
+    };
+    if (access && refresh) {
+      getUserInfo();
+    }
+  }, [access, refresh]);
+
+  // console.log(loggedin);
+
   const { kakao } = window;
   const [ coordinate, setCoordinate ] = useState({ lat: 33.55635, lng: 126.795841 });
 
@@ -60,57 +78,60 @@ function CrewDetail() {
   }
 
   return (
-    <CrewDetailBlock>
-      {isLoading && "Loading..."}
-      {errorMessage}
-      {/* {error && "An error has occurred: " + error.message} */}
+    <>
+      {loggedin ? <MyProfile /> : null}
+      <CrewDetailBlock>
+        {isLoading && "Loading..."}
+        {errorMessage}
+        {/* {error && "An error has occurred: " + error.message} */}
 
-      <ImageWrapper>
-        <img
-          src={
-            crew?.data.images?.length !== 0 && crew?.data.images?.length !== undefined
-              ? crew?.data.images[0]
-              : ''
-          }
-          alt=''
-        />
-      </ImageWrapper>
+        <ImageWrapper>
+          <img
+            src={
+              crew?.data.image?.length !== 0 && crew?.data.image?.length !== undefined
+                ? crew?.data.image[0]
+                : ''
+            }
+            alt=''
+          />
+        </ImageWrapper>
 
-      <Header>
-        <div>
-          <p>일정 |</p>
-          <div>{crew?.data.exerciseDate}</div>
-        </div>
+        <Header>
+          <div>
+            <p>일정 |</p>
+            <div>{crew?.data.exerciseDate}</div>
+          </div>
 
-        <div>
-          <p>인원 |</p>
-          <div>{crew?.data.totalNumber}</div>
-        </div>
+          <div>
+            <p>인원 |</p>
+            <div>{crew?.data.totalNumber}</div>
+          </div>
 
-        <div>
-          <p>장소 |</p>
-          <div>{crew?.data.location}</div>
-        </div>
+          <div>
+            <p>장소 |</p>
+            <div>{crew?.data.location}</div>
+          </div>
 
-        <div>
-          <p>내용 |</p>
-          <div>{crew?.data.content}</div>
-        </div>
-      </Header>
+          <div>
+            <p>내용 |</p>
+            <div>{crew?.data.content}</div>
+          </div>
+        </Header>
 
-      <MapWrapper>
-        <Map
-          center={coordinate}
-          style={{ width: '100%', height: '100%' }}
-        >
-          <MapMarker position={coordinate} />
-        </Map>
-      </MapWrapper>
+        <MapWrapper>
+          <Map
+            center={coordinate}
+            style={{ width: '100%', height: '100%' }}
+          >
+            <MapMarker position={coordinate} />
+          </Map>
+        </MapWrapper>
 
-      <ButtonWrapper>
-        <button>크루 참여하기</button>
-      </ButtonWrapper>
-    </CrewDetailBlock>
+        <ButtonWrapper>
+          <button>크루 참여하기</button>
+        </ButtonWrapper>
+      </CrewDetailBlock>
+    </>
   );
 };
 

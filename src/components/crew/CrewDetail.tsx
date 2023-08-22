@@ -88,8 +88,8 @@ function CrewDetail() {
         <ImageWrapper>
           <img
             src={
-              crew?.data.images?.length !== 0 && crew?.data.images?.length !== undefined
-                ? crew?.data.images[0]
+              crew?.data.image?.length !== 0 && crew?.data.image?.length !== undefined
+                ? crew?.data.image[0]
                 : ''
             }
             alt=''

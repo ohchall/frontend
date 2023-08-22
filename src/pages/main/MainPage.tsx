@@ -1,4 +1,4 @@
-import { MainPageBlock } from './MainPage.style.js';
+import { MainPageBlock } from './MainPage.style';
 import Main from '../../components/main/Main';
 
 function MainPage() {

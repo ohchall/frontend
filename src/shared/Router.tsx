@@ -14,8 +14,7 @@ import UserRoute from "./UserRoute";
 import SearchPage from "../pages/search/SearchPage";
 import Oauth from "../components/loginsignup/Oauth";
 
-
-function Router() {
+function Router(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>

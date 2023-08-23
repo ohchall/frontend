@@ -12,11 +12,20 @@ import { Register } from "../../api/AuthApi";
 import { useMutation } from "@tanstack/react-query";
 import { AgreementDetail } from "../../components/loginsignup/AgreementDetail";
 import { AgreementBox, SignUpForm, SignUpPageBlock } from "./SignUpPage.style";
-import { SNSlogin } from "../../components/loginsignup/SNSlogin";
 import useFormValidation from "./UserInputCheck";
+import SNSlogin from "../../components/loginsignup/SNSlogin";
 
-const SignupPage = () => {
-  const [newuser, setNewuser] = useState({
+interface NewUser {
+  useremail: string;
+  password: string;
+  pwCheck: string;
+  nickname: string;
+  userName: string;
+  phonenumber: string;
+}
+
+const SignupPage: React.FC = () => {
+  const [newuser, setNewuser] = useState<NewUser>({
     useremail: "",
     password: "",
     pwCheck: "",
@@ -35,7 +44,7 @@ const SignupPage = () => {
     passwordRef,
     pwCheckRef,
     nicknameRef,
-    phonenumberRef,
+    // phonenumberRef,
     checkAllValidations,
   } = useFormValidation(newuser, term, setTermError);
 
@@ -52,19 +61,19 @@ const SignupPage = () => {
     },
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewuser({
       ...newuser,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // console.log(newuser);
   };
 
-  const onChangeTerm = useCallback((e) => {
+  const onChangeTerm = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setTermError(false);
     setTerm(e.target.checked);
   }, []);
@@ -113,7 +122,7 @@ const SignupPage = () => {
             placeholder="이메일"
           />
           {/* <button>이메일 인증</button> */}
-          <h3>핸드폰 번호</h3>
+          {/* <h3>핸드폰 번호</h3>
 
           <input
             name="phonenumber"
@@ -122,7 +131,7 @@ const SignupPage = () => {
             onChange={handleChange}
             ref={phonenumberRef}
             placeholder="핸드폰 번호를 입력해주세요."
-          />
+          /> */}
 
           <h3>비밀번호</h3>
           <span>영문,숫자를 포함한 8자 이상의 비밀번호를 입력해주세요.</span>

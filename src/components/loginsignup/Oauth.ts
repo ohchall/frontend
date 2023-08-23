@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Oauth = () => {
+const Oauth: React.FC = () => {
   const code = new URL(window.location.href).searchParams.get("code");
   // console.log(code);
   const navigate = useNavigate();
@@ -13,10 +13,10 @@ const Oauth = () => {
         const res = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}/user/kakao/callback?code=${code}`
         );
-        const access = res.headers.get("Access");
-        const refresh = res.headers.get("Refresh");
-        localStorage.setItem("Access", access);
-        localStorage.setItem("Refresh", refresh);
+        const access = res.headers["Access"];
+        const refresh = res.headers["Refresh"];
+        localStorage.setItem("Access", access || "");
+        localStorage.setItem("Refresh", refresh || "");
         // console.log(res);
         navigate("/");
       } catch (e) {
@@ -25,8 +25,7 @@ const Oauth = () => {
       }
     })();
   }, [code, navigate]);
-
-  return;
+  return null;
 };
 
 export default Oauth;

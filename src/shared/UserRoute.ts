@@ -2,7 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { LoginStatus } from "../api/AuthApi";
 
-const UserRoute = ({ element }) => {
+interface UserRouteProps {
+  element: React.ReactNode;
+}
+
+const UserRoute: React.FC<UserRouteProps> = ({ element }) => {
   const navigate = useNavigate();
   const [authentication, setAuthentication] = useState(false);
 

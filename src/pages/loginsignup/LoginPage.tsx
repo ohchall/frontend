@@ -10,8 +10,14 @@ import {
 } from "./Common.style";
 import { useMutation } from "@tanstack/react-query";
 import { LoginPageBlock } from "./LoginPage.style";
-import { SNSlogin } from "../../components/loginsignup/SNSlogin";
-function LoginPage() {
+import SNSlogin from "../../components/loginsignup/SNSlogin";
+
+interface User {
+  useremail: string;
+  password: string;
+}
+
+const LoginPage: React.FC = () => {
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
       navigate("/");
@@ -22,30 +28,33 @@ function LoginPage() {
     },
   });
 
-  const useremailRef = useRef();
-  const passwordRef = useRef();
-  const [user, setUser] = useState({
+  const useremailRef = useRef<HTMLInputElement | null>(null);
+  const passwordRef = useRef<HTMLInputElement | null>(null);
+  const [user, setUser] = useState<User>({
     useremail: "",
     password: "",
   });
+
   const navigate = useNavigate();
-  const handleChange = (e) => {
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // console.log("user", user);
   };
 
   const userCheck = () => {
-    if (user.useremail < 1) {
-      useremailRef.current.focus();
+    if (user.useremail.length < 1) {
+      useremailRef.current?.focus();
     }
-    if (user.password < 1) {
-      passwordRef.current.focus();
+    if (user.password.length < 1) {
+      passwordRef.current?.focus();
     }
     return mutation.mutate(user);
   };
@@ -87,6 +96,6 @@ function LoginPage() {
       </Etc>
     </LoginPageBlock>
   );
-}
+};
 
 export default LoginPage;

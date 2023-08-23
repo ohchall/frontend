@@ -1,18 +1,17 @@
 import styled from "styled-components";
 
-const MODAL_WIDTH = "430px";
-const INPUT_WIDTH = "380px";
-const BUTTON_WIDTH = "80%";
-const FONT_SIZE_LARGE = "30px";
-const FONT_SIZE_MEDIUM = "18px";
-const FONT_SIZE_SMALL = "16px";
-
 export const ModalShadow = styled.div`
   position: fixed;
-  bottom: 5%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  padding-top: 1000px;
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 120%;
 `;
 
 export const ModalContainer = styled.div`
@@ -29,7 +28,7 @@ export const ModalTitle = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 400px; // 상수로 변경 가능
+  width: 100%;
   margin-top: 10px;
 
   > h2 {
@@ -45,7 +44,7 @@ export const ModalTitle = styled.div`
 
 export const ModalContent = styled.div`
   background-color: white;
-  width: ${MODAL_WIDTH};
+  width: 100%;
   height: 220px;
 
   > div {
@@ -54,25 +53,25 @@ export const ModalContent = styled.div`
     align-items: center;
 
     > span {
-      font-size: ${FONT_SIZE_LARGE};
+      font-size: 30px;
       margin-right: 5px;
     }
 
     > input {
-      width: ${INPUT_WIDTH};
+      width: 360px;
       height: 50px;
       border: none;
       border-bottom: 2px solid #eeeeee;
-      font-size: ${FONT_SIZE_MEDIUM};
+      font-size: 18px;
     }
 
     > button {
       margin-top: 10px;
-      width: ${BUTTON_WIDTH};
+      width: 80%;
       height: 50px;
       background: #666666;
       color: #ffffff;
-      font-size: ${FONT_SIZE_SMALL};
+      font-size: 16px;
       border: none;
       padding: 6px 0;
       border-radius: 10px;

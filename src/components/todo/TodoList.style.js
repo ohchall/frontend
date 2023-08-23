@@ -8,11 +8,13 @@ export const TodosContainer = styled.div`
   > button {
     background-color: #dadada;
     border: none;
-    width: 400px;
+    width: 380px;
     height: 50px;
     border-radius: 10px;
-    margin: 15px 15px 15px;
-    padding: 10px 0 20px 0;
+    margin: 15px auto;
+    display: flex;
+    justify-content: center;
+    padding-top: 5px;
     font-size: 30px;
     border: 1px solid transparent;
 
@@ -55,6 +57,7 @@ export const TodoListContainer = styled.div`
   justify-content: center;
   overflow: auto;
   width: 100%;
+
   background-color: #eeeeee;
   scrollbar-width: none;
   -ms-overflow-style: none; /* IE and Edge */
@@ -68,20 +71,22 @@ export const TodoListContainer = styled.div`
 export const TodosList = styled.div`
   display: grid;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   max-height: 215px;
   min-height: 0;
+  width: 400px;
 `;
 
 export const TodosBox = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   background-color: white;
   border-radius: 10px;
   margin: 5px 0;
   min-height: 100px;
-  width: 400px;
+  width: 100%;
   text-align: center;
   overflow: hidden;
   background-color: ${(props) => (props.isComplete ? "#BBBBBB" : "white")};
@@ -102,7 +107,7 @@ export const TodosBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: baseline;
-    width: 285px;
+    width: 290px;
 
     > h2 {
       font-size: 14.5px;
@@ -161,19 +166,20 @@ export const MoreButton = styled.button`
   position: relative;
   border: 0;
   background-color: transparent;
-  left: 20px;
+  left: 0px;
   bottom: 30px;
   font-size: 18px;
   font-weight: bold;
+  width: 40px;
   &:hover {
     cursor: pointer;
   }
 `;
 
 export const MoreButtonContainer = styled.div`
-  position: relative;
-  right: 10px;
-  top: 10px;
+  position: absolute;
+  right: 3px;
+  top: 35px;
   background: white;
   border-radius: 5px;
   padding: 1px;

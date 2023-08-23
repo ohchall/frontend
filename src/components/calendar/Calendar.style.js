@@ -5,7 +5,7 @@ export const CalendarContainer = styled.div`
   z-index: 1;
   margin-top: 20px;
   justify-content: center;
-  width: 400px;
+  width: 380px;
 
   .calendarTitle {
     display: flex;
@@ -68,7 +68,7 @@ export const CalendarContainer = styled.div`
       color: black;
       font-weight: bold;
       border: none;
-      margin-right: 150px;
+      margin-right: 130px;
       height: 26px;
       width: 50px;
       border-radius: 20px;

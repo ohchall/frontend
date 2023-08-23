@@ -13,6 +13,7 @@ import {
   MoreButton,
   MoreButtonContainer,
   DayColor,
+  TodoCompleteListContainer,
 } from "./TodoDetailList.style";
 import TodoAddModal from "./TodoAddModal";
 import TodoUpdateModal from "./TodoUpdateModal";
@@ -180,7 +181,7 @@ function TodoDetailList() {
         <div className="TodolsitTitle">
           <h2>완료</h2>
         </div>
-        <TodoListContainer>
+        <TodoCompleteListContainer>
           <TodosList>
             {completedTodos.map((todo) => (
               <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
@@ -221,7 +222,7 @@ function TodoDetailList() {
               </TodosBox>
             ))}
           </TodosList>
-        </TodoListContainer>
+        </TodoCompleteListContainer>
       </TodosContainer>
       {isUpdateModalOpen && (
         <TodoUpdateModal

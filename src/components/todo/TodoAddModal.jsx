@@ -68,7 +68,7 @@ function TodoAddModal({ onRequestClose }) {
               name="title"
               placeholder="title"
               value={title}
-              maxLength={24}
+              maxLength={20}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>
           </div>
@@ -79,7 +79,7 @@ function TodoAddModal({ onRequestClose }) {
               name="content"
               placeholder="content"
               value={content}
-              maxLength={50}
+              maxLength={45}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>
           </div>

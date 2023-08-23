@@ -30,7 +30,14 @@ function CrewTime({setCrewTime}) {
   }, [setCrewTime]);
 
   const handleTimeChange = (e) => {
-    setCrewTime(e.target.value);
+    const selectedValue = e.target.value;
+    if (selectedValue) {
+      e.target.style.color = "#111111"; 
+    } else {
+      e.target.style.color = "#b7b7b7";  
+    }
+  
+    setCrewTime(selectedValue);
   };
 
   return (

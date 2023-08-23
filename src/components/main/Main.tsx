@@ -32,6 +32,7 @@ function MainPage() {
     (state: RootState) => state.display.displayRemainingComponents
   );
 
+
   useEffect(() => {
     // console.log("triggered");
     const getUserInfo = async () => {

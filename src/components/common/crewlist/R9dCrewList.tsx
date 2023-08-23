@@ -8,13 +8,36 @@ import {
 import "swiper/css";
 import LikeButton from "../LikeButton";
 
-function R9dCrewList({ data, onClickCrew }) {
+interface CrewList {
+  currentNumber: number;
+  crewRecruitmentId: number;
+  title: string;
+  content: string;
+  image?: string[];
+  exerciseKind: string;
+}
+
+interface Data {
+  data: {
+    crewList: CrewList[];
+    totalPages: number;
+  };
+}
+
+interface R9dCrewListProps {
+  data?: Data;
+  onClickCrew?: (id: number) => void;
+}
+
+const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
   return (
     <R9dCrewListBlock>
       {data && (
         <R9dCrew
           key={data?.data.crewList[0].crewRecruitmentId}
-          onClick={() => onClickCrew(data?.data.crewList[0].crewRecruitmentId)}
+          onClick={() =>
+            onClickCrew && onClickCrew(data?.data.crewList[0].crewRecruitmentId)
+          }
         >
           <ImageWrapper>
             <img
@@ -38,12 +61,12 @@ function R9dCrewList({ data, onClickCrew }) {
               <LikeButton />
             </div>
 
-            <p>{data?.data.crewList[0].exercisekind} / 서울 중구</p>
+            <p>{data?.data.crewList[0].exerciseKind} / 서울 중구</p>
           </Overview>
         </R9dCrew>
       )}
     </R9dCrewListBlock>
   );
-}
+};
 
 export default R9dCrewList;

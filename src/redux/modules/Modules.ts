@@ -1,6 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
+interface DisplayState {
+  displayRemainingComponents: boolean;
+}
+
+const initialState: DisplayState = {
   displayRemainingComponents: true,
 };
 
@@ -8,7 +12,7 @@ const displaySlice = createSlice({
   name: "display",
   initialState,
   reducers: {
-    setDisplayRemainingComponents: (state, action) => {
+    setDisplayRemainingComponents: (state, action: PayloadAction<boolean>) => {
       state.displayRemainingComponents = action.payload;
     },
   },

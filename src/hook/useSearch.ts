@@ -1,12 +1,31 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 
+type CrewList = {
+  content: string;
+  crewName: string;
+  crewRecruitmentId: number;
+  currentNumber: number;
+  exerciseDate: string;
+  exerciseKind: string;
+  image?: string[];
+  location: string;
+  postDate: number[];
+  title: string;
+  totalNumber: number;
+  usersLocation: string;
+};
+
+interface SearchResult {
+  data: CrewList[];
+}
+
 const useSearch = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [searchResult, setSearchResult] = useState([]);
+  const [searchResult, setSearchResult] = useState<SearchResult["data"]>([]);
 
-  const search = useCallback(async (keyword) => {
+  const search = useCallback(async (keyword: string) => {
     setLoading(true);
     setError(false);
 
@@ -20,7 +39,7 @@ const useSearch = () => {
         `${process.env.REACT_APP_SERVER_URL}${url}`
       );
       // console.log(response);
-      setSearchResult(response);
+      setSearchResult(response.data.crewList);
       setLoading(false);
       if (response.data.crewList.length === 0) {
         setError(true);

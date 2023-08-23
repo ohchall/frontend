@@ -1,6 +1,4 @@
-import React from "react";
-
-const Skeleton = () => {
+const Skeleton: React.FC = () => {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "150px" }}>
       <div style={{ width: "398px", height: "160px" }}>

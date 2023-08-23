@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState, MouseEvent } from "react";
 import { AiFillHeart } from "react-icons/ai";
 import { AiOutlineHeart } from "react-icons/ai";
+
 const LikeButton = () => {
-  const [heart, setHeart] = useState(false);
+  const [heart, setHeart] = useState<boolean>(false);
 
   // const toggleHeart = async(event) => {
   //   event.stopPropagation();
@@ -14,7 +15,7 @@ const LikeButton = () => {
   //     console.error("좋아요 실패:", error);
   //   }
   // };
-  const toggleHeart = (event) => {
+  const toggleHeart = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     setHeart((prevHeart) => !prevHeart);
   };

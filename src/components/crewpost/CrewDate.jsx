@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from "react-datepicker";
 import range from "lodash/range";
@@ -6,9 +6,11 @@ import getYear from "date-fns/getYear";
 import getMonth from "date-fns/getMonth";
 import { ko } from "date-fns/esm/locale";
 import { styled } from "styled-components";
+import CustomInput from "./CustomInput";
 
 const CrewDate = (props) => {
   const [startDate, setStartDate] = useState(new Date());
+  const customInputRef = useRef(null); 
   const years = range(1990, getYear(new Date()) + 1, 1);
   const months = [
     "1월",
@@ -90,18 +92,19 @@ const CrewDate = (props) => {
 
   return (
     <CrewDates>
-    <DatePicker
-       locale={ko}
-       dateFormat="yyyy-MM-dd"
-        selected={startDate}
-        onChange={handleStartDateChange}
-        renderCustomHeader={renderCustomHeader}
-      />
+     <DatePicker
+      locale={ko}
+      dateFormat="yyyy-MM-dd"
+      selected={startDate}
+      onChange={handleStartDateChange}
+      renderCustomHeader={renderCustomHeader}
+      customInput={<CustomInput ref={customInputRef} />}
+    />
     </CrewDates>
   );
 };
 export default CrewDate;
 const CrewDates = styled.div`
 span{margin:0 10px;}
-.react-datepicker-wrapper{width:31%;}`
+.react-datepicker-wrapper{width:45%;}`
 

@@ -100,6 +100,11 @@ function CrewWritePage() {
       textareaRef.current.style.height = 'auto';
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
    }
+   if (value) {
+    e.target.classList.add('focused');
+} else {
+    e.target.classList.remove('focused');
+}
   };
 
   useEffect(() => {

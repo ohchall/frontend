@@ -51,13 +51,14 @@ export const CrewFormContents = styled.div`
      width:84%;
      border:none;
      outline:none;
-     color:#b7b7b7;
+    }
+    input.focused::placeholder {
+    color: #111111;
     }
     textarea{
      width:84%;
      border:none;
      outline:none;
-     color:#b7b7b7;
      font-size:14px;
      margin: 0 6px;
      font-weight: 400;
@@ -67,6 +68,9 @@ export const CrewFormContents = styled.div`
      @media screen and (max-width: 500px) {
       font-size:14px;
      }
+    }
+    textarea.focused::placeholder {
+    color: #111111;
     }
     & > div{
       width:84%;

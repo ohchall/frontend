@@ -4,6 +4,11 @@ const CrewCategory = ({ category, customCategory, onSelectCategory, onCustomCate
 
   const selectCategory = (e) => {
     const value = e.target.value;
+    if (value) {
+      e.target.style.color = "#111111";  
+    } else {
+      e.target.style.color = "#b7b7b7";  
+    }
     onSelectCategory(value);
     if (value !== "custom") {
       onCustomCategoryChange(""); 

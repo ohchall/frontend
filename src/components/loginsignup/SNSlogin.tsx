@@ -4,9 +4,9 @@ import { styled } from "styled-components";
 interface SNSLoginProps {}
 
 const SNSlogin: React.FC<SNSLoginProps> = () => {
-  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-  const KAKAO_REST_APPKEY = process.env.REACT_APP_KAKAO_REST_APPKEY;
-  const KAKAO_AUTH_URI = `${process.env.REACT_APP_KAKAO_AUTH_URI}?client_id=${KAKAO_REST_APPKEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+  const REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
+  const KAKAO_REST_API_KEY = process.env.REACT_APP_KAKAO_REST_API_KEY;
+  const KAKAO_AUTH_URI = `${process.env.REACT_APP_KAKAO_AUTH_URI}?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   return (
     <SNSButtonWrapper>

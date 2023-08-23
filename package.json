@@ -13,10 +13,6 @@
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^29.5.3",
-    "@types/node": "^20.5.2",
-    "@types/react": "^18.2.20",
-    "@types/react-dom": "^18.2.7",
     "axios": "^1.4.0",
     "browser-image-compression": "^2.0.2",
     "date-fns": "^2.30.0",
@@ -33,7 +29,6 @@
     "styled-reset": "^4.5.1",
     "sweetalert2": "^11.7.20",
     "swiper": "^10.1.0",
-    "typescript": "^5.1.6",
     "web-vitals": "^2.1.0"
   },
   "scripts": {

@@ -75,16 +75,16 @@ export const LoginStatus = async () => {
       `${process.env.REACT_APP_SERVER_URL}/auth/mypage`,
       currentUserToken
     );
-    console.log(response);
+    // console.log(response);
     if (response.status === 200) {
       return true;
     } else {
-      console.log("인증 실패");
+      // console.log("인증 실패");
       alert("인증 실패");
       return false;
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     alert("로그인유효성검사 실패");
     return false;
   }

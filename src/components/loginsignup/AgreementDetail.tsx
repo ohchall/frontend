@@ -1,5 +1,3 @@
-import React from "react";
-
 export const AgreementDetail = () => {
   return (
     <p style={{ lineHeight: "1.5", fontSize: "12px" }}>

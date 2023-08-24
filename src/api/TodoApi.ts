@@ -1,6 +1,17 @@
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
+export type Todo = {
+  title: string;
+  content: string;
+  date: string;
+  isComplete?: boolean;
+};
+
+type ToDoId = string;
+
+export type UpdatedTodo = Todo & { toDoId: ToDoId };
+
 export const useAddTodoMutation = () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -10,7 +21,7 @@ export const useAddTodoMutation = () => {
   };
   const queryClient = useQueryClient();
   return useMutation(
-    (todo) =>
+    (todo: Todo) =>
       axios.post(
         `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
         todo,
@@ -18,7 +29,7 @@ export const useAddTodoMutation = () => {
       ),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("todos");
+        queryClient.invalidateQueries(["todos"]);
       },
     }
   );
@@ -33,7 +44,7 @@ export const useDeleteTodoMutation = () => {
     Refresh: `${refresh}`,
   };
   return useMutation(
-    (toDoId) =>
+    (toDoId: ToDoId) =>
       axios.delete(
         `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${toDoId}`,
         {
@@ -42,7 +53,7 @@ export const useDeleteTodoMutation = () => {
       ),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("todos");
+        queryClient.invalidateQueries(["todos"]);
       },
     }
   );
@@ -57,7 +68,7 @@ export const useUpdateTodoMutation = () => {
   };
   const queryClient = useQueryClient();
   return useMutation(
-    (updatedTodo) =>
+    (updatedTodo: UpdatedTodo) =>
       axios.put(
         `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.toDoId}`,
         updatedTodo,
@@ -65,11 +76,13 @@ export const useUpdateTodoMutation = () => {
       ),
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("todos");
+        queryClient.invalidateQueries(["todos"]);
       },
     }
   );
 };
+
+const todosQueryKey = ["todos"];
 
 export const useFetchTodos = () => {
   const access = localStorage.getItem("Access");
@@ -78,7 +91,8 @@ export const useFetchTodos = () => {
     Access: `${access}`,
     Refresh: `${refresh}`,
   };
-  return useQuery(["todos"], async () => {
+
+  return useQuery<UpdatedTodo[]>(todosQueryKey, async () => {
     const { data } = await axios.get(
       `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos`,
       { headers }
@@ -97,7 +111,7 @@ export const useUpdateIsSuccessMutation = () => {
   };
   const queryClient = useQueryClient();
   return useMutation(
-    async (updatedTodo) => {
+    async (updatedTodo: UpdatedTodo) => {
       const response = await axios.put(
         `${process.env.REACT_APP_SERVER_URL}/auth/mypage/todos/${updatedTodo.toDoId}`,
         updatedTodo,
@@ -107,7 +121,7 @@ export const useUpdateIsSuccessMutation = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries("todos");
+        queryClient.invalidateQueries(["todos"]);
       },
     }
   );

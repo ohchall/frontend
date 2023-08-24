@@ -78,7 +78,11 @@ export const TodosList = styled.div`
   width: 400px;
 `;
 
-export const TodosBox = styled.div`
+type TodosBoxProps = {
+  $isComplete?: boolean;
+};
+
+export const TodosBox = styled.div<TodosBoxProps>`
   position: relative;
   display: flex;
   align-items: center;
@@ -89,8 +93,8 @@ export const TodosBox = styled.div`
   width: 100%;
   text-align: center;
   overflow: hidden;
-  background-color: ${(props) => (props.isComplete ? "#BBBBBB" : "white")};
-  text-decoration: ${(props) => (props.isComplete ? "line-through" : "none")};
+  background-color: ${(props) => (props.$isComplete ? "#BBBBBB" : "white")};
+  text-decoration: ${(props) => (props.$isComplete ? "line-through" : "none")};
   text-decoration-thickness: 2px; // 줄 굵기 설정
 
   &:hover {
@@ -146,7 +150,12 @@ export const TodosBox = styled.div`
   }
 `;
 
-export const DayColor = styled.span`
+type DayColorProps = {
+  $isCurrent: boolean;
+  $isComplete: boolean;
+};
+
+export const DayColor = styled.span<DayColorProps>`
   font-size: 11px;
   margin-right: 2px;
   border-radius: 100%;
@@ -176,14 +185,18 @@ export const MoreButton = styled.button`
   }
 `;
 
-export const MoreButtonContainer = styled.div`
+type MoreButtonContainerProps = {
+  visible: string;
+};
+
+export const MoreButtonContainer = styled.div<MoreButtonContainerProps>`
   position: absolute;
   right: 3px;
   top: 35px;
   background: white;
   border-radius: 5px;
   padding: 1px;
-  display: ${(props) => (props.visible ? "none" : "block")};
+  display: ${(props) => (props.visible ? "block" : "none")};
   border: 1px solid black;
 
   > button {

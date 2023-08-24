@@ -5,10 +5,19 @@ import {
   ModalContent,
   ModalShadow,
 } from "./TodoUpdateModal.style";
+import { UpdatedTodo } from "../../api/TodoApi";
 import TodoAdd1 from "../../assets/TodoAdd1.svg";
 import TodoAdd2 from "../../assets/TodoAdd2.svg";
 import TodoAdd3 from "../../assets/TodoAdd3.svg";
 import TodoAdd4 from "../../assets/TodoAdd4.svg";
+
+interface TodoUpdateModalProps {
+  isOpen: boolean;
+  todo: UpdatedTodo | null;
+  onSubmit: (updatedTodo: UpdatedTodo) => void;
+  onRequestClose: () => void;
+  isComplete: boolean;
+}
 
 function TodoUpdateModal({
   isOpen,
@@ -16,12 +25,16 @@ function TodoUpdateModal({
   onSubmit,
   onRequestClose,
   isComplete,
-}) {
-  const [title, setTitle] = useState(todo.title || "");
-  const [content, setContent] = useState(todo.content || "");
-  const [date, setDate] = useState(todo.date || "");
-
+}: TodoUpdateModalProps) {
+  const [title, setTitle] = useState(todo?.title || "");
+  const [content, setContent] = useState(todo?.content || "");
+  const [date, setDate] = useState(todo?.date || "");
   const handleSubmit = () => {
+    if (!todo) {
+      alert("에러가 발생했습니다. 다시 시도해주세요.");
+      return;
+    }
+
     if (!title.trim() || !content.trim() || !date.trim()) {
       alert("빈 값으로 수정할 수 없습니다.");
       return;

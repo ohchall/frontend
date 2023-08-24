@@ -9,9 +9,45 @@ export const ModalShadow = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
-  padding-top: 120%;
+  padding-bottom: 60px;
+
+  @media (min-width: 1000px) and (max-width: 1050px) {
+    padding-left: 35.7vw;
+  }
+
+  @media (min-width: 1050px) and (max-width: 1100px) {
+    padding-left: 34.7vw;
+  }
+
+  @media (min-width: 1100px) and (max-width: 1150px) {
+    padding-left: 33.7vw;
+  }
+
+  @media (min-width: 1150px) and (max-width: 1200px) {
+    padding-left: 32.7vw;
+  }
+
+  @media (min-width: 1200px) and (max-width: 1250px) {
+    padding-left: 31.7vw;
+  }
+
+  @media (min-width: 1250px) and (max-width: 1300px) {
+    padding-left: 30.7vw;
+  }
+
+  @media (min-width: 1300px) and (max-width: 1350px) {
+    padding-left: 29vw;
+  }
+
+  @media (min-width: 1350px) and (max-width: 1450px) {
+    padding-left: 29vw;
+  }
+
+  @media (min-width: 1450px) {
+    padding-left: 30.7vw;
+  }
 `;
 
 export const ModalContainer = styled.div`
@@ -22,13 +58,14 @@ export const ModalContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   z-index: 9999;
+  width: 430px;
 `;
 
 export const ModalTitle = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
   margin-top: 10px;
 
   > h2 {

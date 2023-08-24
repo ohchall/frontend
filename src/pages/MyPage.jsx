@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import TodoList from '../components/todo/TodoList';
-import MyProfile from '../components/common/myprofile/MyProfile';
-import MyCrews from '../components/mycrew/MyCrews';
-import { styled } from 'styled-components';
-import { CheckuserInfo } from '../api/AuthApi';
+import { useEffect, useState } from "react";
+import TodoList from "../components/todo/TodoList";
+import MyProfile from "../components/common/myprofile/MyProfile";
+import MyCrews from "../components/mycrew/MyCrews";
+import { styled } from "styled-components";
+import { CheckuserInfo } from "../api/AuthApi";
 
 function MyPage() {
-  const access = localStorage.getItem('Access');
-  const refresh = localStorage.getItem('Refresh');
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log('triggered');

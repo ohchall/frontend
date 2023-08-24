@@ -11,13 +11,17 @@ import TodoAdd2 from "../../assets/TodoAdd2.svg";
 import TodoAdd3 from "../../assets/TodoAdd3.svg";
 import TodoAdd4 from "../../assets/TodoAdd4.svg";
 
-function TodoAddModal({ onRequestClose }) {
+interface TodoAddModalProps {
+  onRequestClose: () => void; // onRequestClose 함수의 타입 정의
+}
+
+function TodoAddModal({ onRequestClose }: TodoAddModalProps) {
   const addTodoMutation = useAddTodoMutation();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [date, setDate] = useState("");
 
-  const onChangeTodoHandler = (e) => {
+  const onChangeTodoHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "title") setTitle(value);
     if (name === "content") setContent(value);

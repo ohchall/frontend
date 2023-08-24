@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  UpdatedTodo,
   useFetchTodos,
   useDeleteTodoMutation,
   useUpdateTodoMutation,
@@ -16,15 +17,17 @@ import {
   DayColor,
 } from "./TodoList.style";
 import TodoAddModal from "./TodoAddModal";
-import Calendar from "../calendar/Calendar";
+import Calendar, { Event as CalendarEvent } from "../calendar/Calendar";
 import TodoUpdateModal from "./TodoUpdateModal";
 import { useNavigate } from "react-router-dom";
 import useTodoState from "../../hook/useTodoState";
 import useModal from "../../hook/useModal";
 
+type Todo = UpdatedTodo;
+
 function TodoList() {
   const { data: todos, isLoading, isError } = useFetchTodos();
-  const [todoToUpdate, setTodoToUpdate] = useState(null);
+  const [todoToUpdate, setTodoToUpdate] = useState<Todo | null>(null);
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
   const updateisCompleteMutation = useUpdateIsSuccessMutation();
@@ -37,10 +40,11 @@ function TodoList() {
     onMonthChange,
     visibleTodoId,
   } = useTodoState(todos);
+
   const addTodoModal = useModal();
   const updateTodoModal = useModal();
 
-  const handleCheckboxChange = async (todo) => {
+  const handleCheckboxChange = async (todo: Todo) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -58,7 +62,7 @@ function TodoList() {
     }
   };
 
-  const todoDeleteHandler = async (todoId) => {
+  const todoDeleteHandler = async (todoId: string) => {
     try {
       await deleteTodoMutation.mutateAsync(todoId);
       console.log("삭제 성공");
@@ -69,7 +73,7 @@ function TodoList() {
     }
   };
 
-  const todoUpdateHandler = async (updatedTodo) => {
+  const todoUpdateHandler = async (updatedTodo: Todo) => {
     try {
       await updateTodoMutation.mutateAsync(updatedTodo);
       console.log("수정 성공");
@@ -84,7 +88,9 @@ function TodoList() {
     navigate("/mypage/todolist");
   };
 
-  const uncompletedTodos = filteredTodos.filter((todo) => !todo.isComplete);
+  const uncompletedTodos = filteredTodos.filter(
+    (todo: Todo) => !todo.isComplete
+  );
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -97,23 +103,23 @@ function TodoList() {
   return (
     <>
       <CalendarCenterBox>
-        <Calendar events={events} onMonthChange={onMonthChange} />
+        <Calendar
+          events={events as CalendarEvent[]}
+          onMonthChange={onMonthChange}
+        />
       </CalendarCenterBox>
       <br></br>
       {addTodoModal.isOpen && (
-        <TodoAddModal
-          isOpen={addTodoModal.isOpen}
-          onRequestClose={addTodoModal.closeModal}
-        />
+        <TodoAddModal onRequestClose={addTodoModal.closeModal} />
       )}
       <TodosContainer>
         <div className="TodolsitTitle">
           <h2>투두 리스트</h2>
-          <p onClick={() => onClickMoveTodolist()}>더보기</p>
+          <p onClick={onClickMoveTodolist}>더보기</p>
         </div>
         <TodoListContainer>
           <TodosList>
-            {uncompletedTodos.map((todo) => (
+            {uncompletedTodos.map((todo: Todo) => (
               <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
                 <input
                   type="checkbox"
@@ -129,7 +135,7 @@ function TodoList() {
                       <DayColor
                         key={index}
                         $isCurrent={index === new Date(todo.date).getDay()}
-                        $isComplete={todo.isComplete}
+                        $isComplete={todo.isComplete ?? false}
                       >
                         {day}
                       </DayColor>
@@ -142,7 +148,9 @@ function TodoList() {
                   ...
                 </MoreButton>
                 {visibleTodoId === todo.toDoId && (
-                  <MoreButtonContainer>
+                  <MoreButtonContainer
+                    visible={visibleTodoId === todo.toDoId ? "true" : "false"}
+                  >
                     <button
                       onClick={() => {
                         setTodoToUpdate(todo);
@@ -168,6 +176,7 @@ function TodoList() {
           todo={todoToUpdate}
           onSubmit={todoUpdateHandler}
           onRequestClose={updateTodoModal.closeModal}
+          isComplete
         />
       )}
     </>

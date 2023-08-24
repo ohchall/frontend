@@ -1,5 +1,6 @@
 import { RiKakaoTalkFill } from "react-icons/ri";
 import { styled } from "styled-components";
+
 // import { SiNaver } from "react-icons/si";
 interface SNSLoginProps {}
 
@@ -16,6 +17,7 @@ const SNSlogin: React.FC<SNSLoginProps> = () => {
 
       <a
         href={KAKAO_AUTH_URI}
+        // onClick={kakao}
         style={{ backgroundColor: "yellow", color: "black" }}
       >
         <RiKakaoTalkFill style={{ width: "40px", height: "40px" }} />

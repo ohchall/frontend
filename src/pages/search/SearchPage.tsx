@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import useSearch from "../../hook/useSearch";
 import Skeleton from "../../components/Skeleton";
@@ -36,18 +36,22 @@ const SearchPage = () => {
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
-  // const [pageNumber, setPageNumber] = useState();
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(5);
+  const observer = useRef<IntersectionObserver | null>(null);
 
   const {
     searchResult,
     loading,
     error,
+    hasMore,
     search,
   }: {
     searchResult: SearchResult["data"];
     loading: boolean;
     error: any;
-    search: (keyword: string) => Promise<void>;
+    hasMore: boolean;
+    search: (keyword: string, page: number, size: number) => Promise<void>;
   } = useSearch();
 
   if (error) {
@@ -55,6 +59,7 @@ const SearchPage = () => {
   }
 
   const searchInputRef = useRef<HTMLInputElement>(null);
+
   const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
@@ -62,7 +67,8 @@ const SearchPage = () => {
   const onClickSearch = async () => {
     if (keyword !== "") {
       // console.log("keyword: ", keyword);
-      await search(keyword);
+      setPage(1);
+      await search(keyword, page, size);
     } else {
       searchInputRef.current?.focus();
     }
@@ -76,9 +82,39 @@ const SearchPage = () => {
     }
   };
 
-  // console.log(watchOption);
+  useEffect(() => {
+    if (keyword !== "") {
+      search(keyword, page, size);
+    }
+  }, [page, search]);
+
+  // const lastSearchResultElementRef = useCallback(
+  //   (node: HTMLDivElement | null) => {
+  //     if (loading) return;
+
+  //     if (observer.current) observer.current.disconnect();
+  //     observer.current = new IntersectionObserver((entries) => {
+  //       if (entries[0].isIntersecting && hasMore) {
+  //         setPage((prevPageNumber: number) => prevPageNumber + 1);
+  //       }
+  //     });
+  //     if (node) observer.current?.observe(node);
+  //     console.log(node);
+  //     console.log(hasMore);
+  //   },
+  //   [loading, hasMore]
+  // );
+
+  const moreHeandler = () => {
+    if (searchResult.length !== 0 && hasMore) {
+      setPage((prevPageNumber: number) => prevPageNumber + 1);
+      setSize(2);
+    }
+  };
+
+  console.log("page", page);
   // console.log("loading", loading, "error", error);
-  // console.log("searched", searchResult);
+  console.log("searched", searchResult);
   return (
     <SearchPageBlock>
       <InputContainer>
@@ -95,35 +131,65 @@ const SearchPage = () => {
       </InputContainer>
 
       {searchResult.length > 0 &&
-        searchResult.map((post: CrewList) => {
-          return (
-            <R9dCrew
-              key={post.crewRecruitmentId}
-              onClick={() => onClickCrew(post.crewRecruitmentId)}
-            >
-              <ImageWrapper>
-                <img
-                  src={post.image && post.image[0] ? post.image[0] : ""}
-                  alt=""
-                />
-              </ImageWrapper>
+        searchResult.map((post: CrewList, index) => {
+          if (searchResult.length === index + 1) {
+            return (
+              <R9dCrew
+                // ref={lastSearchResultElementRef}
+                key={post.crewRecruitmentId}
+                onClick={() => onClickCrew(post.crewRecruitmentId)}
+              >
+                <ImageWrapper>
+                  <img
+                    src={post.image && post.image[0] ? post.image[0] : ""}
+                    alt=""
+                  />
+                </ImageWrapper>
 
-              <Overview>
-                <div>
-                  <TitleContainer>
-                    <p>{post.title}</p>
-                  </TitleContainer>
+                <Overview>
+                  <div>
+                    <TitleContainer>
+                      <p>{post.title}</p>
+                    </TitleContainer>
 
-                  <LikeButton />
-                </div>
+                    <LikeButton />
+                  </div>
 
-                <p>{post.exerciseKind} / 서울 중구</p>
-              </Overview>
-            </R9dCrew>
-          );
+                  <p>{post.exerciseKind} / 서울 중구</p>
+                </Overview>
+              </R9dCrew>
+            );
+          } else {
+            return (
+              <R9dCrew
+                key={post.crewRecruitmentId}
+                onClick={() => onClickCrew(post.crewRecruitmentId)}
+              >
+                <ImageWrapper>
+                  <img
+                    src={post.image && post.image[0] ? post.image[0] : ""}
+                    alt=""
+                  />
+                </ImageWrapper>
+
+                <Overview>
+                  <div>
+                    <TitleContainer>
+                      <p>{post.title}</p>
+                    </TitleContainer>
+
+                    <LikeButton />
+                  </div>
+
+                  <p>{post.exerciseKind} / 서울 중구</p>
+                </Overview>
+              </R9dCrew>
+            );
+          }
         })}
 
       {loading ? <Skeleton /> : ""}
+      <button onClick={moreHeandler}>더보기</button>
     </SearchPageBlock>
   );
 };

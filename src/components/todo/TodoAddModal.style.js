@@ -2,10 +2,16 @@ import { styled } from "styled-components";
 
 export const ModalShadow = styled.div`
   position: fixed;
-  bottom: 5%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  padding-top: 1000px;
   z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 120%;
 `;
 
 export const ModalContainer = styled.div`
@@ -22,7 +28,7 @@ export const ModalTitle = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 400px;
+  width: 100%;
   margin-top: 10px;
 
   > h2 {
@@ -38,7 +44,7 @@ export const ModalTitle = styled.div`
 
 export const ModalContent = styled.div`
   background-color: white;
-  width: 430px;
+  width: 100%;
   height: 220px;
 
   > div {
@@ -52,7 +58,7 @@ export const ModalContent = styled.div`
     }
 
     > input {
-      width: 380px;
+      width: 360px;
       height: 50px;
       border: none;
       border-bottom: 2px solid #eeeeee;

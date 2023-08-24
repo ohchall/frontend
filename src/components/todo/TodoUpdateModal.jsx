@@ -58,7 +58,7 @@ function TodoUpdateModal({
                 name="title"
                 placeholder="title"
                 value={title}
-                maxLength={24}
+                maxLength={20}
                 onChange={(e) => setTitle(e.target.value)}
               />
             </div>
@@ -69,7 +69,7 @@ function TodoUpdateModal({
                 name="content"
                 placeholder="content"
                 value={content}
-                maxLength={50}
+                maxLength={45}
                 onChange={(e) => setContent(e.target.value)}
               />
             </div>

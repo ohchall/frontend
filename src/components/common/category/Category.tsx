@@ -42,6 +42,7 @@ function Category() {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
+
   const categories: Array<string> = [
     "전체",
     "러닝",
@@ -61,12 +62,14 @@ function Category() {
     searchResult,
     loading,
     error,
+    hasMore,
     search,
   }: {
     searchResult: SearchResult["data"];
     loading: boolean;
     error: any;
-    search: (keyword: string) => Promise<void>;
+    hasMore: boolean;
+    search: (keyword: string, page: number, size: number) => Promise<void>;
   } = useSearch();
 
   if (error) {
@@ -77,9 +80,13 @@ function Category() {
     dispatch(setDisplayRemainingComponents(searchResult.length === 0));
   }, [searchResult, dispatch]);
 
-  const onClickCategory = (pickedCategory: string) => {
+  const onClickCategory = (
+    pickedCategory: string,
+    page: number,
+    size: number
+  ) => {
     setSelectedCategory(pickedCategory);
-    search(pickedCategory);
+    search(pickedCategory, page, size);
   };
 
   const onClickCrew = (itemId: number) => {
@@ -103,7 +110,7 @@ function Category() {
         return (
           <CategoryBtns
             key={category}
-            onClick={() => onClickCategory(category)}
+            onClick={() => onClickCategory(category, 1, 5)}
             style={{
               backgroundColor: selectedCategory === category ? "orange" : "",
             }}

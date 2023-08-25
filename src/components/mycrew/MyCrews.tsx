@@ -1,19 +1,38 @@
-import React, { useCallback, useEffect, useRef} from 'react';
+import { useCallback, useEffect, useRef, ReactNode } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
-import {FiChevronsRight } from 'react-icons/fi';
+import { FiChevronsRight } from 'react-icons/fi';
 import { BsPerson } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
-import {IoIosArrowDown}from 'react-icons/io';
-import { CrewPersonMax, CrewPostButton, CrewPostInfo, CrewPostRecent, CrewPostReContent, CrewPostReImg, CrewPosts,CrewPostsRecents,CrewPostUpLoad } from './MyCrews.style';
+import { IoIosArrowDown } from 'react-icons/io';
+import {
+  CrewPersonMax, CrewPostButton, CrewPostInfo, CrewPostRecent,
+  CrewPostReContent, CrewPostReImg, CrewPosts, CrewPostsRecents, CrewPostUpLoad
+} from './MyCrews.style';
 
-const MyCrews = () => {
-  const observerRef = useRef(null);
+interface Crew {
+  crewRecruitmentId: number;
+  title: string;
+  exerciseKind: string;
+  location: string;
+  totalNumber: number;
+  image?: string[];
+}
+
+interface CrewDataResponse {
+  data: {
+    crewList: Crew[];
+  };
+  last: boolean; 
+}
+
+const MyCrews: React.FC = () => {
+  const observerRef = useRef<HTMLDivElement | null>(null);
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const {data, isSuccess, hasNextPage, fetchNextPage} = useInfiniteQuery(
+  const { data, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQuery<CrewDataResponse>(
     ['crewData'],
-    ({ pageParam = 1 }) => axios.get(`${process.env.REACT_APP_SERVER_URL}/crew/more`, { 
+    ({ pageParam = 1 }) => axios.get(`${process.env.REACT_APP_SERVER_URL}/crew/more`, {
       params: {
         page: pageParam,
         size: 2,
@@ -25,13 +44,13 @@ const MyCrews = () => {
         Refresh: `${refresh}`,
       },
     }),
-      {
-        getNextPageParam: (lastPage, totalPage) => {
-          return totalPage.last? undefined: totalPage.length + 2  
-      }}
+    {
+      getNextPageParam: (lastPage, totalPage) => {
+        return totalPage[totalPage.length - 1].last ? undefined : totalPage.length + 2;
+      }      
+    }
   );
-
-  const handleObserver = useCallback((entries) => {
+  const handleObserver = useCallback((entries: IntersectionObserverEntry[])   => {
     const [target] = entries;
     if (target.isIntersecting && hasNextPage) {
       fetchNextPage();
@@ -51,7 +70,7 @@ const MyCrews = () => {
     return () => observer.unobserve(element);
   }, [fetchNextPage, hasNextPage,handleObserver]);
  
-  const addressSubstraction = (location) => {
+  const addressSubstraction = (location:string) => {
     const parts = location.split(" ");
     if (parts.length >= 2) {
       return `${parts[0]} ${parts[1]}`;
@@ -73,7 +92,7 @@ const MyCrews = () => {
     return <div>Error...</div>;
   };
   
-  const navigateDetail=(id)=>{
+  const navigateDetail=(id:number)=>{
   navigate(`/crew/${id}`)
   }
 
@@ -137,4 +156,3 @@ const MyCrews = () => {
 };
 
 export default MyCrews;
-

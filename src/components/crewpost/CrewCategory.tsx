@@ -1,8 +1,14 @@
 import React from 'react'
 
-const CrewCategory = ({ category, customCategory, onSelectCategory, onCustomCategoryChange }) => {
+type CrewCategoryProps={
+  category: string,
+  customCategory: string,
+  onSelectCategory: (category: string) => void,
+  onCustomCategoryChange: (customCategory: string) => void
+}
+const CrewCategory: React.FC<CrewCategoryProps> = ({ category, customCategory, onSelectCategory, onCustomCategoryChange }) => {
 
-  const selectCategory = (e) => {
+  const selectCategory = (e: React.ChangeEvent<HTMLSelectElement>)=> {
     const value = e.target.value;
     if (value) {
       e.target.style.color = "#111111";  

@@ -6,7 +6,6 @@ import MyPage from "../pages/MyPage";
 import CrewPage from "../pages/crew/CrewPage";
 import CrewDetailPage from "../pages/crew/CrewDetailPage";
 import CrewWritePage from "../pages/crewwrite/CrewWritePage";
-import PostModal from "../components/crewpost/PostModal";
 import LoginPage from "../pages/loginsignup/LoginPage";
 import SignUpPage from "../pages/loginsignup/SignUpPage";
 import TodoListPage from "../pages/TodoListPage";
@@ -90,15 +89,7 @@ function Router(): JSX.Element {
             </Template>
           }
         />
-
-        <Route
-          path="/postmodal"
-          element={
-            <Template header footer>
-              <PostModal />
-            </Template>
-          }
-        />
+   
         <Route
           path="/search"
           element={

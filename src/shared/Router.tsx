@@ -5,8 +5,8 @@ import MainPage from "../pages/main/MainPage";
 import MyPage from "../pages/MyPage";
 import CrewPage from "../pages/crew/CrewPage";
 import CrewDetailPage from "../pages/crew/CrewDetailPage";
+import CrewMemberPage from "../pages/crewmember/CrewMemberPage";
 import CrewWritePage from "../pages/crewwrite/CrewWritePage";
-import PostModal from "../components/crewpost/PostModal";
 import LoginPage from "../pages/loginsignup/LoginPage";
 import SignUpPage from "../pages/loginsignup/SignUpPage";
 import TodoListPage from "../pages/TodoListPage";
@@ -39,6 +39,7 @@ function Router(): JSX.Element {
             />
           }
         />
+
         <Route
           path="/mypage/todolist"
           element={
@@ -47,6 +48,7 @@ function Router(): JSX.Element {
             </Template>
           }
         />
+
         <Route
           path="/login"
           element={
@@ -55,6 +57,7 @@ function Router(): JSX.Element {
             </Template>
           }
         />
+
         <Route
           path="/register"
           element={
@@ -83,6 +86,15 @@ function Router(): JSX.Element {
         />
 
         <Route
+          path="/crew/member"
+          element={
+            <Template header footer>
+              <CrewMemberPage />
+            </Template>
+          }
+        />
+
+        <Route
           path="/crew/write"
           element={
             <Template header footer>
@@ -90,15 +102,7 @@ function Router(): JSX.Element {
             </Template>
           }
         />
-
-        <Route
-          path="/postmodal"
-          element={
-            <Template header footer>
-              <PostModal />
-            </Template>
-          }
-        />
+   
         <Route
           path="/search"
           element={
@@ -107,7 +111,11 @@ function Router(): JSX.Element {
             </Template>
           }
         />
-        <Route path="/oauth" element={<Oauth />} />
+
+        <Route
+          path="/oauth"
+          element={<Oauth />}
+        />
       </Routes>
     </BrowserRouter>
   );

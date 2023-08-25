@@ -47,31 +47,59 @@ const CrewFormStyles= css`
   justify-content:center;
   `
 export const CrewImageUpLoad = styled.div`
-  ${CrewFormStyles}
-  flex-direction: row;
-  flex-wrap: wrap;
-  border-radius:10px;
+${CrewFormStyles}
+flex-direction: row;
+flex-wrap: wrap;
+border-radius:10px;
 
-  & > img {
+& > div {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-  }
-
-  & > img:nth-child(1) {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+}
+& > div > .imageWrapper{
+  width:100%;
+  height:50%;
+  object-fit:cover;
+  position:relative;
+}
+& > div > .imageWrapper:nth-child(1) > img {
     width: 100%;
-    height: 50%;
+    height: 100%;
     border-radius: 10px 10px 0 0;
-  }
+}
+& > div > .imageWrapper:nth-child(2),
+& > div > .imageWrapper:nth-child(3)
+{width:50%;height:50%;}
+& > div > .imageWrapper:nth-child(2) > img,
+& > div > .imageWrapper:nth-child(3) > img {
+    width: 100%;
+    height: 100%;
+}
 
-  & > img:nth-child(2) {
-    width: 50%;
-    height:50%;
+& > div > .imageWrapper:nth-child(2) > img {
     border-radius: 0 0 0 10px;
-  }
-  & > img:nth-child(3) {
-    width: 50%;
-    height:50%;
+}
+
+& > div > .imageWrapper:nth-child(3) > img {
     border-radius: 0 0 10px 0;
-  }
+}
+
+& > div > .imageWrapper > .close {
+    position: absolute;
+    top: 3px;
+    right: 3px;
+}
+
+& > div > .imageWrapper > .close > button {
+    background: #ffffff;
+    color: #111111;
+    border:none;
+    font-size: 1rem;
+    font-weight: 900;
+    cursor: pointer;
+}
 `;
+

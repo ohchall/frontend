@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
+  UpdatedTodo,
   useFetchTodos,
   useDeleteTodoMutation,
   useUpdateTodoMutation,
@@ -18,22 +19,23 @@ import {
 import TodoAddModal from "./TodoAddModal";
 import TodoUpdateModal from "./TodoUpdateModal";
 
+type Todo = UpdatedTodo;
+
 function TodoDetailList() {
   const { data, isLoading, isError } = useFetchTodos();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [, setEvents] = useState([]);
-  const [filteredTodos, setFilteredTodos] = useState([]);
-  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState(false);
-  const [todoToUpdate, setTodoToUpdate] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [, setEvents] = useState<any[]>([]);
+  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
+  const [isUpdateModalOpen, setIsUpdateModalOpen] = useState<boolean>(false);
+  const [todoToUpdate, setTodoToUpdate] = useState<Todo | null>(null);
   const currentMonth = new Date().getMonth();
   const deleteTodoMutation = useDeleteTodoMutation();
   const updateTodoMutation = useUpdateTodoMutation();
-  const [visibleTodoId, setVisibleTodoId] = useState(null);
+  const [visibleTodoId, setVisibleTodoId] = useState<string | null>(null);
   const updateisCompleteMutation = useUpdateIsSuccessMutation();
-
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
 
-  const toggleButtonsVisibility = (id) => {
+  const toggleButtonsVisibility = (id: string) => {
     if (visibleTodoId === id) {
       setVisibleTodoId(null);
     } else {
@@ -41,15 +43,13 @@ function TodoDetailList() {
     }
   };
 
-  const handleCheckboxChange = async (todo) => {
+  const handleCheckboxChange = async (todo: Todo) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     if (new Date(todo.date) < today) {
       alert("지난 todo의 완료 여부는 변경할 수 없습니다.");
       return;
     }
-
     const updatedTodo = { ...todo, isComplete: !todo.isComplete };
     try {
       await updateisCompleteMutation.mutateAsync(updatedTodo);
@@ -59,19 +59,17 @@ function TodoDetailList() {
     }
   };
 
-  const convertTodoToEvent = (todo) => {
-    return {
-      title: todo.title,
-      start: todo.date,
-      isComplete: todo.isComplete,
-    };
+  type TodoEvent = {
+    title: string;
+    start: string;
+    isComplete: boolean;
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  const openUpdateModal = (todo) => {
+  const openUpdateModal = (todo: Todo) => {
     setTodoToUpdate(todo);
     setIsUpdateModalOpen(true);
   };
@@ -81,10 +79,17 @@ function TodoDetailList() {
   };
 
   useEffect(() => {
-    if (data) {
-      const convertedEvents = data.map(convertTodoToEvent);
-      setEvents(convertedEvents);
+    const convertTodoToEvent = (todo: Todo): TodoEvent => {
+      return {
+        title: todo.title,
+        start: todo.date,
+        isComplete: todo.isComplete ?? false,
+      };
+    };
 
+    if (data) {
+      const convertedEvents: TodoEvent[] = data.map(convertTodoToEvent);
+      setEvents(convertedEvents);
       const filtered = data.filter((todo) => {
         const todoMonth = new Date(todo.date).getMonth();
         return todoMonth === currentMonth;
@@ -101,7 +106,7 @@ function TodoDetailList() {
     return <div>Error...</div>;
   }
 
-  const todoDeleteHandler = async (todoId) => {
+  const todoDeleteHandler = async (todoId: string) => {
     try {
       await deleteTodoMutation.mutateAsync(todoId);
       console.log("삭제 성공");
@@ -111,8 +116,7 @@ function TodoDetailList() {
     }
   };
 
-  //
-  const todoUpdateHandler = async (updatedTodo) => {
+  const todoUpdateHandler = async (updatedTodo: Todo) => {
     try {
       await updateTodoMutation.mutateAsync(updatedTodo);
       console.log("수정 성공");
@@ -128,9 +132,7 @@ function TodoDetailList() {
 
   return (
     <>
-      {isModalOpen && (
-        <TodoAddModal isOpen={isModalOpen} onRequestClose={closeModal} />
-      )}
+      {isModalOpen && <TodoAddModal onRequestClose={closeModal} />}
       <TodosContainer>
         <div className="TodolsitTitle">
           <h2>미완료</h2>
@@ -166,7 +168,9 @@ function TodoDetailList() {
                   ...
                 </MoreButton>
                 {visibleTodoId === todo.toDoId && (
-                  <MoreButtonContainer>
+                  <MoreButtonContainer
+                    visible={visibleTodoId === todo.toDoId ? "true" : "false"}
+                  >
                     <button onClick={() => openUpdateModal(todo)}>수 정</button>
                     <button onClick={() => todoDeleteHandler(todo.toDoId)}>
                       삭 제
@@ -212,7 +216,9 @@ function TodoDetailList() {
                   ...
                 </MoreButton>
                 {visibleTodoId === todo.toDoId && (
-                  <MoreButtonContainer>
+                  <MoreButtonContainer
+                    visible={visibleTodoId === todo.toDoId ? "true" : "false"}
+                  >
                     <button onClick={() => openUpdateModal(todo)}>수 정</button>
                     <button onClick={() => todoDeleteHandler(todo.toDoId)}>
                       삭 제
@@ -230,6 +236,7 @@ function TodoDetailList() {
           todo={todoToUpdate}
           onSubmit={todoUpdateHandler}
           onRequestClose={closeUpdateModal}
+          isComplete
         />
       )}
     </>

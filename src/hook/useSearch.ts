@@ -43,12 +43,11 @@ const useSearch = () => {
       const encodedKeyword = encodeURIComponent(keyword);
 
       const url = `/crew/search/basic?keyword=${encodedKeyword}&page=${page}&size=${size}&sortBy=content&isAsc=true`;
-      console.log(url);
+      // console.log(url);
       try {
         const response = await axios.get(
           `${process.env.REACT_APP_SERVER_URL}${url}`
         );
-        console.log(response);
 
         setHasMore(response.data.crewList.length > 0);
         setLoading(false);

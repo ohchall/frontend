@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { CrewTimes } from '../../pages/crewwrite/CrewWritePage.style';
 
-function CrewTime({setCrewTime}) {
-  const [timeOptions, setTimeOptions] = useState([]);
+interface CrewTimeProps{
+  setCrewTime: (crewTimes: string) => void;
+}
+const CrewTime: React.FC<CrewTimeProps> = ({ setCrewTime })=> {
+  const [timeOptions, setTimeOptions] = useState<string[]>([]);
 
   useEffect(() => {
-    let hours = Array.from({length: 18}, (_, i) => (i + 6) % 24);  
-    let minutes = Array.from({length: 6}, (_, i) => i * 10);
-    let options = [];
+    let hours:number[] = Array.from({length: 18}, (_, i) => (i + 6) % 24);  
+    let minutes:number[] = Array.from({length: 6}, (_, i) => i * 10);
+    let options:string[] = [];
 
     hours.forEach(hour => {
       if (hour === 23) {  
@@ -29,7 +32,7 @@ function CrewTime({setCrewTime}) {
     }
   }, [setCrewTime]);
 
-  const handleTimeChange = (e) => {
+  const handleTimeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value;
     if (selectedValue) {
       e.target.style.color = "#111111"; 

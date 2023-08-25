@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+
 interface DisplayState {
   displayRemainingComponents: boolean;
 }
 
-const initialState: DisplayState = {
+const initialDisplayState: DisplayState = {
   displayRemainingComponents: true,
 };
 
 const displaySlice = createSlice({
   name: "display",
-  initialState,
+  initialState: initialDisplayState,
   reducers: {
     setDisplayRemainingComponents: (state, action: PayloadAction<boolean>) => {
       state.displayRemainingComponents = action.payload;
@@ -19,4 +20,50 @@ const displaySlice = createSlice({
 });
 
 export const { setDisplayRemainingComponents } = displaySlice.actions;
-export default displaySlice.reducer;
+
+export type CrewList = {
+  content: string;
+  crewName: string;
+  crewRecruitmentId: number;
+  currentNumber: number;
+  exerciseDate: string;
+  exerciseKind: string;
+  image?: string[];
+  location: string;
+  postDate: number[];
+  title: string;
+  totalNumber: number;
+  usersLocation: string;
+  page: number;
+};
+
+interface SearchResult {
+  data: CrewList[];
+}
+
+const initialSearchResultState: SearchResult["data"] = [];
+
+export const searchResultSlice = createSlice({
+  name: "searchResult",
+  initialState: initialSearchResultState,
+  reducers: {
+    setSearchResult: (state, action: PayloadAction<CrewList[]>) => {
+      return [...action.payload];
+    },
+    addSearchResult: (state, action: PayloadAction<CrewList[]>) => {
+      state.push(...action.payload);
+    },
+    prependSearchResult: (state, action: PayloadAction<CrewList[]>) => {
+      // Here we are adding the new results to the front of the array
+      return [...action.payload, ...state];
+    },
+  },
+});
+
+export const { setSearchResult, addSearchResult, prependSearchResult } =
+  searchResultSlice.actions;
+
+export default {
+  displayReducer: displaySlice.reducer,
+  searchReducer: searchResultSlice.reducer,
+};

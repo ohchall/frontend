@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 type CrewList = {
   content: string;
@@ -14,6 +15,7 @@ type CrewList = {
   title: string;
   totalNumber: number;
   usersLocation: string;
+  page: number;
 };
 
 interface SearchResult {
@@ -21,25 +23,25 @@ interface SearchResult {
 }
 
 const useSearch = () => {
+  const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  const [backupPage, setBackupPage] = useState(false);
   const [error, setError] = useState(false);
-  const [searchResult, setSearchResult] = useState<SearchResult["data"]>([]);
   const [hasMore, setHasMore] = useState(false);
-
-  const reset = () => {
-    setSearchResult([]);
-    setHasMore(false);
-  };
-
+  const [searchResult, setSearchResult] = useState<CrewList[]>([]);
   const search = useCallback(
-    async (keyword: string, page: number, size: number) => {
+    async (
+      keyword: string,
+      page: number,
+      size: number,
+      resetResults: boolean,
+      toprev: boolean
+    ) => {
       setLoading(true);
       setError(false);
-      reset();
+
       const encodedKeyword = encodeURIComponent(keyword);
 
-      // const decodedKeyword = decodeURIComponent(encodedKeyword);
-      // console.log(decodedKeyword);
       const url = `/crew/search/basic?keyword=${encodedKeyword}&page=${page}&size=${size}&sortBy=content&isAsc=true`;
       console.log(url);
       try {
@@ -47,16 +49,29 @@ const useSearch = () => {
           `${process.env.REACT_APP_SERVER_URL}${url}`
         );
         console.log(response);
-        setSearchResult((searchResult) => [
-          ...searchResult,
-          ...response.data.crewList,
-        ]);
+
         setHasMore(response.data.crewList.length > 0);
         setLoading(false);
-        // if (response.data.crewList.length === 0) {
-        //   setError(true);
-        //   window.location.reload();
-        // }
+
+        if (response.data.crewList.length === 0) {
+          setHasMore(false);
+          setLoading(false);
+          setSearchResult([]);
+        }
+
+        const resultsWithPageNumber = response.data.crewList.map(
+          (item: any) => ({ ...item, page })
+        );
+        // 첫 페이지 또는 결과 초기화 요청이면 setSearchResults 액션 디스패치
+        if (resetResults || page === 1) {
+          setSearchResult(resultsWithPageNumber);
+        } else {
+          // 그렇지 않으면 addSearchResults 액션 디스패치
+          setSearchResult((prev) => [...prev, ...resultsWithPageNumber]);
+        }
+
+        console.log("toprev", toprev);
+        console.log("resetResults", resetResults);
       } catch (e) {
         // console.log("e", e);
         setError(true);
@@ -67,7 +82,7 @@ const useSearch = () => {
     },
     []
   );
-  // console.log("searchResult", searchResult);
-  return { loading, error, searchResult, search, hasMore };
+
+  return { loading, error, search, hasMore, searchResult, backupPage };
 };
 export default useSearch;

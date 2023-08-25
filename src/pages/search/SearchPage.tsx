@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import useSearch from "../../hook/useSearch";
 import Skeleton from "../../components/Skeleton";
 import LikeButton from "../../components/common/LikeButton";
 import { useNavigate } from "react-router-dom";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import {
   SearchPageBlock,
   InputContainer,
@@ -11,7 +12,12 @@ import {
   Overview,
   TitleContainer,
   R9dCrew,
+  SearchMoreBtn,
 } from "./SearchPage.style";
+// import { useSelector } from "react-redux";
+// import { RootState } from "../../redux/config/ConfigStore";
+// import { CrewList } from "../../redux/modules/Modules";
+
 type CrewList = {
   content: string;
   crewName: string;
@@ -25,6 +31,7 @@ type CrewList = {
   title: string;
   totalNumber: number;
   usersLocation: string;
+  page: number;
 };
 
 interface SearchResult {
@@ -36,41 +43,109 @@ const SearchPage = () => {
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState({ value: 0, searchCalled: false });
   const [size, setSize] = useState(5);
+  const [toprev, setToprev] = useState(false);
+  const [updatedSearchResult, setUpdatedSearchResult] = useState<CrewList[]>(
+    []
+  );
   const observer = useRef<IntersectionObserver | null>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
+  // useSearch : 결과, 로딩, 에러 등을 반환 : 키워드, 페이지, 사이즈, 결과리셋 가져감
   const {
-    searchResult,
     loading,
     error,
     hasMore,
     search,
+    searchResult,
+    backupPage,
   }: {
-    searchResult: SearchResult["data"];
     loading: boolean;
     error: any;
     hasMore: boolean;
-    search: (keyword: string, page: number, size: number) => Promise<void>;
+    searchResult: CrewList[];
+    backupPage: boolean;
+    search: (
+      keyword: string,
+      page: number,
+      size: number,
+      resetResults: boolean,
+      toprev: boolean
+    ) => Promise<void>;
   } = useSearch();
 
-  if (error) {
-    alert("입력하신 키워드를 찾지 못하였습니다.");
-  }
+  // 페이지, 키원드, 서치가 변환될 때마다 실행
+  useEffect(() => {
+    // 페이지가 1보가 크고 searchCalled가 false일때 서치를 실행하고 searchCalled를 true로 바꿔 준다.
+    if (page.value >= 1 && page.searchCalled) {
+      setPage((prevState) => ({ ...prevState, searchCalled: false }));
+      search(keyword, page.value, size, false, toprev);
+    }
+    // 페이지가 0보다 크고 searchCalled가 true일때 searchCalled를 true로 바꿔준다.
+    // else if (updatedSearchResult.length === 10 && page.searchCalled) {
+    //   setPage((prevState) => ({ ...prevState, searchCalled: false }));
+    //   search(keyword, page.value, size, false);
+    //   // setUpdatedSearchResult((prev) => prev.slice(0, -5));
+    // }
+  }, [page, keyword, search]);
 
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  // 서치결과가 변화 될 때마다 실행
+  useEffect(() => {
+    //searchResult의 길이가 0보다 클때 updatedSearchReuslt를 10개씩 보여준다.
+    if (searchResult.length > 0) {
+      let newSearchResult = searchResult.slice(-10);
+      newSearchResult.sort((a: any, b: any) => a.page - b.page);
+      setUpdatedSearchResult(newSearchResult);
+    }
+  }, [searchResult]);
 
   const onChangeKeyword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(e.target.value);
   };
 
+  // 서치버튼 클릭함수
   const onClickSearch = async () => {
-    if (keyword !== "") {
+    console.log("click");
+    // 키원드가 빈값이 아니고 searchResult의 길이가 0일 경우
+    //updatedSearchResult를 비우고 search를 실행 한다(키워드, page는 1, 사이즈 5, 리셋 false)
+    if (keyword !== "" && searchResult.length === 0) {
       // console.log("keyword: ", keyword);
-      setPage(1);
-      await search(keyword, page, size);
+      setUpdatedSearchResult([]);
+      await search(keyword, (page.value = 1), size, false, false);
+      // 키원드가 빈값이 아니고 searchResult의 길이가 0보다 클 경우
+      // updatedSearchResult를 비우고 search를 실핸한다 (키워드, page는 1, 사이즈 5, 리셋 true)
+    } else if (keyword !== "" && searchResult.length > 0) {
+      setUpdatedSearchResult([]);
+      await search(keyword, (page.value = 1), size, true, false);
     } else {
       searchInputRef.current?.focus();
+    }
+  };
+
+  const moreBtnHandler = () => {
+    if (hasMore) {
+      setPage((prevPageState) => ({
+        value: prevPageState.value + 1,
+        searchCalled: true,
+      }));
+      setToprev(false);
+    }
+    console.log("MORE!!");
+  };
+
+  const prevBtnHandler = () => {
+    if (page.value > 2 && !hasMore) {
+      setPage((prevPageState) => ({
+        value: prevPageState.value - 3,
+        searchCalled: true,
+      }));
+    } else {
+      setPage((prevPageState) => ({
+        value: prevPageState.value - 1,
+        searchCalled: true,
+      }));
+      setToprev(false);
     }
   };
 
@@ -82,39 +157,10 @@ const SearchPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (keyword !== "") {
-      search(keyword, page, size);
-    }
-  }, [page, search]);
-
-  // const lastSearchResultElementRef = useCallback(
-  //   (node: HTMLDivElement | null) => {
-  //     if (loading) return;
-
-  //     if (observer.current) observer.current.disconnect();
-  //     observer.current = new IntersectionObserver((entries) => {
-  //       if (entries[0].isIntersecting && hasMore) {
-  //         setPage((prevPageNumber: number) => prevPageNumber + 1);
-  //       }
-  //     });
-  //     if (node) observer.current?.observe(node);
-  //     console.log(node);
-  //     console.log(hasMore);
-  //   },
-  //   [loading, hasMore]
-  // );
-
-  const moreHeandler = () => {
-    if (searchResult.length !== 0 && hasMore) {
-      setPage((prevPageNumber: number) => prevPageNumber + 1);
-      setSize(2);
-    }
-  };
-
   console.log("page", page);
+  console.log("updatedSearchResult", updatedSearchResult);
   // console.log("loading", loading, "error", error);
-  console.log("searched", searchResult);
+  console.log("searchResult", searchResult);
   return (
     <SearchPageBlock>
       <InputContainer>
@@ -130,68 +176,58 @@ const SearchPage = () => {
         </button>
       </InputContainer>
 
-      {searchResult.length > 0 &&
-        searchResult.map((post: CrewList, index) => {
-          if (searchResult.length === index + 1) {
-            return (
-              <R9dCrew
-                // ref={lastSearchResultElementRef}
-                key={post.crewRecruitmentId}
-                onClick={() => onClickCrew(post.crewRecruitmentId)}
-              >
-                <ImageWrapper>
-                  <img
-                    src={post.image && post.image[0] ? post.image[0] : ""}
-                    alt=""
-                  />
-                </ImageWrapper>
+      {updatedSearchResult.length > 0 && page.value > 1 && (
+        <SearchMoreBtn onClick={prevBtnHandler}>
+          <IoIosArrowUp
+            style={{ width: "30px", height: "30px", color: "grey" }}
+          />
+        </SearchMoreBtn>
+      )}
+      {updatedSearchResult.length > 0 &&
+        updatedSearchResult.map((post: CrewList) => {
+          return (
+            <R9dCrew
+              key={post.crewRecruitmentId}
+              onClick={() => onClickCrew(post.crewRecruitmentId)}
+            >
+              <ImageWrapper>
+                <img
+                  src={post.image && post.image[0] ? post.image[0] : ""}
+                  alt=""
+                />
+              </ImageWrapper>
 
-                <Overview>
-                  <div>
-                    <TitleContainer>
-                      <p>{post.title}</p>
-                    </TitleContainer>
+              <Overview>
+                <div>
+                  <TitleContainer>
+                    <p>{post.title}</p>
+                  </TitleContainer>
 
-                    <LikeButton />
-                  </div>
+                  <LikeButton />
+                </div>
 
-                  <p>{post.exerciseKind} / 서울 중구</p>
-                </Overview>
-              </R9dCrew>
-            );
-          } else {
-            return (
-              <R9dCrew
-                key={post.crewRecruitmentId}
-                onClick={() => onClickCrew(post.crewRecruitmentId)}
-              >
-                <ImageWrapper>
-                  <img
-                    src={post.image && post.image[0] ? post.image[0] : ""}
-                    alt=""
-                  />
-                </ImageWrapper>
-
-                <Overview>
-                  <div>
-                    <TitleContainer>
-                      <p>{post.title}</p>
-                    </TitleContainer>
-
-                    <LikeButton />
-                  </div>
-
-                  <p>{post.exerciseKind} / 서울 중구</p>
-                </Overview>
-              </R9dCrew>
-            );
-          }
+                <p>{post.exerciseKind}</p>
+              </Overview>
+            </R9dCrew>
+          );
         })}
 
       {loading ? <Skeleton /> : ""}
-      <button onClick={moreHeandler}>더보기</button>
+      {error ? (
+        <h3 style={{ color: "red", fontWeight: "bold" }}>
+          입력하신 키워드를 찾지 못했습니다.
+        </h3>
+      ) : (
+        ""
+      )}
+      {updatedSearchResult.length > 0 && hasMore && (
+        <SearchMoreBtn onClick={moreBtnHandler}>
+          <IoIosArrowDown
+            style={{ width: "30px", height: "30px", color: "grey" }}
+          />
+        </SearchMoreBtn>
+      )}
     </SearchPageBlock>
   );
 };
-
 export default SearchPage;

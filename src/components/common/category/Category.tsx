@@ -14,31 +14,10 @@ import Skeleton from "../../Skeleton";
 import { setDisplayRemainingComponents } from "../../../redux/modules/Modules";
 import useSearch from "../../../hook/useSearch";
 import LikeButton from "../LikeButton";
-
-type CrewList = {
-  content: string;
-  crewName: string;
-  crewRecruitmentId: number;
-  currentNumber: number;
-  exerciseDate: string;
-  exerciseKind: string;
-  image?: string[];
-  location: string;
-  postDate: number[];
-  title: string;
-};
-
-interface SearchResult {
-  data: CrewList[];
-}
-
-interface RootState {
-  display: {
-    displayRemainingComponents: boolean;
-  };
-}
+import { RootState } from "../../../redux/config/ConfigStore";
 
 function Category() {
+  const searchResult = useSelector((state: RootState) => state.searchResults);
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
@@ -59,17 +38,23 @@ function Category() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const {
-    searchResult,
+    // searchResult,
     loading,
     error,
     hasMore,
     search,
   }: {
-    searchResult: SearchResult["data"];
+    // searchResult: SearchResult["data"];
     loading: boolean;
     error: any;
     hasMore: boolean;
-    search: (keyword: string, page: number, size: number) => Promise<void>;
+    search: (
+      keyword: string,
+      page: number,
+      size: number,
+      resetResults: boolean,
+      toprev: boolean
+    ) => Promise<void>;
   } = useSearch();
 
   if (error) {
@@ -86,7 +71,7 @@ function Category() {
     size: number
   ) => {
     setSelectedCategory(pickedCategory);
-    search(pickedCategory, page, size);
+    search(pickedCategory, page, size, false, false);
   };
 
   const onClickCrew = (itemId: number) => {

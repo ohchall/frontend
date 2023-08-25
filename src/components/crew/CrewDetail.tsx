@@ -16,7 +16,7 @@ import {
   SubCommentContent,
   StyledAiOutlineHeart,
   StyledFiMoreHorizontal } from './CrewDetail.style';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { getCrew } from "../../api/CrewApi";
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
@@ -29,12 +29,17 @@ import MyProfile from '../../components/common/myprofile/MyProfile';
 import { CheckuserInfo } from '../../api/AuthApi';
 
 function CrewDetail() {
+  const navigate = useNavigate();
   const access = localStorage.getItem('Access');
   const refresh = localStorage.getItem('Refresh');
   const [loggedin, setLoggedin] = useState(false);
 
   const onClickRegisterComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  }
+
+  const onClickCrewMember = () => {
+    navigate('/crew/member');
   }
 
   useEffect(() => {
@@ -239,6 +244,14 @@ function CrewDetail() {
 
         <ButtonWrapper>
           <button>크루 참여하기</button>
+        </ButtonWrapper>
+
+        <ButtonWrapper>
+          <button
+            onClick={onClickCrewMember}
+          >
+            크루 멤버 관리하기
+          </button>
         </ButtonWrapper>
       </CrewDetailBlock>
     </>

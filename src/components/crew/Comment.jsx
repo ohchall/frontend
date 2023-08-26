@@ -2,6 +2,7 @@ import {
   CommentContainer,
   StyledComment,
   CommentHeader,
+  CommentModal,
   CommentContent,
   CommentFooter,
   CommentFormWrapper,
@@ -18,13 +19,31 @@ import {
   useQueryClient,
   useMutation,
   useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { 
+  useState,
+  useRef } from 'react';
 
 function Comment({
   crewRecruitmentId
 }) {
   const [content, setContent] = useState('');
+  const [isCommentModalOpen, setCommentModalOpen] = useState(false);
   const queryClient = useQueryClient();
+  const commentModalRef = useRef(null);
+
+  const openCommentModal = () => {
+    setCommentModalOpen(true);
+  };
+
+  const closeCommentModal = () => {
+    setCommentModalOpen(false);
+  }
+
+  const onClickCommentContainer = (e) => {
+    if (commentModalRef.current && !commentModalRef.current.contains(e.target)) {
+      closeCommentModal();
+    }
+  }
 
   const onClickRegisterComment = (e) => {
     e.preventDefault();
@@ -52,7 +71,9 @@ function Comment({
   });
 
   return (
-    <CommentContainer>
+    <CommentContainer
+      onClick={onClickCommentContainer}
+    >
       {isLoading && 'Loading...'}
       {error && 'An error has occured: ' + error.message}
       {data && data?.data.map((item, idx) => (
@@ -69,7 +90,25 @@ function Comment({
 
           <div>
             <span>8시간전</span>
-            <button><StyledFiMoreHorizontal /></button>
+            <button
+              onClick={openCommentModal}
+            >
+              <StyledFiMoreHorizontal />
+            </button>
+
+            {isCommentModalOpen && (
+            <CommentModal
+              ref={commentModalRef}
+              onClick={e => e.stopPropagation()}
+            >
+              <button>
+                수정
+              </button>
+              <button>
+                삭제
+              </button>
+            </CommentModal>
+            )}
           </div>
         </CommentHeader>
 

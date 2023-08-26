@@ -42,12 +42,14 @@ export const CommentHeader = styled.div`
   }
 
   & > div:nth-of-type(2) {
+    position: relative;
     display: flex;
     align-items: center;
 
     & > span {
       display: block;
       margin-right: 8px;
+      font-size: 12px;
     }
 
     & > button {
@@ -55,6 +57,19 @@ export const CommentHeader = styled.div`
       background-color: transparent;
       border: none;
     }
+  }
+`;
+
+export const CommentModal = styled.div`
+  position: absolute;
+  right: 4px;
+  top: 32px;
+
+  & > button {
+    display: block;
+    background-color: transparent;
+    border: none;
+    font-size: 12px;
   }
 `;
 

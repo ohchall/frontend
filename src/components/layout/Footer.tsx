@@ -9,17 +9,27 @@ import {
 } from "./Footer.style";
 import { ReactComponent as HomeIcon } from "../../assets/HomeIcon.svg";
 import { useDispatch } from "react-redux";
-import { setDisplayRemainingComponents } from "../../redux/modules/Modules";
+import {
+  resetSearchResult,
+  setDisplayRemainingComponents,
+} from "../../redux/modules/Modules";
 
 function Footer() {
   const dispatch = useDispatch();
   const homeClickHandler = () => {
     dispatch(setDisplayRemainingComponents(true));
   };
+  const SearchClickHandler = () => {
+    dispatch(resetSearchResult());
+  };
+  const CrewClickHandler = () => {
+    dispatch(resetSearchResult());
+    dispatch(setDisplayRemainingComponents(true));
+  };
   return (
     <FooterSection>
       <LinkContainer>
-        <StyledLink to="/crew">
+        <StyledLink to="/crew" onClick={CrewClickHandler}>
           <StyledFiSmile />
           <span>크루</span>
         </StyledLink>
@@ -39,7 +49,7 @@ function Footer() {
           <span>홈</span>
         </StyledLink>
 
-        <StyledLink to="/search">
+        <StyledLink to="/search" onClick={SearchClickHandler}>
           <StyledFiSearch />
           <span>검색</span>
         </StyledLink>

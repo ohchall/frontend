@@ -14,6 +14,15 @@ export const SearchPageBlock = styled.main`
     display: none;
   }
 `;
+
+export const SearchMoreBtn = styled.button`
+  width: 100%;
+  height: 50px;
+  border: none;
+  background-color: white;
+  font-size: 14px;
+  margin-top: 10px;
+`;
 export const InputContainer = styled.div`
   display: flex;
   width: 100%;

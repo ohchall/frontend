@@ -9,12 +9,19 @@ import "swiper/css";
 import LikeButton from "../LikeButton";
 
 interface CrewList {
-  currentNumber: number;
-  crewRecruitmentId: number;
-  title: string;
   content: string;
-  image?: string[];
+  crewName: string;
+  crewRecruitmentId: number;
+  currentNumber: number;
+  exerciseDate: string;
   exerciseKind: string;
+  image?: string[];
+  location: string;
+  postDate: number[];
+  title: string;
+  totalNumber: number;
+  usersLocation: string;
+  page: number;
 }
 
 interface Data {
@@ -55,13 +62,16 @@ const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
             <div>
               <TitleContainer>
                 <p>{data?.data.crewList[0].title}</p>
-                <span>15/16</span>
+                {/* <span>15/16</span> */}
               </TitleContainer>
 
               <LikeButton />
             </div>
 
-            <p>{data?.data.crewList[0].exerciseKind} / 서울 중구</p>
+            <p>
+              {data?.data.crewList[0].exerciseKind}/
+              {data?.data.crewList[0].location}{" "}
+            </p>
           </Overview>
         </R9dCrew>
       )}

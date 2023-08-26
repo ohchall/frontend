@@ -27,10 +27,10 @@ const Oauth: React.FC = () => {
         const refresh = res.headers.refresh;
         localStorage.setItem("Access", access);
         localStorage.setItem("Refresh", refresh);
-        console.log(res);
+        // console.log(res);
         navigate("/");
       } catch (e) {
-        console.error(e);
+        // console.error(e);
         navigate("/");
       }
     })();

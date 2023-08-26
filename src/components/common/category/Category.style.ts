@@ -86,3 +86,12 @@ export const CategoryContents = styled.section`
   gap: 20px;
   margin-top: 20px;
 `;
+
+export const SearchMoreBtn = styled.button`
+  width: 100%;
+  height: 50px;
+  border: none;
+  background-color: white;
+  font-size: 14px;
+  margin-top: 10px;
+`;

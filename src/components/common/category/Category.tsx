@@ -7,37 +7,20 @@ import {
   R9dCrew,
   CategoryContents,
   CategoryBtns,
+  SearchMoreBtn,
 } from "./Category.style";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "../../Skeleton";
-import { setDisplayRemainingComponents } from "../../../redux/modules/Modules";
+import {
+  CrewList,
+  resetSearchResult,
+  setDisplayRemainingComponents,
+} from "../../../redux/modules/Modules";
 import useSearch from "../../../hook/useSearch";
 import LikeButton from "../LikeButton";
-
-type CrewList = {
-  content: string;
-  crewName: string;
-  crewRecruitmentId: number;
-  currentNumber: number;
-  exerciseDate: string;
-  exerciseKind: string;
-  image?: string[];
-  location: string;
-  postDate: number[];
-  title: string;
-};
-
-interface SearchResult {
-  data: CrewList[];
-}
-
-interface RootState {
-  display: {
-    displayRemainingComponents: boolean;
-  };
-}
-
+import { RootState } from "../../../redux/config/ConfigStore";
+import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 function Category() {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -55,38 +38,103 @@ function Category() {
     "테니스",
   ];
   const dispatch = useDispatch();
+  const searchResult = useSelector((state: RootState) => state.searchResults);
+  const [page, setPage] = useState({ value: 1, searchCalled: false });
+  const [toprev, setToprev] = useState(false);
+  const [updatedSearchResult, setUpdatedSearchResult] = useState<CrewList[]>(
+    []
+  );
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   const {
-    searchResult,
     loading,
     error,
     hasMore,
     search,
   }: {
-    searchResult: SearchResult["data"];
     loading: boolean;
-    error: any;
+    error: boolean;
     hasMore: boolean;
-    search: (keyword: string, page: number, size: number) => Promise<void>;
+    search: (
+      keyword: string,
+      page: number,
+      resetResults: boolean,
+      toprev: boolean
+    ) => Promise<void>;
   } = useSearch();
 
-  if (error) {
-    alert("입력하신 키워드를 찾지 못하였습니다.");
-  }
+  const onClickCategory = (pickedCategory: string, page: number) => {
+    if (pickedCategory === "전체") {
+      dispatch(setDisplayRemainingComponents(true));
+      setPage((prevPageState) => ({
+        value: (prevPageState.value = 0),
+        searchCalled: false,
+      }));
+      dispatch(resetSearchResult());
+      setSelectedCategory(pickedCategory);
+    } else {
+      setSelectedCategory(pickedCategory);
+      search(pickedCategory, page, false, false);
+      setPage((prevPageState) => ({
+        value: (prevPageState.value = 1),
+        searchCalled: true,
+      }));
+    }
+  };
 
   useEffect(() => {
-    dispatch(setDisplayRemainingComponents(searchResult.length === 0));
-  }, [searchResult, dispatch]);
+    // 페이지가 1보가 크고 searchCalled가 false일때 서치를 실행하고 searchCalled를 true로 바꿔 준다.
+    if (page.value >= 1 && page.searchCalled && page.value !== 0) {
+      setPage((prevState) => ({ ...prevState, searchCalled: false }));
+      search(selectedCategory, page.value, false, toprev);
+    }
+  }, [page, selectedCategory, search]);
 
-  const onClickCategory = (
-    pickedCategory: string,
-    page: number,
-    size: number
-  ) => {
-    setSelectedCategory(pickedCategory);
-    search(pickedCategory, page, size);
+  useEffect(() => {
+    //searchResult의 길이가 0보다 클때 updatedSearchReuslt를 10개씩 보여준다.
+    if (searchResult.length > 0 || error) {
+      let newSearchResult = searchResult.slice(-10);
+      newSearchResult.sort((a: any, b: any) => a.page - b.page);
+      setUpdatedSearchResult(newSearchResult);
+      dispatch(setDisplayRemainingComponents(false));
+    }
+  }, [searchResult]);
+
+  const displayRemainingComponents = useSelector(
+    (state: RootState) => state.display.displayRemainingComponents
+  );
+
+  const moreBtnHandler = () => {
+    if (hasMore) {
+      setPage((prevPageState) => ({
+        value: prevPageState.value + 1,
+        searchCalled: true,
+      }));
+      setToprev(false);
+    }
+    // console.log("MORE!!");
+  };
+
+  const prevBtnHandler = () => {
+    if (page.value > 2 && !hasMore) {
+      setPage((prevPageState) => ({
+        value: prevPageState.value - 3,
+        searchCalled: true,
+      }));
+    } else if (updatedSearchResult.length === 10 && page.value > 2 && hasMore) {
+      setPage((prevPageState) => ({
+        value: prevPageState.value - 2,
+        searchCalled: true,
+      }));
+      setToprev(true);
+    } else {
+      setPage((prevPageState) => ({
+        value: prevPageState.value - 1,
+        searchCalled: true,
+      }));
+      setToprev(true);
+    }
   };
 
   const onClickCrew = (itemId: number) => {
@@ -96,11 +144,11 @@ function Category() {
       navigate("/login");
     }
   };
-  const displayRemainingComponents = useSelector(
-    (state: RootState) => state.display.displayRemainingComponents
-  );
 
   // console.log(selectedCategory);
+  // console.log("page", page);
+  // console.log("updatedSearchResult", updatedSearchResult);
+  // console.log("searchResult", searchResult);
   // console.log(category);
   // console.log(searchResult);
 
@@ -110,7 +158,7 @@ function Category() {
         return (
           <CategoryBtns
             key={category}
-            onClick={() => onClickCategory(category, 1, 5)}
+            onClick={() => onClickCategory(category, 1)}
             style={{
               backgroundColor: selectedCategory === category ? "orange" : "",
             }}
@@ -120,10 +168,18 @@ function Category() {
         );
       })}
 
+      {page.value > 1 && (
+        <SearchMoreBtn onClick={prevBtnHandler}>
+          <IoIosArrowUp
+            style={{ width: "30px", height: "30px", color: "grey" }}
+          />
+        </SearchMoreBtn>
+      )}
+
       {!displayRemainingComponents && (
         <CategoryContents>
-          {searchResult?.length > 0 &&
-            searchResult.map((post) => {
+          {updatedSearchResult?.length > 0 &&
+            updatedSearchResult.map((post) => {
               return (
                 <R9dCrew
                   key={post.crewRecruitmentId}
@@ -150,14 +206,24 @@ function Category() {
                       <LikeButton />
                     </div>
 
-                    <p>{post.exerciseKind} / 서울 중구</p>
+                    <p>
+                      {post.exerciseKind} / {post.location}
+                    </p>
                   </Overview>
                 </R9dCrew>
               );
             })}
         </CategoryContents>
       )}
+      {updatedSearchResult.length >= 5 && searchResult.length > 0 && (
+        <SearchMoreBtn onClick={moreBtnHandler}>
+          <IoIosArrowDown
+            style={{ width: "30px", height: "30px", color: "grey" }}
+          />
+        </SearchMoreBtn>
+      )}
       {loading ? <Skeleton /> : ""}
+      {error ? <h3 style={{ color: "red" }}>결과가 없습니다</h3> : ""}
     </CategoryBlock>
   );
 }

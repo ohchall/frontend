@@ -3,7 +3,8 @@ import Modules from "../modules/Modules";
 
 const store = configureStore({
   reducer: {
-    display: Modules,
+    display: Modules.displayReducer,
+    searchResults: Modules.searchReducer,
   },
 });
 

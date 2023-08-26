@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-
 interface DisplayState {
   displayRemainingComponents: boolean;
 }
@@ -53,14 +52,13 @@ export const searchResultSlice = createSlice({
     addSearchResult: (state, action: PayloadAction<CrewList[]>) => {
       state.push(...action.payload);
     },
-    prependSearchResult: (state, action: PayloadAction<CrewList[]>) => {
-      // Here we are adding the new results to the front of the array
-      return [...action.payload, ...state];
+    resetSearchResult: () => {
+      return [];
     },
   },
 });
 
-export const { setSearchResult, addSearchResult, prependSearchResult } =
+export const { setSearchResult, addSearchResult, resetSearchResult } =
   searchResultSlice.actions;
 
 export default {

@@ -14,42 +14,23 @@ import {
   R9dCrew,
   SearchMoreBtn,
 } from "./SearchPage.style";
-// import { useSelector } from "react-redux";
-// import { RootState } from "../../redux/config/ConfigStore";
-// import { CrewList } from "../../redux/modules/Modules";
-
-type CrewList = {
-  content: string;
-  crewName: string;
-  crewRecruitmentId: number;
-  currentNumber: number;
-  exerciseDate: string;
-  exerciseKind: string;
-  image?: string[];
-  location: string;
-  postDate: number[];
-  title: string;
-  totalNumber: number;
-  usersLocation: string;
-  page: number;
-};
-
-interface SearchResult {
-  data: CrewList[];
-}
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/config/ConfigStore";
+import { CrewList } from "../../redux/modules/Modules";
 
 const SearchPage = () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
+  const searchResult = useSelector((state: RootState) => state.searchResults);
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState({ value: 0, searchCalled: false });
-  const [size, setSize] = useState(5);
+
   const [toprev, setToprev] = useState(false);
   const [updatedSearchResult, setUpdatedSearchResult] = useState<CrewList[]>(
     []
   );
-  const observer = useRef<IntersectionObserver | null>(null);
+
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   // useSearch : 결과, 로딩, 에러 등을 반환 : 키워드, 페이지, 사이즈, 결과리셋 가져감
@@ -58,18 +39,13 @@ const SearchPage = () => {
     error,
     hasMore,
     search,
-    searchResult,
-    backupPage,
   }: {
     loading: boolean;
     error: any;
     hasMore: boolean;
-    searchResult: CrewList[];
-    backupPage: boolean;
     search: (
       keyword: string,
       page: number,
-      size: number,
       resetResults: boolean,
       toprev: boolean
     ) => Promise<void>;
@@ -78,16 +54,10 @@ const SearchPage = () => {
   // 페이지, 키원드, 서치가 변환될 때마다 실행
   useEffect(() => {
     // 페이지가 1보가 크고 searchCalled가 false일때 서치를 실행하고 searchCalled를 true로 바꿔 준다.
-    if (page.value >= 1 && page.searchCalled) {
+    if (page.value >= 1 && page.searchCalled && page.value !== 0) {
       setPage((prevState) => ({ ...prevState, searchCalled: false }));
-      search(keyword, page.value, size, false, toprev);
+      search(keyword, page.value, false, toprev);
     }
-    // 페이지가 0보다 크고 searchCalled가 true일때 searchCalled를 true로 바꿔준다.
-    // else if (updatedSearchResult.length === 10 && page.searchCalled) {
-    //   setPage((prevState) => ({ ...prevState, searchCalled: false }));
-    //   search(keyword, page.value, size, false);
-    //   // setUpdatedSearchResult((prev) => prev.slice(0, -5));
-    // }
   }, [page, keyword, search]);
 
   // 서치결과가 변화 될 때마다 실행
@@ -106,18 +76,13 @@ const SearchPage = () => {
 
   // 서치버튼 클릭함수
   const onClickSearch = async () => {
-    console.log("click");
-    // 키원드가 빈값이 아니고 searchResult의 길이가 0일 경우
-    //updatedSearchResult를 비우고 search를 실행 한다(키워드, page는 1, 사이즈 5, 리셋 false)
+    // console.log("click");
     if (keyword !== "" && searchResult.length === 0) {
-      // console.log("keyword: ", keyword);
       setUpdatedSearchResult([]);
-      await search(keyword, (page.value = 1), size, false, false);
-      // 키원드가 빈값이 아니고 searchResult의 길이가 0보다 클 경우
-      // updatedSearchResult를 비우고 search를 실핸한다 (키워드, page는 1, 사이즈 5, 리셋 true)
+      await search(keyword, (page.value = 1), false, false);
     } else if (keyword !== "" && searchResult.length > 0) {
       setUpdatedSearchResult([]);
-      await search(keyword, (page.value = 1), size, true, false);
+      await search(keyword, (page.value = 1), true, false);
     } else {
       searchInputRef.current?.focus();
     }
@@ -131,7 +96,7 @@ const SearchPage = () => {
       }));
       setToprev(false);
     }
-    console.log("MORE!!");
+    // console.log("MORE!!");
   };
 
   const prevBtnHandler = () => {
@@ -140,12 +105,18 @@ const SearchPage = () => {
         value: prevPageState.value - 3,
         searchCalled: true,
       }));
+    } else if (updatedSearchResult.length === 10 && page.value > 2 && hasMore) {
+      setPage((prevPageState) => ({
+        value: prevPageState.value - 2,
+        searchCalled: true,
+      }));
+      setToprev(true);
     } else {
       setPage((prevPageState) => ({
         value: prevPageState.value - 1,
         searchCalled: true,
       }));
-      setToprev(false);
+      setToprev(true);
     }
   };
 
@@ -157,10 +128,10 @@ const SearchPage = () => {
     }
   };
 
-  console.log("page", page);
-  console.log("updatedSearchResult", updatedSearchResult);
+  // console.log("page", page);
+  // console.log("updatedSearchResult", updatedSearchResult);
+  // console.log("searchResult", searchResult);
   // console.log("loading", loading, "error", error);
-  console.log("searchResult", searchResult);
   return (
     <SearchPageBlock>
       <InputContainer>
@@ -176,7 +147,7 @@ const SearchPage = () => {
         </button>
       </InputContainer>
 
-      {updatedSearchResult.length > 0 && page.value > 1 && (
+      {page.value > 1 && (
         <SearchMoreBtn onClick={prevBtnHandler}>
           <IoIosArrowUp
             style={{ width: "30px", height: "30px", color: "grey" }}
@@ -213,13 +184,7 @@ const SearchPage = () => {
         })}
 
       {loading ? <Skeleton /> : ""}
-      {error ? (
-        <h3 style={{ color: "red", fontWeight: "bold" }}>
-          입력하신 키워드를 찾지 못했습니다.
-        </h3>
-      ) : (
-        ""
-      )}
+      {error ? <h3 style={{ color: "red" }}>결과가 없습니다</h3> : ""}
       {updatedSearchResult.length > 0 && hasMore && (
         <SearchMoreBtn onClick={moreBtnHandler}>
           <IoIosArrowDown

@@ -4,12 +4,19 @@ import { ImageWrapper, Overview, TitleContainer } from "./LatestCrewList.style";
 import LikeButton from "../LikeButton";
 
 interface CrewList {
-  currentNumber: number;
-  crewRecruitmentId: number;
-  title: string;
   content: string;
-  image?: string[];
+  crewName: string;
+  crewRecruitmentId: number;
+  currentNumber: number;
+  exerciseDate: string;
   exerciseKind: string;
+  image?: string[];
+  location: string;
+  postDate: number[];
+  title: string;
+  totalNumber: number;
+  usersLocation: string;
+  page: number;
 }
 
 interface Data {
@@ -59,12 +66,15 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
               <div>
                 <TitleContainer>
                   <p>{item.title}</p>
-                  <span>15/16</span>
+                  {/* <span>{item.totalNumber}</span> */}
                 </TitleContainer>
 
                 <LikeButton />
               </div>
-              <p>{item.exerciseKind} / 서울 중구</p>
+              <p style={{ fontSize: "12px" }}>
+                {" "}
+                {item.exerciseKind}/{item.location}{" "}
+              </p>
             </Overview>
           </SwiperSlide>
         ))}

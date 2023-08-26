@@ -1,12 +1,19 @@
 import { TitleContainer, PopularCrewListBlock } from "./PopularCrewList.style";
 
 interface CrewList {
-  currentNumber: number;
-  crewRecruitmentId: number;
-  title: string;
   content: string;
-  image?: string[];
+  crewName: string;
+  crewRecruitmentId: number;
+  currentNumber: number;
+  exerciseDate: string;
   exerciseKind: string;
+  image?: string[];
+  location: string;
+  postDate: number[];
+  title: string;
+  totalNumber: number;
+  usersLocation: string;
+  page: number;
 }
 
 interface Data {
@@ -37,7 +44,10 @@ const PopularCrewList: React.FC<PopularCrewListProps> = ({
             <p>{item.title}</p>
           </TitleContainer>
 
-          <p>{item.exerciseKind} / 서울 중구</p>
+          <p style={{ fontSize: "12px" }}>
+            {/* {item.exerciseKind}/ */}
+            {item.location}
+          </p>
         </div>
       ))}
     </PopularCrewListBlock>

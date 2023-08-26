@@ -1,39 +1,22 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-
-type CrewList = {
-  content: string;
-  crewName: string;
-  crewRecruitmentId: number;
-  currentNumber: number;
-  exerciseDate: string;
-  exerciseKind: string;
-  image?: string[];
-  location: string;
-  postDate: number[];
-  title: string;
-  totalNumber: number;
-  usersLocation: string;
-  page: number;
-};
-
-interface SearchResult {
-  data: CrewList[];
-}
+import {
+  addSearchResult,
+  setSearchResult,
+  resetSearchResult,
+} from "../redux/modules/Modules";
 
 const useSearch = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [backupPage, setBackupPage] = useState(false);
   const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(false);
-  const [searchResult, setSearchResult] = useState<CrewList[]>([]);
+  // const [searchResult, setSearchResult] = useState<CrewList[]>([]);
   const search = useCallback(
     async (
       keyword: string,
       page: number,
-      size: number,
       resetResults: boolean,
       toprev: boolean
     ) => {
@@ -42,7 +25,7 @@ const useSearch = () => {
 
       const encodedKeyword = encodeURIComponent(keyword);
 
-      const url = `/crew/search/basic?keyword=${encodedKeyword}&page=${page}&size=${size}&sortBy=content&isAsc=true`;
+      const url = `/crew/search/basic?keyword=${encodedKeyword}&page=${page}&size=5&sortBy=content&isAsc=true`;
       // console.log(url);
       try {
         const response = await axios.get(
@@ -55,7 +38,8 @@ const useSearch = () => {
         if (response.data.crewList.length === 0) {
           setHasMore(false);
           setLoading(false);
-          setSearchResult([]);
+          setError(true);
+          dispatch(resetSearchResult());
         }
 
         const resultsWithPageNumber = response.data.crewList.map(
@@ -63,14 +47,17 @@ const useSearch = () => {
         );
         // 첫 페이지 또는 결과 초기화 요청이면 setSearchResults 액션 디스패치
         if (resetResults || page === 1) {
-          setSearchResult(resultsWithPageNumber);
+          dispatch(setSearchResult(resultsWithPageNumber));
+        } else if (toprev) {
+          dispatch(resetSearchResult());
+          dispatch(addSearchResult(resultsWithPageNumber));
         } else {
           // 그렇지 않으면 addSearchResults 액션 디스패치
-          setSearchResult((prev) => [...prev, ...resultsWithPageNumber]);
+          dispatch(addSearchResult(resultsWithPageNumber));
         }
 
-        console.log("toprev", toprev);
-        console.log("resetResults", resetResults);
+        // console.log("toprev", toprev);
+        // console.log("resetResults", resetResults);
       } catch (e) {
         // console.log("e", e);
         setError(true);
@@ -79,9 +66,9 @@ const useSearch = () => {
       }
       // console.log("keyword", keyword);
     },
-    []
+    [dispatch]
   );
 
-  return { loading, error, search, hasMore, searchResult, backupPage };
+  return { loading, error, search, hasMore };
 };
 export default useSearch;

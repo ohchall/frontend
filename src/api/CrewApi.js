@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 // queryKey = crews
 export const getCrews = async () => {
@@ -45,42 +45,35 @@ export const useFetchCrew = () => {
   });
 };
 
-// queryKey = crewData
-export const useAddCrewMutation = () => {
+// queryKey = crewComments
+export const getCrewComments = async () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const currentUserToken = {
-    headers: {
-      Access: `${access}`,
-      Refresh: `${refresh}`,
-      "Content-Type": "multipart/form-data",
-    },
-  };
-
-  return useMutation(["crewData"], async (formData) => {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/crew`,
-      formData,
-      currentUserToken
-    );
-    return data;
-  });
+  const res = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/crew/comment/allComment`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+  return res;
 };
 
-// // 좋아요 버튼
-// export const useLike = async () => {
-//     const queryClient = useQueryClient();
-//     return useMutation(
-//       () => {
-//         return axios.post(
-//           `${process.env.REACT_APP_SERVER_URL}/`,
-          
-//         );
-//       },
-//       {
-//         onSuccess: () => {
-//           queryClient.invalidateQueries("");
-//         },
-//       }
-//     );
-//   };
+// queryKey = crewComments
+export const addCrewComment = async (newComment) => {
+  const access = localStorage.getItem('Access');
+  const refresh = localStorage.getItem('Reresh');
+
+  await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${newComment.crewRecruitmentId}`,
+    newComment.data,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+}

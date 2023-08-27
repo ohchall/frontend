@@ -1,10 +1,9 @@
 import axios from "axios";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import secureLocalStorage from "react-secure-storage";
+import { useMutation } from "@tanstack/react-query";
 
 export const useAddCrewMutation = () => {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const currentUserToken = {
     headers: {
       Access: `${access}`,

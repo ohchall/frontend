@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import secureLocalStorage from "react-secure-storage";
 
 export type Todo = {
   title: string;
@@ -14,8 +13,8 @@ type ToDoId = string;
 export type UpdatedTodo = Todo & { toDoId: ToDoId };
 
 export const useAddTodoMutation = () => {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const headers = {
     Access: `${access}`,
     Refresh: `${refresh}`,
@@ -38,8 +37,8 @@ export const useAddTodoMutation = () => {
 
 export const useDeleteTodoMutation = () => {
   const queryClient = useQueryClient();
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const headers = {
     Access: `${access}`,
     Refresh: `${refresh}`,
@@ -61,8 +60,8 @@ export const useDeleteTodoMutation = () => {
 };
 
 export const useUpdateTodoMutation = () => {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const headers = {
     Access: `${access}`,
     Refresh: `${refresh}`,
@@ -86,8 +85,8 @@ export const useUpdateTodoMutation = () => {
 const todosQueryKey = ["todos"];
 
 export const useFetchTodos = () => {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const headers = {
     Access: `${access}`,
     Refresh: `${refresh}`,
@@ -104,8 +103,8 @@ export const useFetchTodos = () => {
 };
 
 export const useUpdateIsSuccessMutation = () => {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const headers = {
     Access: `${access}`,
     Refresh: `${refresh}`,

@@ -16,12 +16,11 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
 import { CrewList } from "../../redux/modules/Modules";
-import secureLocalStorage from "react-secure-storage";
 import Scrap from "../../components/scrap/Scrap";
 
 const SearchPage = () => {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const searchResult = useSelector((state: RootState) => state.searchResults);
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
@@ -175,7 +174,7 @@ const SearchPage = () => {
                     <p>{post.title}</p>
                   </TitleContainer>
 
-                  <Scrap />
+                  <Scrap id={post.crewRecruitmentId} />
                 </div>
 
                 <p>{post.exerciseKind}</p>

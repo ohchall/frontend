@@ -16,11 +16,11 @@ import { RootState } from '../../redux/config/ConfigStore';
 import MyProfile from '../../components/common/myprofile/MyProfile';
 import { useEffect, useState } from 'react';
 import { CheckuserInfo } from '../../api/AuthApi';
-import secureLocalStorage from "react-secure-storage";
+
 
 function Crew() {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log("triggered");
@@ -40,14 +40,14 @@ function Crew() {
   );
 
   const onClickCrew = (itemId: number) => {
-    if (access && refresh !== '') {
+    if (access && refresh !== "") {
       navigate(`/crew/${itemId}`);
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   };
 
-  const { data, isLoading, error: queryError } = useQuery(['crews'], getCrews);
+  const { data, isLoading, error: queryError } = useQuery(["crews"], getCrews);
 
   let errorMessage: ReactNode = null;
   if (queryError) {
@@ -59,14 +59,14 @@ function Crew() {
     <>
       {loggedin ? <MyProfile /> : null}
       <CrewBlock>
-        {isLoading && 'Loading...'}
+        {isLoading && "Loading..."}
         {errorMessage}
         {/* {error && 'An error has occurred: ' + error.message} */}
         <Category />
 
         {displayRemainingComponents && (
           <>
-            {' '}
+            {" "}
             <CrewListContainer>
               <CrewListTitle>최신 크루 리스트</CrewListTitle>
 

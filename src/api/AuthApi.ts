@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from "axios";
-import secureLocalStorage from "react-secure-storage";
 
 interface NewUser {
   useremail: string;
@@ -54,8 +53,8 @@ export const UserCheck = async (user: User): Promise<void> => {
     const refresh = response.headers.refresh;
 
     if (access && refresh) {
-      secureLocalStorage.setItem("Access", access);
-      secureLocalStorage.setItem("Refresh", refresh);
+      localStorage.setItem("Access", access);
+      localStorage.setItem("Refresh", refresh);
     }
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
@@ -68,8 +67,8 @@ export const UserCheck = async (user: User): Promise<void> => {
 //유저프로필 요청
 export const CheckuserInfo = async () => {
   try {
-    const access = secureLocalStorage.getItem("Access");
-    const refresh = secureLocalStorage.getItem("Refresh");
+    const access = localStorage.getItem("Access");
+    const refresh = localStorage.getItem("Refresh");
     const currentUserToken = {
       headers: {
         Access: `${access}`,
@@ -94,8 +93,8 @@ export const CheckuserInfo = async () => {
 
 // 로그인 여부 인증
 export const LoginStatus = async () => {
-  const accesstoken = secureLocalStorage.getItem("Access");
-  const refreshtoken = secureLocalStorage.getItem("Refresh");
+  const accesstoken = localStorage.getItem("Access");
+  const refreshtoken = localStorage.getItem("Refresh");
   if (!accesstoken || !refreshtoken) return false;
   try {
     const currentUserToken = {

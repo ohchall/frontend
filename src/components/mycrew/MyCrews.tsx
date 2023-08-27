@@ -6,10 +6,16 @@ import { BsPerson } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowDown } from 'react-icons/io';
 import {
-  CrewPersonMax, CrewPostButton, CrewPostInfo, CrewPostRecent,
-  CrewPostReContent, CrewPostReImg, CrewPosts, CrewPostsRecents, CrewPostUpLoad
-} from './MyCrews.style';
-import secureLocalStorage from "react-secure-storage";
+  CrewPersonMax,
+  CrewPostButton,
+  CrewPostInfo,
+  CrewPostRecent,
+  CrewPostReContent,
+  CrewPostReImg,
+  CrewPosts,
+  CrewPostsRecents,
+  CrewPostUpLoad,
+} from "./MyCrews.style";
 
 interface Crew {
   crewRecruitmentId: number;
@@ -29,8 +35,8 @@ interface CrewDataResponse {
 
 const MyCrews: React.FC = () => {
   const observerRef = useRef<HTMLDivElement | null>(null);
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const { data, isSuccess, hasNextPage, fetchNextPage } = useInfiniteQuery<CrewDataResponse>(
     ['crewData'],
     ({ pageParam = 1 }) => axios.get(`${process.env.REACT_APP_SERVER_URL}/crew/more`, {

@@ -19,12 +19,12 @@ import {
   ReactNode} from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/config/ConfigStore';
-import secureLocalStorage from "react-secure-storage";
+
 
 function MainPage() {
   const navigate = useNavigate();
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   // const [displayRemainingComponents, setDisplayRemainingComponents] =
   //   useState(true);

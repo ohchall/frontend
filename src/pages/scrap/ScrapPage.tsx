@@ -2,7 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getScrap } from "../../api/CrewApi";
 import { useNavigate } from "react-router-dom";
-import secureLocalStorage from "react-secure-storage";
 
 interface CrewList {
   content: string;
@@ -28,8 +27,8 @@ interface Data {
 }
 
 const ScrapPage = () => {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
   const { data, isLoading, error } = useQuery(["scraps"], getScrap);
 

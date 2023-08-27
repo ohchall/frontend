@@ -57,31 +57,46 @@ export const useAddCrewMutation = () => {
       "Content-Type": "multipart/form-data",
     },
   };
-
-  return useMutation(["crewData"], async (formData) => {
-    const { data } = await axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/crew`,
-      formData,
-      currentUserToken
-    );
-    return data;
-  });
 };
 
-// // 좋아요 버튼
-// export const useLike = async () => {
-//     const queryClient = useQueryClient();
-//     return useMutation(
-//       () => {
-//         return axios.post(
-//           `${process.env.REACT_APP_SERVER_URL}/`,
-          
-//         );
-//       },
-//       {
-//         onSuccess: () => {
-//           queryClient.invalidateQueries("");
-//         },
-//       }
-//     );
-//   };
+return useMutation(["crewData"], async (formData) => {
+  const { data } = await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/crew`,
+    formData,
+    currentUserToken
+  );
+  return data;
+});
+
+// queryKey = crewComments
+export const getCrewComments = async () => {
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
+  const res = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/crew/comment/allComment`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+  return res;
+};
+
+// queryKey = crewComments
+export const addCrewComment = async (newComment) => {
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Reresh");
+
+  await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${newComment.crewRecruitmentId}`,
+    newComment.data,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+};

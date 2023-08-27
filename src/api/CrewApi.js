@@ -57,17 +57,16 @@ export const useAddCrewMutation = () => {
       "Content-Type": "multipart/form-data",
     },
   };
+
+  return useMutation(["crewData"], async (formData) => {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/crew`,
+      formData,
+      currentUserToken
+    );
+    return data;
+  });
 };
-
-return useMutation(["crewData"], async (formData) => {
-  const { data } = await axios.post(
-    `${process.env.REACT_APP_SERVER_URL}/crew`,
-    formData,
-    currentUserToken
-  );
-  return data;
-});
-
 // queryKey = crewComments
 export const getCrewComments = async () => {
   const access = secureLocalStorage.getItem("Access");

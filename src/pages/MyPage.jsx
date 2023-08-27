@@ -4,10 +4,11 @@ import MyProfile from "../components/common/myprofile/MyProfile";
 import MyCrews from "../components/mycrew/MyCrews";
 import { styled } from "styled-components";
 import { CheckuserInfo } from "../api/AuthApi";
+import secureLocalStorage from "react-secure-storage";
 
 function MyPage() {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log('triggered');

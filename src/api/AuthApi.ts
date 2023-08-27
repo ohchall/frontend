@@ -1,7 +1,32 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import secureLocalStorage from "react-secure-storage";
+
+interface NewUser {
+  useremail: string;
+  password: string;
+  pwCheck: string;
+  nickname: string;
+  userName: string;
+  phonenumber: string;
+}
+
+interface User {
+  useremail: string;
+  password: string;
+}
+
+interface AxiosCustomHeaders {
+  access: string;
+  refresh: string;
+  [header: string]: string;
+}
+
+interface CustomAxiosResponse extends AxiosResponse {
+  headers: AxiosCustomHeaders;
+}
 
 // 회원가입
-export const Register = async (newuser) => {
+export const Register = async (newuser: NewUser) => {
   try {
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER_URL}/signup`,
@@ -11,32 +36,40 @@ export const Register = async (newuser) => {
     // console.log("resdata", data);
     return data;
   } catch (e) {
-    alert(e.response.data.msg);
+    if (axios.isAxiosError(e) && e.response) {
+      alert(e.response.data.msg);
+    }
   }
 };
 
 //로그인
-export const UserCheck = async (user) => {
-  await axios
-    .post(`${process.env.REACT_APP_SERVER_URL }/login`, user)
-    .then((response) => {
-      const access = response.headers.get("Access");
-      const refresh = response.headers.get("Refresh");
-      localStorage.setItem("Access", access);
-      localStorage.setItem("Refresh", refresh);
-      return;
-    })
-    .catch((error) => {
+export const UserCheck = async (user: User): Promise<void> => {
+  try {
+    const response: CustomAxiosResponse = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/login`,
+      user
+    );
+
+    const access = response.headers.access;
+    const refresh = response.headers.refresh;
+
+    if (access && refresh) {
+      secureLocalStorage.setItem("Access", access);
+      secureLocalStorage.setItem("Refresh", refresh);
+    }
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.response) {
       console.log("an error occurred:", error.response);
       alert(error.response.data.msg);
-    });
+    }
+  }
 };
 
 //유저프로필 요청
 export const CheckuserInfo = async () => {
   try {
-    const access = localStorage.getItem("Access");
-    const refresh = localStorage.getItem("Refresh");
+    const access = secureLocalStorage.getItem("Access");
+    const refresh = secureLocalStorage.getItem("Refresh");
     const currentUserToken = {
       headers: {
         Access: `${access}`,
@@ -61,8 +94,8 @@ export const CheckuserInfo = async () => {
 
 // 로그인 여부 인증
 export const LoginStatus = async () => {
-  const accesstoken = localStorage.getItem("Access");
-  const refreshtoken = localStorage.getItem("Refresh");
+  const accesstoken = secureLocalStorage.getItem("Access");
+  const refreshtoken = secureLocalStorage.getItem("Refresh");
   if (!accesstoken || !refreshtoken) return false;
   try {
     const currentUserToken = {

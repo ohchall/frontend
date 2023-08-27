@@ -1,4 +1,3 @@
-import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Template from "../components/layout/Template";
 import MainPage from "../pages/main/MainPage";
@@ -13,6 +12,8 @@ import TodoListPage from "../pages/TodoListPage";
 import UserRoute from "./UserRoute";
 import SearchPage from "../pages/search/SearchPage";
 import Oauth from "../components/loginsignup/Oauth";
+import ScrapPage from "../pages/scrap/ScrapPage";
+import LikedPage from "../pages/liked/LikedPage";
 
 function Router(): JSX.Element {
   return (
@@ -102,7 +103,7 @@ function Router(): JSX.Element {
             </Template>
           }
         />
-   
+
         <Route
           path="/search"
           element={
@@ -112,9 +113,32 @@ function Router(): JSX.Element {
           }
         />
 
+        <Route path="/oauth" element={<Oauth />} />
+
         <Route
-          path="/oauth"
-          element={<Oauth />}
+          path="/scrap"
+          element={
+            <UserRoute
+              element={
+                <Template header footer>
+                  <ScrapPage />
+                </Template>
+              }
+            />
+          }
+        />
+
+        <Route
+          path="/liked"
+          element={
+            <UserRoute
+              element={
+                <Template header footer>
+                  <LikedPage />
+                </Template>
+              }
+            />
+          }
         />
       </Routes>
     </BrowserRouter>

@@ -27,11 +27,12 @@ import {
 } from 'react';
 import MyProfile from '../../components/common/myprofile/MyProfile';
 import { CheckuserInfo } from '../../api/AuthApi';
+import secureLocalStorage from "react-secure-storage";
 
 function CrewDetail() {
   const navigate = useNavigate();
-  const access = localStorage.getItem('Access');
-  const refresh = localStorage.getItem('Refresh');
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
 
   const onClickRegisterComment = (e: React.FormEvent<HTMLFormElement>) => {

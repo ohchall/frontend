@@ -6,7 +6,7 @@ import {
   TitleContainer,
 } from "./R9dCrewList.style";
 import "swiper/css";
-import LikeButton from "../LikeButton";
+import Scrap from "../../scrap/Scrap";
 
 interface CrewList {
   content: string;
@@ -65,7 +65,7 @@ const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
                 {/* <span>15/16</span> */}
               </TitleContainer>
 
-              <LikeButton />
+              <Scrap />
             </div>
 
             <p>

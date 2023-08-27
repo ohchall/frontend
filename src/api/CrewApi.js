@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import secureLocalStorage from "react-secure-storage";
 
 // queryKey = crews
 export const getCrews = async () => {
@@ -11,8 +12,8 @@ export const getCrews = async () => {
 
 // queryKey = crew
 export const getCrew = async (id) => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const res = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/crew/${id}`,
     {
@@ -27,8 +28,8 @@ export const getCrew = async (id) => {
 
 // queryKey = crewData
 export const useFetchCrew = () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const currentUserToken = {
     headers: {
       Access: `${access}`,
@@ -47,8 +48,8 @@ export const useFetchCrew = () => {
 
 // queryKey = crewData
 export const useAddCrewMutation = () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const currentUserToken = {
     headers: {
       Access: `${access}`,

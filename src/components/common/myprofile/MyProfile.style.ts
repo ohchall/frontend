@@ -1,6 +1,17 @@
 import { Link } from "react-router-dom";
-import { LuUser, LuInbox, LuBell, LuLogOut } from "react-icons/lu";
+import {
+  LuUser,
+  LuInbox,
+  LuBell,
+  LuLogOut,
+  LuBookmark,
+  LuHeart,
+} from "react-icons/lu";
 import styled from "styled-components";
+
+interface WeekSpanProps {
+  $isCurrent: boolean;
+}
 
 export const MyProfileBlock = styled.div`
   width: 100%;
@@ -53,6 +64,16 @@ export const StyledLuBell = styled(LuBell)`
 `;
 
 export const StyledLuLogOut = styled(LuLogOut)`
+  width: 24px;
+  height: 24px;
+`;
+
+export const StyledLuScrap = styled(LuBookmark)`
+  width: 24px;
+  height: 24px;
+`;
+
+export const StyledLuHeart = styled(LuHeart)`
   width: 24px;
   height: 24px;
 `;
@@ -144,7 +165,7 @@ export const Week = styled.div`
   }
 `;
 
-export const WeekSpan = styled.span`
+export const WeekSpan = styled.span<WeekSpanProps>`
   width: 12px;
   height: 16px;
   border-radius: 6px;

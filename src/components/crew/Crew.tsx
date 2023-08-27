@@ -16,10 +16,11 @@ import { RootState } from '../../redux/config/ConfigStore';
 import MyProfile from '../../components/common/myprofile/MyProfile';
 import { useEffect, useState } from 'react';
 import { CheckuserInfo } from '../../api/AuthApi';
+import secureLocalStorage from "react-secure-storage";
 
 function Crew() {
-  const access = localStorage.getItem('Access');
-  const refresh = localStorage.getItem('Refresh');
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log("triggered");

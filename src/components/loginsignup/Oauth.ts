@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import secureLocalStorage from "react-secure-storage";
 interface AxiosCustomHeaders {
   access: string;
   refresh: string;
@@ -25,8 +25,8 @@ const Oauth: React.FC = () => {
         );
         const access = res.headers.access;
         const refresh = res.headers.refresh;
-        localStorage.setItem("Access", access);
-        localStorage.setItem("Refresh", refresh);
+        secureLocalStorage.setItem("Access", access);
+        secureLocalStorage.setItem("Refresh", refresh);
         // console.log(res);
         navigate("/");
       } catch (e) {

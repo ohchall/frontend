@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { FiSearch } from "react-icons/fi";
 import useSearch from "../../hook/useSearch";
 import Skeleton from "../../components/Skeleton";
-import LikeButton from "../../components/common/LikeButton";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import {
@@ -17,10 +16,12 @@ import {
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
 import { CrewList } from "../../redux/modules/Modules";
+import secureLocalStorage from "react-secure-storage";
+import Scrap from "../../components/scrap/Scrap";
 
 const SearchPage = () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const searchResult = useSelector((state: RootState) => state.searchResults);
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
@@ -174,7 +175,7 @@ const SearchPage = () => {
                     <p>{post.title}</p>
                   </TitleContainer>
 
-                  <LikeButton />
+                  <Scrap />
                 </div>
 
                 <p>{post.exerciseKind}</p>

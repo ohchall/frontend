@@ -19,11 +19,12 @@ import {
   ReactNode} from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/config/ConfigStore';
+import secureLocalStorage from "react-secure-storage";
 
 function MainPage() {
   const navigate = useNavigate();
-  const access = localStorage.getItem('Access');
-  const refresh = localStorage.getItem('Refresh');
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   // const [displayRemainingComponents, setDisplayRemainingComponents] =
   //   useState(true);
@@ -31,7 +32,6 @@ function MainPage() {
   const displayRemainingComponents = useSelector(
     (state: RootState) => state.display.displayRemainingComponents
   );
-
 
   useEffect(() => {
     // console.log("triggered");
@@ -42,18 +42,19 @@ function MainPage() {
     if (access && refresh) {
       getUserInfo();
     }
+    // console.log(access, refresh);
   }, [access, refresh]);
 
   const onClickCrew = (itemId: number) => {
-    if (access && refresh !== '') {
+    if (access && refresh !== "") {
       navigate(`/crew/${itemId}`);
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   };
 
-  const { data, isLoading, error: queryError } = useQuery(['crews'], getCrews);
-  
+  const { data, isLoading, error: queryError } = useQuery(["crews"], getCrews);
+
   let errorMessage: ReactNode = null;
   if (queryError) {
     const error = queryError as Error;
@@ -63,12 +64,12 @@ function MainPage() {
   return (
     <>
       {loggedin ? <MyProfile /> : null}
-      {isLoading && 'Loading...'}
+      {isLoading && "Loading..."}
       {errorMessage}
       {/* {error && 'An error has occurred: ' + error.message} */}
       <Banner data={data} />
-      <div style={{ margin: '-20px 0 -30px 0' }}>
-      <Category />
+      <div style={{ margin: "-20px 0 -30px 0" }}>
+        <Category />
       </div>
       {displayRemainingComponents && (
         <>

@@ -6,20 +6,21 @@ import {
   StyledLink,
   LinkContainer,
   StyledLuUser,
-  StyledLuInbox,
-  StyledLuBell,
+  StyledLuHeart,
   StyledLuLogOut,
+  StyledLuScrap,
   ThisMonthGoal,
   ThisWeekTodo,
   Todo,
   Week,
   WeekSpan,
 } from "./MyProfile.style";
+import secureLocalStorage from "react-secure-storage";
 
 function MyProfile() {
   const logoutHandler = () => {
-    localStorage.removeItem("Access");
-    localStorage.removeItem("Refresh");
+    secureLocalStorage.removeItem("Access");
+    secureLocalStorage.removeItem("Refresh");
     window.location.reload();
   };
 
@@ -43,8 +44,8 @@ function MyProfile() {
 
   const sortedThisWeekUncompletedTodos = thisWeekUncompletedTodos.sort(
     (a, b) => {
-      const dateA = new Date(a.date);
-      const dateB = new Date(b.date);
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
       return dateA - dateB;
     }
   );
@@ -76,11 +77,17 @@ function MyProfile() {
           <StyledLink to="/mypage">
             <StyledLuUser />
           </StyledLink>
-          <StyledLink to="/mypage">
+          {/* <StyledLink to="/mypage">
             <StyledLuInbox />
           </StyledLink>
           <StyledLink to="/">
             <StyledLuBell />
+          </StyledLink> */}
+          <StyledLink to="/scrap">
+            <StyledLuScrap />
+          </StyledLink>
+          <StyledLink to="/liked">
+            <StyledLuHeart />
           </StyledLink>
           <StyledLink to="/" onClick={logoutHandler}>
             <StyledLuLogOut />

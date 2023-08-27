@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import secureLocalStorage from "react-secure-storage";
 
 // queryKey = crews
 export const getCrews = async () => {
@@ -11,8 +12,8 @@ export const getCrews = async () => {
 
 // queryKey = crew
 export const getCrew = async (id) => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const res = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/crew/${id}`,
     {
@@ -27,8 +28,8 @@ export const getCrew = async (id) => {
 
 // queryKey = crewData
 export const useFetchCrew = () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const currentUserToken = {
     headers: {
       Access: `${access}`,
@@ -45,10 +46,31 @@ export const useFetchCrew = () => {
   });
 };
 
+// queryKey = crewData
+export const useAddCrewMutation = () => {
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
+  const currentUserToken = {
+    headers: {
+      Access: `${access}`,
+      Refresh: `${refresh}`,
+      "Content-Type": "multipart/form-data",
+    },
+  };
+
+  return useMutation(["crewData"], async (formData) => {
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/crew`,
+      formData,
+      currentUserToken
+    );
+    return data;
+  });
+};
 // queryKey = crewComments
 export const getCrewComments = async () => {
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Refresh");
   const res = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/crew/comment/allComment`,
     {
@@ -63,8 +85,8 @@ export const getCrewComments = async () => {
 
 // queryKey = crewComments
 export const addCrewComment = async (newComment) => {
-  const access = localStorage.getItem('Access');
-  const refresh = localStorage.getItem('Reresh');
+  const access = secureLocalStorage.getItem("Access");
+  const refresh = secureLocalStorage.getItem("Reresh");
 
   await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/crew/comment/${newComment.crewRecruitmentId}`,
@@ -76,4 +98,4 @@ export const addCrewComment = async (newComment) => {
       },
     }
   );
-}
+};

@@ -1,7 +1,7 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { ImageWrapper, Overview, TitleContainer } from "./LatestCrewList.style";
-import LikeButton from "../LikeButton";
+import Scrap from "../../scrap/Scrap";
 
 interface CrewList {
   content: string;
@@ -69,7 +69,7 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
                   {/* <span>{item.totalNumber}</span> */}
                 </TitleContainer>
 
-                <LikeButton />
+                <Scrap />
               </div>
               <p style={{ fontSize: "12px" }}>
                 {" "}

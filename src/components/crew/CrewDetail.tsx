@@ -12,13 +12,12 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 import { useEffect, useState, ReactNode } from "react";
 import MyProfile from "../../components/common/myprofile/MyProfile";
 import { CheckuserInfo } from "../../api/AuthApi";
-import secureLocalStorage from "react-secure-storage";
 import Comment from "./Comment";
 
 function CrewDetail() {
   const navigate = useNavigate();
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
 
   const onClickCrewMember = () => {

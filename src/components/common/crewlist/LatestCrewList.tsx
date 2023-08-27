@@ -69,7 +69,7 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
                   {/* <span>{item.totalNumber}</span> */}
                 </TitleContainer>
 
-                <Scrap />
+                <Scrap id={item.crewRecruitmentId} />
               </div>
               <p style={{ fontSize: "12px" }}>
                 {" "}

@@ -20,11 +20,10 @@ import {
 import useSearch from "../../../hook/useSearch";
 import { RootState } from "../../../redux/config/ConfigStore";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
-import secureLocalStorage from "react-secure-storage";
 import Scrap from "../../scrap/Scrap";
 function Category() {
-  const access = secureLocalStorage.getItem("Access");
-  const refresh = secureLocalStorage.getItem("Refresh");
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
 
   const categories: Array<string> = [
@@ -204,7 +203,7 @@ function Category() {
                         <p>{post.title}</p>
                       </TitleContainer>
 
-                      <Scrap />
+                      <Scrap id={post.crewRecruitmentId} />
                     </div>
 
                     <p>

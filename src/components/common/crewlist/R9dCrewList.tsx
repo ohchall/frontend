@@ -65,7 +65,7 @@ const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
                 {/* <span>15/16</span> */}
               </TitleContainer>
 
-              <Scrap />
+              <Scrap id={data?.data.crewList[0].crewRecruitmentId} />
             </div>
 
             <p>

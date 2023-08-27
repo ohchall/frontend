@@ -175,7 +175,7 @@ const SearchPage = () => {
                     <p>{post.title}</p>
                   </TitleContainer>
 
-                  <Scrap />
+                  <Scrap id={post.crewRecruitmentId} />
                 </div>
 
                 <p>{post.exerciseKind}</p>

@@ -156,6 +156,7 @@ export const approveCrewApplicant = async (approveObject) => {
 
   await axios.put(
     `${process.env.REACT_APP_SERVER_URL}/joinCrew/detail/${approveObject.crewRecruitmentId}?applyerEmail=${approveObject.applyerEmail}`,
+    {},
     {
       headers: {
         Access: `${access}`,
@@ -188,6 +189,7 @@ export const joinCrew = async (crewRecruitmentId) => {
 
   await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/crew/${crewRecruitmentId}`,
+    {},
     {
       headers: {
         Access: `${access}`,

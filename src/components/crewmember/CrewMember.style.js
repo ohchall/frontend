@@ -22,6 +22,10 @@ export const Applicant = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  &:nth-child(n+2) {
+    margin-top: 25px;
+  }
 `;
 
 export const ApplicantProfile = styled.div`
@@ -76,6 +80,10 @@ export const Participant = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
+
+  &:nth-child(n+2) {
+    margin-top: 25px;
+  }
 `;
 
 export const ParticipantProfile = styled.div`

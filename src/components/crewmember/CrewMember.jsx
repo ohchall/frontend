@@ -21,17 +21,21 @@ import {
 
 function CrewMember() {
   const params = useParams();
+
   const queryClient = useQueryClient();
   const approveMutation = useMutation(approveCrewApplicant, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['crewComments']);
+      queryClient.invalidateQueries(['crewApplicants']);
+      queryClient.invalidateQueries(['crewParticipants']);
       console.log('Approve applicant successfully!');
     }
   });
+
   const applicantsObject = {
     crewRecruitmentId: params.id,
     isAccepted: false
   };
+
   const participantsObject = {
     crewRecruitmentId: params.id,
     isAccepted: true
@@ -47,13 +51,7 @@ function CrewMember() {
     data: participantsData,
     isLoading: participantsIsLoading,
     error: participantsError,
-  } = useQuery(
-    ['crewParticipants'],
-    () => getCrewParticipants(participantsObject),
-    {
-      enabled: !applicantsData
-    }
-  );
+  } = useQuery(['crewParticipants'], () => getCrewParticipants(participantsObject));
 
   const onClickApproveApplicant = (applyerEmail) => {
     const approveData = {

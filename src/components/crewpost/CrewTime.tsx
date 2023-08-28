@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import { CrewTimes } from '../../pages/crewwrite/CrewWritePage.style';
+import { CrewTimes } from './CrewForm.style';
+
 
 interface CrewTimeProps{
   setCrewTime: (crewTimes: string) => void;

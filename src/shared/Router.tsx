@@ -87,7 +87,7 @@ function Router(): JSX.Element {
         />
 
         <Route
-          path="/crew/member"
+          path="/crew/member/:id"
           element={
             <Template header footer>
               <CrewMemberPage />

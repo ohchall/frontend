@@ -57,14 +57,30 @@ export const searchResultSlice = createSlice({
   },
 });
 
-
 export const { setSearchResult, addSearchResult, resetSearchResult } =
   searchResultSlice.actions;
 
-  const rootReducer = {
-    displayReducer: displaySlice.reducer,
-    searchReducer: searchResultSlice.reducer,
-  };
+export const authSlice = createSlice({
+  name: "auth",
+  initialState: {
+    email: "",
+  },
+  reducers: {
+    login: (state, action) => {
+      state.email = action.payload.email;
+    },
+    logout: (state) => {
+      state.email = "";
+    },
+  },
+});
 
-  export default rootReducer;
-  
+export const { login, logout } = authSlice.actions;
+
+const rootReducer = {
+  displayReducer: displaySlice.reducer,
+  searchReducer: searchResultSlice.reducer,
+  authSliceReducer: authSlice.reducer,
+};
+
+export default rootReducer;

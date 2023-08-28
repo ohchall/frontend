@@ -66,6 +66,7 @@ export const useAddCrewMutation = () => {
     return data;
   });
 };
+
 // queryKey = crewComments
 export const getCrewComments = async () => {
   const access = localStorage.getItem("Access");
@@ -90,6 +91,105 @@ export const addCrewComment = async (newComment) => {
   await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/crew/comment/${newComment.crewRecruitmentId}`,
     newComment.data,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+};
+
+// queryKey = crewComments
+export const editCrewComment = async (editComment) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  await axios.put(
+    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${editComment.commentId}`,
+    editComment.data,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+};
+
+// queryKey = crewComments
+export const deleteCrewComment = async (commentId) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  await axios.delete(
+    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${commentId}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+};
+
+// queryKey = crewApplicants
+export const getCrewApplicants = async (applicantsObject) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const res = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/joinCrew/${applicantsObject.crewRecruitmentId}/${applicantsObject.isAccepted}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+  return res;
+};
+
+// queryKey = crewApplicants
+export const approveCrewApplicant = async (approveObject) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  await axios.put(
+    `${process.env.REACT_APP_SERVER_URL}/joinCrew/detail/${approveObject.crewRecruitmentId}?applyerEmail=${approveObject.applyerEmail}`,
+    {},
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+};
+
+// queryKey = crewParticipants
+export const getCrewParticipants = async (participantsObject) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const res = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/joinCrew/${participantsObject.crewRecruitmentId}/${participantsObject.isAccepted}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+  return res;
+};
+
+// queryKey = crewApplicant
+export const joinCrew = async (crewRecruitmentId) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/crew/${crewRecruitmentId}`,
+    {},
     {
       headers: {
         Access: `${access}`,

@@ -53,6 +53,7 @@ const Scrap: React.FC<ScrapProps> = ({ id, currentScrapData }) => {
     onSuccess: () => {
       setScrappedAction(false);
       queryClient.invalidateQueries(["scraps"]);
+      // console.log("scrapped");
     },
   });
 
@@ -67,6 +68,7 @@ const Scrap: React.FC<ScrapProps> = ({ id, currentScrapData }) => {
   };
 
   // console.log("scrapData", currentScrapData);
+  // console.log("id", id);
   return (
     <button
       style={{

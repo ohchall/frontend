@@ -194,6 +194,35 @@ export const CommentFormWrapper = styled.div`
   }
 `;
 
+export const CommentEditFormWrapper = styled.div`
+  & > form > textarea {
+    display: block;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px 10px 0 0;
+    padding: 16px;
+  }
+
+  & > form > div {
+    display: flex;
+  }
+
+  & > form > div > button {
+    display: block;
+    width: 50%;
+    height: 40px;
+    border-radius: 0 0 0 10px;
+    border: none;
+    color: #FFFFFF;
+    background-color: #979797;
+
+    &:nth-of-type(2) {
+      border-radius: 0 0 10px 0;
+      background-color: #FF4747;
+    }
+  }
+`;
+
 export const StyledAiOutlineHeart = styled(AiOutlineHeart)`
   width: 20px;
   height: 20px;

@@ -6,6 +6,7 @@ import {
   CommentContent,
   CommentFooter,
   CommentFormWrapper,
+  CommentEditFormWrapper,
   // SubCommentContainer,
   // SubComment,
   // SubCommentHeader,
@@ -14,7 +15,9 @@ import {
   StyledFiMoreHorizontal } from './Comment.style';
 import {
   getCrewComments,
-  addCrewComment } from '../../api/CrewApi';
+  addCrewComment,
+  deleteCrewComment,
+  editCrewComment } from '../../api/CrewApi';
 import { 
   useQueryClient,
   useMutation,
@@ -22,14 +25,36 @@ import {
 import { 
   useState,
   useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 function Comment({
   crewRecruitmentId
 }) {
   const [content, setContent] = useState('');
   const [isCommentModalOpen, setCommentModalOpen] = useState(false);
+  const [isEditActivate, setEditActivate] = useState(false);
+  const [editCommentId, setEditCommentId] = useState(0);
   const queryClient = useQueryClient();
   const commentModalRef = useRef(null);
+  const addMutation = useMutation(addCrewComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['crewComments']);
+      console.log('Added comment successfully!');
+    }
+  });
+  const deleteMutation = useMutation(deleteCrewComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['crewComments']);
+      console.log('Deleted comment successfully!');
+    }
+  });
+  const editMutation = useMutation(editCrewComment, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['crewComments']);
+      console.log('Edited comment successfully!');
+    }
+  });
+  const emailState = useSelector((state) => state.auth.email);
 
   const openCommentModal = () => {
     setCommentModalOpen(true);
@@ -45,7 +70,7 @@ function Comment({
     }
   }
 
-  const onClickRegisterComment = (e) => {
+  const onSubmitCommentForm = (e) => {
     e.preventDefault();
 
     const newComment = {
@@ -55,20 +80,47 @@ function Comment({
       }
     }
 
-    mutation.mutate(newComment);
+    addMutation.mutate(newComment);
     setContent('');
   };
+
+  const onSubmitCommentEditForm = (e) => {
+    e.preventDefault();
+
+    const editComment = {
+      crewRecruitmentId,
+      commentId: editCommentId,
+      data: {
+        content
+      }
+    }
+
+    editMutation.mutate(editComment);
+    setContent('');
+  };
+
   const onChangeContent = (e) => {
     setContent(e.target.value);
   };
 
+  const onClickDeleteComment = (commentId) => {
+    deleteMutation.mutate(commentId);
+  };
+
+  const onClickEditComment = (commentId) => {
+    setEditActivate(true);
+    setEditCommentId(commentId);
+    console.log(emailState);
+  };
+
+  const onClickCancelEdit = () => {
+    setEditActivate(false);
+  }
+
   const { data, isLoading, error } = useQuery(['crewComments'], getCrewComments);
-  const mutation = useMutation(addCrewComment, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['crewComments'])
-      console.log('Added comment successfully!')
-    }
-  });
+
+  // console.log(isEditActivate);
+  // console.log('Activate Edit: ', editCommentId);
 
   return (
     <CommentContainer
@@ -101,10 +153,14 @@ function Comment({
               ref={commentModalRef}
               onClick={e => e.stopPropagation()}
             >
-              <button>
+              <button
+                onClick={() => onClickEditComment(idx+1)}
+              >
                 수정
               </button>
-              <button>
+              <button
+                onClick={() => onClickDeleteComment(idx+1)}
+              >
                 삭제
               </button>
             </CommentModal>
@@ -181,8 +237,9 @@ function Comment({
       </StyledComment>
       ))}
 
+      {!isEditActivate &&
       <CommentFormWrapper>
-        <form onSubmit={onClickRegisterComment}>
+        <form onSubmit={onSubmitCommentForm}>
           <textarea
             value={content}
             onChange={onChangeContent}
@@ -193,6 +250,30 @@ function Comment({
           </button>
         </form>
       </CommentFormWrapper>
+      }
+
+      {isEditActivate &&
+      <CommentEditFormWrapper>
+        <form onSubmit={onSubmitCommentEditForm}>
+          <textarea
+            value={content}
+            onChange={onChangeContent}
+          >
+          </textarea>
+
+          <div>
+            <button>
+              수정
+            </button>
+            <button
+              onClick={onClickCancelEdit}
+            >
+              취소
+            </button>
+          </div>
+        </form>
+      </CommentEditFormWrapper>
+      }
     </CommentContainer>
   )
 };

@@ -11,6 +11,8 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { LoginPageBlock } from "./LoginPage.style";
 import SNSlogin from "../../components/loginsignup/SNSlogin";
+import { useDispatch } from "react-redux";
+import { login } from "../../redux/modules/Modules";
 
 interface User {
   useremail: string;
@@ -18,9 +20,11 @@ interface User {
 }
 
 const LoginPage: React.FC = () => {
+  const dispatch = useDispatch();
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
       navigate("/");
+      dispatch(login({ email: user.useremail }));
     },
     onError: () => {
       navigate("/login");

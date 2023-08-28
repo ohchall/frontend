@@ -12,19 +12,19 @@ export const Header = styled.div`
   border-bottom: 0.5px solid #B7B7B7;
 `;
 
-export const P11nRequestContainer = styled.div`
+export const ApplicantContainer = styled.div`
   width: calc(100% - 32px);
   margin: 16px;
 `;
 
-export const P11nRequest = styled.div`
+export const Applicant = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-export const P11nRequestProfile = styled.div`
+export const ApplicantProfile = styled.div`
   display: flex;
   align-items: center;
   
@@ -49,7 +49,7 @@ export const P11nRequestProfile = styled.div`
   }
 `;
 
-export const P11nRequestButtonContainer = styled.div`
+export const ApplicantButtonContainer = styled.div`
   display: flex;
 
   & > button {
@@ -67,18 +67,18 @@ export const P11nRequestButtonContainer = styled.div`
   }
 `;
 
-export const P11nContainer = styled.div`
+export const ParticipantContainer = styled.div`
   width: calc(100% - 32px);
   margin: 16px;
 `;
 
-export const P11n = styled.div`
+export const Participant = styled.div`
   width: 100%;
   display: flex;
   align-items: center;
 `;
 
-export const P11nProfile = styled.div`
+export const ParticipantProfile = styled.div`
   display: flex;
   align-items: center;
   
@@ -95,7 +95,7 @@ export const P11nProfile = styled.div`
   }
 `;
 
-export const P11nProfileInner = styled.div`
+export const ParticipantProfileInner = styled.div`
   & > div {
     display: flex;
 

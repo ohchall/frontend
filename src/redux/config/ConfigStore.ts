@@ -5,6 +5,7 @@ const store = configureStore({
   reducer: {
     display: Modules.displayReducer,
     searchResults: Modules.searchReducer,
+    auth: Modules.authSliceReducer
   },
 });
 

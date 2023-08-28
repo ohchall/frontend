@@ -25,6 +25,7 @@ import {
 import { 
   useState,
   useRef } from 'react';
+import { useSelector } from 'react-redux';
 
 function Comment({
   crewRecruitmentId
@@ -37,22 +38,23 @@ function Comment({
   const commentModalRef = useRef(null);
   const addMutation = useMutation(addCrewComment, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['crewComments'])
-      console.log('Added comment successfully!')
+      queryClient.invalidateQueries(['crewComments']);
+      console.log('Added comment successfully!');
     }
   });
   const deleteMutation = useMutation(deleteCrewComment, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['crewComments'])
-      console.log('Deleted comment successfully!')
+      queryClient.invalidateQueries(['crewComments']);
+      console.log('Deleted comment successfully!');
     }
   });
   const editMutation = useMutation(editCrewComment, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['crewComments'])
-      console.log('Edited comment successfully!')
+      queryClient.invalidateQueries(['crewComments']);
+      console.log('Edited comment successfully!');
     }
   });
+  const emailState = useSelector((state) => state.auth.email);
 
   const openCommentModal = () => {
     setCommentModalOpen(true);
@@ -108,6 +110,7 @@ function Comment({
   const onClickEditComment = (commentId) => {
     setEditActivate(true);
     setEditCommentId(commentId);
+    console.log(emailState);
   };
 
   const onClickCancelEdit = () => {

@@ -133,6 +133,70 @@ export const deleteCrewComment = async (commentId) => {
   );
 };
 
+// queryKey = crewApplicants
+export const getCrewApplicants = async (applicantsObject) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const res = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/joinCrew/${applicantsObject.crewRecruitmentId}/${applicantsObject.isAccepted}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+  return res;
+};
+
+// queryKey = crewApplicants
+export const approveCrewApplicant = async (approveObject) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  await axios.put(
+    `${process.env.REACT_APP_SERVER_URL}/joinCrew/detail/${approveObject.crewRecruitmentId}?applyerEmail=${approveObject.applyerEmail}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+};
+
+// queryKey = crewParticipants
+export const getCrewParticipants = async (participantsObject) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const res = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/joinCrew/${participantsObject.crewRecruitmentId}/${participantsObject.isAccepted}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+  return res;
+};
+
+// queryKey = crewApplicant
+export const joinCrew = async (crewRecruitmentId) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  await axios.post(
+    `${process.env.REACT_APP_SERVER_URL}/crew/${crewRecruitmentId}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+};
+
 //scrap
 export const addScrap = async (crewRecruitmentId) => {
   const access = localStorage.getItem("Access");

@@ -17,9 +17,8 @@ import {
   useEffect,
   useState,
   ReactNode} from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/config/ConfigStore';
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/config/ConfigStore";
 
 function MainPage() {
   const navigate = useNavigate();
@@ -42,6 +41,7 @@ function MainPage() {
     if (access && refresh) {
       getUserInfo();
     }
+
     // console.log(access, refresh);
   }, [access, refresh]);
 

@@ -1,35 +1,22 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import { getScrap } from "../../api/CrewApi";
 import { useNavigate } from "react-router-dom";
-
-interface CrewList {
-  content: string;
-  crewName: string;
-  crewRecruitmentId: number;
-  currentNumber: number;
-  exerciseDate: string;
-  exerciseKind: string;
-  image?: string[];
-  location: string;
-  postDate: number[];
-  title: string;
-  totalNumber: number;
-  usersLocation: string;
-  page: number;
-}
-
-interface Data {
-  data: {
-    crewList: CrewList[];
-    totalPages: number;
-  };
-}
+import Skeleton from "../../components/Skeleton";
+import { CrewList } from "../../redux/modules/Modules";
+import {
+  ImageWrapper,
+  Overview,
+  R9dCrew,
+  TitleContainer,
+  ScrapPageBlock,
+} from "./ScrapPage.style";
+import Scrap from "../../components/scrap/Scrap";
 
 const ScrapPage = () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
+
   const { data, isLoading, error } = useQuery(["scraps"], getScrap);
 
   const onClickCrew = (itemId: number) => {
@@ -40,16 +27,45 @@ const ScrapPage = () => {
     }
   };
 
+  // console.log(data);
   return (
     <>
-      {data?.data.crewList.map((item: any) => (
-        <div
-          key={item.crewRecruitmentId}
-          onClick={() => onClickCrew && onClickCrew(item.crewRecruitmentId)}
-        >
-          {item.title}
-        </div>
-      ))}
+      <ScrapPageBlock>
+        {data?.length > 0 &&
+          data.map((post: CrewList) => {
+            return (
+              <R9dCrew
+                key={post.crewRecruitmentId}
+                onClick={() => onClickCrew(post.crewRecruitmentId)}
+              >
+                <ImageWrapper>
+                  <img
+                    src={post.image && post.image[0] ? post.image[0] : ""}
+                    alt=""
+                  />
+                </ImageWrapper>
+
+                <Overview>
+                  <div>
+                    <TitleContainer>
+                      <p>{post.title}</p>
+                    </TitleContainer>
+
+                    <Scrap
+                      id={post.crewRecruitmentId}
+                      currentScrapData={post}
+                    />
+                  </div>
+
+                  <p>{post.exerciseKind}</p>
+                </Overview>
+              </R9dCrew>
+            );
+          })}
+
+        {isLoading ? <Skeleton /> : ""}
+        {error ? <h3 style={{ color: "red" }}>결과가 없습니다</h3> : ""}
+      </ScrapPageBlock>
     </>
   );
 };

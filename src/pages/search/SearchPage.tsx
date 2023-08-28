@@ -17,15 +17,17 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
 import { CrewList } from "../../redux/modules/Modules";
 import Scrap from "../../components/scrap/Scrap";
+import { useQuery } from "@tanstack/react-query";
+import { getScrap } from "../../api/CrewApi";
 
 const SearchPage = () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const searchResult = useSelector((state: RootState) => state.searchResults);
+
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState({ value: 0, searchCalled: false });
-
   const [toprev, setToprev] = useState(false);
   const [updatedSearchResult, setUpdatedSearchResult] = useState<CrewList[]>(
     []
@@ -51,6 +53,18 @@ const SearchPage = () => {
     ) => Promise<void>;
   } = useSearch();
 
+  const { data: scrappedData } = useQuery(["scraps"], getScrap);
+
+  const updatedSearchResultsWithScrappedInfo = updatedSearchResult.map(
+    (resultItem) => {
+      const isScrapped = scrappedData?.some(
+        (scrapItem: any) =>
+          scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
+      );
+      return { ...resultItem, scrapped: isScrapped };
+    }
+  );
+
   // 페이지, 키원드, 서치가 변환될 때마다 실행
   useEffect(() => {
     // 페이지가 1보가 크고 searchCalled가 false일때 서치를 실행하고 searchCalled를 true로 바꿔 준다.
@@ -58,6 +72,7 @@ const SearchPage = () => {
       setPage((prevState) => ({ ...prevState, searchCalled: false }));
       search(keyword, page.value, false, toprev);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, keyword, search]);
 
   // 서치결과가 변화 될 때마다 실행
@@ -154,8 +169,8 @@ const SearchPage = () => {
           />
         </SearchMoreBtn>
       )}
-      {updatedSearchResult.length > 0 &&
-        updatedSearchResult.map((post: CrewList) => {
+      {updatedSearchResultsWithScrappedInfo.length > 0 &&
+        updatedSearchResultsWithScrappedInfo.map((post: CrewList) => {
           return (
             <R9dCrew
               key={post.crewRecruitmentId}
@@ -174,7 +189,7 @@ const SearchPage = () => {
                     <p>{post.title}</p>
                   </TitleContainer>
 
-                  <Scrap id={post.crewRecruitmentId} />
+                  <Scrap id={post.crewRecruitmentId} currentScrapData={post} />
                 </div>
 
                 <p>{post.exerciseKind}</p>

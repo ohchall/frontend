@@ -2,6 +2,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { ImageWrapper, Overview, TitleContainer } from "./LatestCrewList.style";
 import Scrap from "../../scrap/Scrap";
+import { getScrap } from "../../../api/CrewApi";
+import { useQuery } from "@tanstack/react-query";
 
 interface CrewList {
   content: string;
@@ -32,6 +34,27 @@ interface LatestCrewListProps {
 }
 
 const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  const { data: scrappedData } = useQuery(["scraps"], async () => {
+    if (access && refresh) {
+      return getScrap();
+    }
+    return [];
+  });
+
+  const updatedSearchResultsWithScrappedInfo = data?.data.crewList.map(
+    (resultItem) => {
+      const isScrapped = scrappedData?.some(
+        (scrapItem: any) =>
+          scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
+      );
+
+      return { ...resultItem, scrapped: isScrapped };
+    }
+  );
+
   const swiperStyle = {
     width: "100%",
   };
@@ -45,7 +68,7 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
   return (
     <>
       <Swiper style={swiperStyle} slidesPerView={"auto"} spaceBetween={12}>
-        {data?.data.crewList.map((item) => (
+        {updatedSearchResultsWithScrappedInfo?.map((item) => (
           <SwiperSlide
             style={swiperSlideStyle}
             key={item.crewRecruitmentId}
@@ -69,7 +92,7 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
                   {/* <span>{item.totalNumber}</span> */}
                 </TitleContainer>
 
-                <Scrap id={item.crewRecruitmentId} />
+                <Scrap id={item.crewRecruitmentId} currentScrapData={item} />
               </div>
               <p style={{ fontSize: "12px" }}>
                 {" "}

@@ -18,6 +18,7 @@ export const CrewImage =styled.div`
     margin-bottom: 10px;
   }
   &>.button {
+    width:100%;
     height: 100%;
     &>.inputFileBtn {
       ${flexStyles}
@@ -59,46 +60,95 @@ border-radius:10px;
     flex-wrap: wrap;
     position: relative;
 }
-& > div > .imageWrapper{
-  width:100%;
-  height:50%;
-  object-fit:cover;
+&>div>.single{
   position:relative;
+  width:100%;
+  height:100%;
+  &>img{
+   width:100%;
+   height:100%;
+   object-fit:cover;
+   border-radius: 10px 10px 10px 10px;
+  }
+ 
+  &:nth-child(2),
+  &:nth-child(3){display:none;}
 }
-& > div > .imageWrapper:nth-child(1) > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px 10px 0 0;
-}
-& > div > .imageWrapper:nth-child(2),
-& > div > .imageWrapper:nth-child(3)
-{width:50%;height:50%;}
-& > div > .imageWrapper:nth-child(2) > img,
-& > div > .imageWrapper:nth-child(3) > img {
-    width: 100%;
-    height: 100%;
-}
+&>div>.double{
+ position:relative;
+ display:flex;
+    &:nth-child(1){
+      width:50%;
+      height:100%;
+      object-fit:cover;
+      &>img{
+        width:100%;
+        height: 100%;
+        border-radius: 10px 0 0 10px;
+      }
+    }
+    &:nth-child(2){
+      width:50%;
+      height:100%;
+      object-fit:cover;
+      &>img{
+       border-radius: 0 10px 10px 0;
+       width:100%;
+       height:100%;
+      }
+    }
+  &:nth-child(3){
+    display:none;
+  }
 
-& > div > .imageWrapper:nth-child(2) > img {
+}
+&>div>.triple{
+ position:relative;
+    &:nth-child(1){
+      width:100%;
+      height:50%;
+      object-fit:cover;
+      &>img{
+        width:100%;
+        height: 100%;
+        border-radius: 10px 10px 0 0;
+      }
+    }
+    &:nth-child(2),
+    &:nth-child(3){
+      width:50%;
+      height:50%;
+    }
+  &:nth-child(2)>img{
     border-radius: 0 0 0 10px;
-}
-
-& > div > .imageWrapper:nth-child(3) > img {
+    width:100%;
+    height:100%;
+  }
+  &:nth-child(3)>img{
     border-radius: 0 0 10px 0;
+    width:100%;
+    height:100%;
+  }
+
 }
 
-& > div > .imageWrapper > .close {
+
+& > div .close {
     position: absolute;
     top: 3px;
     right: 3px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
-& > div > .imageWrapper > .close > button {
+& > div .close > button {
     background: #ffffff;
     color: #111111;
-    border:none;
+    border:1px solid #ffffff;
+    border-radius:50%;
     font-size: 1rem;
-    font-weight: 900;
+    font-weight: 600;
     cursor: pointer;
 }
 `;

@@ -21,7 +21,7 @@ const Scrap: React.FC<ScrapProps> = ({ id }) => {
 
   const mutation = useMutation(addScrap, {
     onSuccess: () => {
-      console.log("scrapped");
+      // console.log("scrapped");
     },
   });
 
@@ -30,7 +30,7 @@ const Scrap: React.FC<ScrapProps> = ({ id }) => {
     setScrapPost((prevscrap) => !prevscrap);
     mutation.mutate(id);
   };
-  console.log("id", id);
+  // console.log("id", id);
   return (
     <button
       style={{

@@ -16,7 +16,6 @@ import {
   WeekSpan,
 } from "./MyProfile.style";
 
-
 function MyProfile() {
   const logoutHandler = () => {
     localStorage.removeItem("Access");

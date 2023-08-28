@@ -7,6 +7,8 @@ import {
 } from "./R9dCrewList.style";
 import "swiper/css";
 import Scrap from "../../scrap/Scrap";
+import { useQuery } from "@tanstack/react-query";
+import { getScrap } from "../../../api/CrewApi";
 
 interface CrewList {
   content: string;
@@ -37,6 +39,21 @@ interface R9dCrewListProps {
 }
 
 const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+
+  const { data: scrappedData } = useQuery(["scraps"], async () => {
+    if (access && refresh) {
+      return getScrap();
+    }
+    return [];
+  });
+
+  const currentScrapData = scrappedData?.find(
+    (item: any) =>
+      item.crewRecruitmentId === data?.data.crewList[0].crewRecruitmentId
+  );
+
   return (
     <R9dCrewListBlock>
       {data && (
@@ -65,7 +82,10 @@ const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
                 {/* <span>15/16</span> */}
               </TitleContainer>
 
-              <Scrap id={data?.data.crewList[0].crewRecruitmentId} />
+              <Scrap
+                id={data?.data.crewList[0].crewRecruitmentId}
+                currentScrapData={currentScrapData}
+              />
             </div>
 
             <p>

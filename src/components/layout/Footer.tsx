@@ -18,6 +18,7 @@ function Footer() {
   const dispatch = useDispatch();
   const homeClickHandler = () => {
     dispatch(setDisplayRemainingComponents(true));
+    dispatch(resetSearchResult());
   };
   const SearchClickHandler = () => {
     dispatch(resetSearchResult());

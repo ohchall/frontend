@@ -15,12 +15,12 @@ import {
   Week,
   WeekSpan,
 } from "./MyProfile.style";
-import secureLocalStorage from "react-secure-storage";
+
 
 function MyProfile() {
   const logoutHandler = () => {
-    secureLocalStorage.removeItem("Access");
-    secureLocalStorage.removeItem("Refresh");
+    localStorage.removeItem("Access");
+    localStorage.removeItem("Refresh");
     window.location.reload();
   };
 

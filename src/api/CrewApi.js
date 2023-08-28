@@ -106,6 +106,7 @@ export const addScrap = async (crewRecruitmentId) => {
   // console.log(access, refresh, crewRecruitmentId);
   await axios.post(
     `${process.env.REACT_APP_SERVER_URL}/crew/${crewRecruitmentId}/scrap`,
+    crewRecruitmentId,
     {
       headers: {
         Access: `${access}`,
@@ -116,10 +117,10 @@ export const addScrap = async (crewRecruitmentId) => {
   );
 };
 
-export const getScrap = async (crewRecruitmentId) => {
+export const getScrap = async () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  console.log(access, refresh, crewRecruitmentId);
+  // console.log(access, refresh, crewRecruitmentId);
   const res = await axios.get(
     `${process.env.REACT_APP_SERVER_URL}/crew/scrap`,
     {
@@ -129,6 +130,6 @@ export const getScrap = async (crewRecruitmentId) => {
       },
     }
   );
-  // console.log(res);
-  return res;
+  const modifiedData = res.data.map((item) => ({ ...item, scrapped: true }));
+  return modifiedData;
 };

@@ -4,22 +4,6 @@ interface DisplayState {
   displayRemainingComponents: boolean;
 }
 
-const initialDisplayState: DisplayState = {
-  displayRemainingComponents: true,
-};
-
-const displaySlice = createSlice({
-  name: "display",
-  initialState: initialDisplayState,
-  reducers: {
-    setDisplayRemainingComponents: (state, action: PayloadAction<boolean>) => {
-      state.displayRemainingComponents = action.payload;
-    },
-  },
-});
-
-export const { setDisplayRemainingComponents } = displaySlice.actions;
-
 export type CrewList = {
   content: string;
   crewName: string;
@@ -40,7 +24,22 @@ interface SearchResult {
   data: CrewList[];
 }
 
+const initialDisplayState: DisplayState = {
+  displayRemainingComponents: true,
+};
+
 const initialSearchResultState: SearchResult["data"] = [];
+
+const displaySlice = createSlice({
+  name: "display",
+  initialState: initialDisplayState,
+  reducers: {
+    setDisplayRemainingComponents: (state, action: PayloadAction<boolean>) => {
+      state.displayRemainingComponents = action.payload;
+    },
+  },
+});
+export const { setDisplayRemainingComponents } = displaySlice.actions;
 
 export const searchResultSlice = createSlice({
   name: "searchResult",
@@ -58,10 +57,14 @@ export const searchResultSlice = createSlice({
   },
 });
 
+
 export const { setSearchResult, addSearchResult, resetSearchResult } =
   searchResultSlice.actions;
 
-export default {
-  displayReducer: displaySlice.reducer,
-  searchReducer: searchResultSlice.reducer,
-};
+  const rootReducer = {
+    displayReducer: displaySlice.reducer,
+    searchReducer: searchResultSlice.reducer,
+  };
+
+  export default rootReducer;
+  

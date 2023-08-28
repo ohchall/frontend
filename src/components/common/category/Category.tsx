@@ -21,11 +21,12 @@ import useSearch from "../../../hook/useSearch";
 import { RootState } from "../../../redux/config/ConfigStore";
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import Scrap from "../../scrap/Scrap";
+import { useQuery } from "@tanstack/react-query";
+import { getScrap } from "../../../api/CrewApi";
 function Category() {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
-
   const categories: Array<string> = [
     "전체",
     "러닝",
@@ -64,6 +65,24 @@ function Category() {
     ) => Promise<void>;
   } = useSearch();
 
+  const { data: scrappedData } = useQuery(["scraps"], async () => {
+    if (access && refresh) {
+      return getScrap();
+    }
+    return [];
+  });
+
+  const updatedSearchResultsWithScrappedInfo = updatedSearchResult.map(
+    (resultItem) => {
+      const isScrapped = scrappedData?.some(
+        (scrapItem: any) =>
+          scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
+      );
+
+      return { ...resultItem, scrapped: isScrapped };
+    }
+  );
+
   const onClickCategory = (pickedCategory: string, page: number) => {
     if (pickedCategory === "전체") {
       dispatch(setDisplayRemainingComponents(true));
@@ -89,6 +108,7 @@ function Category() {
       setPage((prevState) => ({ ...prevState, searchCalled: false }));
       search(selectedCategory, page.value, false, toprev);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, selectedCategory, search]);
 
   useEffect(() => {
@@ -99,6 +119,7 @@ function Category() {
       setUpdatedSearchResult(newSearchResult);
       dispatch(setDisplayRemainingComponents(false));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchResult]);
 
   const displayRemainingComponents = useSelector(
@@ -178,8 +199,8 @@ function Category() {
 
       {!displayRemainingComponents && (
         <CategoryContents>
-          {updatedSearchResult?.length > 0 &&
-            updatedSearchResult.map((post) => {
+          {updatedSearchResultsWithScrappedInfo?.length > 0 &&
+            updatedSearchResultsWithScrappedInfo.map((post) => {
               return (
                 <R9dCrew
                   key={post.crewRecruitmentId}
@@ -203,7 +224,10 @@ function Category() {
                         <p>{post.title}</p>
                       </TitleContainer>
 
-                      <Scrap id={post.crewRecruitmentId} />
+                      <Scrap
+                        id={post.crewRecruitmentId}
+                        currentScrapData={post}
+                      />
                     </div>
 
                     <p>

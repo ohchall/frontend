@@ -155,6 +155,7 @@ function CrewDetail() {
 
         <Comment crewRecruitmentId={params.id} />
 
+        {crew?.data.owner === false &&
         <ButtonWrapper>
           <button
             onClick={onClickJoinCrew}
@@ -162,7 +163,9 @@ function CrewDetail() {
             크루 참여하기
           </button>
         </ButtonWrapper>
+        }
 
+        {crew?.data.owner === true &&
         <ButtonWrapper>
           <button
             onClick={onClickCrewMember}
@@ -170,6 +173,7 @@ function CrewDetail() {
             크루 멤버 관리하기
           </button>
         </ButtonWrapper>
+        }
       </CrewDetailBlock>
     </>
   );

@@ -13,6 +13,39 @@ const flexStyles = css`
   flex-direction: column;
 `;
 
+export const CrewImage =styled.div`
+ width: 100%;
+  height: 35%;
+  ${flexStyles}
+  background-color:#eeeeee;
+  border-radius: 10px;
+  /* margin-bottom:15%; */
+  @media screen and (max-width:500px){
+    height:30%;
+  }
+  &>.button {
+    width:100%;
+    height: 100%;
+    &>.inputFileBtn {
+      ${flexStyles}
+      color:#999999;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size:13px;
+      font-family:"Roboto", sans-serif;
+      height:100%;
+    }
+    &>.inputFileBtn>svg {
+      font-size:2rem;
+      color:#000000;
+      margin-bottom:10px; 
+    }
+    
+    &>input {
+      display:none;
+    }
+  }
+`
 const CrewFormStyles= css`
   width:100%;
   height:100%;
@@ -20,13 +53,42 @@ const CrewFormStyles= css`
   align-items:center;
   justify-content:center;
   `
+export const CrewImageUpLoad = styled.div`
+  ${CrewFormStyles}
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-radius:10px;
 
+  & > div {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      position: relative;
+      & >.imageWrapper{
+        width:100%;
+        height:100%;
+      }
+      &>.imageWrapper>img{
+        width:100%;height:100%;background-size:cover;
+      }
+      & >.imageWrapper>.close{
+        position: absolute;
+        top: 3px;
+        right: 3px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+      }
+  }
+  `;
 export const CrewFormContents = styled.div`
  width:100%;
  height:50%;
  ${flexStyles}
  @media screen and (max-width:500px){
-  height:66%;
+  height: 60%;
+  margin-top: 15px;
  }
   &>.identicalStyle{
     border-bottom:1px solid #999999;
@@ -65,7 +127,7 @@ export const CrewFormContents = styled.div`
      overflow-y:auto;
      @media screen and (max-width: 500px) {
       font-size:14px;
-      max-height:130px;
+      max-height:100px;
      }
     }
     textarea.focused::placeholder {

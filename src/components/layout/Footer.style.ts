@@ -14,8 +14,8 @@ export const FooterSection = styled.footer`
   justify-content: space-around;
   align-items: center;
   padding: 0 16px;
-  position: absolute; 
-  bottom: 0px;
+  position: absolute;
+  bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: #fff;

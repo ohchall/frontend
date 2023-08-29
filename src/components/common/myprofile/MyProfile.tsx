@@ -6,7 +6,7 @@ import {
   StyledLink,
   LinkContainer,
   StyledLuUser,
-  StyledLuHeart,
+  // StyledLuHeart,
   StyledLuLogOut,
   StyledLuScrap,
   ThisMonthGoal,
@@ -85,9 +85,9 @@ function MyProfile() {
           <StyledLink to="/scrap">
             <StyledLuScrap />
           </StyledLink>
-          <StyledLink to="/liked">
+          {/* <StyledLink to="/liked">
             <StyledLuHeart />
-          </StyledLink>
+          </StyledLink> */}
           <StyledLink to="/" onClick={logoutHandler}>
             <StyledLuLogOut />
           </StyledLink>

@@ -27,7 +27,7 @@ function CrewMember() {
     onSuccess: () => {
       queryClient.invalidateQueries(['crewApplicants']);
       queryClient.invalidateQueries(['crewParticipants']);
-      console.log('Approve applicant successfully!');
+      // console.log('Approve applicant successfully!');
     }
   });
 

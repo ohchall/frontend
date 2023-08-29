@@ -18,21 +18,25 @@ export const getCrew = async (id) => {
 };
 
 // queryKey = ???
-export const useAddCrewMutation = () => {
+export const useCommunityMutation = () => {
   return useMutation((crew) => {
-    return axios.post(`${process.env.REACT_APP_MOCK_SERVER_URL}/crew`, crew);
+    return axios.post(`${process.env.REACT_APP_MOCK_SERVER_URL}/community`, crew);
   });
 };
 
 // queryKey = crewData
-export const useFetchCrew = () => {
+export const useFetchCommunity = () => {
   return useQuery(["crewData"], async () => {
     // queryKey를 배열로 변경
-    const { data } = await axios.get(
-      `${process.env.REACT_APP_MOCK_SERVER_URL}/crew`
-    );
-    return data;
-  });
+    try {
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_MOCK_SERVER_URL}/community`
+      );
+      return data;
+    } catch (error) {
+      console.error("Error fetching community data:", error);
+    }
+})    
 };
 
 //infinite scroll

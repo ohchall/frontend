@@ -14,13 +14,17 @@ export const FooterSection = styled.footer`
   justify-content: space-around;
   align-items: center;
   padding: 0 16px;
-  position: absolute; 
-  bottom: 0px;
+  position: absolute;
+  bottom: 0;
   left: 50%;
   transform: translate(-50%, 0);
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   z-index: 99;
+
+  @media (max-width: 430px) {
+    position: fixed;
+  }
 `;
 
 export const LinkContainer = styled.div`

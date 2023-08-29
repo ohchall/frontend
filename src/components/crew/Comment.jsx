@@ -39,19 +39,19 @@ function Comment({
   const addMutation = useMutation(addCrewComment, {
     onSuccess: () => {
       queryClient.invalidateQueries(['crewComments']);
-      console.log('Added comment successfully!');
+      // console.log('Added comment successfully!');
     }
   });
   const deleteMutation = useMutation(deleteCrewComment, {
     onSuccess: () => {
       queryClient.invalidateQueries(['crewComments']);
-      console.log('Deleted comment successfully!');
+      // console.log('Deleted comment successfully!');
     }
   });
   const editMutation = useMutation(editCrewComment, {
     onSuccess: () => {
       queryClient.invalidateQueries(['crewComments']);
-      console.log('Edited comment successfully!');
+      // console.log('Edited comment successfully!');
     }
   });
 

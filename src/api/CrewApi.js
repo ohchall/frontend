@@ -68,11 +68,11 @@ export const useAddCrewMutation = () => {
 };
 
 // queryKey = crewComments
-export const getCrewComments = async () => {
+export const getCrewComments = async (crewRecruitmentId) => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew/comment/allComment`,
+    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${crewRecruitmentId}`,
     {
       headers: {
         Access: `${access}`,

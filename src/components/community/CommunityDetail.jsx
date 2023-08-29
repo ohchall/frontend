@@ -56,7 +56,7 @@ function CommunityDetail() {
     <>
       <MainContent>
         <Nickname>{post.nickname}</Nickname>
-        <PostDate>{post.postdate}</PostDate> {/* 날짜 형식 그대로 출력 */}
+        <PostDate>{post.postdate}</PostDate>
         <Title>{post.title}</Title>
         <Content>{post.content}</Content>
         <ImageBox>
@@ -74,7 +74,7 @@ function CommunityDetail() {
           <CommentBox key={index}>
             <CommentHeader>
               <span>{comment.nickname}</span>
-              <span>{comment.postdate}</span> {/* 날짜 형식 그대로 출력 */}
+              <span>{comment.postdate}</span>
             </CommentHeader>
             <CommentContent>
               {comment.content}

@@ -53,7 +53,12 @@ const SearchPage = () => {
     ) => Promise<void>;
   } = useSearch();
 
-  const { data: scrappedData } = useQuery(["scraps"], getScrap);
+  const { data: scrappedData } = useQuery(["scraps"], async () => {
+    if (access && refresh) {
+      return getScrap();
+    }
+    return [];
+  });
 
   const updatedSearchResultsWithScrappedInfo = updatedSearchResult.map(
     (resultItem) => {

@@ -5,7 +5,6 @@ import MyCrews from "../components/mycrew/MyCrews";
 import { styled } from "styled-components";
 import { CheckuserInfo } from "../api/AuthApi";
 
-
 function MyPage() {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");

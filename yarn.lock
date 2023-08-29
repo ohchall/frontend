@@ -8309,10 +8309,10 @@ react-is@^18.0.0:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
 
-react-kakao-maps-sdk@^1.1.11:
-  version "1.1.11"
-  resolved "https://registry.yarnpkg.com/react-kakao-maps-sdk/-/react-kakao-maps-sdk-1.1.11.tgz#b033eaddd6a43ecd6abbf2f7f51866387aaa3d55"
-  integrity sha512-L3hHa7tvVCxEvU3R4DODctLQMNMEqUUkWweSgVrD/9qndeB3+Fk5FUUFRW5muVghwr4PQ2fzR1jhk6vO35TDaA==
+react-kakao-maps-sdk@^1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/react-kakao-maps-sdk/-/react-kakao-maps-sdk-1.1.12.tgz#3aa1a42662e3d22090f4376463d9d60cfb2390b2"
+  integrity sha512-kMwU08i5akZ76aN0kd/3iFbkTDRhJOhHMh1Uv2U2vwDGcOnAHQAQO/zHk+MBocgLva9J4oOm0ZBvBI61yMwGCA==
   dependencies:
     kakao.maps.d.ts "^0.1.38"
 

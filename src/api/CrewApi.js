@@ -231,5 +231,6 @@ export const getScrap = async () => {
     }
   );
   const modifiedData = res.data.map((item) => ({ ...item, scrapped: true }));
+  // console.log(modifiedData);
   return modifiedData;
 };

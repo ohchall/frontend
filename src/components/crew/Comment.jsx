@@ -139,9 +139,9 @@ function Comment({
         <CommentHeader>
           <div>
             <span>
-              오
+              {comment.nickname.substr(0, 1)}
             </span>
-            <p>오늘만산다</p>
+            <p>{comment.nickname}</p>
           </div>
 
           <div>

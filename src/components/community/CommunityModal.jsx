@@ -40,24 +40,27 @@ const ModalStyles=styled.div`
   width: 90%;
   height: 78%;
   justify-content: center;
+  @media screen and (max-width:500px){
+    height:80%;
+  }
  &>div{
   width:100%;
   height:100%;
  }
  &>div>button{
   position:absolute;
-  top: 86%;
+  top: 90%;
   left: 40%;
   width:20%;
-  height:6%;
+  height:5%;
   text-align:center;
   border: 1px solid #111111;
   background: transparent;
   cursor:pointer;
   @media screen and (max-width:500px){
-    top: 93.5%;
+    top: 95%;
     left: 39%;
-    height: 5%;
+    height: 4%;
   }
  }
 `

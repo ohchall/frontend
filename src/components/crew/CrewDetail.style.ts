@@ -53,7 +53,10 @@ export const MapWrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
+  position: fixed;
+  bottom: 60px;
   width: 100%;
+  z-index: 9;
 
   & > button {
     width: 100%;

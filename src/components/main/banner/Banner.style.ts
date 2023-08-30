@@ -14,8 +14,8 @@ export const BannerSection = styled.div`
 
 export const BannerTitle = styled.h1`
   position: absolute;
-  bottom: 10px;
-  left: 10px;
+  bottom: 16px;
+  left: 16px;
   margin: 0;
   font-size: 26px;
   color: #FFFFFF;
@@ -30,8 +30,8 @@ export const BannerLabel = styled.span`
   height: 20px;
   border-radius: 10px;
   position: absolute;
-  bottom: 45px;
-  left: 10px;
+  bottom: 52px;
+  left: 16px;
   text-align: center;
   font-size: 12px;
 `;

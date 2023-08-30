@@ -3,8 +3,7 @@ import {
   CrewDetailBlock,
   Header,
   MapWrapper,
-  ButtonWrapper,
-} from './CrewDetail.style';
+  ButtonWrapper } from './CrewDetail.style';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
   useQuery,
@@ -27,12 +26,12 @@ function CrewDetail() {
   const access = localStorage.getItem('Access');
   const refresh = localStorage.getItem('Refresh');
   const [loggedin, setLoggedin] = useState(false);
+  const [isJoinButtonDisabled, setJoinButtonDisabled] = useState(false);
   const queryClient = useQueryClient();
   const joinMutation = useMutation(joinCrew, {
     onSuccess: () => {
       queryClient.invalidateQueries(['crewApplicant']);
       // console.log('Sent application successfully to join crew!');
-      alert('크루 참가 신청 완료!');
     }
   });
 
@@ -42,6 +41,8 @@ function CrewDetail() {
 
   const onClickJoinCrew = () => {
     joinMutation.mutate(params.id);
+    setJoinButtonDisabled(true);
+    alert('크루 참가 신청 완료!');
   }
 
   useEffect(() => {
@@ -161,9 +162,10 @@ function CrewDetail() {
         {crew?.data.owner === false &&
         <ButtonWrapper>
           <button
+            disabled={isJoinButtonDisabled}
             onClick={onClickJoinCrew}
           >
-            크루 참여하기
+            {isJoinButtonDisabled ? '신청 완료' : '크루 참여하기'}
           </button>
         </ButtonWrapper>
         }

@@ -5,7 +5,7 @@ const CommunityApi = axios.create({
 });
 
 export const getCommunityPost = async (id) => {
-  const response = await CommunityApi.get(`/posts/${id}`);
+  const response = await CommunityApi.get(`/community/${id}`);
   return response.data;
 };
 

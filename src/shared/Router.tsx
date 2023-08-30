@@ -14,9 +14,10 @@ import SearchPage from "../pages/search/SearchPage";
 // import Oauth from "../components/loginsignup/Oauth";
 import ScrapPage from "../pages/scrap/ScrapPage";
 import LikedPage from "../pages/liked/LikedPage";
-import CrewCommunity from "../pages/crewcommunity/CrewCommunity"
+import CrewCommunity from "../pages/crewcommunity/CrewCommunity";
 import TempCommunity from "../pages/TempCommunity";
 import Oauth from "../components/loginsignup/Oauth";
+import CommunityDetail from "../pages/crewcommunity/CommunityDetailPage";
 
 function Router(): JSX.Element {
   return (
@@ -115,14 +116,14 @@ function Router(): JSX.Element {
             </Template>
           }
         />
-         <Route path="/oauth" element={<Oauth />} />
+        <Route path="/oauth" element={<Oauth />} />
         <Route
           path="/temp/community"
           element={
             <UserRoute
               element={
                 <Template header footer>
-                  <TempCommunity/>
+                  <TempCommunity />
                 </Template>
               }
             />
@@ -132,13 +133,18 @@ function Router(): JSX.Element {
         <Route
           path="/community"
           element={
-            <UserRoute
-              element={
-                <Template header footer>
-                  <CrewCommunity/>
-                </Template>
-              }
-            />
+            <Template footer>
+              <CrewCommunity />
+            </Template>
+          }
+        />
+
+        <Route
+          path="/community/:id"
+          element={
+            <Template footer>
+              <CommunityDetail />
+            </Template>
           }
         />
 

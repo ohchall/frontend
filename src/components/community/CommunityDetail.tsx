@@ -1,48 +1,69 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import {
   getCommunityPost,
   getCommunityComments,
   addCommunityComment,
   deleteCommunityComment,
-} from "../../api/mock/CommunityApi";
+} from "../../api/mock/CommunityDetailApi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/config/ConfigStore";
+
+interface Post {
+  nickname: string;
+  postdate: string;
+  title: string;
+  content: string;
+  image: string;
+}
+
+interface Comment {
+  postId: string;
+  content: string;
+  postdate: string;
+  nickname: string;
+}
 
 function CommunityDetail() {
-  const [post, setPost] = useState(null);
-  const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState("");
+  const [post, setPost] = useState<Post | null>(null);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [newComment, setNewComment] = useState<string>("");
+  const { id } = useParams<{ id: string }>();
+  const userInfo = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
-    const postId = 1;
-
-    getCommunityPost(postId).then((data) => {
+    getCommunityPost(id).then((data) => {
       setPost(data);
     });
-
-    getCommunityComments(postId).then((data) => {
+    getCommunityComments(id).then((data) => {
       setComments(data);
     });
-  }, []);
+  }, [id]);
 
   const addComment = () => {
-    const comment = {
-      postId: 1,
+    console.log("userInfo:", userInfo);
+    const comment: Comment = {
+      postId: id!,
+      nickname: userInfo.nickname,
       content: newComment,
-      postdate: new Date().toISOString().split("T")[0], // 현재 날짜 추가
+      postdate: new Date().toISOString().split("T")[0],
     };
+    console.log("Adding comment:", comment);
     addCommunityComment(comment).then((data) => {
+      console.log("Added comment:", data);
       setComments([...comments, data]);
       setNewComment("");
     });
   };
 
-  const deleteComment = (id) => {
-    deleteCommunityComment(id).then(() => {
-      setComments(comments.filter((comment) => comment.id !== id));
+  const deleteComment = (postId: string) => {
+    deleteCommunityComment(postId).then(() => {
+      setComments(comments.filter((comment) => comment.postId !== postId));
     });
   };
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment(e.target.value);
   };
 
@@ -59,7 +80,7 @@ function CommunityDetail() {
         <Content>{post.content}</Content>
         <ImageBox>
           <img
-            src={post.imageUrl}
+            src={post.image}
             alt="Main"
             style={{ maxWidth: "100%", maxHeight: "100%" }}
           />
@@ -72,17 +93,18 @@ function CommunityDetail() {
           <CommentBox key={index}>
             <CommentHeader>
               <span>{comment.nickname}</span>
-              <span>{comment.postdate}</span> {/* 날짜 형식 그대로 출력 */}
+              <span>{comment.postdate}</span>
             </CommentHeader>
             <CommentContent>
               {comment.content}
-              <button onClick={() => deleteComment(index)}>삭제</button>
+              <button onClick={() => deleteComment(comment.postId)}>
+                삭제
+              </button>
             </CommentContent>
           </CommentBox>
         ))}
         <CommentInputSection>
           <CommentInput
-            type="text"
             placeholder="새 댓글을 입력하세요."
             value={newComment}
             onChange={handleInputChange}

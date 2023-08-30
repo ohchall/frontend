@@ -1,20 +1,17 @@
 import { styled } from "styled-components";
 
-export const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
+export const MainBlock = styled.div`
   width: 100%;
-  & h1 {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 12px;
-  }
-  & button {
-    margin-right: 5%;
-  }
+  height: 100%;
 `;
 
 export const CrewListContainer = styled.div`
   width: 100%;
-  padding: 0 16px;
+  padding: 0 16px 24px;
+`;
+
+export const CrewListTitle = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 12px;
 `;

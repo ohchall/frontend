@@ -2,8 +2,12 @@ import { styled } from "styled-components";
 
 export const CategoryBlock = styled.div`
   width: 100%;
-  padding: 16px;
 `;
+
+export const CategoryContainer = styled.div`
+  width: 100%;
+  padding: 16px;
+`
 
 export const CategoryBtns = styled.button`
   height: 34px;
@@ -18,6 +22,7 @@ export const CategoryBtns = styled.button`
     background-color: #ef902a;
   }
 `;
+
 export const ImageWrapper = styled.div`
   width: 100%;
   height: 259px;
@@ -70,6 +75,7 @@ export const R9dCrew = styled.div`
   width: 100%;
   height: 232px;
   cursor: pointer;
+  margin-bottom: 12px;
 
   & ${ImageWrapper} {
     height: 160px;
@@ -79,12 +85,9 @@ export const R9dCrew = styled.div`
     height: 72px;
   }
 `;
+
 export const CategoryContents = styled.section`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
+  padding: 0 16px;
 `;
 
 export const SearchMoreBtn = styled.button`

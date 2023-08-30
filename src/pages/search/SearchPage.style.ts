@@ -6,7 +6,7 @@ export const SearchPageBlock = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
+  /* gap: 15px; */
   padding-bottom: 230px;
   overflow: scroll;
 
@@ -104,7 +104,8 @@ export const TitleContainer = styled.div`
 `;
 
 export const R9dCrew = styled.div`
-  width: 398px;
+  width: 100%;
+  padding: 0 16px;
   height: 232px;
   cursor: pointer;
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   CategoryBlock,
+  CategoryContainer,
   ImageWrapper,
   Overview,
   TitleContainer,
@@ -23,6 +24,7 @@ import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 import Scrap from "../../scrap/Scrap";
 import { useQuery } from "@tanstack/react-query";
 import { getScrap } from "../../../api/CrewApi";
+
 function Category() {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -175,6 +177,7 @@ function Category() {
 
   return (
     <CategoryBlock>
+      <CategoryContainer>
       {categories.map((category) => {
         return (
           <CategoryBtns
@@ -188,6 +191,7 @@ function Category() {
           </CategoryBtns>
         );
       })}
+      </CategoryContainer>
 
       {page.value > 1 && (
         <SearchMoreBtn onClick={prevBtnHandler}>
@@ -247,7 +251,7 @@ function Category() {
         </SearchMoreBtn>
       )}
       {loading ? <Skeleton /> : ""}
-      {error ? <h3 style={{ color: "red" }}>결과가 없습니다</h3> : ""}
+      {error ? <h3 style={{ color: "red", marginLeft: "16px" }}>결과가 없습니다</h3> : ""}
     </CategoryBlock>
   );
 }

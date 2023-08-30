@@ -78,7 +78,7 @@ const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
           <Overview>
             <div>
               <TitleContainer>
-                <p>{data?.data.crewList[0].title}</p>
+                <p>{data?.data.crewList[0].title.length > 13 ? data?.data.crewList[0].title.substring(0, 12) : data?.data.crewList[0].title}</p>
                 {/* <span>15/16</span> */}
               </TitleContainer>
 
@@ -89,8 +89,7 @@ const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
             </div>
 
             <p>
-              {data?.data.crewList[0].exerciseKind}/
-              {data?.data.crewList[0].location}{" "}
+              {data?.data.crewList[0].exerciseKind} / {data?.data.crewList[0].location.split(' ').slice(0, 2).join(' ')}
             </p>
           </Overview>
         </R9dCrew>

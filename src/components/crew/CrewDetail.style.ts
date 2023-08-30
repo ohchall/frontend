@@ -18,7 +18,7 @@ export const CrewDetailBlock = styled.div`
 `;
 
 export const Header = styled.div`
-  width: calc(100 - 32px);
+  width: calc(100% - 32px);
   border: 1px solid #5B5B5B;
   border-radius: 10px;
   padding: 16px;
@@ -37,8 +37,8 @@ export const Header = styled.div`
       white-space: pre-line;
     }
 
-    &:nth-of-type(-n+3) {
-      margin-bottom: 10px;
+    &:nth-of-type(n+2) {
+      margin-top: 10px;
     }
   }
 `;

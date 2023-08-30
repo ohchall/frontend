@@ -24,7 +24,9 @@ function Banner(props: IDataProps) {
       }
     >
       <BannerLabel>Best</BannerLabel>
-      <BannerTitle>{props.data.data.crewList[0].title}</BannerTitle>
+      <BannerTitle>
+        {props.data.data.crewList[0].title.length > 13 ? props.data.data.crewList[0].title.substring(0, 12) : props.data.data.crewList[0].title}
+        </BannerTitle>
     </BannerSection>
     )}
     </>

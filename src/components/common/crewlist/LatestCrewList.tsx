@@ -88,7 +88,7 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
             <Overview>
               <div>
                 <TitleContainer>
-                  <p>{item.title}</p>
+                  <p>{item.title.length > 13 ? item.title.substring(0, 12) : item.title}</p>
                   {/* <span>{item.totalNumber}</span> */}
                 </TitleContainer>
 
@@ -96,7 +96,7 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
               </div>
               <p style={{ fontSize: "12px" }}>
                 {" "}
-                {item.exerciseKind}/{item.location}{" "}
+                {item.exerciseKind} / {item.location.split(' ').slice(0, 2).join(' ')}{" "}
               </p>
             </Overview>
           </SwiperSlide>

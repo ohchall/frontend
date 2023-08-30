@@ -1,4 +1,4 @@
-import { TitleContainer, PopularCrewListBlock } from "./PopularCrewList.style";
+import { TitleContainer, PopularCrewListBlock } from './PopularCrewList.style';
 
 interface CrewList {
   content: string;
@@ -41,12 +41,12 @@ const PopularCrewList: React.FC<PopularCrewListProps> = ({
         >
           <TitleContainer>
             <p>{idx + 1}</p>
-            <p>{item.title}</p>
+            <p>{item.title.length > 13 ? item.title.substring(0, 12) : item.title}</p>
           </TitleContainer>
 
-          <p style={{ fontSize: "12px" }}>
+          <p style={{ fontSize: '12px' }}>
             {/* {item.exerciseKind}/ */}
-            {item.location}
+            {item.location.split(' ').slice(0, 2).join(' ')}
           </p>
         </div>
       ))}

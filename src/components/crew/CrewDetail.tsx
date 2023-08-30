@@ -107,6 +107,16 @@ function CrewDetail() {
 
         <Header>
           <div>
+            <p>제목 |</p>
+            <div>{crew?.data.title.length > 13 ? crew?.data.title.substring(0, 12) : crew?.data.title}</div>
+          </div>
+
+          <div>
+            <p>크루 |</p>
+            <div>{crew?.data.crewName}</div>
+          </div>
+
+          <div>
             <p>일정 |</p>
             <div>{crew?.data.exerciseDate}</div>
           </div>

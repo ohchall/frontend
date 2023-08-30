@@ -225,7 +225,7 @@ function Category() {
                       }}
                     >
                       <TitleContainer>
-                        <p>{post.title}</p>
+                        <p>{post.title.length > 13 ? post.title.substring(0, 12) : post.title}</p>
                       </TitleContainer>
 
                       <Scrap
@@ -235,7 +235,7 @@ function Category() {
                     </div>
 
                     <p>
-                      {post.exerciseKind} / {post.location}
+                      {post.exerciseKind} / {post.location.split(' ').slice(0, 2).join(' ')}
                     </p>
                   </Overview>
                 </R9dCrew>
@@ -251,7 +251,7 @@ function Category() {
         </SearchMoreBtn>
       )}
       {loading ? <Skeleton /> : ""}
-      {error ? <h3 style={{ color: "red", marginLeft: "16px" }}>결과가 없습니다</h3> : ""}
+      {error ? <h3 style={{ color: "red", margin: "0 16px 16px" }}>결과가 없습니다</h3> : ""}
     </CategoryBlock>
   );
 }

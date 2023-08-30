@@ -18,8 +18,10 @@ import { useEffect, useState, ReactNode } from 'react';
 import MyProfile from '../../components/common/myprofile/MyProfile';
 import { CheckuserInfo } from '../../api/AuthApi';
 import Comment from './Comment';
+import { useDispatch } from "react-redux";
 
 function CrewDetail() {
+  const dispatch = useDispatch();
   const params = useParams();
   const navigate = useNavigate();
   const access = localStorage.getItem('Access');
@@ -44,13 +46,13 @@ function CrewDetail() {
   useEffect(() => {
     // console.log('triggered');
     const getUserInfo = async () => {
-      const isUserLoggedIn = await CheckuserInfo();
+      const isUserLoggedIn = await CheckuserInfo(dispatch);
       setLoggedin(isUserLoggedIn);
     };
     if (access && refresh) {
       getUserInfo();
     }
-  }, [access, refresh]);
+  }, [access, refresh, dispatch]);
 
   // console.log(loggedin);
 

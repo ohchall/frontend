@@ -24,11 +24,23 @@ interface SearchResult {
   data: CrewList[];
 }
 
+interface UserInfo {
+  nickname: string;
+  userEmail: string;
+  userName: string;
+}
+
 const initialDisplayState: DisplayState = {
   displayRemainingComponents: true,
 };
 
 const initialSearchResultState: SearchResult["data"] = [];
+
+const initialUserInfoState: UserInfo = {
+  nickname: "",
+  userEmail: "",
+  userName: "",
+};
 
 const displaySlice = createSlice({
   name: "display",
@@ -60,9 +72,27 @@ export const searchResultSlice = createSlice({
 export const { setSearchResult, addSearchResult, resetSearchResult } =
   searchResultSlice.actions;
 
+export const userSlice = createSlice({
+  name: "user",
+  initialState: initialUserInfoState,
+  reducers: {
+    setUserInfo(state, action) {
+      state.nickname = action.payload.nickname;
+      state.userEmail = action.payload.userEmail;
+      state.userName = action.payload.userName;
+    },
+    resetUserInfo() {
+      return initialUserInfoState;
+    },
+  },
+});
+
+export const { setUserInfo, resetUserInfo } = userSlice.actions;
+
 const rootReducer = {
   displayReducer: displaySlice.reducer,
   searchReducer: searchResultSlice.reducer,
+  userReducer: userSlice.reducer,
 };
 
 export default rootReducer;

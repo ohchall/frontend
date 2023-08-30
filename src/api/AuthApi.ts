@@ -1,4 +1,6 @@
 import axios, { AxiosResponse } from "axios";
+import { setUserInfo } from "../redux/modules/Modules";
+import { Dispatch } from "redux";
 
 interface NewUser {
   useremail: string;
@@ -65,7 +67,7 @@ export const UserCheck = async (user: User): Promise<void> => {
 };
 
 //유저프로필 요청
-export const CheckuserInfo = async () => {
+export const CheckuserInfo = async (dispatch: Dispatch) => {
   try {
     const access = localStorage.getItem("Access");
     const refresh = localStorage.getItem("Refresh");
@@ -82,6 +84,7 @@ export const CheckuserInfo = async () => {
     // console.log("API response:", response);
     if (response.status === 200) {
       // console.log("API response is successful");
+      dispatch(setUserInfo(response.data));
       return true;
     } else {
       return false;

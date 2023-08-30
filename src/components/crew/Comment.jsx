@@ -119,6 +119,7 @@ function Comment({
 
   const onClickCancelEdit = () => {
     setEditFormActivate(false);
+    setComment('');
   }
 
   const {

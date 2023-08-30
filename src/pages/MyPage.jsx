@@ -4,22 +4,23 @@ import MyProfile from "../components/common/myprofile/MyProfile";
 import MyCrews from "../components/mycrew/MyCrews";
 import { styled } from "styled-components";
 import { CheckuserInfo } from "../api/AuthApi";
-
+import { useDispatch } from "react-redux";
 
 function MyPage() {
+  const dispatch = useDispatch();
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     // console.log('triggered');
     const getUserInfo = async () => {
-      const isUserLoggedIn = await CheckuserInfo();
+      const isUserLoggedIn = await CheckuserInfo(dispatch);
       setLoggedin(isUserLoggedIn);
     };
     if (access && refresh) {
       getUserInfo();
     }
-  }, [access, refresh]);
+  }, [access, refresh, dispatch]);
 
   return (
     <MyPageSection>

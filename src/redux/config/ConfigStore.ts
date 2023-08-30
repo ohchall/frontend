@@ -4,7 +4,8 @@ import Modules from "../modules/Modules";
 const store = configureStore({
   reducer: {
     display: Modules.displayReducer,
-    searchResults: Modules.searchReducer
+    searchResults: Modules.searchReducer,
+    user: Modules.userReducer,
   },
 });
 

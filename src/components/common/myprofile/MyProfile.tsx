@@ -15,6 +15,8 @@ import {
   Week,
   WeekSpan,
 } from "./MyProfile.style";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/config/ConfigStore";
 
 function MyProfile() {
   const logoutHandler = () => {
@@ -22,6 +24,9 @@ function MyProfile() {
     localStorage.removeItem("Refresh");
     window.location.reload();
   };
+
+  const userInfo = useSelector((state: RootState) => state.user);
+  // console.log(userInfo);
 
   const { data, isLoading, isError } = useFetchTodos();
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
@@ -71,7 +76,7 @@ function MyProfile() {
   return (
     <MyProfileBlock>
       <Header>
-        <p>김오챌</p>
+        <p>{userInfo.nickname}</p>
         <LinkContainer>
           <StyledLink to="/mypage">
             <StyledLuUser />

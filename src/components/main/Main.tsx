@@ -17,11 +17,13 @@ import {
   useEffect,
   useState,
   ReactNode} from 'react';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
 
 function MainPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const [loggedin, setLoggedin] = useState(false);
@@ -35,15 +37,14 @@ function MainPage() {
   useEffect(() => {
     // console.log("triggered");
     const getUserInfo = async () => {
-      const isUserLoggedIn = await CheckuserInfo();
+      const isUserLoggedIn = await CheckuserInfo(dispatch);
       setLoggedin(isUserLoggedIn);
     };
     if (access && refresh) {
       getUserInfo();
     }
-
     // console.log(access, refresh);
-  }, [access, refresh]);
+  }, [access, refresh, dispatch]);
 
   const onClickCrew = (itemId: number) => {
     if (access && refresh !== "") {

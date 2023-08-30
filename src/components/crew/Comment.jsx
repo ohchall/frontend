@@ -149,7 +149,7 @@ function Comment({
           </div>
 
           <div>
-            <span>8시간전</span>
+            {/* <span>8시간전</span> */}
             {comment.userAComment &&
             <button
               onClick={() => onClickMore(comment.commentId)}

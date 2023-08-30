@@ -4,7 +4,7 @@ import illustration from "../../assets/Background.jpeg";
 export const TemplateBlock = styled.div`
   position: relative;
   width: 430px;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   background-color: white;
   align-items: center;
 

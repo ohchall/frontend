@@ -1,13 +1,13 @@
 import { styled } from "styled-components";
 
 export const ScrapPageBlock = styled.div`
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 20px;
-  padding-bottom: 120px;
+  padding: 20px 16px 120px;
   overflow: scroll;
-  height: 100vh;
   gap: 30px;
 
   &::-webkit-scrollbar {
@@ -63,7 +63,7 @@ export const TitleContainer = styled.div`
 `;
 
 export const R9dCrew = styled.div`
-  width: 398px;
+  width: 100%;
   height: 232px;
   cursor: pointer;
 

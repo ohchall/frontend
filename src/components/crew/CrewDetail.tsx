@@ -18,7 +18,7 @@ import { useEffect, useState, ReactNode } from 'react';
 import MyProfile from '../../components/common/myprofile/MyProfile';
 import { CheckuserInfo } from '../../api/AuthApi';
 import Comment from './Comment';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
 function CrewDetail() {
   const dispatch = useDispatch();
@@ -30,8 +30,9 @@ function CrewDetail() {
   const queryClient = useQueryClient();
   const joinMutation = useMutation(joinCrew, {
     onSuccess: () => {
-      queryClient.invalidateQueries(['crewApplicant'])
-      console.log('Sent application successfully to join crew!')
+      queryClient.invalidateQueries(['crewApplicant']);
+      // console.log('Sent application successfully to join crew!');
+      alert('크루 참가 신청 완료!');
     }
   });
 

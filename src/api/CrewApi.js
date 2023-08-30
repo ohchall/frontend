@@ -72,7 +72,7 @@ export const getCrewComments = async (crewRecruitmentId) => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const res = await axios.get(
-    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${crewRecruitmentId}`,
+    `${process.env.REACT_APP_SERVER_URL}/crew/${crewRecruitmentId}/comments`,
     {
       headers: {
         Access: `${access}`,
@@ -89,7 +89,7 @@ export const addCrewComment = async (newComment) => {
   const refresh = localStorage.getItem("Refresh");
 
   await axios.post(
-    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${newComment.crewRecruitmentId}`,
+    `${process.env.REACT_APP_SERVER_URL}/crew/${newComment.crewRecruitmentId}/comments`,
     newComment.data,
     {
       headers: {
@@ -106,7 +106,7 @@ export const editCrewComment = async (editComment) => {
   const refresh = localStorage.getItem("Refresh");
 
   await axios.put(
-    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${editComment.commentId}`,
+    `${process.env.REACT_APP_SERVER_URL}/crew/${editComment.crewRecruitmentId}/comments/${editComment.commentId}`,
     editComment.data,
     {
       headers: {
@@ -118,12 +118,12 @@ export const editCrewComment = async (editComment) => {
 };
 
 // queryKey = crewComments
-export const deleteCrewComment = async (commentId) => {
+export const deleteCrewComment = async (deleteComment) => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
 
   await axios.delete(
-    `${process.env.REACT_APP_SERVER_URL}/crew/comment/${commentId}`,
+    `${process.env.REACT_APP_SERVER_URL}/crew/${deleteComment.crewRecruitmentId}/comments/${deleteComment.commentId}`,
     {
       headers: {
         Access: `${access}`,

@@ -16,6 +16,7 @@ import ScrapPage from "../pages/scrap/ScrapPage";
 import LikedPage from "../pages/liked/LikedPage";
 import CrewCommunity from "../pages/crewcommunity/CrewCommunity"
 import TempCommunity from "../pages/TempCommunity";
+import Oauth from "../components/loginsignup/Oauth";
 
 function Router(): JSX.Element {
   return (
@@ -114,7 +115,7 @@ function Router(): JSX.Element {
             </Template>
           }
         />
-
+         <Route path="/oauth" element={<Oauth />} />
         <Route
           path="/temp/community"
           element={

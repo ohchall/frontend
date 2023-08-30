@@ -15,7 +15,8 @@ import {
   CrewPostUpLoad,
 } from "./Community.style";
 import CommunityModal from './CommunityModal';
-
+import { RootState } from "../../redux/config/ConfigStore";
+import { useSelector } from 'react-redux';
 
 
 
@@ -46,6 +47,7 @@ const Community= ()=> {
         
     }
  ) 
+
   const handleObserver = useCallback((entries)   => {
     const [target] = entries;
     if (target.isIntersecting && hasNextPage) {
@@ -93,12 +95,12 @@ const Community= ()=> {
   if (!isSuccess) {
     return <div>Error...</div>;
   };
-  
+ 
   const navigateDetail=(id)=>{
   navigate(`/crew/${id}`)
   }
   const flattenedCrewList = data?.pages.flatMap(page => page.data);
-
+  
 
   return (
     <CrewPosts>

@@ -51,19 +51,3 @@ export const MapWrapper = styled.div`
   margin: 0 16px 20px;
   overflow: hidden;
 `;
-
-export const ButtonWrapper = styled.div`
-  position: fixed;
-  bottom: 60px;
-  width: 100%;
-  z-index: 9;
-
-  & > button {
-    width: 100%;
-    height: 54px;
-    font-size: 16px;
-    color: #FFFFFF;
-    background-color: #111111;
-    border: none;
-  }
-`;

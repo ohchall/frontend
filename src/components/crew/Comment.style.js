@@ -4,7 +4,7 @@ import { FiMoreHorizontal } from 'react-icons/fi';
 
 export const CommentContainer = styled.div`
   width: calc(100% - 32px);
-  margin: 0 16px 80px;
+  margin: 0 16px 20px;
 `;
 
 export const StyledComment = styled.div`

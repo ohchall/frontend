@@ -48,7 +48,7 @@ function Category() {
     []
   );
 
-  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedCategory, setSelectedCategory] = useState<string>("전체");
 
   const {
     loading,
@@ -94,6 +94,7 @@ function Category() {
       }));
       dispatch(resetSearchResult());
       setSelectedCategory(pickedCategory);
+      window.location.reload();
     } else {
       setSelectedCategory(pickedCategory);
       search(pickedCategory, page, false, false);
@@ -178,19 +179,19 @@ function Category() {
   return (
     <CategoryBlock>
       <CategoryContainer>
-      {categories.map((category) => {
-        return (
-          <CategoryBtns
-            key={category}
-            onClick={() => onClickCategory(category, 1)}
-            style={{
-              backgroundColor: selectedCategory === category ? "orange" : "",
-            }}
-          >
-            {category}
-          </CategoryBtns>
-        );
-      })}
+        {categories.map((category) => {
+          return (
+            <CategoryBtns
+              key={category}
+              onClick={() => onClickCategory(category, 1)}
+              style={{
+                backgroundColor: selectedCategory === category ? "orange" : "",
+              }}
+            >
+              {category}
+            </CategoryBtns>
+          );
+        })}
       </CategoryContainer>
 
       {page.value > 1 && (
@@ -225,7 +226,11 @@ function Category() {
                       }}
                     >
                       <TitleContainer>
-                        <p>{post.title.length > 13 ? post.title.substring(0, 12) : post.title}</p>
+                        <p>
+                          {post.title.length > 13
+                            ? post.title.substring(0, 12)
+                            : post.title}
+                        </p>
                       </TitleContainer>
 
                       <Scrap
@@ -235,7 +240,8 @@ function Category() {
                     </div>
 
                     <p>
-                      {post.exerciseKind} / {post.location.split(' ').slice(0, 2).join(' ')}
+                      {post.exerciseKind} /{" "}
+                      {post.location.split(" ").slice(0, 2).join(" ")}
                     </p>
                   </Overview>
                 </R9dCrew>
@@ -251,7 +257,11 @@ function Category() {
         </SearchMoreBtn>
       )}
       {loading ? <Skeleton /> : ""}
-      {error ? <h3 style={{ color: "red", margin: "0 16px 16px" }}>결과가 없습니다</h3> : ""}
+      {error ? (
+        <h3 style={{ color: "red", margin: "0 16px 16px" }}>결과가 없습니다</h3>
+      ) : (
+        ""
+      )}
     </CategoryBlock>
   );
 }

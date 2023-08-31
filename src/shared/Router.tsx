@@ -56,7 +56,7 @@ function Router(): JSX.Element {
         <Route
           path="/login"
           element={
-            <Template footer>
+            <Template header footer>
               <LoginPage />
             </Template>
           }
@@ -115,7 +115,7 @@ function Router(): JSX.Element {
             </Template>
           }
         />
-        
+
         <Route path="/oauth" element={<Oauth />} />
         <Route
           path="/temp/community"

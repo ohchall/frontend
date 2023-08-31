@@ -15,7 +15,7 @@ const flexStyles = css`
 
 export const CrewImage =styled.div`
  width: 100%;
-  height: 35%;
+  height: 30%;
   ${flexStyles}
   background-color:#eeeeee;
   border-radius: 10px;
@@ -85,10 +85,11 @@ export const CrewImageUpLoad = styled.div`
 export const CrewFormContents = styled.div`
  width:100%;
  height:50%;
+ margin-top:35px;
  ${flexStyles}
  @media screen and (max-width:500px){
-  height: 60%;
-  margin-top: 15px;
+  height: 62%;
+  margin-top:5px;
  }
   &>.identicalStyle{
     border-bottom:1px solid #999999;
@@ -98,7 +99,7 @@ export const CrewFormContents = styled.div`
     padding:5px 10px;
     }
     strong {
-    width: 16%;
+    width: 17%;
     margin-right: 10px;
     font-size: 15px;
     font-weight: 600;
@@ -127,7 +128,7 @@ export const CrewFormContents = styled.div`
      overflow-y:auto;
      @media screen and (max-width: 500px) {
       font-size:14px;
-      max-height:100px;
+      max-height:80px;
      }
     }
     textarea.focused::placeholder {
@@ -189,7 +190,7 @@ export const CrewButtons=styled.div`
  ${CrewFormStyles};
  padding:10px 0;
  @media screen and (max-width: 500px) {
-  padding:8px 0;
+  padding:6px 0;
  }
   & > .submit{
     width:100%;
@@ -198,7 +199,7 @@ export const CrewButtons=styled.div`
     font-weight:900;
     font-size:16px;
     border:none;
-    padding: 6px 0;
+    padding: 4px 0;
     border-radius: 5px 5px 5px 5px;
  }
 `

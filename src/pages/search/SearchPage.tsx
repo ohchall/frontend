@@ -191,13 +191,13 @@ const SearchPage = () => {
               <Overview>
                 <div>
                   <TitleContainer>
-                    <p>{post.title}</p>
+                    <p>{post.title.length > 13 ? post.title.substring(0, 12) : post.title}</p>
                   </TitleContainer>
 
                   <Scrap id={post.crewRecruitmentId} currentScrapData={post} />
                 </div>
 
-                <p>{post.exerciseKind}</p>
+                <p>{post.exerciseKind} / {post.location.split(' ').slice(0, 2).join(' ')}</p>
               </Overview>
             </R9dCrew>
           );

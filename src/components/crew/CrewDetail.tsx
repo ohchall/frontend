@@ -2,46 +2,24 @@ import {
   ImageWrapper,
   CrewDetailBlock,
   Header,
-  MapWrapper,
-  ButtonWrapper,
-} from './CrewDetail.style';
-import { useNavigate, useParams } from 'react-router-dom';
+  MapWrapper } from './CrewDetail.style';
+import { useParams } from 'react-router-dom';
 import {
-  useQuery,
-  useQueryClient,
-  useMutation } from '@tanstack/react-query';
-import {
-  getCrew,
-  joinCrew } from '../../api/CrewApi';
+  useQuery } from '@tanstack/react-query';
+import { getCrew } from '../../api/CrewApi';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useEffect, useState, ReactNode } from 'react';
 import MyProfile from '../../components/common/myprofile/MyProfile';
 import { CheckuserInfo } from '../../api/AuthApi';
 import Comment from './Comment';
-import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
 
 function CrewDetail() {
   const dispatch = useDispatch();
   const params = useParams();
-  const navigate = useNavigate();
   const access = localStorage.getItem('Access');
   const refresh = localStorage.getItem('Refresh');
   const [loggedin, setLoggedin] = useState(false);
-  const queryClient = useQueryClient();
-  const joinMutation = useMutation(joinCrew, {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['crewApplicant'])
-      console.log('Sent application successfully to join crew!')
-    }
-  });
-
-  const onClickCrewMember = () => {
-    navigate(`/crew/member/${params.id}`);
-  };
-
-  const onClickJoinCrew = () => {
-    joinMutation.mutate(params.id);
-  }
 
   useEffect(() => {
     // console.log('triggered');
@@ -129,6 +107,16 @@ function CrewDetail() {
 
         <Header>
           <div>
+            <p>제목 |</p>
+            <div>{crew?.data.title.length > 13 ? crew?.data.title.substring(0, 12) : crew?.data.title}</div>
+          </div>
+
+          <div>
+            <p>크루 |</p>
+            <div>{crew?.data.crewName}</div>
+          </div>
+
+          <div>
             <p>일정 |</p>
             <div>{crew?.data.exerciseDate}</div>
           </div>
@@ -156,26 +144,6 @@ function CrewDetail() {
         </MapWrapper>
 
         <Comment crewRecruitmentId={params.id} />
-
-        {crew?.data.owner === false &&
-        <ButtonWrapper>
-          <button
-            onClick={onClickJoinCrew}
-          >
-            크루 참여하기
-          </button>
-        </ButtonWrapper>
-        }
-
-        {crew?.data.owner === true &&
-        <ButtonWrapper>
-          <button
-            onClick={onClickCrewMember}
-          >
-            크루 멤버 관리하기
-          </button>
-        </ButtonWrapper>
-        }
       </CrewDetailBlock>
     </>
   );

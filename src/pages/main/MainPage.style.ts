@@ -2,12 +2,10 @@ import { styled } from 'styled-components';
 
 export const MainPageBlock = styled.div`
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  padding-bottom: 80px;
-  overflow: scroll;
+  height: calc(100% - 60px);
+  overflow: auto;
+  margin: 0 auto;
+  -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
   }

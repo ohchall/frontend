@@ -6,9 +6,9 @@ import Banner from './banner/Banner';
 import Category from '../common/category/Category';
 // import EventBanner from '../banner/EventBanner';
 import {
-  TitleContainer,
+  MainBlock,
   CrewListContainer,
-} from './Main.style';
+  CrewListTitle } from './Main.style';
 import LatestCrewList from '../common/crewlist/LatestCrewList';
 import R9dCrewList from '../common/crewlist/R9dCrewList';
 import PopularCrewList from '../common/crewlist/PopularCrewList';
@@ -20,7 +20,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
 
-function MainPage() {
+function Main() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -65,46 +65,43 @@ function MainPage() {
   return (
     <>
       {loggedin ? <MyProfile /> : null}
-      {isLoading && "Loading..."}
-      {errorMessage}
-      {/* {error && 'An error has occurred: ' + error.message} */}
-      <Banner data={data} />
-      <div style={{ margin: "-20px 0 -30px 0" }}>
+      <MainBlock>
+        {isLoading && "Loading..."}
+        {errorMessage}
+        {/* {error && 'An error has occurred: ' + error.message} */}
+        <Banner data={data} />
         <Category />
-      </div>
-      {displayRemainingComponents && (
-        <>
-          <CrewListContainer>
-            <TitleContainer>
-              <h1>최신 크루 리스트</h1>
-              {/* <button>더보기</button> */}
-            </TitleContainer>
+        {displayRemainingComponents && (
+          <>
+            <CrewListContainer>
+              <CrewListTitle>
+                최신 크루 리스트
+              </CrewListTitle>
 
-            <LatestCrewList data={data} onClickCrew={onClickCrew} />
-          </CrewListContainer>
+              <LatestCrewList data={data} onClickCrew={onClickCrew} />
+            </CrewListContainer>
 
-          <CrewListContainer>
-            <TitleContainer>
-              <h1>인기 크루 리스트</h1>
-              {/* <button>더보기</button> */}
-            </TitleContainer>
+            <CrewListContainer>
+              <CrewListTitle>
+                인기 크루 리스트
+              </CrewListTitle>
 
-            <PopularCrewList data={data} onClickCrew={onClickCrew} />
-          </CrewListContainer>
+              <PopularCrewList data={data} onClickCrew={onClickCrew} />
+            </CrewListContainer>
 
-          <CrewListContainer>
-            <TitleContainer>
-              <h1>추천 크루 리스트</h1>
-              {/* <button>더보기</button> */}
-            </TitleContainer>
+            <CrewListContainer>
+              <CrewListTitle>
+                추천 크루 리스트
+              </CrewListTitle>
 
-            <R9dCrewList data={data} onClickCrew={onClickCrew} />
-          </CrewListContainer>
-        </>
-      )}
+              <R9dCrewList data={data} onClickCrew={onClickCrew} />
+            </CrewListContainer>
+          </>
+        )}
+      </MainBlock>
       {/* <EventBanner /> */}
     </>
   );
 }
 
-export default MainPage;
+export default Main;

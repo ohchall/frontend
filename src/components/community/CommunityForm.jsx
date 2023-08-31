@@ -57,10 +57,7 @@ const [crew, setCrew] = useState({
   const onCrewUpload = async (e) => {
     e.preventDefault();
   
-    if (!crew.title || !crew.content || !crew.crewName || !crew.location || !crew.exerciseKind || crew.totalNumber === 0 || !crew.time) {
-      alert("모든 항목을 입력하거나 선택해주세요.");
-      return;
-    }
+  
 
     const dateOnly = crew.exerciseDate.split("T")[0];
     communityMutation.mutate(crew,{
@@ -125,19 +122,6 @@ const [crew, setCrew] = useState({
     });
   }, [searchedAddress]);
 
-
-  const postConfig = {
-    onComplete: (data) => {
-      setSearchedAddress(data.address);
-    },
-  };
-  
-  const postCode = ReactDaumPost(postConfig);
-
-  const setExerciseDates = (value) => {
-    setExerciseDate(value);
-    setCrew({ ...crew, exerciseDate: value.toISOString() });
-  };
  
     const upLoadImgHandler = async(e) => {
       const files = e.target.files;
@@ -178,9 +162,7 @@ const [crew, setCrew] = useState({
     updatedImages.splice(index, 1);
     setAddImg(updatedImages);
   };
-  const setCrewTime =  useCallback((selectedTime) => {
-    setCrew((prevCrew) => ({ ...prevCrew, time: selectedTime }));
-  }, []);
+
 
   return (
     
@@ -239,45 +221,6 @@ const [crew, setCrew] = useState({
             onChange={handleInputChange}
           />
         </CrewContent>
-        <CrewName className="identicalStyle">
-          <strong>크루명</strong>
-          <input
-            type="text"
-            name="crewName"
-            value={crew.crewName}
-            placeholder="크루이름을 입력하세요"
-            onChange={handleInputChange}
-          />
-        </CrewName>
-        <CrewDates className="identicalStyle">
-          <strong>일정</strong>
-          <CrewDate setStartDate={setExerciseDates} />
-        </CrewDates>
-        <CrewTimes className="time identicalStyle">
-          <strong>시간</strong>
-          <CrewTime setCrewTime={setCrewTime} />
-        </CrewTimes>
-
-        <CrewLocation className="identicalStyle">
-          <strong>장소</strong>
-          <div className="address">
-            <input
-              type="text"
-              onClick={postCode}
-              placeholder="주소검색을 눌러주세요."
-              ref={ref}
-              name="location"
-              value={crew.location}
-              onChange={handleInputChange}
-            />
-          </div>
-        </CrewLocation>
-        <CrewCategory
-          category={exerciseKind}
-          customCategory={customCategory}
-          onSelectCategory={setExerciseKind}
-          onCustomCategoryChange={setCustomCategory}
-        />
 
         <CrewTotalMembers className="nickname identicalStyle">
           <strong>작성자</strong>

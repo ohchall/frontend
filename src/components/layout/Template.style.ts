@@ -4,7 +4,7 @@ import illustration from "../../assets/Background.jpeg";
 export const TemplateBlock = styled.div`
   position: relative;
   width: 430px;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   background-color: white;
   align-items: center;
 
@@ -18,7 +18,7 @@ export const Background = styled.div`
   grid-template-columns: 1fr 1fr;
   justify-items: center;
   align-items: center;
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   overflow: hidden;
 
   padding-left: 20%;

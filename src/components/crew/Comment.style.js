@@ -70,6 +70,7 @@ export const CommentModal = styled.div`
     background-color: transparent;
     border: none;
     font-size: 12px;
+    white-space: nowrap;
   }
 `;
 

@@ -21,6 +21,10 @@ export const FooterSection = styled.footer`
   background-color: #fff;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   z-index: 99;
+
+  @media (max-width: 430px) {
+    position: fixed;
+  }
 `;
 
 export const LinkContainer = styled.div`

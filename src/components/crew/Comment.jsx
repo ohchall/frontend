@@ -29,10 +29,9 @@ import {
 function Comment({
   crewRecruitmentId
 }) {
-  const [content, setContent] = useState('');
-  const [isCommentModalOpen, setCommentModalOpen] = useState(false);
-  const [isCommentActivate, setCommentActivate] = useState(true);
-  const [isEditActivate, setEditActivate] = useState(false);
+  const [comment, setComment] = useState('');
+  const [clickedCommentIndex, setClickedCommentIndex] = useState(0);
+  const [isEditFormActivate, setEditFormActivate] = useState(false);
   const [editCommentId, setEditCommentId] = useState(0);
   const queryClient = useQueryClient();
   const commentModalRef = useRef(null);
@@ -55,17 +54,15 @@ function Comment({
     }
   });
 
-  const openCommentModal = () => {
-    setCommentModalOpen(true);
-  };
-
-  const closeCommentModal = () => {
-    setCommentModalOpen(false);
+  const onClickMore = (commendId) => {
+    setClickedCommentIndex(commendId);
+    // console.log(clickedCommentIndex);
   };
 
   const onClickCommentContainer = (e) => {
     if (commentModalRef.current && !commentModalRef.current.contains(e.target)) {
-      closeCommentModal();
+      // closeCommentModal();
+      setClickedCommentIndex(0);
     }
   };
 
@@ -75,12 +72,12 @@ function Comment({
     const newComment = {
       crewRecruitmentId,
       data: {
-        content
+        comment
       }
     }
 
     addMutation.mutate(newComment);
-    setContent('');
+    setComment('');
   };
 
   const onSubmitCommentEditForm = (e) => {
@@ -90,31 +87,39 @@ function Comment({
       crewRecruitmentId,
       commentId: editCommentId,
       data: {
-        content
+        comment
       }
     }
 
     editMutation.mutate(editComment);
-    setContent('');
+    setComment('');
+    setEditFormActivate(false);
   };
 
-  const onChangeContent = (e) => {
-    setContent(e.target.value);
+  const onChangeComment = (e) => {
+    setComment(e.target.value);
   };
 
   const onClickDeleteComment = (commentId) => {
-    deleteMutation.mutate(commentId);
+    const deleteComment = {
+      crewRecruitmentId,
+      commentId
+    }
+
+    deleteMutation.mutate(deleteComment);
+    setClickedCommentIndex(0);
   };
 
-  const onClickEditComment = (commentId) => {
-    setEditActivate(true);
+  const onClickEditComment = (commentId, comment) => {
+    setEditFormActivate(true);
     setEditCommentId(commentId);
-    setCommentActivate(false);
+    setComment(comment);
+    setClickedCommentIndex(0);
   };
 
   const onClickCancelEdit = () => {
-    setEditActivate(false);
-    setCommentActivate(true);
+    setEditFormActivate(false);
+    setComment('');
   }
 
   const {
@@ -145,20 +150,22 @@ function Comment({
           </div>
 
           <div>
-            <span>8시간전</span>
+            {/* <span>8시간전</span> */}
+            {comment.userAComment &&
             <button
-              onClick={openCommentModal}
+              onClick={() => onClickMore(comment.commentId)}
             >
               <StyledFiMoreHorizontal />
             </button>
+            }
 
-            {isCommentModalOpen && (
+            {clickedCommentIndex === comment.commentId && (
             <CommentModal
               ref={commentModalRef}
               onClick={e => e.stopPropagation()}
             >
               <button
-                onClick={() => onClickEditComment(comment.commentId)}
+                onClick={() => onClickEditComment(comment.commentId, comment.comment)}
               >
                 수정
               </button>
@@ -178,7 +185,7 @@ function Comment({
             '혼합 복식에 여1 구합니다. 남자분도 문의주세요.\n' +
             '경기장 이용비용으로 회비 5,000원 있습니다.'
           } */}
-          {comment.content}
+          {comment.comment}
         </CommentContent>
 
         {/* <CommentFooter>
@@ -219,12 +226,12 @@ function Comment({
       </StyledComment>
       ))}
 
-      {isCommentActivate &&
+      {!isEditFormActivate &&
       <CommentFormWrapper>
         <form onSubmit={onSubmitCommentForm}>
           <textarea
-            value={content}
-            onChange={onChangeContent}
+            value={comment}
+            onChange={onChangeComment}
           >
           </textarea>
           <button>
@@ -234,12 +241,12 @@ function Comment({
       </CommentFormWrapper>
       }
 
-      {isEditActivate &&
+      {isEditFormActivate &&
       <CommentEditFormWrapper>
         <form onSubmit={onSubmitCommentEditForm}>
           <textarea
-            value={content}
-            onChange={onChangeContent}
+            value={comment}
+            onChange={onChangeComment}
           >
           </textarea>
 

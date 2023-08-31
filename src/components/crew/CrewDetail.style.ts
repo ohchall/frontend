@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const ImageWrapper = styled.div`
   width: 100%;
   height: 310px;
@@ -19,7 +18,7 @@ export const CrewDetailBlock = styled.div`
 `;
 
 export const Header = styled.div`
-  width: calc(100 - 32px);
+  width: calc(100% - 32px);
   border: 1px solid #5B5B5B;
   border-radius: 10px;
   padding: 16px;
@@ -38,8 +37,8 @@ export const Header = styled.div`
       white-space: pre-line;
     }
 
-    &:nth-of-type(-n+3) {
-      margin-bottom: 10px;
+    &:nth-of-type(n+2) {
+      margin-top: 10px;
     }
   }
 `;
@@ -51,17 +50,4 @@ export const MapWrapper = styled.div`
   background-color: #f2f2f2;
   margin: 0 16px 20px;
   overflow: hidden;
-`;
-
-export const ButtonWrapper = styled.div`
-  width: 100%;
-
-  & > button {
-    width: 100%;
-    height: 54px;
-    font-size: 16px;
-    color: #FFFFFF;
-    background-color: #111111;
-    border: none;
-  }
 `;

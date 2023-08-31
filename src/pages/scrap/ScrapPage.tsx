@@ -57,7 +57,7 @@ const ScrapPage = () => {
                     />
                   </div>
 
-                  <p>{post.exerciseKind}</p>
+                  <p>{post.exerciseKind} / {post.location.split(' ').slice(0, 2).join(' ')}</p>
                 </Overview>
               </R9dCrew>
             );

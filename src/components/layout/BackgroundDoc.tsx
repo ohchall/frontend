@@ -55,7 +55,7 @@ const BackgroundDocBlock = styled.section`
   border-radius: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 25px;
   justify-content: center;
 
   @media screen and (max-width: 1000px) {
@@ -69,7 +69,9 @@ const BackgroundDocBlock = styled.section`
     text-underline-offset: 10px;
   }
   & h3 {
+    margin-bottom: 10px;
     font-size: 20px;
+    line-height: 1.5;
   }
   & h5 {
     font-size: 14px;
@@ -81,11 +83,13 @@ const BackgroundDocBlock = styled.section`
     align-items: center;
     justify-content: center;
     font-weight: bold;
+    margin-bottom: -20px;
   }
   & ul {
     list-style-type: disc;
     padding-left: 20px;
-    line-height: 1.2;
+    line-height: 1.5;
+    width: 255px;
   }
   & li {
     font-size: 14px;

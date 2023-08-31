@@ -17,7 +17,16 @@ const SNSlogin: React.FC<SNSLoginProps> = () => {
 
       <a
         href={KAKAO_AUTH_URI}
-        style={{ backgroundColor: "yellow", color: "black" }}
+        style={{
+          backgroundColor: "#FFE812",
+          color: "black",
+          borderRadius: "50%",
+          width: "60px",
+          height: "60px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <RiKakaoTalkFill
           // to={"/oauth"}

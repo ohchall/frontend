@@ -87,11 +87,18 @@ const LoginPage: React.FC = () => {
         </LoginSignupInputsContainers>
       </form>
       <SNSLoginContainer>
-        <span>SNS계정으로 간편 로그인</span>
+        <span>SNS계정으로 간편하게 로그인/회원가입</span>
         <SNSlogin />
       </SNSLoginContainer>
+      <hr
+        style={{
+          border: "none",
+          borderTop: "1px solid lightgray",
+          marginRight: "20px",
+          marginLeft: "20px",
+        }}
+      ></hr>
       <Etc>
-        로그인에 문제가 있으신가요?
         <Nav to="/register">회원가입</Nav>
       </Etc>
     </LoginPageBlock>

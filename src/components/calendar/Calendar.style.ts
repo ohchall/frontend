@@ -14,7 +14,7 @@ export const CalendarContainer = styled.div`
     height: 40px;
     font-size: 22px;
     font-weight: bold;
-    border-bottom: 1px solid #999999;
+    margin-bottom: 8px;
 
     > img {
       width: 20px;
@@ -83,6 +83,11 @@ export const CalendarContainer = styled.div`
 
     .fc .fc-daygrid-day-top {
       flex-direction: column;
+    }
+
+    .fc-daygrid-day-number {
+      padding-top: 7px;
+      padding-bottom: 1px;
     }
 
     .fc-col-header-cell {

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const TodosContainer = styled.div`
-  background-color: #eeeeee;
+  background-color: #f3f3f3;
   margin-bottom: 20px;
   width: 100%;
   height: 100%;
@@ -26,17 +26,17 @@ export const TodosContainer = styled.div`
     }
   }
   .TodolsitTitle {
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    border-bottom: 2px solid black;
 
     > h2 {
       line-height: 2;
       height: 40px;
       font-size: 22px;
       font-weight: bold;
-      margin-left: 15px;
-      background-color: #eeeeee;
+      margin-left: 25px;
+      background-color: #f3f3f3;
     }
 
     > p {
@@ -59,9 +59,9 @@ export const TodoListContainer = styled.div`
   justify-content: center;
   overflow: auto;
   width: 100%;
-  background-color: #eeeeee;
+  background-color: #f3f3f3;
   scrollbar-width: none;
-  -ms-overflow-style: none; /* IE and Edge */
+  -ms-overflow-style: none;
   padding: 0 0;
   height: 40%;
 
@@ -75,9 +75,9 @@ export const TodoCompleteListContainer = styled.div`
   justify-content: center;
   overflow: auto;
   width: 100%;
-  background-color: #eeeeee;
+  background-color: #f3f3f3;
   scrollbar-width: none;
-  -ms-overflow-style: none; /* IE and Edge */
+  -ms-overflow-style: none;
   padding: 0 0;
   height: 40%;
   /* margin-bottom: 40px; */
@@ -92,7 +92,7 @@ export const TodosList = styled.div`
   display: grid;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-content: flex-start;
   max-height: 215px;
   min-height: 0;
   width: 400px;
@@ -113,9 +113,6 @@ export const TodosBox = styled.div<TodosBoxProps>`
   width: 100%;
   text-align: center;
   overflow: hidden;
-  background-color: ${(props) => (props.$isComplete ? "#BBBBBB" : "white")};
-  text-decoration: ${(props) => (props.$isComplete ? "line-through" : "none")};
-  text-decoration-thickness: 2px; // 줄 굵기 설정
 
   &:hover {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
@@ -137,18 +134,12 @@ export const TodosBox = styled.div<TodosBoxProps>`
       font-size: 14.5px;
       font-weight: bold;
       color: #000000;
-      text-decoration: ${(props) =>
-        props.$isComplete ? "line-through" : "none"};
-      text-decoration-thickness: 2px;
       white-space: nowrap;
       max-width: 285px;
     }
     > h3 {
       font-size: 13px;
       color: #454545;
-      text-decoration: ${(props) =>
-        props.$isComplete ? "line-through" : "none"};
-      text-decoration-thickness: 2px;
       height: 28px;
       display: flex;
       align-items: center;
@@ -161,9 +152,6 @@ export const TodosBox = styled.div<TodosBoxProps>`
     > h4 {
       font-size: 13px;
       color: #454545;
-      text-decoration: ${(props) =>
-        props.$isComplete ? "line-through" : "none"};
-      text-decoration-thickness: 2px;
       height: 16px;
       padding-left: 2px;
     }
@@ -185,9 +173,7 @@ export const DayColor = styled.span<DayColorProps>`
       ? "#transparent"
       : props.$isCurrent === true
       ? "#93C3BC"
-      : "#EEEEEE"};
-  line-height: 1;
-  text-decoration: ${(props) => (props.$isComplete ? "line-through" : "none")};
+      : "#F3F3F3"};
   text-decoration-thickness: 2px;
 `;
 
@@ -195,7 +181,7 @@ export const MoreButton = styled.button`
   position: relative;
   border: 0;
   background-color: transparent;
-  left: 0px;
+  left: -5px;
   bottom: 30px;
   font-size: 18px;
   font-weight: bold;
@@ -211,7 +197,7 @@ type MoreButtonContainerProps = {
 
 export const MoreButtonContainer = styled.div<MoreButtonContainerProps>`
   position: absolute;
-  right: 3px;
+  right: 8px;
   top: 35px;
   background: white;
   border-radius: 5px;
@@ -230,7 +216,7 @@ export const MoreButtonContainer = styled.div<MoreButtonContainerProps>`
     justify-content: center;
 
     &:hover {
-      background-color: #eeeeee;
+      background-color: #f3f3f3;
       cursor: pointer;
     }
   }

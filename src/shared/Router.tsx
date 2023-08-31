@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Template from "../components/layout/Template";
+import TemplateMypage from "../components/layout/TemplateMypage";
+import TemplateCommunity from "../components/layout/TemplateCommunity";
 import MainPage from "../pages/main/MainPage";
 import MyPage from "../pages/MyPage";
 import CrewPage from "../pages/crew/CrewPage";
@@ -36,7 +38,7 @@ function Router(): JSX.Element {
           element={
             <UserRoute
               element={
-                <Template header footer>
+                <Template footer>
                   <MyPage />
                 </Template>
               }
@@ -47,9 +49,9 @@ function Router(): JSX.Element {
         <Route
           path="/mypage/todolist"
           element={
-            <Template header footer>
+            <TemplateMypage header footer>
               <TodoListPage />
-            </Template>
+            </TemplateMypage>
           }
         />
 
@@ -142,9 +144,9 @@ function Router(): JSX.Element {
         <Route
           path="/community/:id"
           element={
-            <Template footer>
+            <TemplateCommunity header footer>
               <CommunityDetail />
-            </Template>
+            </TemplateCommunity>
           }
         />
 

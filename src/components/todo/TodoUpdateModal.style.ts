@@ -13,39 +13,115 @@ export const ModalShadow = styled.div`
   justify-content: center;
   padding-bottom: 60px;
 
-  @media (min-width: 1000px) and (max-width: 1050px) {
-    padding-left: 35.7vw;
+  @media (min-width: 1000.1px) and (max-width: 1020px) {
+    padding-left: 37.5vw;
   }
 
-  @media (min-width: 1050px) and (max-width: 1100px) {
-    padding-left: 34.7vw;
+  @media (min-width: 1020px) and (max-width: 1040px) {
+    padding-left: 37.2vw;
   }
 
-  @media (min-width: 1100px) and (max-width: 1150px) {
-    padding-left: 33.7vw;
+  @media (min-width: 1040px) and (max-width: 1060px) {
+    padding-left: 36.2vw;
   }
 
-  @media (min-width: 1150px) and (max-width: 1200px) {
-    padding-left: 32.7vw;
+  @media (min-width: 1060px) and (max-width: 1080px) {
+    padding-left: 35.2vw;
   }
 
-  @media (min-width: 1200px) and (max-width: 1250px) {
+  @media (min-width: 1080px) and (max-width: 1100px) {
+    padding-left: 34.8vw;
+  }
+
+  @media (min-width: 1100px) and (max-width: 1120px) {
+    padding-left: 34vw;
+  }
+
+  @media (min-width: 1120px) and (max-width: 1140px) {
+    padding-left: 33.4vw;
+  }
+
+  @media (min-width: 1140px) and (max-width: 1160px) {
+    padding-left: 32.9vw;
+  }
+
+  @media (min-width: 1160px) and (max-width: 1180px) {
+    padding-left: 32.3vw;
+  }
+
+  @media (min-width: 1180px) and (max-width: 1200px) {
     padding-left: 31.7vw;
   }
 
-  @media (min-width: 1250px) and (max-width: 1300px) {
+  @media (min-width: 1200px) and (max-width: 1220px) {
+    padding-left: 31.2vw;
+  }
+
+  @media (min-width: 1220px) and (max-width: 1240px) {
+    padding-left: 30.6vw;
+  }
+
+  @media (min-width: 1240px) and (max-width: 1260px) {
+    padding-left: 30.2vw;
+  }
+
+  @media (min-width: 1260px) and (max-width: 1280px) {
+    padding-left: 29.7vw;
+  }
+
+  @media (min-width: 1280px) and (max-width: 1300px) {
+    padding-left: 29.3vw;
+  }
+
+  @media (min-width: 1300px) and (max-width: 1320px) {
+    padding-left: 29.1vw;
+  }
+
+  @media (min-width: 1320px) and (max-width: 1340px) {
+    padding-left: 28.8vw;
+  }
+
+  @media (min-width: 1340px) and (max-width: 1365px) {
+    padding-left: 28.2vw;
+  }
+
+  @media (min-width: 1365px) and (max-width: 1380px) {
+    padding-left: 28.8vw;
+  }
+
+  @media (min-width: 1380px) and (max-width: 1400px) {
+    padding-left: 29.2vw;
+  }
+
+  @media (min-width: 1400px) and (max-width: 1420px) {
+    padding-left: 29.6vw;
+  }
+
+  @media (min-width: 1420px) and (max-width: 1440px) {
+    padding-left: 30vw;
+  }
+
+  @media (min-width: 1440px) and (max-width: 1460px) {
+    padding-left: 30.3vw;
+  }
+
+  @media (min-width: 1460px) and (max-width: 1480px) {
+    padding-left: 30.6vw;
+  }
+
+  @media (min-width: 1480px) and (max-width: 1700px) {
     padding-left: 30.7vw;
   }
 
-  @media (min-width: 1300px) and (max-width: 1350px) {
-    padding-left: 29vw;
+  @media (min-width: 1700px) and (max-width: 1900px) {
+    padding-left: 30.8vw;
   }
 
-  @media (min-width: 1350px) and (max-width: 1450px) {
-    padding-left: 29vw;
+  @media (min-width: 200px) and (max-width: 2100px) {
+    padding-left: 30.75vw;
   }
 
-  @media (min-width: 1450px) {
+  @media (min-width: 2100px) {
     padding-left: 30.7vw;
   }
 `;

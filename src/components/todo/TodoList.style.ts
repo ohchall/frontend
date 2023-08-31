@@ -33,14 +33,17 @@ export const TodosContainer = styled.div`
       height: 40px;
       font-size: 22px;
       font-weight: bold;
-      margin-left: 15px;
+      margin-left: 26px;
       background-color: #eeeeee;
+      padding-top: 3px;
     }
 
     > p {
       line-height: 3;
+      padding-top: 7px;
       height: 40px;
-      margin-right: 15px;
+      font-size: 12px;
+      margin-right: 26px;
       text-decoration: underline;
       cursor: pointer;
     }

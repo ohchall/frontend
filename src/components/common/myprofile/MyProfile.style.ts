@@ -80,7 +80,7 @@ export const StyledLuHeart = styled(LuHeart)`
 
 export const ThisMonthGoal = styled.div`
   width: 100%;
-  height: 37px;
+  height: 45px;
   display: flex;
   align-items: center;
   border-radius: 10px;
@@ -88,11 +88,20 @@ export const ThisMonthGoal = styled.div`
   margin-bottom: 6px;
   background-color: #ffffff;
   justify-content: center;
+  position: relative;
 
-  & > p {
-    font-size: 15px;
-    color: #4a4a4a;
-    font-style: italic;
+  & > h3 {
+    font-size: 14px;
+    font-weight: 550;
+    /* color: #4a4a4a;
+    font-style: italic; */
+  }
+
+  & > h4 {
+    font-size: 14px;
+    font-weight: 550;
+    /* color: #4a4a4a;
+    font-style: italic; */
   }
 `;
 
@@ -112,7 +121,8 @@ export const ThisWeekTodo = styled.div`
     display: none;
   }
   & p {
-    width: 68px;
+    font-size: 13px;
+    width: 70px;
     font-weight: bold;
     overflow: hidden;
     white-space: nowrap;

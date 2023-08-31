@@ -70,7 +70,7 @@ function TodoAddModal({ onRequestClose }: TodoAddModalProps) {
             <input
               type="text"
               name="title"
-              placeholder="title"
+              placeholder="제목"
               value={title}
               maxLength={20}
               onChange={(e) => onChangeTodoHandler(e)}
@@ -81,7 +81,7 @@ function TodoAddModal({ onRequestClose }: TodoAddModalProps) {
             <input
               type="text"
               name="content"
-              placeholder="content"
+              placeholder="내용"
               value={content}
               maxLength={45}
               onChange={(e) => onChangeTodoHandler(e)}
@@ -92,7 +92,7 @@ function TodoAddModal({ onRequestClose }: TodoAddModalProps) {
             <input
               type="date"
               name="date"
-              placeholder="date"
+              placeholder="날짜"
               value={date}
               onChange={(e) => onChangeTodoHandler(e)}
             ></input>

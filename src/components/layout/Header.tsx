@@ -1,19 +1,25 @@
+import { useNavigate } from 'react-router-dom';
 import {
   HeaderBlock,
-  StyledLink } from './Header.style';
-import { AiOutlineArrowLeft } from 'react-icons/ai';
+  StyledAiOutlineArrowLeft } from './Header.style';
 
 interface IHeaderProps {
   headerText: string
 }
 
 function Header(props: IHeaderProps) {
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <HeaderBlock>
-        <StyledLink to="/crew">
-          <AiOutlineArrowLeft />
-        </StyledLink>
+        <button onClick={goBack}>
+          <StyledAiOutlineArrowLeft />
+        </button>
         <p>{props.headerText}</p>
       </HeaderBlock>
     </>

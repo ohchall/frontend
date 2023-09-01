@@ -119,26 +119,12 @@ function MyProfile() {
 
       <div>
         <ThisMonthGoal>
-          <h3
-            style={{
-              float: "left",
-              position: "absolute",
-              left: "15px",
-              maxWidth: "75%",
-            }}
-          >
+          <p>
             {randomQuoteObj.content}
-          </h3>
-          <h4
-            style={{
-              float: "right",
-              position: "absolute",
-              bottom: 0,
-              right: "15px",
-            }}
-          >
+          </p>
+          <p>
             {randomQuoteObj.author}
-          </h4>
+          </p>
         </ThisMonthGoal>
 
         <ThisWeekTodo>

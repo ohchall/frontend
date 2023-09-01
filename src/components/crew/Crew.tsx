@@ -70,17 +70,28 @@ function Crew() {
             <CrewListContainer>
               <CrewListTitle>최신 크루 리스트</CrewListTitle>
 
-              <LatestCrewList data={data} onClickCrew={onClickCrew} />
+              <LatestCrewList
+                data={data}
+                onClickCrew={onClickCrew}
+                loggedin={loggedin}
+              />
             </CrewListContainer>
             <CrewListContainer>
               <CrewListTitle>인기 크루 리스트</CrewListTitle>
 
-              <PopularCrewList data={data} onClickCrew={onClickCrew} />
+              <PopularCrewList
+                data={data}
+                onClickCrew={onClickCrew}
+              />
             </CrewListContainer>
             <CrewListContainer>
               <CrewListTitle>추천 크루 리스트</CrewListTitle>
 
-              <R9dCrewList data={data} onClickCrew={onClickCrew} />
+              <R9dCrewList
+                data={data}
+                onClickCrew={onClickCrew}
+                loggedin={loggedin}
+              />
             </CrewListContainer>
           </>
         )}

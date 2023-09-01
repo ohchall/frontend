@@ -7,7 +7,7 @@ export const MainBlock = styled.div`
 
 export const CrewListContainer = styled.div`
   width: 100%;
-  padding: 0 16px 24px;
+  padding: 0 16px 28px;
 `;
 
 export const CrewListTitle = styled.p`

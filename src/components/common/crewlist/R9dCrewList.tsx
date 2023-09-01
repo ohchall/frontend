@@ -26,19 +26,24 @@ interface CrewList {
   page: number;
 }
 
-interface Data {
+interface IData {
   data: {
     crewList: CrewList[];
     totalPages: number;
   };
 }
 
-interface R9dCrewListProps {
-  data?: Data;
+interface IR9dCrewListProps {
+  data?: IData;
   onClickCrew?: (id: number) => void;
+  loggedin: boolean
 }
 
-const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
+const R9dCrewList = ({
+  data,
+  onClickCrew,
+  loggedin
+ }: IR9dCrewListProps) => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
 
@@ -82,10 +87,12 @@ const R9dCrewList: React.FC<R9dCrewListProps> = ({ data, onClickCrew }) => {
                 {/* <span>15/16</span> */}
               </TitleContainer>
 
+              {loggedin ?
               <Scrap
                 id={data?.data.crewList[0].crewRecruitmentId}
                 currentScrapData={currentScrapData}
               />
+              : null}
             </div>
 
             <p>

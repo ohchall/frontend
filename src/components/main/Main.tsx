@@ -17,15 +17,15 @@ import {
   useEffect,
   useState,
   ReactNode} from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/config/ConfigStore";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/config/ConfigStore';
 
 function Main() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
+  const access = localStorage.getItem('Access');
+  const refresh = localStorage.getItem('Refresh');
   const [loggedin, setLoggedin] = useState(false);
   // const [displayRemainingComponents, setDisplayRemainingComponents] =
   //   useState(true);
@@ -47,26 +47,26 @@ function Main() {
   }, [access, refresh, dispatch]);
 
   const onClickCrew = (itemId: number) => {
-    if (access && refresh !== "") {
+    if (access && refresh !== '') {
       navigate(`/crew/${itemId}`);
     } else {
-      navigate("/login");
+      navigate('/login');
     }
   };
 
-  const { data, isLoading, error: queryError } = useQuery(["crews"], getCrews);
+  const { data, isLoading, error: queryError } = useQuery(['crews'], getCrews);
 
   let errorMessage: ReactNode = null;
   if (queryError) {
     const error = queryError as Error;
-    errorMessage = "An error has occurred: " + error.message;
+    errorMessage = 'An error has occurred: ' + error.message;
   }
 
   return (
     <>
       {loggedin ? <MyProfile /> : null}
       <MainBlock>
-        {isLoading && "Loading..."}
+        {isLoading && 'Loading...'}
         {errorMessage}
         {/* {error && 'An error has occurred: ' + error.message} */}
         <Banner data={data} />
@@ -78,7 +78,11 @@ function Main() {
                 최신 크루 리스트
               </CrewListTitle>
 
-              <LatestCrewList data={data} onClickCrew={onClickCrew} />
+              <LatestCrewList
+                data={data}
+                onClickCrew={onClickCrew}
+                loggedin={loggedin}  
+              />
             </CrewListContainer>
 
             <CrewListContainer>
@@ -86,7 +90,10 @@ function Main() {
                 인기 크루 리스트
               </CrewListTitle>
 
-              <PopularCrewList data={data} onClickCrew={onClickCrew} />
+              <PopularCrewList
+                data={data}
+                onClickCrew={onClickCrew}
+              />
             </CrewListContainer>
 
             <CrewListContainer>
@@ -94,7 +101,11 @@ function Main() {
                 추천 크루 리스트
               </CrewListTitle>
 
-              <R9dCrewList data={data} onClickCrew={onClickCrew} />
+              <R9dCrewList
+                data={data}
+                onClickCrew={onClickCrew}
+                loggedin={loggedin}
+              />
             </CrewListContainer>
           </>
         )}

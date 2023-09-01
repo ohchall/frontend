@@ -8,6 +8,7 @@ import {
   LuHeart,
 } from "react-icons/lu";
 import styled from "styled-components";
+import myProfileBG from "../../../assets/MyProfileBG.png";
 
 interface WeekSpanProps {
   $isCurrent: boolean;
@@ -15,8 +16,8 @@ interface WeekSpanProps {
 
 export const MyProfileBlock = styled.div`
   width: 100%;
-  height: 249px;
-  background-image: linear-gradient(to bottom, #ef902a, #fff, #baf2ff);
+  height: 239px;
+  background-image: url(${myProfileBG});
   padding: 16px;
 `;
 
@@ -80,34 +81,34 @@ export const StyledLuHeart = styled(LuHeart)`
 
 export const ThisMonthGoal = styled.div`
   width: 100%;
-  height: 45px;
+  height: 54px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-radius: 10px;
-  padding-left: 10px;
   margin-bottom: 6px;
   background-color: #ffffff;
-  justify-content: center;
-  position: relative;
+  padding: 10px;
 
-  & > h3 {
+  & > p {
+    height: 34px;
+    overflow: auto;
     font-size: 14px;
-    font-weight: 550;
-    /* color: #4a4a4a;
-    font-style: italic; */
+    font-weight: bold;
   }
 
-  & > h4 {
-    font-size: 14px;
-    font-weight: 550;
-    /* color: #4a4a4a;
-    font-style: italic; */
+  & > p:first-of-type {
+    width: 70%;
+  }
+
+  & > p:nth-of-type(2) {
+    line-height: 34px;
   }
 `;
 
 export const ThisWeekTodo = styled.div`
   width: 100%;
-  height: 118px;
+  height: 90px;
   display: flex;
   border-radius: 10px;
   padding: 10px;

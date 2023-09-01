@@ -46,10 +46,6 @@ export const R9dCrew = styled.div`
   height: 232px;
   cursor: pointer;
 
-  &:nth-of-type(-n+4) {
-    margin-bottom: 12px;
-  }
-
   & ${ImageWrapper} {
     height: 160px;
   }

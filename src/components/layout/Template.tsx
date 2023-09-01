@@ -43,6 +43,8 @@ function Template({
     headerText = "오운완";
   } else if (matchCommunityDetail) {
     headerText = "오운완";
+  } else if (location.pathname === "/scrap") {
+    headerText = "크루 스크랩 리스트";
   }
     
   return (

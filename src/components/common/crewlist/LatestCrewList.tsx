@@ -1,6 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { ImageWrapper, Overview, TitleContainer } from "./LatestCrewList.style";
+import {
+  ImageWrapper,
+  Overview,
+  TitleContainer } from "./LatestCrewList.style";
 import Scrap from "../../scrap/Scrap";
 import { getScrap } from "../../../api/CrewApi";
 import { useQuery } from "@tanstack/react-query";
@@ -21,19 +24,24 @@ interface CrewList {
   page: number;
 }
 
-interface Data {
+interface IData {
   data: {
     crewList: CrewList[];
     totalPages: number;
   };
 }
 
-interface LatestCrewListProps {
-  data?: Data;
+interface ILatestCrewListProps {
+  data?: IData;
   onClickCrew?: (id: number) => void;
+  loggedin: boolean
 }
 
-const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
+const LatestCrewList = ({
+  data,
+  onClickCrew,
+  loggedin
+ }: ILatestCrewListProps) => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
 
@@ -46,12 +54,17 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
 
   const updatedSearchResultsWithScrappedInfo = data?.data.crewList.map(
     (resultItem) => {
-      const isScrapped = scrappedData?.some(
-        (scrapItem: any) =>
-          scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
-      );
+      if (!loggedin) {
+        return resultItem;
 
-      return { ...resultItem, scrapped: isScrapped };
+      } else {
+        const isScrapped = scrappedData?.some(
+          (scrapItem: any) =>
+            scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
+        );
+
+        return { ...resultItem, scrapped: isScrapped };
+      }
     }
   );
 
@@ -92,7 +105,12 @@ const LatestCrewList = ({ data, onClickCrew }: LatestCrewListProps) => {
                   {/* <span>{item.totalNumber}</span> */}
                 </TitleContainer>
 
-                <Scrap id={item.crewRecruitmentId} currentScrapData={item} />
+                {loggedin ?
+                <Scrap
+                  id={item.crewRecruitmentId}
+                  currentScrapData={item}
+                />
+                : null}
               </div>
               <p style={{ fontSize: "12px" }}>
                 {" "}

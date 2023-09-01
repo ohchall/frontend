@@ -1,27 +1,39 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import styled from "styled-components";
 import {
   getCommunityPost,
   getCommunityComments,
   addCommunityComment,
-  deleteCommunityComment,
 } from "../../api/mock/CommunityDetailApi";
+import {
+  MainContent,
+  Nickname,
+  PostDate,
+  Title,
+  Content,
+  ImageBox,
+  CommentSection,
+  CommentBox,
+  CommentContent,
+  CommentInputSection,
+  CommentInput,
+  SubmitButton,
+} from "./CommunityDetail.style";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
 
 interface Post {
   nickname: string;
-  postdate: string;
   title: string;
   content: string;
   image: string;
+  postDate: string;
 }
 
 interface Comment {
   postId: string;
   content: string;
-  postdate: string;
+  postDate: string;
   nickname: string;
 }
 
@@ -47,7 +59,7 @@ function CommunityDetail() {
       postId: id!,
       nickname: userInfo.nickname,
       content: newComment,
-      postdate: new Date().toISOString().split("T")[0],
+      postDate: new Date().toISOString().split("T")[0],
     };
     console.log("Adding comment:", comment);
     addCommunityComment(comment).then((data) => {
@@ -57,14 +69,26 @@ function CommunityDetail() {
     });
   };
 
-  const deleteComment = (postId: string) => {
-    deleteCommunityComment(postId).then(() => {
-      setComments(comments.filter((comment) => comment.postId !== postId));
-    });
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setNewComment(e.target.value);
+  };
+
+  const formatDate = (postDate: string) => {
+    const now = new Date();
+    const detailpostDate = new Date(postDate);
+    const diffInSeconds = Math.floor(
+      (now.getTime() - detailpostDate.getTime()) / 1000
+    );
+
+    if (diffInSeconds < 3600) {
+      return `${Math.floor(diffInSeconds / 60)}분 전`;
+    }
+
+    if (diffInSeconds < 86400) {
+      return `${Math.floor(diffInSeconds / 3600)}시간 전`;
+    }
+
+    return `${Math.floor(diffInSeconds / 86400)}일 전`;
   };
 
   if (post === null) {
@@ -74,8 +98,14 @@ function CommunityDetail() {
   return (
     <>
       <MainContent>
-        <Nickname>{post.nickname}</Nickname>
-        <PostDate>{post.postdate}</PostDate> {/* 날짜 형식 그대로 출력 */}
+        <div className="MainContentTitle">
+          <div className="NickLogo">{post.nickname[0]}</div>
+          <div className="NickContent">
+            <Nickname>{post.nickname}</Nickname>
+            <PostDate>{formatDate(post.postDate)}</PostDate>
+          </div>
+          <div className="MainContentUpdate">...</div>
+        </div>
         <Title>{post.title}</Title>
         <Content>{post.content}</Content>
         <ImageBox>
@@ -88,28 +118,28 @@ function CommunityDetail() {
       </MainContent>
 
       <CommentSection>
-        <h2>댓글</h2>
         {comments.map((comment, index) => (
           <CommentBox key={index}>
-            <CommentHeader>
-              <span>{comment.nickname}</span>
-              <span>{comment.postdate}</span>
-            </CommentHeader>
-            <CommentContent>
-              {comment.content}
-              <button onClick={() => deleteComment(comment.postId)}>
-                삭제
-              </button>
-            </CommentContent>
+            <div className="CommentContentTitle">
+              <div className="CommentLogo">{comment.nickname[0]}</div>
+              <div className="CommentNickContent">
+                <Nickname>{comment.nickname}</Nickname>
+                <PostDate>{formatDate(comment.postDate)}</PostDate>
+              </div>
+              <div className="CommentContentUpdate">...</div>
+            </div>
+            <CommentContent>{comment.content}</CommentContent>
+            <div className="CommentUndeline"></div>
           </CommentBox>
         ))}
         <CommentInputSection>
           <CommentInput
-            placeholder="새 댓글을 입력하세요."
+            placeholder="함께할 크루들과 즐거운 대화를 나눠보세요."
             value={newComment}
             onChange={handleInputChange}
+            maxLength={100}
           />
-          <SubmitButton onClick={addComment}>작성</SubmitButton>
+          <SubmitButton onClick={addComment}>등록</SubmitButton>
         </CommentInputSection>
       </CommentSection>
     </>
@@ -117,82 +147,3 @@ function CommunityDetail() {
 }
 
 export default CommunityDetail;
-
-const MainContent = styled.div`
-  padding: 20px;
-`;
-
-const Nickname = styled.div`
-  font-weight: bold;
-`;
-
-const PostDate = styled.div`
-  font-size: 0.8em;
-  color: gray;
-`;
-
-const Title = styled.h1`
-  margin-top: 10px;
-`;
-
-const Content = styled.p`
-  margin-top: 20px;
-`;
-
-const ImageBox = styled.div`
-  width: 100%;
-  height: 300px;
-  background-color: #f1f1f1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-`;
-
-const CommentSection = styled.div`
-  margin-top: 30px;
-`;
-
-const CommentBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  margin-top: 10px;
-  padding: 10px;
-`;
-
-const CommentHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.8em;
-`;
-
-const CommentContent = styled.div`
-  margin-top: 5px;
-`;
-
-const CommentInputSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #ccc;
-  border-radius: 10px; // 둥글게 처리
-  margin-top: 20px;
-  padding: 10px;
-`;
-
-const CommentInput = styled.textarea`
-  flex-grow: 1;
-  border: none;
-  outline: none;
-  resize: none; // textarea 크기 고정
-`;
-
-const SubmitButton = styled.button`
-  align-self: flex-end; // 오른쪽 하단에 위치
-  background-color: #ddd;
-  padding: 5px 10px;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px; // 위쪽 마진 추가
-  border-radius: 5px; // 버튼도 둥글게
-`;

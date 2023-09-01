@@ -34,7 +34,7 @@ export const ModalShadow = styled.div`
   }
 
   @media (min-width: 1100px) and (max-width: 1120px) {
-    padding-left: 34vw;
+    padding-left: 34.3vw;
   }
 
   @media (min-width: 1120px) and (max-width: 1140px) {
@@ -58,11 +58,11 @@ export const ModalShadow = styled.div`
   }
 
   @media (min-width: 1220px) and (max-width: 1240px) {
-    padding-left: 30.6vw;
+    padding-left: 30.9vw;
   }
 
   @media (min-width: 1240px) and (max-width: 1260px) {
-    padding-left: 30.2vw;
+    padding-left: 30.4vw;
   }
 
   @media (min-width: 1260px) and (max-width: 1280px) {
@@ -110,15 +110,15 @@ export const ModalShadow = styled.div`
   }
 
   @media (min-width: 1480px) and (max-width: 1700px) {
-    padding-left: 30.7vw;
+    padding-left: 30.4vw;
   }
 
   @media (min-width: 1700px) and (max-width: 1900px) {
-    padding-left: 30.8vw;
+    padding-left: 30.55vw;
   }
 
   @media (min-width: 1900px) and (max-width: 2100px) {
-    padding-left: 30.75vw;
+    padding-left: 30.6vw;
   }
 
   @media (min-width: 2100px) {

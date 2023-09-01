@@ -140,7 +140,7 @@ function Router(): JSX.Element {
         />
 
         <Route
-          path="/community/:id"
+          path="/socialPost/:id"
           element={
             <Template header footer>
               <CommunityDetail />

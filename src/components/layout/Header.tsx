@@ -3,14 +3,18 @@ import {
   StyledLink } from './Header.style';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 
-const Header: React.FC = () => {
+interface IHeaderProps {
+  headerText: string
+}
+
+function Header(props: IHeaderProps) {
   return (
     <>
       <HeaderBlock>
         <StyledLink to="/crew">
           <AiOutlineArrowLeft />
         </StyledLink>
-        <p>참여하고 싶은 크루 둘러보기</p>
+        <p>{props.headerText}</p>
       </HeaderBlock>
     </>
   );

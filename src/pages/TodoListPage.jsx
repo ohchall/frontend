@@ -14,7 +14,7 @@ export default TodoListPage;
 
 const TodoDetailListSection = styled.section`
   width: 100%;
-  height: 95%;
+  height: calc(100% - 120px);
   display: flex;
   flex-direction: column;
   align-items: center;

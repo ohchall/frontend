@@ -27,7 +27,7 @@ export const AgreementBox = styled.div`
   }
 `;
 export const SignUpPageBlock = styled.main`
-  height: 100%;
+  height: calc(100% - 120px);
   overflow: scroll;
   padding-top: 5px;
   padding-bottom: 100px;

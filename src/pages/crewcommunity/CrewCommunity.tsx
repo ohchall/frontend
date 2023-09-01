@@ -2,11 +2,6 @@ import { styled } from "styled-components";
 import MyProfile from "../../components/common/myprofile/MyProfile";
 import Community from "../../components/community/Community";
 
-
-
-
-
-
 const CrewCommunity: React.FC = () => {
   // If you decide to uncomment and use the below code,
   // add type definitions for your state and props where necessary.
@@ -35,12 +30,9 @@ const CrewCommunity: React.FC = () => {
 }
 export default CrewCommunity;
 
-
-
-
 const CrewCommunitySection = styled.section`
   width: 100%;
-  height: 100vh;
+  height: calc(100% - 120px);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -105,7 +105,6 @@ const MyCrews: React.FC = () => {
 
   const flattenedCrewList = data?.pages.flatMap(page => page.data.crewList);
   // console.log(flattenedCrewList)
-
   return (
     <CrewPosts>
       <CrewPostUpLoad>

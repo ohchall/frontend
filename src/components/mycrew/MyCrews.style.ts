@@ -1,8 +1,9 @@
 import { css, styled } from "styled-components";
 
+
 const crewPostInherit = css`
   width:100%;
-  height:inherit;
+  height:100vh;
   `
  const crewPostDisplay= css`
   width:100%;
@@ -11,15 +12,16 @@ const crewPostInherit = css`
   justify-content: space-between;
  `
 export const CrewPosts=styled.div`
-  ${crewPostInherit}
-  margin-bottom:120px;
-`
-export const CrewPostUpLoad=styled.div`
  ${crewPostInherit}
- padding: 0 16px;
+  margin-bottom:66px;
+`
+export const CrewPostUpLoad = styled.div`
+ width:100%;
+ height:22vh;
+ padding:0 16px;
  overflow-y:auto;
  @media screen and (max-width: 500px) {
-  padding: 5px 38px;}
+  padding: 5px 16px;}
   & > h3{
    font-size:22px;
    margin-bottom:5px;
@@ -31,16 +33,17 @@ export const CrewPostUpLoad=styled.div`
    ${crewPostDisplay};
    height:50px;
    cursor:pointer;
-   padding:13px 16px;
+   padding:13px 9px;
    border-radius:10px;
   }
   & > div > p{
     font-size:15px;
     font-weight:400;
     color: ${props => props.color || '#111111'};
+    margin-left:8px;
   }
   & > div > button{
-   width:10%;
+   width:9%;
    height:100%;
    cursor:pointer;
    font-size:18px;
@@ -66,7 +69,7 @@ export const CrewPostsRecents=styled.div`
  & > div:nth-child(odd){margin-right:10px;}
 `
 export const CrewPostRecent=styled.div`
-  width: calc(50% - 20px);
+  width: calc(50% - 5px);
   height: 253px;
   background-color: #d9d9d9;
   border: 1px solid  #eeeeee;
@@ -142,7 +145,7 @@ export const CrewPersonMax=styled.div`
 export const CrewPostButton=styled.div`
  ${crewPersonDisplay}
  justify-content:center;
- height: 5%;
+ height: 22%;
  border: 1px solid #6e6e6e;
  background-color:#ffffff;
  border-radius: 10px;
@@ -153,5 +156,9 @@ export const CrewPostButton=styled.div`
   font-size: 16px;
   font-weight: 500;
   color: #3c3c3c;
+  margin-left:4px;
+ }
+ @media screen and (max-width:500px){
+  height:25%;
  }
 `

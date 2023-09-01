@@ -1,16 +1,16 @@
 import React, { useState,useRef, Dispatch } from 'react';
-import { CrewImage, CrewImageUpLoad } from './CrewDrag.style';
+import { CrewImage, CrewImageUpLoad } from './CommunityDrag.style';
 import { AiOutlineCamera } from "react-icons/ai";
 import imageCompression from "browser-image-compression";
-import {Crew} from "../crewpost/CrewTypes";
+import { CrewType } from './CommunityType';
 
 interface CrewDragProps {
-    crew: Crew;
-    setCrew: React.Dispatch<React.SetStateAction<Crew>>;
+    crew: CrewType;
+    setCrew: React.Dispatch<React.SetStateAction<CrewType>>;
   }
 
 
- const CrewDrag: React.FC<CrewDragProps> = ({ crew, setCrew }) =>  {
+ const CommunityDrag: React.FC<CrewDragProps> = ({ crew, setCrew }) =>  {
  const [draggingIndex, setDraggingIndex] = useState<number>(-1);
  const [overIndex, setOverIndex] = useState<number>(-1);
  const [addImg, setAddImg] = useState<string[]>([]);
@@ -61,10 +61,10 @@ const upLoadImgHandler = async(e: React.ChangeEvent<HTMLInputElement>) => {
 
         setAddImg(prevURLs => [...prevURLs, ...previewURLs]);
         setCrew(prevCrew => {
-            const newImages = [...prevCrew.images, ...compressedFiles];
+            const newImages = [...prevCrew.image, ...compressedFiles];
             return {
                 ...prevCrew,
-                images: newImages
+                image: newImages
             };
         });
     } catch (error) {
@@ -91,7 +91,7 @@ const handleDragStart = (e: React.DragEvent<HTMLImageElement>, index: number) =>
     e.preventDefault();
 
     const updatedURLs = [...addImg];
-    const updatedFiles = [...crew.images];
+    const updatedFiles = [...crew.image];
 
   
     const droppedURL = updatedURLs[overIndex];
@@ -109,7 +109,7 @@ const handleDragStart = (e: React.DragEvent<HTMLImageElement>, index: number) =>
     setAddImg(updatedURLs);
     setCrew(prevCrew => ({
         ...prevCrew,
-        images: updatedFiles 
+        image: updatedFiles 
     }));
 
     setDraggingIndex(-1);
@@ -117,7 +117,7 @@ const handleDragStart = (e: React.DragEvent<HTMLImageElement>, index: number) =>
 };
 const rearrangeImages = (fromIndex: number, toIndex: number) => {
     let newImages = [...addImg];
-    let newFiles = [...crew.images]; 
+    let newFiles = [...crew.image]; 
     
     if ((fromIndex === 1 && toIndex === 0) || (fromIndex === 0 && toIndex === 1)) { 
         const temp = newImages[1];
@@ -138,7 +138,7 @@ const rearrangeImages = (fromIndex: number, toIndex: number) => {
     setAddImg(newImages);
     setCrew(prevCrew => ({
         ...prevCrew,
-        images: newFiles 
+        image: newFiles 
     }));
 };
 
@@ -257,4 +257,4 @@ const ImageUploads=(length:any)=> {
   )
 }
 
-export default CrewDrag;
+export default CommunityDrag;

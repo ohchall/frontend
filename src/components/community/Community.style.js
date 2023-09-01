@@ -16,7 +16,7 @@ export const CrewPosts=styled.div`
 `
 export const CrewPostUpLoad=styled.div`
  ${crewPostInherit}
- padding: 0 16px;
+ padding: 5px 0;
  overflow-y:auto;
  @media screen and (max-width: 500px) {
   padding: 5px 38px;}
@@ -29,14 +29,18 @@ export const CrewPostUpLoad=styled.div`
   & > .crewPostButton{
    background-color: ${props => props.color || '#ef902a'};
    ${crewPostDisplay};
-   height:50px;
+   width:16%;
+   height:7%;
    cursor:pointer;
-   padding:13px 16px;
-   border-radius:10px;
+   border-radius:50%;
+   margin-left:auto;
+   right:0;
   }
   & > div > p{
     font-size:15px;
-    font-weight:400;
+    width:100%;
+    text-align:center;
+    font-weight:900;
     color: ${props => props.color || '#111111'};
   }
   & > div > button{
@@ -48,6 +52,7 @@ export const CrewPostUpLoad=styled.div`
    color: ${props => props.color || '#111111'};
    background:transparent;
    border:none;
+   display:none;
   }
   & > div > button >svg {
     width:100%;
@@ -66,18 +71,16 @@ export const CrewPostsRecents=styled.div`
  & > div:nth-child(odd){margin-right:10px;}
 `
 export const CrewPostRecent=styled.div`
-  width: calc(50% - 20px);
+  width: calc(50% - 5px);
   height: 253px;
-  background-color: #d9d9d9;
-  border: 1px solid  #eeeeee;
-  border-radius: 25px;
+  border-radius: 10px;
   margin:5px 0;
  
 `
 export const CrewPostReImg=styled.div`
  width:100%;
- height:152px;
- border-radius:25px 25px 0 0;
+ height:75%;
+ border-radius:10px 10px 0 0;
  overflow:hidden;
  background-color:#eeeeee;
    & >img{
@@ -88,8 +91,7 @@ export const CrewPostReImg=styled.div`
 `
 export const CrewPostReContent= styled.div`
   width:100%;
-  height:35%;
-  border-radius:30px;
+  height:25%;
   overflow:hidden;
   padding-top:10px;
   @media screen and (max-width:500px) {

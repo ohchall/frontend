@@ -15,14 +15,10 @@ const flexStyles = css`
 
 export const CrewImage =styled.div`
  width: 100%;
-  height: 30%;
+  height: 50%;
   ${flexStyles}
   background-color:#eeeeee;
   border-radius: 10px;
-  /* margin-bottom:15%; */
-  @media screen and (max-width:500px){
-    height:30%;
-  }
   &>.button {
     width:100%;
     height: 100%;
@@ -84,13 +80,8 @@ export const CrewImageUpLoad = styled.div`
   `;
 export const CrewFormContents = styled.div`
  width:100%;
- height:50%;
- margin-top:35px;
+ height:40%;
  ${flexStyles}
- @media screen and (max-width:500px){
-  height: 62%;
-  margin-top:5px;
- }
   &>.identicalStyle{
     border-bottom:1px solid #999999;
     ${CrewFormStyles};

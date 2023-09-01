@@ -58,7 +58,7 @@ const ModalStyles=styled.div`
   background: transparent;
   cursor:pointer;
   @media screen and (max-width:500px){
-    top: 95%;
+    top: 92%;
     left: 39%;
     height: 4%;
   }

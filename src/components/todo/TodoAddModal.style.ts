@@ -117,7 +117,7 @@ export const ModalShadow = styled.div`
     padding-left: 30.8vw;
   }
 
-  @media (min-width: 200px) and (max-width: 2100px) {
+  @media (min-width: 1900px) and (max-width: 2100px) {
     padding-left: 30.75vw;
   }
 

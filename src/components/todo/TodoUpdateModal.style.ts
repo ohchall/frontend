@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import { styled } from "styled-components";
 
 export const ModalShadow = styled.div`
   position: fixed;
@@ -117,7 +117,7 @@ export const ModalShadow = styled.div`
     padding-left: 30.8vw;
   }
 
-  @media (min-width: 200px) and (max-width: 2100px) {
+  @media (min-width: 1900px) and (max-width: 2100px) {
     padding-left: 30.75vw;
   }
 
@@ -180,10 +180,10 @@ export const ModalContent = styled.div`
 
     > button {
       margin-top: 10px;
-      width: 80%;
+      width: 90%;
       height: 50px;
-      background: #666666;
-      color: #ffffff;
+      background: #ef902a;
+      color: #111111;
       font-size: 16px;
       border: none;
       padding: 6px 0;

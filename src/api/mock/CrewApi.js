@@ -26,7 +26,7 @@ export const useCommunityMutation = () => {
 
 // queryKey = crewData
 export const useFetchCommunity = () => {
-  return useQuery(["crewData"], async () => {
+  return useQuery(["communityData"], async () => {
     // queryKey를 배열로 변경
     try {
       const { data } = await axios.get(

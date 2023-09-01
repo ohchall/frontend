@@ -1,33 +1,42 @@
+import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import MyProfile from "../../components/common/myprofile/MyProfile";
 import Community from "../../components/community/Community";
+import { CheckuserInfo } from "../../api/AuthApi";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/config/ConfigStore";
 
-const CrewCommunity: React.FC = () => {
-  // If you decide to uncomment and use the below code,
-  // add type definitions for your state and props where necessary.
-  
-  // const access = localStorage.getItem("Access");
-  // const refresh = localStorage.getItem("Refresh");
-  // const [loggedin, setLoggedin] = React.useState<boolean>(false);
-  
-  // React.useEffect(() => {
-  //   // console.log('triggered');
-  //   const getUserInfo = async () => {
-  //     const isUserLoggedIn = await CheckuserInfo();
-  //     setLoggedin(isUserLoggedIn);
-  //   };
-  //   if (access && refresh) {
-  //     getUserInfo();
-  //   }
-  // }, [access, refresh]);
+interface Props {}
+
+const CrewCommunity: React.FC<Props> = () => {
+  const dispatch = useDispatch();
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const [loggedin, setLoggedin] = useState(false);
+  useEffect(() => {
+    // console.log('triggered');
+    const getUserInfo = async () => {
+      const isUserLoggedIn = await CheckuserInfo(dispatch);
+      setLoggedin(isUserLoggedIn);
+    };
+    if (access && refresh) {
+      getUserInfo();
+    }
+  }, [access, refresh, dispatch]);
+  const displayRemainingComponents = useSelector(
+    (state: RootState) => state.display.displayRemainingComponents
+  );
 
   return (
     <CrewCommunitySection>
-       <MyProfile />
+       {loggedin ? <MyProfile /> : null}
+       {displayRemainingComponents && 
        <Community />
+        }
     </CrewCommunitySection>
   );
 }
+
 export default CrewCommunity;
 
 const CrewCommunitySection = styled.section`

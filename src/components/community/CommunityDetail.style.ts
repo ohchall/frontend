@@ -27,6 +27,7 @@ export const MainContent = styled.div`
     .MainContentUpdate {
       margin-left: auto;
       font-size: 22px;
+      cursor: pointer;
     }
   }
 `;
@@ -101,6 +102,7 @@ export const CommentSection = styled.div`
       font-size: 18px;
       padding-left: 10px;
       padding-top: 2px;
+      cursor: pointer;
     }
   }
 `;
@@ -110,7 +112,7 @@ export const CommentBox = styled.div`
   flex-direction: column;
 
   margin-top: 10px;
-  padding: 10px 10px 20px 10px;
+  padding: 10px 10px 10px 10px;
   width: 95%;
 
   .CommentUndeline {

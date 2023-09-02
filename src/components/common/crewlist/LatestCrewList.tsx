@@ -54,16 +54,15 @@ const LatestCrewList = ({
 
   const updatedSearchResultsWithScrappedInfo = data?.data.crewList.map(
     (resultItem) => {
-      if (!loggedin) {
-        return resultItem;
-
-      } else {
+      if (loggedin) {
         const isScrapped = scrappedData?.some(
           (scrapItem: any) =>
             scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
         );
 
         return { ...resultItem, scrapped: isScrapped };
+      } else {
+        return resultItem;
       }
     }
   );

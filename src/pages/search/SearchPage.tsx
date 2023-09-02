@@ -13,14 +13,16 @@ import {
   R9dCrew,
   SearchMoreBtn,
 } from "./SearchPage.style";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
 import { CrewList } from "../../redux/modules/Modules";
 import Scrap from "../../components/scrap/Scrap";
 import { useQuery } from "@tanstack/react-query";
 import { getScrap } from "../../api/CrewApi";
+import { CheckuserInfo } from "../../api/AuthApi";
 
 const SearchPage = () => {
+  const dispatch = useDispatch();
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const searchResult = useSelector((state: RootState) => state.searchResults);
@@ -34,6 +36,18 @@ const SearchPage = () => {
   );
 
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const [loggedin, setLoggedin] = useState(false);
+  useEffect(() => {
+    // console.log('triggered');
+    const getUserInfo = async () => {
+      const isUserLoggedIn = await CheckuserInfo(dispatch);
+      setLoggedin(isUserLoggedIn);
+    };
+    if (access && refresh) {
+      getUserInfo();
+    }
+  }, [access, refresh, dispatch]);
 
   // useSearch : 결과, 로딩, 에러 등을 반환 : 키워드, 페이지, 사이즈, 결과리셋 가져감
   const {
@@ -194,7 +208,12 @@ const SearchPage = () => {
                     <p>{post.title.length > 13 ? post.title.substring(0, 12) : post.title}</p>
                   </TitleContainer>
 
-                  <Scrap id={post.crewRecruitmentId} currentScrapData={post} />
+                  {loggedin ?
+                  <Scrap
+                    id={post.crewRecruitmentId}
+                    currentScrapData={post}
+                  />
+                  : null}
                 </div>
 
                 <p>{post.exerciseKind} / {post.location.split(' ').slice(0, 2).join(' ')}</p>

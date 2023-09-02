@@ -35,7 +35,7 @@ function Main() {
   );
 
   useEffect(() => {
-    // console.log("triggered");
+    // console.log('triggered');
     const getUserInfo = async () => {
       const isUserLoggedIn = await CheckuserInfo(dispatch);
       setLoggedin(isUserLoggedIn);
@@ -70,7 +70,9 @@ function Main() {
         {errorMessage}
         {/* {error && 'An error has occurred: ' + error.message} */}
         <Banner data={data} />
-        <Category />
+        <Category
+          loggedin={loggedin}
+        />
         {displayRemainingComponents && (
           <>
             <CrewListContainer>

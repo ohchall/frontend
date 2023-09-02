@@ -25,7 +25,13 @@ import Scrap from "../../scrap/Scrap";
 import { useQuery } from "@tanstack/react-query";
 import { getScrap } from "../../../api/CrewApi";
 
-function Category() {
+interface ICategoryProps {
+  loggedin: boolean
+}
+
+function Category({
+  loggedin
+}: ICategoryProps) {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
@@ -76,12 +82,16 @@ function Category() {
 
   const updatedSearchResultsWithScrappedInfo = updatedSearchResult.map(
     (resultItem) => {
-      const isScrapped = scrappedData?.some(
-        (scrapItem: any) =>
-          scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
-      );
+      if (loggedin) {
+        const isScrapped = scrappedData?.some(
+          (scrapItem: any) =>
+            scrapItem.crewRecruitmentId === resultItem.crewRecruitmentId
+        );
 
-      return { ...resultItem, scrapped: isScrapped };
+        return { ...resultItem, scrapped: isScrapped };
+      } else {
+        return resultItem;
+      }
     }
   );
 
@@ -233,10 +243,12 @@ function Category() {
                         </p>
                       </TitleContainer>
 
+                      {loggedin ?
                       <Scrap
                         id={post.crewRecruitmentId}
                         currentScrapData={post}
                       />
+                      : null}
                     </div>
 
                     <p>

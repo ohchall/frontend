@@ -62,7 +62,9 @@ function Crew() {
         {isLoading && 'Loading...'}
         {errorMessage}
         {/* {error && 'An error has occurred: ' + error.message} */}
-        <Category />
+        <Category
+          loggedin={loggedin}
+        />
 
         {displayRemainingComponents && (
           <>

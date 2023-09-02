@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 export const TodosContainer = styled.div`
   background-color: #eeeeee;
-  margin-bottom: 20px;
+  margin-bottom: 26px;
   width: 100%;
 
   > button {

@@ -92,7 +92,7 @@ export const ThisMonthGoal = styled.div`
 
   & > p {
     height: 34px;
-    overflow: auto;
+    overflow: hidden;
     font-size: 14px;
     font-weight: bold;
   }

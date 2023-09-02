@@ -76,8 +76,10 @@ export const CommentModal = styled.div`
 
 export const CommentContent = styled.div`
   width: 100%;
+  max-height: 80px;
   margin-bottom: 22px;
   white-space: pre-line;
+  overflow: hidden;
 `;
 
 export const CommentFooter = styled.div`

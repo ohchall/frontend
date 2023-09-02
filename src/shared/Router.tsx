@@ -36,7 +36,7 @@ function Router(): JSX.Element {
           element={
             <UserRoute
               element={
-                <Template footer>
+                <Template header footer>
                   <MyPage />
                 </Template>
               }

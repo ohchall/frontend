@@ -35,6 +35,8 @@ export const Header = styled.div`
     & > div {
       margin-left: 5px;
       white-space: pre-line;
+      max-height: 80px;
+      overflow: hidden;
     }
 
     &:nth-of-type(n+2) {

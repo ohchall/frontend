@@ -81,7 +81,7 @@ function CrewMember() {
 
             <div>
               <p>
-                {member.nickName}
+                {member.nickName.length > 13 ? member.nickName.substring(0, 12) + '...' : member.nickName}
               </p>
               <span>
                 테린이 행복전도사
@@ -111,23 +111,25 @@ function CrewMember() {
       <ParticipantContainer>
         {participantsIsLoading && 'Loading...'}
         {participantsError && 'An error has occured: ' + participantsError.message}
-        {participantsData && participantsData?.data.map((member) => (
+        {participantsData && participantsData?.data.map((member, idx) => (
         <Participant
           key={member.joinCrewId}
         >
           <ParticipantProfile>
             <span>
-            {member.nickName.substr(0, 1)}
+              {member.nickName.substr(0, 1)}
             </span>
 
             <ParticipantProfileInner>
               <div>
                 <p>
-                  {member.nickName}
+                  {member.nickName.length > 13 ? member.nickName.substring(0, 12) + '...' : member.nickName}
                 </p>
+                {idx === 0 &&
                 <span>
                   크루장
                 </span>
+                }
               </div>
               <span>
                 어제도 내일도 없다

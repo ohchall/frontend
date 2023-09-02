@@ -146,7 +146,7 @@ function Comment({
             <span>
               {comment.nickname.substr(0, 1)}
             </span>
-            <p>{comment.nickname}</p>
+            <p>{comment.nickname.length > 13 ? comment.nickname.substring(0, 12) + '...' : comment.nickname}</p>
           </div>
 
           <div>

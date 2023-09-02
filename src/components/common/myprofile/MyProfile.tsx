@@ -94,7 +94,7 @@ function MyProfile() {
   return (
     <MyProfileBlock>
       <Header>
-        <p>{userInfo.nickname}</p>
+        <p>{userInfo.nickname.length > 13 ? userInfo.nickname.substring(0, 12) + '...' : userInfo.nickname}</p>
         <LinkContainer>
           <StyledLink to="/mypage">
             <StyledLuUser />

@@ -107,6 +107,11 @@ function CommunityDetail() {
   };
 
   const addComment = () => {
+    if (newComment.trim() === "") {
+      alert("댓글을 입력하세요.");
+      return;
+    }
+
     addCommunityComment(id!, newComment)
       .then((comment: any) => {
         if (

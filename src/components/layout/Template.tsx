@@ -2,9 +2,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { TemplateBlock, Background } from "./Template.style";
 import BackgroundDoc from "./BackgroundDoc";
-import {
-  useLocation,
-  useMatch } from "react-router-dom";
+import { useLocation, useMatch } from "react-router-dom";
 
 interface TemplateProps {
   children?: React.ReactNode;
@@ -12,11 +10,7 @@ interface TemplateProps {
   footer?: boolean;
 }
 
-function Template({
-  children,
-  header,
-  footer
-}: TemplateProps): JSX.Element {
+function Template({ children, header, footer }: TemplateProps): JSX.Element {
   const location = useLocation();
   const matchCrewDetail = useMatch("/crew/:id");
   const matchCrewMember = useMatch("/crew/member/:id");
@@ -37,8 +31,8 @@ function Template({
     headerText = "마이페이지";
   } else if (location.pathname === "/mypage/todolist") {
     headerText = "마이페이지 / 투두 리스트";
-  } else if (location.pathname === "/temp/community") {
-    headerText = "오운완";
+    // } else if (location.pathname === "/temp/community") {
+    //   headerText = "오운완";
   } else if (location.pathname === "/community") {
     headerText = "오운완";
   } else if (matchCommunityDetail) {
@@ -46,13 +40,13 @@ function Template({
   } else if (location.pathname === "/scrap") {
     headerText = "크루 스크랩 리스트";
   }
-    
+
   return (
     <>
       <Background>
         <BackgroundDoc />
         <TemplateBlock>
-          {header && <Header headerText={headerText}/>}
+          {header && <Header headerText={headerText} />}
           {children}
           {footer && <Footer />}
         </TemplateBlock>

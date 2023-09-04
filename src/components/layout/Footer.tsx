@@ -35,7 +35,7 @@ function Footer() {
           <span>크루</span>
         </StyledLink>
 
-        <StyledLink to="/temp/community">
+        <StyledLink to="/community">
           <StyledLuUsers />
           <span>커뮤니티</span>
         </StyledLink>

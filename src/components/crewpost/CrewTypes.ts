@@ -8,5 +8,5 @@ export interface Crew {
  exerciseKind: string;
  totalNumber: number;
  images: File[];
- time: string;
+ exerciseTime: string;
 }

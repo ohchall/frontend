@@ -14,21 +14,30 @@ interface IDataProps {
 };
 
 function Banner(props: IDataProps) {
-  // console.log(bannerData);
+  // console.log(props);
+
+  // image가 있는 포스트만 필터링
+  const postsWithImage = props.data?.data.crewList.filter(
+    (post) => post.image && post.image.length > 0
+  );
+
+  // 첫 번째 이미지가 있는 포스트를 선택
+  const firstPostWithImage = postsWithImage && postsWithImage[0];
+
   return (
     <>
-    {props.data && (
-    <BannerSection
-      style={
-        { backgroundImage: `url(${props.data.data.crewList[0].image[0]})`}
-      }
-    >
-      <BannerLabel>Best</BannerLabel>
-      <BannerTitle>
-        {props.data.data.crewList[0].title.length > 13 ? props.data.data.crewList[0].title.substring(0, 12) : props.data.data.crewList[0].title}
-        </BannerTitle>
-    </BannerSection>
-    )}
+      {firstPostWithImage && (
+        <BannerSection
+          style={{ backgroundImage: `url(${firstPostWithImage.image[0]})` }}
+        >
+          <BannerLabel>Best</BannerLabel>
+          <BannerTitle>
+            {firstPostWithImage.title.length > 13
+              ? firstPostWithImage.title.substring(0, 12)
+              : firstPostWithImage.title}
+          </BannerTitle>
+        </BannerSection>
+      )}
     </>
   );
 }

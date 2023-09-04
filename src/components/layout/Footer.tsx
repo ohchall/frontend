@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import {
   resetSearchResult,
   setDisplayRemainingComponents,
+  setErrorState,
 } from "../../redux/modules/Modules";
 
 function Footer() {
@@ -19,13 +20,16 @@ function Footer() {
   const homeClickHandler = () => {
     dispatch(setDisplayRemainingComponents(true));
     dispatch(resetSearchResult());
+    dispatch(setErrorState(false));
   };
   const SearchClickHandler = () => {
     dispatch(resetSearchResult());
+    dispatch(setErrorState(false));
   };
   const CrewClickHandler = () => {
     dispatch(resetSearchResult());
     dispatch(setDisplayRemainingComponents(true));
+    dispatch(setErrorState(false));
   };
   return (
     <FooterSection>

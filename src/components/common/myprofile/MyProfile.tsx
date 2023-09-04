@@ -17,12 +17,14 @@ import {
 } from "./MyProfile.style";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/config/ConfigStore";
+import { useNavigate } from "react-router-dom";
 
 function MyProfile() {
+  const navigate = useNavigate();
   const logoutHandler = () => {
     localStorage.removeItem("Access");
     localStorage.removeItem("Refresh");
-    window.location.reload();
+    navigate(-1);
   };
 
   const userInfo = useSelector((state: RootState) => state.user);

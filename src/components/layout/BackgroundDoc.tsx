@@ -30,8 +30,6 @@ const BackgroundDoc = () => {
         <li>크루원 모집 게시글 제공하기</li>
         <li>오운완 페이지로 성취감 제공</li>
         <li>크루원 모집 게시글 검색</li>
-        <li>개인 맞춤형 크루원 모집 게시글 자동 추천</li>
-        <li>팔로우 신청</li>
       </ul>
     </BackgroundDocBlock>
   );

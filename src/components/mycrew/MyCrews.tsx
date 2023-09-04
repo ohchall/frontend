@@ -17,13 +17,15 @@ import {
   CrewPostUpLoad,
 } from "./MyCrews.style";
 
+
+
 interface Crew {
   crewRecruitmentId: number;
   title: string;
   exerciseKind: string;
   location: string;
   totalNumber: number;
-  image?: string[];
+  image: string[];
 }
 
 interface CrewDataResponse {
@@ -104,7 +106,7 @@ const MyCrews: React.FC = () => {
   }
 
   const flattenedCrewList = data?.pages.flatMap(page => page.data.crewList);
-  // console.log(flattenedCrewList)
+  console.log(flattenedCrewList)
   return (
     <CrewPosts>
       <CrewPostUpLoad>

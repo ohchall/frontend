@@ -61,7 +61,7 @@ const Community: React.FC = () => {
         getNextPageParam: (lastPage, totalPage) => {
           return totalPage[totalPage.length - 1].last
             ? undefined
-            : totalPage.length + 2;
+            : totalPage.length + 1;
         },
       }
     );
@@ -113,8 +113,8 @@ const Community: React.FC = () => {
 
   if (!isSuccess) {
     return <div>Error...</div>;
-  }
-
+  };
+ 
   const navigateDetail = (socialPostId: string) => {
     navigate(`/socialPost/${socialPostId}`);
   };

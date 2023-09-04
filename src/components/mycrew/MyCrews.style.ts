@@ -74,8 +74,8 @@ export const CrewPostsRecents=styled.div`
 export const CrewPostRecent=styled.div`
   width: calc(50% - 5px);
   height: 253px;
-  background-color: #d9d9d9;
-  border: 1px solid  #eeeeee;
+  background-color: #f2f2f2;
+  border: 1px solid  #f2f2f2;
   border-radius: 25px;
   margin:5px 0;
 `;
@@ -97,7 +97,6 @@ export const CrewPostReContent= styled.div`
   width:100%;
   height:35%;
   border-radius:30px;
-  overflow:hidden;
   padding-top:10px;
   @media screen and (max-width:500px) {
     font-size:12px;
@@ -135,11 +134,29 @@ const crewPersonDisplay=css`
 `;
 
 export const CrewPersonMax=styled.div`
-  ${crewPersonDisplay};
-  padding:5px 0;
+    width: 30%;
+    height:29%;
+    display: flex;
+    align-items: center;
+    background: #dadada;
+    border: 1px solid #dadada;
+    border-radius: 20px;
+    margin-left:7px;
+    @media screen and (max-width:500px) {
+      width:34%;
+      margin-left:5px;
+    }
   & > div{
     display:flex;
-    padding:0 10px;
+    padding:0 3px;
+    @media screen and (max-width:500px) {
+      padding:0 4px;
+    }
+    &>svg{
+      width: 1.8rem;
+      height: 1rem;
+      margin-right:5px;
+    }
   }
   & > div> .maxPeople{
   ${crewPersonDisplay};

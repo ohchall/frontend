@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { setUserInfo } from "../redux/modules/Modules";
 import { Dispatch } from "redux";
+import { useNavigate } from "react-router-dom";
 
 interface NewUser {
   useremail: string;
@@ -60,8 +61,8 @@ export const UserCheck = async (user: User): Promise<void> => {
     }
   } catch (error) {
     if (axios.isAxiosError(error) && error.response) {
-      console.log("an error occurred:", error.response);
-      alert(error.response.data.msg);
+      // console.log("an error occurred:", error.response);
+      alert("로그인에 실패하였습니다.");
     }
   }
 };

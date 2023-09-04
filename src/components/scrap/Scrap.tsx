@@ -3,6 +3,7 @@ import { useState, MouseEvent, useRef } from "react";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { addScrap } from "../../api/CrewApi";
 import { useNavigate } from "react-router-dom";
+import { ScrapButton } from "./Scrap.style";
 
 type data = {
   content: string;
@@ -79,13 +80,7 @@ const Scrap: React.FC<ScrapProps> = ({ id, currentScrapData }) => {
   // console.log("scrapData", currentScrapData);
   // console.log("id", id);
   return (
-    <button
-      style={{
-        border: "none",
-        background: "transparent",
-      }}
-      onClick={toggleScrap}
-    >
+    <ScrapButton onClick={toggleScrap}>
       {currentScrapData?.scrapped || scrappedAction ? (
         <Icon
           component={BsFillBookmarkFill}
@@ -97,7 +92,7 @@ const Scrap: React.FC<ScrapProps> = ({ id, currentScrapData }) => {
           style={{ color: " #ef902a", width: "20px", height: "20px" }}
         />
       )}
-    </button>
+    </ScrapButton>
   );
 };
 

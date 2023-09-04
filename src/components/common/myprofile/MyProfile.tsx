@@ -94,9 +94,13 @@ function MyProfile() {
   return (
     <MyProfileBlock>
       <Header>
-        <p>{userInfo.nickname.length > 13 ? userInfo.nickname.substring(0, 12) + '...' : userInfo.nickname}</p>
+        <p>
+          {userInfo.nickname.length > 13
+            ? userInfo.nickname.substring(0, 12) + "..."
+            : userInfo.nickname}
+        </p>
         <LinkContainer>
-          <StyledLink to="/mypage">
+          <StyledLink to="/mypage" title="마이페이지">
             <StyledLuUser />
           </StyledLink>
           {/* <StyledLink to="/mypage">
@@ -105,13 +109,13 @@ function MyProfile() {
           <StyledLink to="/">
             <StyledLuBell />
           </StyledLink> */}
-          <StyledLink to="/scrap">
+          <StyledLink to="/scrap" title="스크랩페이지">
             <StyledLuScrap />
           </StyledLink>
           {/* <StyledLink to="/liked">
             <StyledLuHeart />
           </StyledLink> */}
-          <StyledLink to="/" onClick={logoutHandler}>
+          <StyledLink to="/" onClick={logoutHandler} title="로그아웃">
             <StyledLuLogOut />
           </StyledLink>
         </LinkContainer>
@@ -119,12 +123,8 @@ function MyProfile() {
 
       <div>
         <ThisMonthGoal>
-          <p>
-            {randomQuoteObj.content}
-          </p>
-          <p>
-            {randomQuoteObj.author}
-          </p>
+          <p>{randomQuoteObj.content}</p>
+          <p>{randomQuoteObj.author}</p>
         </ThisMonthGoal>
 
         <ThisWeekTodo>

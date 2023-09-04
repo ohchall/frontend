@@ -21,11 +21,7 @@ const LoginPage: React.FC = () => {
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
       navigate("/");
-    },
-    onError: () => {
-      navigate("/login");
-      window.location.reload(); // 새로고침
-    },
+    }
   });
 
   const useremailRef = useRef<HTMLInputElement | null>(null);

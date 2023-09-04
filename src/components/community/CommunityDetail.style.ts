@@ -52,8 +52,6 @@ export const Content = styled.p`
 
 export const ImageBox = styled.div`
   width: 100%;
-  height: 300px;
-  background-color: #f1f1f1;
   display: flex;
   align-items: center;
   justify-content: center;

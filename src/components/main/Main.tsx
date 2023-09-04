@@ -1,24 +1,18 @@
 import { CheckuserInfo } from '../../api/AuthApi';
 import { getCrews } from '../../api/CrewApi';
 import { useQuery } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import Banner from './banner/Banner';
-import Category from '../common/category/Category';
+import { useNavigate } from "react-router-dom";
+import Banner from "./banner/Banner";
+import Category from "../common/category/Category";
 // import EventBanner from '../banner/EventBanner';
-import {
-  MainBlock,
-  CrewListContainer,
-  CrewListTitle } from './Main.style';
-import LatestCrewList from '../common/crewlist/LatestCrewList';
-import R9dCrewList from '../common/crewlist/R9dCrewList';
-import PopularCrewList from '../common/crewlist/PopularCrewList';
-import MyProfile from '../common/myprofile/MyProfile';
-import {
-  useEffect,
-  useState,
-  ReactNode} from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/config/ConfigStore';
+import { MainBlock, CrewListContainer, CrewListTitle } from "./Main.style";
+import LatestCrewList from "../common/crewlist/LatestCrewList";
+import R9dCrewList from "../common/crewlist/R9dCrewList";
+import PopularCrewList from "../common/crewlist/PopularCrewList";
+import MyProfile from "../common/myprofile/MyProfile";
+import { useEffect, useState, ReactNode } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/config/ConfigStore";
 
 function Main() {
   const navigate = useNavigate();

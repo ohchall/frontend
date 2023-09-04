@@ -40,13 +40,14 @@ const useFormValidation = (
   };
 
   const validateEmail = (newuser: User) => {
-    // 이메일 유효성 검사를 여기에 추가할 수 있습니다.
-    if (newuser.useremail.length < 1) {
+    const emailCondition = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailCondition.test(newuser.useremail)) {
+      alert("올바른 이메일 형식이 아닙니다.");
       useremailRef.current?.focus();
       return false;
     }
     return true;
-  };
+  }
 
   // const validatePhonenumber = (newuser: User) => {
   //   if (newuser.phonenumber < 1) {
@@ -84,12 +85,14 @@ const useFormValidation = (
   };
 
   const validateNickname = (newuser: User) => {
-    if (newuser.nickname === "") {
+    if (newuser.nickname.length < 2 || newuser.nickname.length > 15) {
+      alert("닉네임은 최소 두 글자에서 최대 열다섯 글자까지 가능합니다.");
       nicknameRef.current?.focus();
       return false;
     }
     return true;
-  };
+  }
+
   const validateTerm = (term: boolean) => {
     if (!term) {
       alert("약관에 동의해주세요.");

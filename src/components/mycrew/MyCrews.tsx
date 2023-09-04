@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, ReactNode } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { FiChevronsRight } from 'react-icons/fi';
-import { BsPerson } from 'react-icons/bs';
+import { BsFillPersonFill} from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 import { IoIosArrowDown } from 'react-icons/io';
 import {
@@ -26,6 +26,7 @@ interface Crew {
   location: string;
   totalNumber: number;
   image: string[];
+  currentNumber: number;
 }
 
 interface CrewDataResponse {
@@ -55,7 +56,7 @@ const MyCrews: React.FC = () => {
     }),
     {
       getNextPageParam: (lastPage, totalPage) => {
-        return totalPage[totalPage.length - 1].last ? undefined : totalPage.length + 2;
+        return totalPage[totalPage.length - 1].last ? undefined : totalPage.length + 1;
       }      
     }
   );
@@ -92,7 +93,7 @@ const MyCrews: React.FC = () => {
   const navigationOne = () => {
     navigate("/crew/write")
   };
-
+ 
   if (isSuccess && !data) {
     return <div>Loading...</div>;
   };
@@ -101,8 +102,8 @@ const MyCrews: React.FC = () => {
     return <div>Error...</div>;
   };
   
-  const navigateDetail=(id:number)=>{
-  navigate(`/crew/${id}`)
+  const navigateDetail = (id: number) => {
+    navigate(`/crew/${id}`);
   }
 
   const flattenedCrewList = data?.pages.flatMap(page => page.data.crewList);
@@ -140,9 +141,9 @@ const MyCrews: React.FC = () => {
               </CrewPostInfo>
               <CrewPersonMax>
                 <div className="crewPerson">
-                  <BsPerson />
+                <BsFillPersonFill/>
                   <div className="maxPeople">
-                    <p>15</p>
+                    <p>{crew.currentNumber}</p>
                     <p>/</p>
                     <p>{crew.totalNumber}</p>
                   </div>

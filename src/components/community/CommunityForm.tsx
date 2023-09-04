@@ -1,10 +1,11 @@
 import React,{ useCallback, useEffect, useRef, useState, FormEvent }from 'react'
 import { useCommunityMutation } from '../../api/mock/SocialPostApi';
 import { useNavigate } from 'react-router-dom';
-import { CrewButtons, CrewContent, CrewDates, CrewFormContents, CrewForms, CrewLocation, CrewName, CrewTimes, CrewTitle, CrewTotalMembers,CrewImage, CrewImageUpLoad  } from "./CommunityForm.style"
+import { CrewButtons, CrewContent, CrewDates, CrewFormContents, CrewForms, CrewLocation, CrewName, CrewTimes, CrewTitle, CrewTotalMembers,CrewImage, CrewImageUpLoad  } from "./CommunityForm.style";
 import CommunityDrag from './CommunityDrag';
+import { CheckuserInfo } from '../../api/AuthApi';
 
-interface CrewType {
+interface CommunityType {
   title: string;
   content: string;
   image: File[];
@@ -20,7 +21,7 @@ const  CommunityForm: React.FC= () => {
 
  
 
-  const [crew, setCrew] = useState<CrewType>({
+  const [crew, setCrew] = useState<CommunityType>({
     title: "",
     content: "",
     image: [],
@@ -43,7 +44,7 @@ const  CommunityForm: React.FC= () => {
       console.log(crew.image[i]);
       }
      mutate(formData);
-      // alert("성공적으로 데이터를 전송하였습니다.");
+      alert("성공적으로 데이터를 전송하였습니다.");
   };
      
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>  {

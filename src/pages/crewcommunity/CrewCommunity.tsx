@@ -23,16 +23,12 @@ const CrewCommunity: React.FC<Props> = () => {
       getUserInfo();
     }
   }, [access, refresh, dispatch]);
-  const displayRemainingComponents = useSelector(
-    (state: RootState) => state.display.displayRemainingComponents
-  );
+
 
   return (
     <CrewCommunitySection>
        {loggedin ? <MyProfile /> : null}
-       {displayRemainingComponents && 
        <Community />
-        }
     </CrewCommunitySection>
   );
 }

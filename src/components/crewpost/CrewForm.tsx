@@ -92,6 +92,7 @@ const [crew, setCrew] = useState<Crew>( {
       time: crew.time,
     };
     const jsonContent = JSON.stringify(contents);
+    console.log(jsonContent);
     const blob = new Blob([jsonContent], { type: "application/json" });
     formData.append("data", blob);
     // formData.append("images", crew.image);

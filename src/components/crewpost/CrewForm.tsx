@@ -101,7 +101,7 @@ const [crew, setCrew] = useState<Crew>( {
       console.log(crew.images[i]);
       }
      mutate(formData);
-      alert("성공적으로 데이터를 전송하였습니다.");
+      alert("크루원들의 참여를 기다려보아요.");
      navigate("/mypage")
   };
 

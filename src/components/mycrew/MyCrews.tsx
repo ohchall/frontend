@@ -1,10 +1,10 @@
-import { useCallback, useEffect, useRef, ReactNode } from 'react';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import axios from 'axios';
-import { FiChevronsRight } from 'react-icons/fi';
-import { BsPerson } from 'react-icons/bs';
-import { useNavigate } from 'react-router-dom';
-import { IoIosArrowDown } from 'react-icons/io';
+import { useCallback, useEffect, useRef, ReactNode } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { FiChevronsRight } from "react-icons/fi";
+import { BsFillPersonFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import { IoIosArrowDown } from "react-icons/io";
 import {
   CrewPersonMax,
   CrewPostButton,
@@ -17,8 +17,6 @@ import {
   CrewPostUpLoad,
 } from "./MyCrews.style";
 
-
-
 interface Crew {
   crewRecruitmentId: number;
   title: string;
@@ -26,13 +24,14 @@ interface Crew {
   location: string;
   totalNumber: number;
   image: string[];
+  currentNumber: number;
 }
 
 interface CrewDataResponse {
   data: {
     crewList: Crew[];
   };
-  last: boolean; 
+  last: boolean;
 }
 
 const MyCrews: React.FC = () => {

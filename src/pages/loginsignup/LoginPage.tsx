@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserCheck } from "../../api/AuthApi";
 import {
@@ -11,6 +11,7 @@ import {
 import { useMutation } from "@tanstack/react-query";
 import { LoginPageBlock } from "./LoginPage.style";
 import SNSlogin from "../../components/loginsignup/SNSlogin";
+import useUserValidation from "./useUserVaildation";
 
 interface User {
   useremail: string;
@@ -21,11 +22,16 @@ const LoginPage: React.FC = () => {
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
       navigate("/");
-    }
+    },
+    onError: () => {
+      alert("입력하신 정보가 맞지 않습니다. 다시 시도해주세요.");
+      setUser({ useremail: "", password: "" });
+      navigate("/login");
+    },
   });
 
-  const useremailRef = useRef<HTMLInputElement | null>(null);
-  const passwordRef = useRef<HTMLInputElement | null>(null);
+  // const useremailRef = useRef<HTMLInputElement | null>(null);
+  // const passwordRef = useRef<HTMLInputElement | null>(null);
   const [user, setUser] = useState<User>({
     useremail: "",
     password: "",
@@ -44,15 +50,15 @@ const LoginPage: React.FC = () => {
     e.preventDefault();
     // console.log("user", user);
   };
-
+  const { useremailRef, passwordRef, checkAllValidations } =
+    useUserValidation(user);
+  // console.log(useremailRef, passwordRef, checkAllValidations);
   const userCheck = () => {
-    if (user.useremail.length < 1) {
-      useremailRef.current?.focus();
+    if (checkAllValidations()) {
+      mutation.mutate(user);
+    } else {
+      return;
     }
-    if (user.password.length < 1) {
-      passwordRef.current?.focus();
-    }
-    return mutation.mutate(user);
   };
 
   return (

@@ -59,10 +59,10 @@ export const UserCheck = async (user: User): Promise<void> => {
       localStorage.setItem("Access", access);
       localStorage.setItem("Refresh", refresh);
     }
-  } catch (error) {
-    if (axios.isAxiosError(error) && error.response) {
-      // console.log("an error occurred:", error.response);
-      alert("로그인에 실패하였습니다.");
+  } catch (error) { 
+    // console.log(error); 
+    if (axios.isAxiosError(error) && error.response?.status === 500) { 
+      throw new Error('Login failed');
     }
   }
 };

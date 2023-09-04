@@ -9,6 +9,7 @@ export const Buttons = styled.button`
   margin-left: 2.3%;
   font-size: 14px;
   border-radius: 5px;
+  cursor: pointer;
 `;
 export const LoginSignupInputsContainers = styled.div`
   display: flex;
@@ -44,6 +45,7 @@ export const SNSLoginContainer = styled.section`
     justify-content: center;
     align-items: center;
     box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
   }
 `;
 export const Nav = styled(Link)`
@@ -61,6 +63,7 @@ export const Etc = styled.div`
   gap: 5px;
   font-size: 12px;
   & button {
+    cursor: pointer;
     font-size: 12px;
     border: none;
     background-color: none;

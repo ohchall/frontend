@@ -52,31 +52,37 @@ export const LinkContainer = styled.div`
 export const StyledLuUser = styled(LuUser)`
   width: 22px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const StyledLuInbox = styled(LuInbox)`
   width: 28px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const StyledLuBell = styled(LuBell)`
   width: 26px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const StyledLuLogOut = styled(LuLogOut)`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const StyledLuScrap = styled(LuBookmark)`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const StyledLuHeart = styled(LuHeart)`
   width: 24px;
   height: 24px;
+  cursor: pointer;
 `;
 
 export const ThisMonthGoal = styled.div`

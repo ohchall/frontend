@@ -17,6 +17,7 @@ import {
   CrewList,
   resetSearchResult,
   setDisplayRemainingComponents,
+  setErrorState,
 } from "../../../redux/modules/Modules";
 import useSearch from "../../../hook/useSearch";
 import { RootState } from "../../../redux/config/ConfigStore";
@@ -26,12 +27,10 @@ import { useQuery } from "@tanstack/react-query";
 import { getScrap } from "../../../api/CrewApi";
 
 interface ICategoryProps {
-  loggedin: boolean
+  loggedin: boolean;
 }
 
-function Category({
-  loggedin
-}: ICategoryProps) {
+function Category({ loggedin }: ICategoryProps) {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const navigate = useNavigate();
@@ -48,6 +47,7 @@ function Category({
   ];
   const dispatch = useDispatch();
   const searchResult = useSelector((state: RootState) => state.searchResults);
+  const error = useSelector((state: RootState) => state.error.error);
   const [page, setPage] = useState({ value: 1, searchCalled: false });
   const [toprev, setToprev] = useState(false);
   const [updatedSearchResult, setUpdatedSearchResult] = useState<CrewList[]>(
@@ -58,12 +58,10 @@ function Category({
 
   const {
     loading,
-    error,
     hasMore,
     search,
   }: {
     loading: boolean;
-    error: boolean;
     hasMore: boolean;
     search: (
       keyword: string,
@@ -104,7 +102,8 @@ function Category({
       }));
       dispatch(resetSearchResult());
       setSelectedCategory(pickedCategory);
-      window.location.reload();
+      dispatch(setErrorState(false));
+      // console.log(error);
     } else {
       setSelectedCategory(pickedCategory);
       search(pickedCategory, page, false, false);
@@ -178,7 +177,7 @@ function Category({
       navigate("/login");
     }
   };
-
+  // console.log(error);
   // console.log(selectedCategory);
   // console.log("page", page);
   // console.log("updatedSearchResult", updatedSearchResult);
@@ -243,12 +242,12 @@ function Category({
                         </p>
                       </TitleContainer>
 
-                      {loggedin ?
-                      <Scrap
-                        id={post.crewRecruitmentId}
-                        currentScrapData={post}
-                      />
-                      : null}
+                      {loggedin ? (
+                        <Scrap
+                          id={post.crewRecruitmentId}
+                          currentScrapData={post}
+                        />
+                      ) : null}
                     </div>
 
                     <p>
@@ -270,7 +269,16 @@ function Category({
       )}
       {loading ? <Skeleton /> : ""}
       {error ? (
-        <h3 style={{ color: "red", margin: "0 16px 16px" }}>결과가 없습니다</h3>
+        <h3
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            color: "red",
+            margin: "0 16px 16px",
+          }}
+        >
+          해당 카테고리에 등록된 포스트가 없습니다.
+        </h3>
       ) : (
         ""
       )}

@@ -5,12 +5,12 @@ import {
   addSearchResult,
   setSearchResult,
   resetSearchResult,
+  setErrorState,
 } from "../redux/modules/Modules";
 
 const useSearch = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [hasMore, setHasMore] = useState(false);
   // const [searchResult, setSearchResult] = useState<CrewList[]>([]);
   const search = useCallback(
@@ -21,7 +21,7 @@ const useSearch = () => {
       toprev: boolean
     ) => {
       setLoading(true);
-      setError(false);
+      dispatch(setErrorState(false));
 
       const encodedKeyword = encodeURIComponent(keyword);
 
@@ -38,7 +38,7 @@ const useSearch = () => {
         if (response.data.crewList.length === 0) {
           setHasMore(false);
           setLoading(false);
-          setError(true);
+          dispatch(setErrorState(true));
           dispatch(resetSearchResult());
         }
 
@@ -60,7 +60,7 @@ const useSearch = () => {
         // console.log("resetResults", resetResults);
       } catch (e) {
         // console.log("e", e);
-        setError(true);
+        dispatch(setErrorState(true));
         setLoading(false);
         // window.location.reload();
       }
@@ -69,6 +69,6 @@ const useSearch = () => {
     [dispatch]
   );
 
-  return { loading, error, search, hasMore };
+  return { loading, search, hasMore };
 };
 export default useSearch;

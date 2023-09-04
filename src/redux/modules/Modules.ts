@@ -42,6 +42,10 @@ const initialUserInfoState: UserInfo = {
   userName: "",
 };
 
+const initialErrorState: { error: boolean } = {
+  error: false,
+};
+
 const displaySlice = createSlice({
   name: "display",
   initialState: initialDisplayState,
@@ -89,10 +93,24 @@ export const userSlice = createSlice({
 
 export const { setUserInfo, resetUserInfo } = userSlice.actions;
 
+const errorSlice = createSlice({
+  name: "error",
+  initialState: initialErrorState,
+  reducers: {
+    setErrorState: (state, action: PayloadAction<boolean>) => {
+      state.error = action.payload;
+    },
+    resetErrorState: () => initialErrorState,
+  },
+});
+
+export const { setErrorState, resetErrorState } = errorSlice.actions;
+
 const rootReducer = {
   displayReducer: displaySlice.reducer,
   searchReducer: searchResultSlice.reducer,
   userReducer: userSlice.reducer,
+  errorReducer: errorSlice.reducer,
 };
 
 export default rootReducer;

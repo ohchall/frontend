@@ -26,7 +26,7 @@ const SearchPage = () => {
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
   const searchResult = useSelector((state: RootState) => state.searchResults);
-
+  const error = useSelector((state: RootState) => state.error.error);
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState({ value: 0, searchCalled: false });
@@ -52,12 +52,10 @@ const SearchPage = () => {
   // useSearch : 결과, 로딩, 에러 등을 반환 : 키워드, 페이지, 사이즈, 결과리셋 가져감
   const {
     loading,
-    error,
     hasMore,
     search,
   }: {
     loading: boolean;
-    error: any;
     hasMore: boolean;
     search: (
       keyword: string,
@@ -161,7 +159,7 @@ const SearchPage = () => {
       navigate("/login");
     }
   };
-
+  // console.log(error);
   // console.log("page", page);
   // console.log("updatedSearchResult", updatedSearchResult);
   // console.log("searchResult", searchResult);
@@ -173,6 +171,11 @@ const SearchPage = () => {
           type="text"
           value={keyword}
           onChange={onChangeKeyword}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              onClickSearch();
+            }
+          }}
           ref={searchInputRef}
           placeholder="찾고 싶은 크루를 검색해보세요."
         />
@@ -205,25 +208,32 @@ const SearchPage = () => {
               <Overview>
                 <div>
                   <TitleContainer>
-                    <p>{post.title.length > 13 ? post.title.substring(0, 12) : post.title}</p>
+                    <p>
+                      {post.title.length > 13
+                        ? post.title.substring(0, 12)
+                        : post.title}
+                    </p>
                   </TitleContainer>
 
-                  {loggedin ?
-                  <Scrap
-                    id={post.crewRecruitmentId}
-                    currentScrapData={post}
-                  />
-                  : null}
+                  {loggedin ? (
+                    <Scrap
+                      id={post.crewRecruitmentId}
+                      currentScrapData={post}
+                    />
+                  ) : null}
                 </div>
 
-                <p>{post.exerciseKind} / {post.location.split(' ').slice(0, 2).join(' ')}</p>
+                <p>
+                  {post.exerciseKind} /{" "}
+                  {post.location.split(" ").slice(0, 2).join(" ")}
+                </p>
               </Overview>
             </R9dCrew>
           );
         })}
 
       {loading ? <Skeleton /> : ""}
-      {error ? <h3 style={{ color: "red" }}>결과가 없습니다</h3> : ""}
+      {error ? <h3 style={{ color: "red" }}>검색 결과가 없습니다.</h3> : ""}
       {updatedSearchResult.length > 0 && hasMore && (
         <SearchMoreBtn onClick={moreBtnHandler}>
           <IoIosArrowDown

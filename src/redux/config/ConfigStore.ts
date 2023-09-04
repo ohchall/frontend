@@ -6,6 +6,7 @@ const store = configureStore({
     display: Modules.displayReducer,
     searchResults: Modules.searchReducer,
     user: Modules.userReducer,
+    error: Modules.errorReducer,
   },
 });
 

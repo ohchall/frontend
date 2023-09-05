@@ -45,9 +45,9 @@ function TodoDetailList() {
 
   const handleCheckboxChange = async (todo: Todo) => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    if (new Date(todo.date) < today) {
-      alert("지난 todo의 완료 여부는 변경할 수 없습니다.");
+    today.setHours(24, 0, 0, 0);
+    if (new Date(todo.date) > today) {
+      alert("이후 일정을 미리 완료할 수 없습니다.");
       return;
     }
     const updatedTodo = { ...todo, isComplete: !todo.isComplete };
@@ -109,7 +109,7 @@ function TodoDetailList() {
   const todoDeleteHandler = async (todoId: string) => {
     try {
       await deleteTodoMutation.mutateAsync(todoId);
-      console.log("삭제 성공");
+      alert("일정이 삭제되었습니다.");
       setVisibleTodoId(null);
     } catch (error) {
       console.error("삭제 실패:", error);
@@ -130,6 +130,20 @@ function TodoDetailList() {
   const uncompletedTodos = filteredTodos.filter((todo) => !todo.isComplete);
   const completedTodos = filteredTodos.filter((todo) => todo.isComplete);
 
+  const sortedUncompletedTodos = [...uncompletedTodos].sort((a, b) => {
+    // 날짜를 Date 객체로 변환하여 비교
+    const dateA: any = new Date(a.date);
+    const dateB: any = new Date(b.date);
+    return dateA - dateB;
+  });
+
+  const sortedCompletedTodos = [...completedTodos].sort((a, b) => {
+    // 날짜를 Date 객체로 변환하여 비교
+    const dateA: any = new Date(a.date);
+    const dateB: any = new Date(b.date);
+    return dateA - dateB;
+  });
+
   return (
     <>
       {isModalOpen && <TodoAddModal onRequestClose={closeModal} />}
@@ -139,7 +153,7 @@ function TodoDetailList() {
         </div>
         <TodoListContainer>
           <TodosList>
-            {uncompletedTodos.map((todo) => (
+            {sortedUncompletedTodos.map((todo) => (
               <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
                 <input
                   type="checkbox"
@@ -187,7 +201,7 @@ function TodoDetailList() {
         </div>
         <TodoCompleteListContainer>
           <TodosList>
-            {completedTodos.map((todo) => (
+            {sortedCompletedTodos.map((todo) => (
               <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
                 <input
                   type="checkbox"

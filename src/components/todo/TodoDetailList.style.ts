@@ -206,8 +206,8 @@ export const MoreButtonContainer = styled.div<MoreButtonContainerProps>`
   border: 1px solid black;
 
   > button {
-    font-size: 10px;
-    width: 30px;
+    font-size: 11.5px;
+    width: 33px;
     border: 0;
     border-radius: 3px;
     padding: 5px 0;

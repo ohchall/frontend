@@ -25,6 +25,22 @@ export const getCrew = async (id) => {
   return res;
 };
 
+// queryKey = crew
+export const deleteCrew = async (id) => {
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const res = await axios.delete(
+    `${process.env.REACT_APP_SERVER_URL}/crew/${id}`,
+    {
+      headers: {
+        Access: `${access}`,
+        Refresh: `${refresh}`,
+      },
+    }
+  );
+  return res;
+};
+
 // queryKey = crewData
 export const useFetchCrew = () => {
   const access = localStorage.getItem("Access");

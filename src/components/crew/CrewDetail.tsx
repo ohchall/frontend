@@ -118,12 +118,12 @@ function CrewDetail() {
 
           <div>
             <p>일정 |</p>
-            <div>{crew?.data.exerciseDate}</div>
+            <div>{crew?.data.exerciseDate} {crew?.data.exerciseTime}</div>
           </div>
 
           <div>
             <p>인원 |</p>
-            <div>{crew?.data.totalNumber}</div>
+            <div>{crew?.data.currentNumber} / {crew?.data.totalNumber}</div>
           </div>
 
           <div>

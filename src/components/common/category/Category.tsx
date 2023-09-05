@@ -4,6 +4,7 @@ import {
   CategoryContainer,
   ImageWrapper,
   Overview,
+  StyledBsPersonFill,
   TitleContainer,
   R9dCrew,
   CategoryContents,
@@ -239,6 +240,13 @@ function Category({ loggedin }: ICategoryProps) {
                           {post.title.length > 13
                             ? post.title.substring(0, 12)
                             : post.title}
+                        </p>
+
+                        <p>
+                          <StyledBsPersonFill />
+                          <span>
+                            {post.currentNumber} / {post.totalNumber}
+                          </span>
                         </p>
                       </TitleContainer>
 

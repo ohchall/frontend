@@ -42,6 +42,17 @@ export const Header = styled.div`
     &:nth-of-type(n+2) {
       margin-top: 10px;
     }
+
+    &:last-of-type {
+
+      & > div {
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          display:none;
+        }
+      }
+    }
   }
 `;
 

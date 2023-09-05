@@ -1,25 +1,67 @@
 import {
   ImageWrapper,
   CrewDetailBlock,
+  StyledFiMoreHorizontal,
+  ButtonWrapper,
   Header,
+  CrewModal,
   MapWrapper } from './CrewDetail.style';
-import { useParams } from 'react-router-dom';
 import {
+  useNavigate,
+  useParams } from 'react-router-dom';
+import {
+  useQueryClient,
+  useMutation,
   useQuery } from '@tanstack/react-query';
-import { getCrew } from '../../api/CrewApi';
+import {
+  getCrew,
+  deleteCrew } from '../../api/CrewApi';
 import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import { useEffect, useState, ReactNode } from 'react';
+import {
+  useRef,
+  useEffect,
+  useState,
+  ReactNode } from 'react';
 import MyProfile from '../../components/common/myprofile/MyProfile';
 import { CheckuserInfo } from '../../api/AuthApi';
 import Comment from './Comment';
 import { useDispatch } from 'react-redux';
 
 function CrewDetail() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const access = localStorage.getItem('Access');
   const refresh = localStorage.getItem('Refresh');
+  const crewModalRef = useRef<HTMLDivElement>(null);
   const [loggedin, setLoggedin] = useState(false);
+  const [isCrewModalOpen, setCrewModalOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation(deleteCrew, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(['crew']);
+      // console.log('Deleted comment successfully!');
+      alert('Deleted comment successfully!');
+      navigate(-1);
+    }
+  });
+
+  const onClickCrewDetailBlock = (e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
+    if (crewModalRef.current && !crewModalRef.current.contains(e.target as Node)) {
+      setCrewModalOpen(false);
+    }
+  };
+
+  // const onClickEditCrew = () => {
+
+  // };
+
+  const onClickDeleteCrew = (crewRecruitmentId: number) => {
+    const userConfirmed = window.confirm('Are you sure you want to delete this comment?');
+    if (userConfirmed) {
+      deleteMutation.mutate(crewRecruitmentId);
+    }
+  };
 
   useEffect(() => {
     // console.log('triggered');
@@ -88,10 +130,39 @@ function CrewDetail() {
   return (
     <>
       {loggedin ? <MyProfile /> : null}
-      <CrewDetailBlock>
+      <CrewDetailBlock
+        onClick={onClickCrewDetailBlock}
+      >
         {isLoading && 'Loading...'}
         {errorMessage}
         {/* {error && 'An error has occurred: ' + error.message} */}
+
+        {crew?.data.owner === true &&
+        <ButtonWrapper>
+          <button
+            onClick={() => {setCrewModalOpen(true)}}
+          >
+            <StyledFiMoreHorizontal />
+          </button>
+
+          {isCrewModalOpen &&
+          <CrewModal
+            ref={crewModalRef}
+          >
+            {/* <button
+              onClick={onClickEditCrew}
+            >
+              수정
+            </button> */}
+            <button
+              onClick={() => onClickDeleteCrew(crew?.data.crewRecruitmentId)}
+            >
+              삭제
+            </button>
+          </CrewModal>
+          }
+        </ButtonWrapper>
+        }
 
         <ImageWrapper>
           <img
@@ -118,12 +189,12 @@ function CrewDetail() {
 
           <div>
             <p>일정 |</p>
-            <div>{crew?.data.exerciseDate}</div>
+            <div>{crew?.data.exerciseDate} {crew?.data.exerciseTime}</div>
           </div>
 
           <div>
             <p>인원 |</p>
-            <div>{crew?.data.totalNumber}</div>
+            <div>{crew?.data.currentNumber} / {crew?.data.totalNumber}</div>
           </div>
 
           <div>

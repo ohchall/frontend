@@ -23,6 +23,14 @@ function Calendar({ events, onMonthChange }: CalendarProps) {
     setIsCalendarVisible(!isCalendarVisible);
   };
 
+  // 이벤트를 시간순으로 정렬
+  const sortedEvents = [...events].sort((a, b) => {
+    // date를 날짜 형식으로 파싱하여 비교
+    const dateA: any = new Date(a.date);
+    const dateB: any = new Date(b.date);
+    return dateA - dateB;
+  });
+
   const calendarOptions = {
     plugins: [dayGridPlugin],
     initialView: "dayGridMonth",
@@ -42,7 +50,8 @@ function Calendar({ events, onMonthChange }: CalendarProps) {
       const month = String(date.date.month + 1).padStart(2, "0");
       return `${year}.${month}`;
     },
-    events,
+    // 정렬된 이벤트 배열 사용
+    events: sortedEvents,
     eventColor: "#3498db",
     eventClassNames: (event: any) => {
       const classes: string[] = [];

@@ -79,6 +79,13 @@ export const CalendarContainer = styled.div`
       text-align: center;
       height: 88px;
       font-size: 11px;
+      overflow: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none; /* IE and Edge */
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
 
     .fc .fc-daygrid-day-top {

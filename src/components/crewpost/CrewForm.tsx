@@ -36,7 +36,7 @@ const CrewForm:React.FC = () => {
     exerciseKind: string;
     totalNumber: number;
     images: File[];
-    time: string;
+    exerciseTime: string;
 }
 
 
@@ -50,7 +50,7 @@ const [crew, setCrew] = useState<Crew>( {
     exerciseKind: "",
     totalNumber: 0,
     images: [],
-    time: "",
+    exerciseTime: "",
   });
 
  
@@ -73,7 +73,7 @@ const [crew, setCrew] = useState<Crew>( {
   const onCrewUpload = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
-    if (!crew.title || !crew.content || !crew.crewName || !crew.location || !crew.exerciseKind || crew.totalNumber === 0 || !crew.time) {
+    if (!crew.title || !crew.content || !crew.crewName || !crew.location || !crew.exerciseKind || crew.totalNumber === 0 || !crew.exerciseTime) {
       alert("모든 항목을 입력하거나 선택해주세요.");
       return;
     }
@@ -89,7 +89,7 @@ const [crew, setCrew] = useState<Crew>( {
       usersLocation: "",
       exerciseDate: dateOnly,
       totalNumber: crew.totalNumber,
-      time: crew.time,
+      exerciseTime: crew.exerciseTime,
     };
     const jsonContent = JSON.stringify(contents);
     console.log(jsonContent);
@@ -101,7 +101,7 @@ const [crew, setCrew] = useState<Crew>( {
       console.log(crew.images[i]);
       }
      mutate(formData);
-      alert("성공적으로 데이터를 전송하였습니다.");
+      alert("크루원들의 참여를 기다려보아요.");
      navigate("/mypage")
   };
 
@@ -168,7 +168,7 @@ const [crew, setCrew] = useState<Crew>( {
   };
   
   const setCrewTime =  useCallback((selectedTime: string) => {
-    setCrew((prevCrew) => ({ ...prevCrew, time: selectedTime }));
+    setCrew((prevCrew) => ({ ...prevCrew, exerciseTime: selectedTime }));
   }, []);
 
   return (

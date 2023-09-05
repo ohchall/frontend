@@ -3,6 +3,7 @@ import "swiper/css";
 import {
   ImageWrapper,
   Overview,
+  StyledBsPersonFill,
   TitleContainer } from "./LatestCrewList.style";
 import Scrap from "../../scrap/Scrap";
 import { getScrap } from "../../../api/CrewApi";
@@ -101,7 +102,13 @@ const LatestCrewList = ({
               <div>
                 <TitleContainer>
                   <p>{item.title.length > 13 ? item.title.substring(0, 12) : item.title}</p>
-                  {/* <span>{item.totalNumber}</span> */}
+                  
+                  <p>
+                    <StyledBsPersonFill />
+                    <span>
+                      {item.currentNumber} / {item.totalNumber}
+                    </span>
+                  </p>
                 </TitleContainer>
 
                 {loggedin ?

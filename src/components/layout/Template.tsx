@@ -31,8 +31,6 @@ function Template({ children, header, footer }: TemplateProps): JSX.Element {
     headerText = "마이페이지";
   } else if (location.pathname === "/mypage/todolist") {
     headerText = "마이페이지 / 투두 리스트";
-    // } else if (location.pathname === "/temp/community") {
-    //   headerText = "오운완";
   } else if (location.pathname === "/community") {
     headerText = "오운완";
   } else if (matchCommunityDetail) {

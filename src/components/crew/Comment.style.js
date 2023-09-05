@@ -71,6 +71,10 @@ export const CommentModal = styled.div`
     border: none;
     font-size: 12px;
     white-space: nowrap;
+
+    &:nth-of-type(n+2) {
+      margin-top: 4px;
+    }
   }
 `;
 

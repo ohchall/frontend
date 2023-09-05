@@ -3,7 +3,8 @@ import {
   R9dCrew,
   ImageWrapper,
   Overview,
-  TitleContainer,
+  StyledBsPersonFill,
+  TitleContainer
 } from "./R9dCrewList.style";
 import "swiper/css";
 import Scrap from "../../scrap/Scrap";
@@ -84,7 +85,13 @@ const R9dCrewList = ({
             <div>
               <TitleContainer>
                 <p>{data?.data.crewList[0].title.length > 13 ? data?.data.crewList[0].title.substring(0, 12) : data?.data.crewList[0].title}</p>
-                {/* <span>15/16</span> */}
+                
+                <p>
+                  <StyledBsPersonFill />
+                  <span>
+                    {data?.data.crewList[0].currentNumber} / {data?.data.crewList[0].totalNumber}
+                  </span>
+                </p>
               </TitleContainer>
 
               {loggedin ?

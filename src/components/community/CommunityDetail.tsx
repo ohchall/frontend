@@ -23,8 +23,6 @@ import {
 } from "./CommunityDetail.style";
 import CommunityDelete from "./CommunityDelete";
 import CommunityDeletePost from "./CommunityDeletePost";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/config/ConfigStore";
 
 interface Post {
   nickname: string;
@@ -47,10 +45,7 @@ function CommunityDetail() {
   const [comments, setComments] = useState<Comment[]>([]);
   const [newComment, setNewComment] = useState<string>("");
   const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedCommentId, setSelectedCommentId] = useState<string | null>(
-    null
-  );
-
+  const [, setSelectedCommentId] = useState<string | null>(null);
   const { id } = useParams<{ id: string }>();
 
   const formatCreatedAt = (createdAt: number[]) => {
@@ -159,7 +154,7 @@ function CommunityDetail() {
         setComments(newComments);
       })
       .catch((error) => {
-        console.error("댓글 삭제 실패:", error);
+        alert("본인 댓글만 삭제할 수 있습니다.");
       });
   };
 

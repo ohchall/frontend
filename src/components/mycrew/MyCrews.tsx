@@ -155,9 +155,9 @@ const MyCrews: React.FC = () => {
                   </CrewPostInfo>
                   <CrewPersonMax>
                     <div className="crewPerson">
-                      <BsPerson />
+                      <BsFillPersonFill />
                       <div className="maxPeople">
-                        <p>15</p>
+                        <p>{crew.currentNumber}</p>
                         <p>/</p>
                         <p>{crew.totalNumber}</p>
                       </div>

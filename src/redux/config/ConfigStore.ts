@@ -7,6 +7,8 @@ const store = configureStore({
     searchResults: Modules.searchReducer,
     user: Modules.userReducer,
     error: Modules.errorReducer,
+    direction: Modules.directionReducer,
+    loggedin: Modules.loggedinReducer,
   },
 });
 

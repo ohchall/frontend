@@ -15,16 +15,25 @@ import {
   Week,
   WeekSpan,
 } from "./MyProfile.style";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../redux/config/ConfigStore";
 import { useNavigate } from "react-router-dom";
+import {
+  resetDirection,
+  resetLoggedInStatus,
+  resetSearchResult,
+} from "../../../redux/modules/Modules";
 
 function MyProfile() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const logoutHandler = () => {
     localStorage.removeItem("Access");
     localStorage.removeItem("Refresh");
-    navigate(-1);
+    dispatch(resetDirection());
+    dispatch(resetLoggedInStatus());
+    dispatch(resetSearchResult());
+    navigate("/");
   };
 
   const userInfo = useSelector((state: RootState) => state.user);

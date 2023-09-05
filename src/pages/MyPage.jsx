@@ -1,27 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import TodoList from "../components/todo/TodoList";
 import MyProfile from "../components/common/myprofile/MyProfile";
 import MyCrews from "../components/mycrew/MyCrews";
 import { styled } from "styled-components";
 import { CheckuserInfo } from "../api/AuthApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedInStatus } from "../redux/modules/Modules";
 
 function MyPage() {
   const dispatch = useDispatch();
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const [loggedin, setLoggedin] = useState(false);
+  const loggedin = useSelector((state) => state.loggedin.isLoggedIn);
   useEffect(() => {
     // console.log('triggered');
     const getUserInfo = async () => {
       const isUserLoggedIn = await CheckuserInfo(dispatch);
-      setLoggedin(isUserLoggedIn);
+      dispatch(setLoggedInStatus(isUserLoggedIn));
     };
     if (access && refresh) {
       getUserInfo();
     }
   }, [access, refresh, dispatch]);
-
   return (
     <MyPageSection>
       {loggedin ? <MyProfile /> : null}

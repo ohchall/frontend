@@ -30,6 +30,16 @@ interface UserInfo {
   userName: string;
 }
 
+interface DirectionInfo {
+  itemId: number | null;
+  redirectUrl: string | null;
+  socialItemId: string | null;
+}
+
+interface LoggedInState {
+  isLoggedIn: boolean;
+}
+
 const initialDisplayState: DisplayState = {
   displayRemainingComponents: true,
 };
@@ -46,6 +56,16 @@ const initialErrorState: { error: boolean } = {
   error: false,
 };
 
+const initialDirectionState: DirectionInfo = {
+  itemId: null,
+  redirectUrl: "",
+  socialItemId: "",
+};
+
+const initialLoggedInState: LoggedInState = {
+  isLoggedIn: false,
+};
+
 const displaySlice = createSlice({
   name: "display",
   initialState: initialDisplayState,
@@ -55,6 +75,7 @@ const displaySlice = createSlice({
     },
   },
 });
+
 export const { setDisplayRemainingComponents } = displaySlice.actions;
 
 export const searchResultSlice = createSlice({
@@ -106,11 +127,48 @@ const errorSlice = createSlice({
 
 export const { setErrorState, resetErrorState } = errorSlice.actions;
 
+const directionSlice = createSlice({
+  name: "direction",
+  initialState: initialDirectionState,
+  reducers: {
+    setItemId: (state, action: PayloadAction<number>) => {
+      state.itemId = action.payload;
+    },
+    setSocialItemId: (state, action: PayloadAction<string>) => {
+      state.socialItemId = action.payload;
+    },
+    setRedirectUrl: (state, action: PayloadAction<string>) => {
+      state.redirectUrl = action.payload;
+    },
+    resetDirection: () => initialDirectionState,
+  },
+});
+
+export const { setItemId, setRedirectUrl, setSocialItemId, resetDirection } =
+  directionSlice.actions;
+
+const loggedInSlice = createSlice({
+  name: "loggedIn",
+  initialState: initialLoggedInState,
+  reducers: {
+    setLoggedInStatus: (state, action: PayloadAction<boolean>) => {
+      state.isLoggedIn = action.payload;
+    },
+    resetLoggedInStatus: () => initialLoggedInState,
+  },
+});
+
+export const { setLoggedInStatus, resetLoggedInStatus } = loggedInSlice.actions;
+
 const rootReducer = {
   displayReducer: displaySlice.reducer,
   searchReducer: searchResultSlice.reducer,
   userReducer: userSlice.reducer,
   errorReducer: errorSlice.reducer,
+  directionReducer: directionSlice.reducer,
+  loggedinReducer: loggedInSlice.reducer,
 };
 
 export default rootReducer;
+
+

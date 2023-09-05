@@ -96,6 +96,12 @@ const SignupPage: React.FC = () => {
       <SNSLoginContainer>
         <span>SNS계정으로 간편 회원가입</span>
         <SNSlogin />
+        <p
+          style={{ display: "flex", flexDirection: "column", fontSize: "10px" }}
+        >
+          카카오와의 서비스 연동을 원하신다면, 동의사항은 꼭 "전체동의"로
+          해주시기 바랍니다. 이용에 불편함을 드려 죄송합니다.
+        </p>
       </SNSLoginContainer>
 
       <SignUpForm onSubmit={handleSubmit}>

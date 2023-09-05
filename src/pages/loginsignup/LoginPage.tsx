@@ -12,6 +12,9 @@ import { useMutation } from "@tanstack/react-query";
 import { LoginPageBlock } from "./LoginPage.style";
 import SNSlogin from "../../components/loginsignup/SNSlogin";
 import useUserValidation from "./useUserVaildation";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/config/ConfigStore";
+import { setLoggedInStatus } from "../../redux/modules/Modules";
 
 interface User {
   useremail: string;
@@ -19,9 +22,31 @@ interface User {
 }
 
 const LoginPage: React.FC = () => {
+  const redirectItemId = useSelector(
+    (state: RootState) => state.direction.itemId
+  );
+  const redirectUrlId = useSelector(
+    (state: RootState) => state.direction.redirectUrl
+  );
+  const redirectSocialItemId = useSelector(
+    (state: RootState) => state.direction.socialItemId
+  );
+  const dispatch = useDispatch();
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
-      navigate("/");
+      if (redirectItemId !== null) {
+        dispatch(setLoggedInStatus(true));
+        navigate(`/crew/${redirectItemId}`);
+      } else if (redirectSocialItemId !== null) {
+        dispatch(setLoggedInStatus(true));
+        navigate(`/socialPost/${redirectSocialItemId}`);
+      } else if (redirectUrlId !== null) {
+        dispatch(setLoggedInStatus(true));
+        navigate(`${redirectUrlId}`);
+      } else {
+        dispatch(setLoggedInStatus(true));
+        navigate("/");
+      }
     },
     onError: () => {
       alert("입력하신 정보가 맞지 않습니다. 다시 시도해주세요.");
@@ -91,6 +116,12 @@ const LoginPage: React.FC = () => {
       <SNSLoginContainer>
         <span>SNS계정으로 간편하게 로그인/회원가입</span>
         <SNSlogin />
+        <p
+          style={{ display: "flex", flexDirection: "column", fontSize: "10px" }}
+        >
+          카카오와의 서비스 연동을 원하신다면, 동의사항은 꼭 "전체동의"로
+          해주시기 바랍니다. 이용에 불편함을 드려 죄송합니다.
+        </p>
       </SNSLoginContainer>
       <hr
         style={{

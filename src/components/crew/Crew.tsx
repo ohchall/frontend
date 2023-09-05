@@ -14,19 +14,20 @@ import PopularCrewList from '../common/crewlist/PopularCrewList';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/config/ConfigStore';
 import MyProfile from '../../components/common/myprofile/MyProfile';
-import { useEffect, useState } from 'react';
-import { CheckuserInfo } from '../../api/AuthApi';
+import { useEffect } from "react";
+import { CheckuserInfo } from "../../api/AuthApi";
+import { setItemId, setLoggedInStatus } from "../../redux/modules/Modules";
 
 function Crew() {
   const dispatch = useDispatch();
-  const access = localStorage.getItem('Access');
-  const refresh = localStorage.getItem('Refresh');
-  const [loggedin, setLoggedin] = useState(false);
+  const access = localStorage.getItem("Access");
+  const refresh = localStorage.getItem("Refresh");
+  const loggedin = useSelector((state: RootState) => state.loggedin.isLoggedIn);
   useEffect(() => {
     // console.log('triggered');
     const getUserInfo = async () => {
       const isUserLoggedIn = await CheckuserInfo(dispatch);
-      setLoggedin(isUserLoggedIn);
+      dispatch(setLoggedInStatus(isUserLoggedIn));
     };
     if (access && refresh) {
       getUserInfo();
@@ -40,31 +41,30 @@ function Crew() {
   );
 
   const onClickCrew = (itemId: number) => {
-    if (access && refresh !== '') {
+    if (access && refresh !== "") {
       navigate(`/crew/${itemId}`);
     } else {
-      navigate('/login');
+      dispatch(setItemId(itemId));
+      navigate("/login");
     }
   };
 
-  const { data, isLoading, error: queryError } = useQuery(['crews'], getCrews);
+  const { data, isLoading, error: queryError } = useQuery(["crews"], getCrews);
 
   let errorMessage: ReactNode = null;
   if (queryError) {
     const error = queryError as Error;
-    errorMessage = 'An error has occurred: ' + error.message;
+    errorMessage = "An error has occurred: " + error.message;
   }
 
   return (
     <>
       {loggedin ? <MyProfile /> : null}
       <CrewBlock>
-        {isLoading && 'Loading...'}
+        {isLoading && "Loading..."}
         {errorMessage}
         {/* {error && 'An error has occurred: ' + error.message} */}
-        <Category
-          loggedin={loggedin}
-        />
+        <Category loggedin={loggedin} />
 
         {displayRemainingComponents && (
           <>
@@ -81,10 +81,7 @@ function Crew() {
             <CrewListContainer>
               <CrewListTitle>인기 크루 리스트</CrewListTitle>
 
-              <PopularCrewList
-                data={data}
-                onClickCrew={onClickCrew}
-              />
+              <PopularCrewList data={data} onClickCrew={onClickCrew} />
             </CrewListContainer>
             <CrewListContainer>
               <CrewListTitle>추천 크루 리스트</CrewListTitle>

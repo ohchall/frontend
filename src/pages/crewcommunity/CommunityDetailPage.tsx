@@ -1,10 +1,11 @@
 import CommunityDetail from "../../components/community/CommunityDetail";
 import { styled } from "styled-components";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import MyProfile from "../../components/common/myprofile/MyProfile";
 import { CheckuserInfo } from "../../api/AuthApi";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
+import { setLoggedInStatus } from "../../redux/modules/Modules";
 
 interface Props {}
 
@@ -12,12 +13,12 @@ const CommunityDetailPage: React.FC<Props> = () => {
   const dispatch = useDispatch();
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const [loggedin, setLoggedin] = useState(false);
+  const loggedin = useSelector((state: RootState) => state.loggedin.isLoggedIn);
   useEffect(() => {
     // console.log('triggered');
     const getUserInfo = async () => {
       const isUserLoggedIn = await CheckuserInfo(dispatch);
-      setLoggedin(isUserLoggedIn);
+      setLoggedInStatus(isUserLoggedIn);
     };
     if (access && refresh) {
       getUserInfo();

@@ -10,9 +10,10 @@ import LatestCrewList from "../common/crewlist/LatestCrewList";
 import R9dCrewList from "../common/crewlist/R9dCrewList";
 import PopularCrewList from "../common/crewlist/PopularCrewList";
 import MyProfile from "../common/myprofile/MyProfile";
-import { useEffect, useState, ReactNode } from "react";
+import { useEffect, ReactNode } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
+import { setItemId, setLoggedInStatus } from "../../redux/modules/Modules";
 
 function Main() {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ function Main() {
 
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const [loggedin, setLoggedin] = useState(false);
+  const loggedin = useSelector((state: RootState) => state.loggedin.isLoggedIn);
 
   const displayRemainingComponents = useSelector(
     (state: RootState) => state.display.displayRemainingComponents
@@ -31,18 +32,18 @@ function Main() {
     // console.log('triggered');
     const getUserInfo = async () => {
       const isUserLoggedIn = await CheckuserInfo(dispatch);
-      setLoggedin(isUserLoggedIn);
+      dispatch(setLoggedInStatus(isUserLoggedIn));
     };
     if (access && refresh) {
       getUserInfo();
     }
-    // console.log(access, refresh);
   }, [access, refresh, dispatch]);
 
   const onClickCrew = (itemId: number) => {
     if (access && refresh !== "") {
       navigate(`/crew/${itemId}`);
     } else {
+      dispatch(setItemId(itemId));
       navigate("/login");
     }
   };

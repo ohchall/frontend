@@ -14,6 +14,8 @@ import {
 } from "./Community.style";
 import CommunityModal from "./CommunityModal";
 import debounce from "lodash/debounce";
+import { useDispatch } from "react-redux";
+import { setItemId, setSocialItemId } from "../../redux/modules/Modules";
 
 interface SocialPostData {
   socialPostId: `socialPostId`;
@@ -29,6 +31,7 @@ interface SocialPostDataResponse {
 }
 
 const Community: React.FC = () => {
+  const dispatch = useDispatch();
   const observerRef = useRef<HTMLDivElement | null>(null);
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
@@ -113,10 +116,15 @@ const Community: React.FC = () => {
 
   if (!isSuccess) {
     return <div>Error...</div>;
-  };
- 
+  }
+
   const navigateDetail = (socialPostId: string) => {
-    navigate(`/socialPost/${socialPostId}`);
+    if (access && refresh !== "") {
+      navigate(`/socialPost/${socialPostId}`);
+    } else {
+      dispatch(setSocialItemId(socialPostId));
+      navigate("/login");
+    }
   };
 
   const flattenedCommunityList = data?.pages.flatMap(

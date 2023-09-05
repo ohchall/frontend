@@ -35,6 +35,7 @@ function Router(): JSX.Element {
           path="/mypage"
           element={
             <UserRoute
+              path="/mypage"
               element={
                 <Template header footer>
                   <MyPage />
@@ -121,6 +122,7 @@ function Router(): JSX.Element {
           path="/temp/community"
           element={
             <UserRoute
+              path="/temp/community"
               element={
                 <Template header footer>
                   <TempCommunity />
@@ -142,13 +144,9 @@ function Router(): JSX.Element {
         <Route
           path="/socialPost/:id"
           element={
-            <UserRoute
-              element={
-                <Template header footer>
-                  <CommunityDetail />
-                </Template>
-              }
-            />
+            <Template header footer>
+              <CommunityDetail />
+            </Template>
           }
         />
 
@@ -156,6 +154,7 @@ function Router(): JSX.Element {
           path="/scrap"
           element={
             <UserRoute
+              path="/scrap"
               element={
                 <Template header footer>
                   <ScrapPage />
@@ -169,6 +168,7 @@ function Router(): JSX.Element {
           path="/liked"
           element={
             <UserRoute
+              path="/liked"
               element={
                 <Template header footer>
                   <LikedPage />

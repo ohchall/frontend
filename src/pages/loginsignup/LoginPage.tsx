@@ -32,16 +32,18 @@ const LoginPage: React.FC = () => {
     (state: RootState) => state.direction.socialItemId
   );
   const dispatch = useDispatch();
+  console.log(redirectUrlId);
   const mutation = useMutation(UserCheck, {
     onSuccess: () => {
       if (redirectItemId !== null) {
         dispatch(setLoggedInStatus(true));
         navigate(`/crew/${redirectItemId}`);
-      } else if (redirectSocialItemId !== null) {
+      } else if (redirectSocialItemId !== "") {
         dispatch(setLoggedInStatus(true));
         navigate(`/socialPost/${redirectSocialItemId}`);
       } else if (redirectUrlId !== null) {
         dispatch(setLoggedInStatus(true));
+        console.log(redirectUrlId);
         navigate(`${redirectUrlId}`);
       } else {
         dispatch(setLoggedInStatus(true));

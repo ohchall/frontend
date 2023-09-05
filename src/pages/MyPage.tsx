@@ -6,12 +6,13 @@ import { styled } from "styled-components";
 import { CheckuserInfo } from "../api/AuthApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoggedInStatus } from "../redux/modules/Modules";
+import { RootState } from "../redux/config/ConfigStore";
 
 function MyPage() {
   const dispatch = useDispatch();
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const loggedin = useSelector((state) => state.loggedin.isLoggedIn);
+  const loggedin = useSelector((state: RootState) => state.loggedin.isLoggedIn);
   useEffect(() => {
     // console.log('triggered');
     const getUserInfo = async () => {

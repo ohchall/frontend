@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { setUserInfo } from "../redux/modules/Modules";
 import { Dispatch } from "redux";
-import { useNavigate } from "react-router-dom";
+
 
 interface NewUser {
   useremail: string;
@@ -59,10 +59,10 @@ export const UserCheck = async (user: User): Promise<void> => {
       localStorage.setItem("Access", access);
       localStorage.setItem("Refresh", refresh);
     }
-  } catch (error) { 
-    // console.log(error); 
-    if (axios.isAxiosError(error) && error.response?.status === 500) { 
-      throw new Error('Login failed');
+  } catch (error) {
+    // console.log(error);
+    if (axios.isAxiosError(error) && error.response?.status === 500) {
+      throw new Error("Login failed");
     }
   }
 };
@@ -116,12 +116,12 @@ export const LoginStatus = async () => {
       return true;
     } else {
       // console.log("인증 실패");
-      alert("인증 실패");
+      alert("로그인 인증이 되지 않았습니다. 다시 시도해주세요");
       return false;
     }
   } catch (error) {
     // console.log(error);
-    alert("로그인유효성검사 실패");
+    alert("현재 로그인이 실행되지 않고 있습니다. 잠시 후 다시 시도해주세요.");
     return false;
   }
 };

@@ -16,7 +16,11 @@ import {
 } from "./SearchPage.style";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/config/ConfigStore";
-import { CrewList } from "../../redux/modules/Modules";
+import {
+  CrewList,
+  setItemId,
+  setLoggedInStatus,
+} from "../../redux/modules/Modules";
 import Scrap from "../../components/scrap/Scrap";
 import { useQuery } from "@tanstack/react-query";
 import { getScrap } from "../../api/CrewApi";
@@ -38,12 +42,12 @@ const SearchPage = () => {
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const [loggedin, setLoggedin] = useState(false);
+  const loggedin = useSelector((state: RootState) => state.loggedin.isLoggedIn);
   useEffect(() => {
     // console.log('triggered');
     const getUserInfo = async () => {
       const isUserLoggedIn = await CheckuserInfo(dispatch);
-      setLoggedin(isUserLoggedIn);
+      dispatch(setLoggedInStatus(isUserLoggedIn));
     };
     if (access && refresh) {
       getUserInfo();
@@ -157,9 +161,11 @@ const SearchPage = () => {
     if (access && refresh !== "") {
       navigate(`/crew/${itemId}`);
     } else {
+      dispatch(setItemId(itemId));
       navigate("/login");
     }
   };
+
   // console.log(error);
   // console.log("page", page);
   // console.log("updatedSearchResult", updatedSearchResult);

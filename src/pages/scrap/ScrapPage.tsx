@@ -7,6 +7,7 @@ import {
   ImageWrapper,
   Overview,
   R9dCrew,
+  StyledBsPersonFill,
   TitleContainer,
   ScrapPageBlock,
 } from "./ScrapPage.style";
@@ -49,6 +50,13 @@ const ScrapPage = () => {
                   <div>
                     <TitleContainer>
                       <p>{post.title}</p>
+                      
+                      <p>
+                        <StyledBsPersonFill />
+                        <span>
+                          {post.currentNumber} / {post.totalNumber}
+                        </span>
+                      </p>
                     </TitleContainer>
 
                     <Scrap

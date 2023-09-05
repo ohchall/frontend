@@ -64,7 +64,7 @@ function CrewMember() {
   return (
     <CrewMemberBlock>
       <Header>
-        크루 참여 요청(4)
+        크루 참여 요청
       </Header>
 
       <ApplicantContainer>
@@ -105,7 +105,7 @@ function CrewMember() {
       </ApplicantContainer>
 
       <Header>
-        참여 멤버(3)
+        참여 멤버
       </Header>
 
       <ParticipantContainer>

@@ -46,17 +46,18 @@ function TodoList() {
 
   const handleCheckboxChange = async (todo: Todo) => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(24, 0, 0, 0);
 
-    if (new Date(todo.date) < today) {
-      console.log("오늘 이전의 todo는 변경할 수 없습니다.");
+    if (new Date(todo.date) > today) {
+      console.log(today);
+      alert("이후 일정을 미리 완료할 수 없습니다.");
       return;
     }
 
     const updatedTodo = { ...todo, isComplete: !todo.isComplete };
     try {
       await updateisCompleteMutation.mutateAsync(updatedTodo);
-      console.log("상태 업데이트 성공");
+      alert("완료된 일정은 더보기에서 확인할 수 있습니다.");
     } catch (error) {
       console.error("상태 업데이트 실패:", error);
     }
@@ -65,7 +66,7 @@ function TodoList() {
   const todoDeleteHandler = async (todoId: string) => {
     try {
       await deleteTodoMutation.mutateAsync(todoId);
-      console.log("삭제 성공");
+      alert("일정이 삭제되었습니다.");
       toggleButtonsVisibility(null);
     } catch (error) {
       console.log("todoId", todoId);
@@ -91,6 +92,13 @@ function TodoList() {
   const uncompletedTodos = filteredTodos.filter(
     (todo: Todo) => !todo.isComplete
   );
+
+  const sortedUncompletedTodos = [...uncompletedTodos].sort((a, b) => {
+    // 날짜를 Date 객체로 변환하여 비교
+    const dateA: any = new Date(a.date);
+    const dateB: any = new Date(b.date);
+    return dateA - dateB;
+  });
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -119,7 +127,7 @@ function TodoList() {
         </div>
         <TodoListContainer>
           <TodosList>
-            {uncompletedTodos.map((todo: Todo) => (
+            {sortedUncompletedTodos.map((todo: Todo) => (
               <TodosBox key={todo.toDoId} $isComplete={todo.isComplete}>
                 <input
                   type="checkbox"

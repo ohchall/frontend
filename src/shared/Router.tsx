@@ -117,7 +117,7 @@ function Router(): JSX.Element {
         />
 
         <Route path="/oauth" element={<Oauth />} />
-        <Route
+        {/* <Route
           path="/temp/community"
           element={
             <UserRoute
@@ -128,7 +128,7 @@ function Router(): JSX.Element {
               }
             />
           }
-        />
+        /> */}
 
         <Route
           path="/community"

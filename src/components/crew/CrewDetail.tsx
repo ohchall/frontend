@@ -52,9 +52,9 @@ function CrewDetail() {
     }
   };
 
-  const onClickEditCrew = () => {
+  // const onClickEditCrew = () => {
 
-  };
+  // };
 
   const onClickDeleteCrew = (crewRecruitmentId: number) => {
     const userConfirmed = window.confirm('Are you sure you want to delete this comment?');
@@ -149,11 +149,11 @@ function CrewDetail() {
           <CrewModal
             ref={crewModalRef}
           >
-            <button
+            {/* <button
               onClick={onClickEditCrew}
             >
               수정
-            </button>
+            </button> */}
             <button
               onClick={() => onClickDeleteCrew(crew?.data.crewRecruitmentId)}
             >

@@ -89,7 +89,7 @@ const [crew, setCrew] = useState<Crew>( {
       usersLocation: "",
       exerciseDate: dateOnly,
       totalNumber: crew.totalNumber,
-      time: crew.exerciseTime,
+      exerciseTime: crew.exerciseTime,
     };
     const jsonContent = JSON.stringify(contents);
     console.log(jsonContent);

@@ -70,6 +70,7 @@ export const TitleContainer = styled.div`
   display: flex;
 
   & > p {
+    white-space: nowrap;
     display: block;
     font-size: 18px;
 
@@ -85,6 +86,7 @@ export const TitleContainer = styled.div`
       font-size: 12px;
 
       & > span {
+        white-space: nowrap;
         display: block;
         margin-left: 3px;
       }

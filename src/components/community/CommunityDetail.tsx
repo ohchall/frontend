@@ -56,7 +56,8 @@ function CommunityDetail() {
   };
 
   useEffect(() => {
-    const fetchPost = async () => {
+    // 함수를 async로 만들고 IIFE로 감싸 비동기로 데이터를 가져옴
+    (async () => {
       try {
         const response = await getCommunityPost(id!);
         if ("createdAt" in response) {
@@ -66,9 +67,7 @@ function CommunityDetail() {
       } catch (error) {
         console.error("Error fetching post:", error);
       }
-    };
-
-    fetchPost();
+    })();
   }, [id]);
 
   useEffect(() => {

@@ -92,17 +92,17 @@ const [crew, setCrew] = useState<Crew>( {
       exerciseTime: crew.exerciseTime,
     };
     const jsonContent = JSON.stringify(contents);
-    console.log(jsonContent);
+    // console.log(jsonContent);
     const blob = new Blob([jsonContent], { type: "application/json" });
     formData.append("data", blob);
     // formData.append("images", crew.image);
     for (let i = 0; i < crew.images.length; i++) {
       formData.append(`images`, crew.images[i]);
-      console.log(crew.images[i]);
+      // console.log(crew.images[i]);
       }
-     mutate(formData);
+      mutate(formData);
       alert("크루원들의 참여를 기다려보아요.");
-     navigate("/mypage")
+      navigate("/mypage");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

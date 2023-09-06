@@ -40,9 +40,9 @@ function CrewDetail() {
   const deleteMutation = useMutation(deleteCrew, {
     onSuccess: () => {
       queryClient.invalidateQueries(['crew']);
-      // console.log('Deleted comment successfully!');
-      alert('Deleted comment successfully!');
-      navigate(-1);
+      // console.log('크루를 삭제했습니다!');
+      alert('크루를 삭제했습니다!');
+      navigate('/crew');
     }
   });
 
@@ -57,7 +57,7 @@ function CrewDetail() {
   // };
 
   const onClickDeleteCrew = (crewRecruitmentId: number) => {
-    const userConfirmed = window.confirm('Are you sure you want to delete this comment?');
+    const userConfirmed = window.confirm('크루를 삭제합니다.');
     if (userConfirmed) {
       deleteMutation.mutate(crewRecruitmentId);
     }

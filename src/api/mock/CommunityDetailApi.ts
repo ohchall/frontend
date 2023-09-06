@@ -10,16 +10,11 @@ const headersConfig = {
   },
 };
 export const getCommunityPost = async (socialPostId: string) => {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/socialPost/${socialPostId}`,
-      headersConfig
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching community post:", error);
-    throw error;
-  }
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/socialPost/${socialPostId}`,
+    headersConfig
+  );
+  return response.data;
 };
 
 export const deleteCommunityPost = async (socialPostId: string) => {
@@ -36,16 +31,11 @@ export const deleteCommunityPost = async (socialPostId: string) => {
 };
 
 export const getCommunityComments = async (socialPostId: string) => {
-  try {
-    const response = await axios.get(
-      `${process.env.REACT_APP_SERVER_URL}/socialPost/comment/${socialPostId}`,
-      headersConfig
-    );
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching community comments:", error);
-    throw error;
-  }
+  const response = await axios.get(
+    `${process.env.REACT_APP_SERVER_URL}/socialPost/comment/${socialPostId}`,
+    headersConfig
+  );
+  return response.data;
 };
 
 export const addCommunityComment = async (

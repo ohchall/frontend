@@ -56,16 +56,19 @@ function CommunityDetail() {
   };
 
   useEffect(() => {
-    getCommunityPost(id!)
-      .then((response: any) => {
+    const fetchPost = async () => {
+      try {
+        const response = await getCommunityPost(id!);
         if ("createdAt" in response) {
           response.postDate = formatCreatedAt(response.createdAt);
         }
         setPost(response);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error("Error fetching post:", error);
-      });
+      }
+    };
+
+    fetchPost();
   }, [id]);
 
   useEffect(() => {

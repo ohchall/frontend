@@ -38,7 +38,7 @@ const CrewDate: React.FC<CrewDateProps> = (props) => {
 
   const handleStartDateChange: ReactDatePickerProps["onChange"] = (date: Date) => {
     setStartDate(date);
-    props.setStartDate(date);  // 여기서 Date 객체를 전달합니다.
+    props.setStartDate(date); 
   }
   
 
@@ -58,7 +58,7 @@ const CrewDate: React.FC<CrewDateProps> = (props) => {
         <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>{"<"}</button>
         <select
           value={getYear(date)}
-          onChange={({ target: { value } }) => changeYear(Number(value))} // 문자열을 숫자로 변환
+          onChange={({ target: { value } }) => changeYear(Number(value))} 
         >
           {years.map((option: number) => (
             <option key={option} value={option}>

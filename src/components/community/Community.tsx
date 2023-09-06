@@ -5,6 +5,7 @@ import { BsPerson } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 import {
   CommunityPersonMax,
+  CommunityPostButton,
   CommunityPostReContent,
   CommunityPostReImg,
   CommunityPostRecent,
@@ -16,6 +17,7 @@ import CommunityModal from "./CommunityModal";
 import debounce from "lodash/debounce";
 import { useDispatch } from "react-redux";
 import { setItemId, setSocialItemId } from "../../redux/modules/Modules";
+import { IoIosArrowDown } from "react-icons/io";
 
 interface SocialPostData {
   socialPostId: `socialPostId`;
@@ -41,7 +43,7 @@ const Community: React.FC = () => {
 
   // const communitycontent = crew.content.split(" ")";
 
-  const { data, isSuccess, hasNextPage, fetchNextPage } =
+  const { data, isSuccess, hasNextPage, fetchNextPage,refetch } =
     useInfiniteQuery<SocialPostDataResponse>(
       ["socialPostData"],
       ({ pageParam = 1 }) =>
@@ -60,13 +62,13 @@ const Community: React.FC = () => {
             },
           }
         ),
-      {
-        getNextPageParam: (lastPage, totalPage) => {
-          return totalPage[totalPage.length - 1].last
-            ? undefined
-            : totalPage.length + 1;
-        },
-      }
+        {
+          getNextPageParam: (lastPage, totalPage) => {
+            return totalPage[totalPage.length - 1].last
+              ? undefined
+              : totalPage.length + 1;
+          },
+        }
     );
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
@@ -90,12 +92,20 @@ const Community: React.FC = () => {
     const option: IntersectionObserverInit = { threshold: 0 };
     const observer = new IntersectionObserver(debouncedHandleObserver, option);
     observer.observe(element);
-    return () => observer.unobserve(element);
-  }, [fetchNextPage, hasNextPage, debouncedHandleObserver]);
+
+    const interval = setInterval(() => {
+      refetch(); 
+    }, 3000);
+
+    return () => {
+      observer.unobserve(element);
+      clearInterval(interval);
+    };
+  }, [fetchNextPage, hasNextPage, debouncedHandleObserver, refetch]);
 
   const getContentPreview = (content: string) => {
     const windowWidth = window.innerWidth;
-    const wordCount = windowWidth <= 500 ? 4 : 8;
+    const wordCount = windowWidth <= 500 ? 6 : 8;
     const splitContent = content.split(" ");
     return splitContent?.slice(0, wordCount).join(" ");
   };
@@ -134,59 +144,50 @@ const Community: React.FC = () => {
   return (
     <CommunityPosts>
       <CommunityPostUpLoad>
-        <CommunityModal isOpen={isOpen} closeModal={closeModal} />
-
-        {isSuccess && data && (
-          <>
-            <CommunityPostsRecents>
-              {flattenedCommunityList &&
-                flattenedCommunityList.length > 0 &&
-                flattenedCommunityList.map((crew) => {
-                  const selectedContent = getContentPreview(crew?.content);
-
-                  return (
-                    <CommunityPostRecent
-                      key={crew?.socialPostId}
-                      onClick={() => navigateDetail(crew?.socialPostId)}
-                    >
-                      <CommunityPostReImg>
-                        <img
-                          src={
-                            crew && crew.images && crew.images.length > 0
-                              ? crew.images[0]
-                              : ""
-                          }
-                          alt=""
-                        />
-                      </CommunityPostReImg>
-                      <CommunityPostReContent>
-                        <div className="crewPostTitle">
-                          <p>{selectedContent}</p>
-                        </div>
-                        <CommunityPersonMax>
-                          <div className="nickname">
-                            <div className="nickProfile">
-                              <p>{crew?.nickname[0]}</p>
-                            </div>
-                            <p className="nickId">{crew?.nickname}</p>
-                          </div>
-                        </CommunityPersonMax>
-                      </CommunityPostReContent>
-                    </CommunityPostRecent>
-                  );
-                })}
-            </CommunityPostsRecents>
-            <div className="loader" ref={observerRef}>
-              {hasNextPage ? "Loading..." : "No search left"}
-            </div>
-          </>
-        )}
+        {isOpen && <CommunityModal isOpen={isOpen} closeModal={closeModal} />}
+        <CommunityPostsRecents>
+          {isSuccess && flattenedCommunityList.map((crew) => (
+            <CommunityPostRecent
+              key={crew.socialPostId}
+              onClick={() => navigateDetail(crew.socialPostId)}
+            >
+              <CommunityPostReImg>
+                <img
+                  src={
+                    crew.images && crew.images.length > 0
+                      ? crew.images[0]
+                      : ""
+                  }
+                  alt=""
+                />
+              </CommunityPostReImg>
+              <CommunityPostReContent>
+                <div className="crewPostTitle">
+                  <p>{getContentPreview(crew.content)}</p>
+                </div>
+                <CommunityPersonMax>
+                  <div className="nickname">
+                    <div className="nickProfile">
+                      <p>{crew.nickname[0]}</p>
+                    </div>
+                    <p className="nickId">{crew.nickname}</p>
+                  </div>
+                </CommunityPersonMax>
+              </CommunityPostReContent>
+            </CommunityPostRecent>
+          ))}
+        </CommunityPostsRecents>
+        <CommunityPostButton onClick={() => fetchNextPage()}>
+          <p>more</p>
+          <IoIosArrowDown />
+        </CommunityPostButton>
         <div className="communityPostButton" onClick={modalHandler}>
           <p>+</p>
         </div>
       </CommunityPostUpLoad>
     </CommunityPosts>
   );
+  
 };
 
 export default Community;

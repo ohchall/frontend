@@ -1,16 +1,23 @@
-import React,{ useCallback, useEffect, useRef, useState, FormEvent }from 'react'
+import React, { useCallback, useEffect, useRef, useState, FormEvent }from 'react';
 import { useAddCrewMutation } from '../../api/CrewApiForm';
 import ReactDaumPost from 'react-daumpost-hook';
-
 import { RxTriangleDown, RxTriangleUp } from 'react-icons/rx';
 import { useNavigate } from 'react-router-dom';
-import { CrewButtons, CrewContent, CrewDates, CrewFormContents, CrewForms, CrewLocation, CrewName, CrewTimes, CrewTitle, CrewTotalMembers } from './CrewForm.style';
-
+import { 
+  CrewButtons,
+  CrewContent,
+  CrewDates,
+  CrewFormContents,
+  CrewForms,
+  CrewLocation,
+  CrewName,
+  CrewTimes,
+  CrewTitle,
+  CrewTotalMembers } from './CrewForm.style';
 import CrewDrag from "./CrewDrag"
 import CrewDate from './CrewDate';
 import CrewCategory from './CrewCategory';
 import CrewTime from './CrewTime';
-
 
 const CrewForm:React.FC = () => {
   const [addImg, setAddImg] = useState<File[]>([]);
@@ -23,8 +30,6 @@ const CrewForm:React.FC = () => {
   const [totalNumber, setTotalNumber] = useState<number>(0);
   const { mutate } = useAddCrewMutation();
   const navigate = useNavigate();
-
-
 
   interface Crew {
     title: string;
@@ -53,7 +58,6 @@ const [crew, setCrew] = useState<Crew>( {
     exerciseTime: "",
   });
 
- 
   useEffect(() => {
     setCrew((prevCrew: Crew) => {
       if (exerciseKind === "custom") {
@@ -100,9 +104,9 @@ const [crew, setCrew] = useState<Crew>( {
       formData.append(`images`, crew.images[i]);
       // console.log(crew.images[i]);
       }
-      mutate(formData);
-      alert("크루원들의 참여를 기다려보아요.");
-      navigate("/mypage");
+    mutate(formData);
+    alert("크루원들의 참여를 기다려보아요.");
+    navigate("/mypage");
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -121,6 +125,7 @@ const [crew, setCrew] = useState<Crew>( {
         e.target.classList.remove('focused');
     }// ...
   };
+
   useEffect(() => {
     setCrew((prevCrew) => {
       return {
@@ -131,7 +136,7 @@ const [crew, setCrew] = useState<Crew>( {
   }, [searchedAddress]);
   type AddressData = {
     address: string;
-  }
+  };
 
   const postConfig = {
     onComplete: (data: AddressData) => {
@@ -172,11 +177,8 @@ const [crew, setCrew] = useState<Crew>( {
   }, []);
 
   return (
-    
     <CrewForms onSubmit={onCrewUpload}>
-       <CrewDrag setCrew={setCrew} crew={crew} />
-
-
+      <CrewDrag setCrew={setCrew} crew={crew} />
       <CrewFormContents>
         <CrewTitle className="identicalStyle">
           <input
@@ -265,4 +267,4 @@ const [crew, setCrew] = useState<Crew>( {
   )
 }
 
-export default CrewForm
+export default CrewForm;

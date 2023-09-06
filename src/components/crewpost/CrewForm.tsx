@@ -42,10 +42,9 @@ const CrewForm:React.FC = () => {
     totalNumber: number;
     images: File[];
     exerciseTime: string;
-}
+  };
 
-
-const [crew, setCrew] = useState<Crew>( {
+  const [crew, setCrew] = useState<Crew>( {
     title: "",
     content: "",
     crewName: "",
@@ -103,7 +102,7 @@ const [crew, setCrew] = useState<Crew>( {
     for (let i = 0; i < crew.images.length; i++) {
       formData.append(`images`, crew.images[i]);
       // console.log(crew.images[i]);
-      }
+    }
     mutate(formData);
     alert("크루원들의 참여를 기다려보아요.");
     navigate("/mypage");
@@ -111,19 +110,19 @@ const [crew, setCrew] = useState<Crew>( {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-        setCrew({
-          ...crew,
-          [name]: value,
-        });
-        if (name === "content" && textareaRef.current) {
-          textareaRef.current.style.height = 'auto';
-          textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-      }
-      if (value) {
-        e.target.classList.add('focused');
+    setCrew({
+      ...crew,
+      [name]: value,
+    });
+    if (name === "content" && textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+    if (value) {
+      e.target.classList.add('focused');
     } else {
-        e.target.classList.remove('focused');
-    }// ...
+      e.target.classList.remove('focused');
+    }
   };
 
   useEffect(() => {

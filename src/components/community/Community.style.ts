@@ -1,8 +1,9 @@
 import { css, styled } from "styled-components";
 
 const communityPostInherit = css`
-  width:100%;
-  height:80vh;
+    width: 100%;
+    height: 30vh;
+    padding: 5px 0;
   `
  const communityPostDisplay= css`
   width:100%;
@@ -12,11 +13,10 @@ const communityPostInherit = css`
  `
 export const CommunityPosts=styled.div`
   width:100%;
-  height:100%;
   overflow-y:auto;
 `
 export const CommunityPostUpLoad=styled.div`
- ${communityPostInherit}
+ width:100%;
  padding: 5px 0;
  &>.loader{position:absolute;top:95%;}
  
@@ -39,14 +39,11 @@ export const CommunityPostUpLoad=styled.div`
    }
   }
   & > div > p{
-    font-size:40px;
+    font-size:20px;
     width:100%;
     text-align:center;
-    font-weight:700;
+    font-weight:500;
     color: ${props => props.color || '#111111'};
-    @media screen and (max-width:500px){
-      font-size:40px;
-    }
   }
 `
 const communityPostConSame=css`
@@ -63,14 +60,13 @@ export const CommunityPostsRecents=styled.div`
 `
 export const CommunityPostRecent=styled.div`
   width: calc(50% - 5px);
-  height: 30%;
+  height: 85%;
   border-radius: 10px;
- 
+  margin-top:22px;
 `
 export const CommunityPostReImg=styled.div`
  width:100%;
- height:70%;
- padding-top:30px;
+ height:150px;
  
    & >img{
     width:100%;
@@ -80,7 +76,7 @@ export const CommunityPostReImg=styled.div`
 `
 export const CommunityPostReContent= styled.div`
   width:100%;
-  height:33%;
+  height:30%;
   @media screen and (max-width:500px) {
     font-size:12px;
   }
@@ -91,9 +87,11 @@ export const CommunityPostReContent= styled.div`
    font-weight:600;
    line-height:1.2rem;
    padding-top:10px;
+   overflow:hidden;
    @media screen and (max-width:500px){
     font-size:13px;
    }
+   &>p{width:100%;}
   }
 
 `
@@ -106,10 +104,10 @@ align-items:center;
 export const CommunityPersonMax=styled.div`
  ${communityPersonDisplay};
  padding:0;
- height:30%;
+ height:30px;
  margin-top:10px;
  @media screen and (max-width:500px) {
-  height:40%;
+  height:23px;
   margin-top:10px;
  }
  & > div{
@@ -121,7 +119,7 @@ export const CommunityPersonMax=styled.div`
   width:100%;
  }
  & > div> .nickProfile{
-    width: 12%;
+    width: 15%;
     background: #baf2ff;
     border-radius: 50%;
     margin-right: 10px;
@@ -130,6 +128,9 @@ export const CommunityPersonMax=styled.div`
     align-items:center;
     justify-content:center;
     height:100%;
+    @media screen and (max-width:500px) {
+      width:10%;
+    }
     &>p{
       font-size:14px;
       font-weight:500;
@@ -147,3 +148,23 @@ export const CommunityPersonMax=styled.div`
   }
   }
 `
+export const CommunityPostButton=styled.div`
+  ${communityPersonDisplay}
+  justify-content:center;
+  height: 35px;
+  border: 1px solid #6e6e6e;
+  background-color:#ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  padding: 5px 0;
+  margin: 17px 0;
+  & > p {
+    font-size: 16px;
+    font-weight: 500;
+    color: #3c3c3c;
+    margin-left:4px;
+  }
+  @media screen and (max-width:500px){
+  height: 35px;
+  }
+  `

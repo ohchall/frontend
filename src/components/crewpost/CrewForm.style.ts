@@ -52,23 +52,22 @@ export const CrewFormContents = styled.div`
       color: #111111;
     }
     textarea{
-      width:84%;
-      border:none;
-      outline:none;
+     width:84%;
+     border:none;
+     outline:none;
+     font-size:15px;
+     margin: 0 6px;
+     font-weight: 400;
+     line-height: 1.2;
+     letter-spacing: -0.28px;
+     font-size:16px;
+     resize:none;
+     max-height:150px;
+     overflow-y:auto;
+     @media screen and (max-width: 500px) {
       font-size:14px;
-      margin: 0 6px;
-      font-weight: 400;
-      line-height: 1.2;
-      letter-spacing: -0.28px;
-      font-size:16px;
-      resize:none;
-      max-height:150px;
-      overflow-y:auto;
-
-      @media screen and (max-width: 500px) {
-        font-size:14px;
-        max-height:130px;
-      }
+      max-height:130px;
+     }
     }
     textarea.focused::placeholder {
       color: #111111;
@@ -83,7 +82,7 @@ export const CrewFormContents = styled.div`
       border:none;
       outline:none;
       color: #b7b7b7;
-      font-size:14px;
+      font-size:15px;
     }
   }
 `;
@@ -127,7 +126,8 @@ export const CrewTotalMembers=styled.div`
   }
 
   & > div> input[type='number'] {
-    -moz-appearance: textfield;
+    -moz-appearance: none;
+    -ms-appearance: none;
   }
 `;
 
@@ -142,7 +142,7 @@ export const CrewButtons=styled.div`
     background-color: ${props => props.color || '#ef902a'};
     color: ${props => props.color || '#111111'};
     font-weight:900;
-    font-size:16px;
+    font-size:15px;
     border:none;
     padding: 6px 0;
     border-radius: 5px 5px 5px 5px;

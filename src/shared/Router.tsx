@@ -144,9 +144,14 @@ function Router(): JSX.Element {
         <Route
           path="/socialPost/:id"
           element={
-            <Template header footer>
-              <CommunityDetail />
-            </Template>
+            <UserRoute
+              path="/socialPost/:id"
+              element={
+                <Template header footer>
+                  <CommunityDetail />
+                </Template>
+              }
+            />
           }
         />
 

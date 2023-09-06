@@ -1,38 +1,13 @@
 import CommunityDetail from "../../components/community/CommunityDetail";
 import { styled } from "styled-components";
-import React, { useEffect } from "react";
-import { CheckuserInfo } from "../../api/AuthApi";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../redux/config/ConfigStore";
-import { setLoggedInStatus } from "../../redux/modules/Modules";
 
-interface Props {}
-
-const CommunityDetailPage: React.FC<Props> = () => {
-  const dispatch = useDispatch();
-  const access = localStorage.getItem("Access");
-  const refresh = localStorage.getItem("Refresh");
-
-  useEffect(() => {
-    // console.log('triggered');
-    const getUserInfo = async () => {
-      const isUserLoggedIn = await CheckuserInfo(dispatch);
-      setLoggedInStatus(isUserLoggedIn);
-    };
-    if (access && refresh) {
-      getUserInfo();
-    }
-  }, [access, refresh, dispatch]);
-  const displayRemainingComponents = useSelector(
-    (state: RootState) => state.display.displayRemainingComponents
-  );
-
+function CommunityDetailPage() {
   return (
     <CommunityDetailSection>
-      {displayRemainingComponents && <CommunityDetail></CommunityDetail>}
+      <CommunityDetail></CommunityDetail>
     </CommunityDetailSection>
   );
-};
+}
 
 export default CommunityDetailPage;
 

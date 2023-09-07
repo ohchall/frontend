@@ -18,6 +18,7 @@ import CrewDrag from "./CrewDrag"
 import CrewDate from './CrewDate';
 import CrewCategory from './CrewCategory';
 import CrewTime from './CrewTime';
+import { useQueryClient } from '@tanstack/react-query';
 
 const CrewForm:React.FC = () => {
   const [addImg, setAddImg] = useState<File[]>([]);
@@ -28,6 +29,7 @@ const CrewForm:React.FC = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [exerciseDate, setExerciseDate] = useState<Date>(new Date());
   const [totalNumber, setTotalNumber] = useState<number>(0);
+  const queryClient = useQueryClient();
   const { mutate } = useAddCrewMutation();
   const navigate = useNavigate();
 
@@ -103,8 +105,16 @@ const CrewForm:React.FC = () => {
       formData.append(`images`, crew.images[i]);
       // console.log(crew.images[i]);
     }
-    mutate(formData);
-    alert("크루원들의 참여를 기다려보아요.");
+    mutate(formData, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["crewData"]);
+        alert("크루원들의 참여를 기다려보아요.");
+      },
+      onError: (error) => {
+        console.error("Error:", error);
+        alert("데이터 전송에 실패하였습니다.");
+      }
+    });
     navigate("/mypage");
   };
 

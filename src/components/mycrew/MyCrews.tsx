@@ -16,6 +16,7 @@ import {
   CrewPostsRecents,
   CrewPostUpLoad,
 } from "./MyCrews.style";
+import { debounce } from "lodash";
 
 interface Crew {
   crewRecruitmentId: number;
@@ -38,7 +39,7 @@ const MyCrews: React.FC = () => {
   const observerRef = useRef<HTMLDivElement | null>(null);
   const access = localStorage.getItem("Access");
   const refresh = localStorage.getItem("Refresh");
-  const { data, isSuccess, hasNextPage, fetchNextPage } =
+  const { data, isSuccess, hasNextPage, fetchNextPage,refetch } =
     useInfiniteQuery<CrewDataResponse>(
       ["crewData"],
       ({ pageParam = 1 }) =>
@@ -72,18 +73,26 @@ const MyCrews: React.FC = () => {
     [fetchNextPage, hasNextPage]
   );
 
+  const debouncedHandleObserver = debounce(handleObserver, 300);
   useEffect(() => {
     const element = observerRef.current;
     if (!element) {
       return;
     }
 
-    const option = { threshold: 0 };
-    const observer = new IntersectionObserver(handleObserver, option);
+    const option: IntersectionObserverInit = { threshold: 0 };
+    const observer = new IntersectionObserver(debouncedHandleObserver, option);
     observer.observe(element);
 
-    return () => observer.unobserve(element);
-  }, [fetchNextPage, hasNextPage, handleObserver]);
+    const interval = setInterval(() => {
+      refetch(); 
+    }, 2000);
+
+    return () => {
+      observer.unobserve(element);
+      clearInterval(interval);
+    };
+  }, [fetchNextPage, hasNextPage, debouncedHandleObserver, refetch]);
 
   const addressSubstraction = (location: string) => {
     const parts = location.split(" ");

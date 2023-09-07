@@ -23,6 +23,7 @@ import {
 } from "./CommunityForm.style";
 import CommunityDrag from "./CommunityDrag";
 import { CheckuserInfo } from "../../api/AuthApi";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface CommunityType {
   title: string;
@@ -34,7 +35,8 @@ const CommunityForm: React.FC = () => {
   const [addImg, setAddImg] = useState<string[]>([]);
   const ref = useRef<HTMLElement | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { mutate } = useCommunityMutation();
+  const queryClient = useQueryClient();
+  const { mutate } = useCommunityMutation()
   const navigate = useNavigate();
 
   const [crew, setCrew] = useState<CommunityType>({
@@ -45,6 +47,11 @@ const CommunityForm: React.FC = () => {
 
   const onCrewUpload = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!crew.title.trim() || !crew.content.trim() || crew.image.length === 0) {
+      alert("제목, 내용, 이미지 모두를 입력해주세요.");
+      return;
+    }
 
     const formData = new FormData();
     const contents = {
@@ -58,8 +65,16 @@ const CommunityForm: React.FC = () => {
       formData.append(`image`, crew.image[i]);
       console.log(crew.image[i]);
     }
-    mutate(formData);
-    alert("성공적으로 데이터를 전송하였습니다.");
+    mutate(formData, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(["socialPostData"]);
+        alert("성공적으로 커뮤니티에 등록되었습니다.");
+      },
+      onError: (error) => {
+        console.error("Error:", error);
+        alert("데이터 전송에 실패하였습니다.");
+      }
+    });
   };
 
   const handleInputChange = (
